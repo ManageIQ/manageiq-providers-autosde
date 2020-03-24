@@ -1,13 +1,13 @@
 require 'json'
 
-class AutoSDEClient
-
+class ManageIQ::Providers::Autosde::AutoSDEClient
     FORBIDEN = "403"
     OK = "200"
     LOGIN_URL = "/site-manager/api/v1/engine/oidc-auth/"
     AUTH_ERRR_MSG = "Authentication error occured"
 
-    def initialize(username="udyum@mailnesia.com", password="abCd_1234", host="9.151.190.137", client_id="NDBhNDk5MzAtZGZjMi00", secret_id="NTNkMDdkNmMtNjFkYi00")
+    # todo (per gregoryb): remove IBM keys from the code (maybe to artifactory)
+    def initialize(username="udyum@mailnesia.com", password="abCd_1234",  client_id= "NDBhNDk5MzAtZGZjMi00", secret_id= "NTNkMDdkNmMtNjFkYi00", host: "9.151.190.137")
         @username=username
         @password=password
         @host=host
@@ -46,10 +46,10 @@ class AutoSDEClient
 
     def login
         payload = {
-            "client_id": @client_id,
-            "secret_id": @secret_id,
-            "username": @username,
-            "password": @password
+            :client_id => @client_id,
+            :secret_id => @secret_id,
+            :username => @username,
+            :password => @password,
         }
 
         @token = nil
@@ -111,7 +111,7 @@ class AutoSDEClient
         end
         set_headers(request)
         res = _exec_request(request, uri)
-        res    
+        res
     end
 
     def set_headers(request)
@@ -131,3 +131,4 @@ class AutoSDEClient
         res
     end
 end
+
