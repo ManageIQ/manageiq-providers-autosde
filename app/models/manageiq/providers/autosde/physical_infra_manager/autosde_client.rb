@@ -1,7 +1,8 @@
 require 'json'
 
-class ManageIQ::Providers::Autosde::AutoSDEClient
+class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
     LOGIN_URL = "/site-manager/api/v1/engine/oidc-auth/"
+    STORAGE_SYSTEMS_URL = "/site-manager/api/v1/engine/storage-systems/"
     AUTH_ERRR_MSG = "Authentication error occured"
 
     # todo (per gregoryb): remove IBM keys from the code (maybe to artifactory)
@@ -16,6 +17,12 @@ class ManageIQ::Providers::Autosde::AutoSDEClient
         @logedin = false
     end
 
+    # todo [per gregoryb]: This is just a placeholder. We want to generate a ruby client based on our swagger api.
+    def get_storage_systems
+        get(STORAGE_SYSTEMS_URL)
+    end
+
+    # @param [String] url
     def get(url)
         _request_with_login(Net::HTTP::Get, url, nil)
     end
@@ -57,6 +64,8 @@ class ManageIQ::Providers::Autosde::AutoSDEClient
 
     private
 
+    # @param [Object] clz
+    # @param [String] url
     def _request_with_login(clz, url, payload=nil)
         login if @token.nil?
 
@@ -65,7 +74,7 @@ class ManageIQ::Providers::Autosde::AutoSDEClient
             login
             resp = _request(clz, url, payload)
         end
-        resp
+        JSON.parse(resp.body)
     end
 
     def _request(clz, url, payload = nil)
