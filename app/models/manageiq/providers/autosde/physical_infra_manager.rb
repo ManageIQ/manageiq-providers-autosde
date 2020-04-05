@@ -6,12 +6,20 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager < ManageIQ::Providers::
   require_nested :RefreshParser
   require_nested :AutosdeClient
 
+
+  # Everything we want to scan in the inventory must be accessible from the EMS manager class
+  has_many :computer_systems, :through => :physical_chassis, :source => :computer_system
+  has_many :hardwares, :through => :computer_systems, :source => :hardware
+  has_many :volumes, :through => :hardwares, :source => :volumes
+
+
+
   # @return [ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient]
-  def autosde
-    if @autosde.nil?
-      @autosde = self.class.raw_connect(address)
+  def autosde_client
+    if @autosde_client.nil?
+      @autosde_client = self.class.raw_connect(address)
     end
-    @autosde
+    @autosde_client
   end
 
   # is this just for verifying credentials for when you create a new instance?
