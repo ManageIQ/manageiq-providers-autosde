@@ -2,6 +2,9 @@
 # Generally, one collection per application-record class.
 class ManageIQ::Providers::Autosde::Inventory::Persister::PhysicalInfraManager < ManageIQ::Providers::Inventory::Persister
 
+  # @return [Hash{Symbol => InventoryRefresh::InventoryCollection}] collections
+  attr_reader  :collections
+
   def initialize_inventory_collections
     %i[
       physical_storages
