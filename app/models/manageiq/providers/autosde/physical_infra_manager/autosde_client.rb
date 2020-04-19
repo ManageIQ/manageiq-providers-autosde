@@ -1,9 +1,12 @@
 require 'json'
 
 class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
+    require_relative 'openapi_client/generated/lib/openapi_client'
+    include OpenapiClient
+
     LOGIN_URL = "/site-manager/api/v1/engine/oidc-auth/"
-    STORAGE_SYSTEMS_URL = "/site-manager/api/v1/engine/storage-systems/"
     AUTH_ERRR_MSG = "Authentication error occured"
+
 
     # todo (per gregoryb): remove IBM keys from the code (maybe to artifactory)
     def initialize(username="udyum@mailnesia.com", password="abCd_1234",  client_id= "NDBhNDk5MzAtZGZjMi00", secret_id= "NTNkMDdkNmMtNjFkYi00", host: "9.151.190.137")
@@ -15,32 +18,31 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
         @port=443
         @token=nil
         @logedin = false
+        OpenapiClient.configure do |config|
+            config.scheme = 'https'
+            config.verify_ssl = false
+            config.host = @host
+            config.debugging = true
+         end
+        @storage_system_api = StorageSystemApi.new self
     end
 
-    # todo [per gregoryb]: This is just a placeholder. We want to generate a ruby client based on our swagger api.
-    def get_storage_systems
-        get(STORAGE_SYSTEMS_URL)
-    end
+    attr_accessor :storage_system_api
+    attr_accessor :token
 
-    # @param [String] url
-    def get(url)
-        _request_with_login(Net::HTTP::Get, url, nil)
-    end
+    # override original for auth login
+    class StorageSystemApi < OpenapiClient::StorageSystemApi
 
-    def post(url, payload)
-        _request_with_login(Net::HTTP::Post, url, payload)
-    end
+        def initialize(parent)
+            @parent = parent
+            super()
+        end
 
-    def put(url, payload)
-        _request_with_login(Net::HTTP::Put, url, payload)
-    end
-
-    def patch(url, payload)
-        _request_with_login(Net::HTTP::Patch, url, payload)
-    end
-
-    def delete(url)
-        _request_with_login(Net::HTTP::Delete, url, nil)
+        def storage_systems_get(opts = nil)
+            @parent.login  unless @parent.token
+            opts = {:header_params => {'Authorization': "Bearer #{@parent.token}" }}
+            super
+        end
     end
 
     def login
@@ -63,19 +65,6 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
     end
 
     private
-
-    # @param [Object] clz
-    # @param [String] url
-    def _request_with_login(clz, url, payload=nil)
-        login if @token.nil?
-
-        resp = _request(clz, url, payload)
-        if resp.instance_of? Net::HTTPForbidden
-            login
-            resp = _request(clz, url, payload)
-        end
-        JSON.parse(resp.body)
-    end
 
     def _request(clz, url, payload = nil)
         uri = URI("https://%s:%s" % [@host, @port])

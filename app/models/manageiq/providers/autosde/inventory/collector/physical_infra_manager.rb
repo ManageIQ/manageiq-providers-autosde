@@ -8,14 +8,15 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::PhysicalInfraManager <
     new_inventory = {}
 
     new_inventory[:physical_storages] = []
-    @manager.autosde_client.get_storage_systems.each do |autosde_system_dict|
+
+    @manager.autosde_client.storage_system_api.storage_systems_get.each do |storage|
+      #  @type [OpenapiClient::StorageSystem] storage
       new_inventory[:physical_storages] << {
-          :name => autosde_system_dict["name"],
-          :uid_ems => autosde_system_dict["uuid"],
-          :ems_ref => autosde_system_dict["uuid"],
+          :name => storage.name,
+          :uid_ems => storage.uuid,
+          :ems_ref => storage.uuid,
       }
     end
-
     @inventory = new_inventory
   end
 end
