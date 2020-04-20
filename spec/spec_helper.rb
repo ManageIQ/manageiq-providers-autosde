@@ -33,7 +33,7 @@ end
 VCR.configure do |config|
   config.ignore_hosts 'codeclimate.com' if ENV['CI']
   config.cassette_library_dir = File.join(ManageIQ::Providers::Autosde::Engine.root, 'spec/vcr_cassettes')
-  config.default_cassette_options={:record => :all }
+  config.default_cassette_options={:record => :once }
   config.hook_into :webmock  # without this, cassettes silently fail to generate
   %w[client_id secret_id username password].each do |field|
     config.filter_sensitive_data "<#{field}>" do |interaction|
