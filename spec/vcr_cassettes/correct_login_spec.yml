@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://9.151.190.224/site-manager/api/v1/engine/oidc-auth/
+    body:
+      encoding: UTF-8
+      string: '{"client_id":"<client_id>","secret_id":"<secret_id>","username":"<username>","password":"<password>"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 20 Apr 2020 10:58:39 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - POST, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"KhMLRqIUEzinMfxmBDuKohFnUJEPkUhsaVPpKhYL","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"TA1uQ8pReTg0Z4IYcn8Rp5TB4vuJyN4VMnWXnd4KjPiODi8v8k"}'
+    http_version: 
+  recorded_at: Mon, 20 Apr 2020 11:00:09 GMT
+recorded_with: VCR 5.0.0
