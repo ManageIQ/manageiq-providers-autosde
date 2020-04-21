@@ -5,7 +5,6 @@ describe ManageIQ::Providers::Autosde::PhysicalInfraManager do
   end
 
   it "has credentials and hostname" do
-
     ems = FactoryBot.create(:autosde_manager, :with_authentication, :name => "kaka")
     expect(ManageIQ::Providers::Autosde::PhysicalInfraManager.all[0].name).to eq 'kaka'
     expect(ManageIQ::Providers::PhysicalInfraManager.all[0].authentication_userid).to eq "testuser"
@@ -13,7 +12,7 @@ describe ManageIQ::Providers::Autosde::PhysicalInfraManager do
   end
 
   it "has autosde client" do
-    ems = FactoryBot.create(:autosde_manager, :with_authentication, )
+    ems = FactoryBot.create(:autosde_manager, :with_authentication)
     expect(ManageIQ::Providers::PhysicalInfraManager.all[0].autosde_client).to be_instance_of ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
   end
 
