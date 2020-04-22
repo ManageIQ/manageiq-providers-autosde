@@ -23,27 +23,24 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
             config.verify_ssl = false
             config.host = @host
             config.debugging = true
-         end
-        @storage_system_api = StorageSystemApi.new self
-    end
-
-    attr_accessor :storage_system_api
-    attr_accessor :token
-
-    # override original for auth login
-    class StorageSystemApi < OpenapiClient::StorageSystemApi
-
-        def initialize(parent)
-            @parent = parent
-            super()
         end
-
-        def storage_systems_get(opts = nil)
-            @parent.login  unless @parent.token
-            opts = {:header_params => {'Authorization': "Bearer #{@parent.token}" }}
-            super
+        Typhoeus.before do |request|
+            login unless @token
+            auth_header = build_auth_header
+            request.options[:headers].merge!(auth_header)
         end
     end
+
+    private
+
+    def build_auth_header
+        OpenapiClient.configure.access_token = @token
+        auth_settings = OpenapiClient.configure.auth_settings
+        auth_name = auth_settings.keys.first
+        key = auth_settings[auth_name][:key]
+        value =  auth_settings[auth_name][:value]
+        { key => value}
+      end
 
     def login
         payload = {
@@ -64,8 +61,6 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
         end
     end
 
-    private
-
     def _request(clz, url, payload = nil)
         uri = URI("https://%s:%s" % [@host, @port])
         uri.path  = url
@@ -76,9 +71,6 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
 
         # set headers
         request["Content-Type"] = 'application/json'
-        if @token != nil
-            request['Authorization'] = 'Bearer %s' % [@token]
-        end
 
         # send the request
         Net::HTTP.start(
@@ -87,8 +79,6 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
             :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
             https.request(request)
         end
-
     end
-
 end
 

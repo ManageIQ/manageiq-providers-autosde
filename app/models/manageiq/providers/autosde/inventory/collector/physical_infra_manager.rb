@@ -9,7 +9,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::PhysicalInfraManager <
 
     new_inventory[:physical_storages] = []
 
-    @manager.autosde_client.storage_system_api.storage_systems_get.each do |storage|
+
+    @manager.autosde_client.class::StorageSystemApi.new.storage_systems_get.each do |storage|
       #  @type [OpenapiClient::StorageSystem] storage
       new_inventory[:physical_storages] << {
           :name => storage.name,
