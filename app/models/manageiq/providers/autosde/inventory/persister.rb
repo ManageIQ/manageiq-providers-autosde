@@ -1,5 +1,5 @@
-# Dummy class to allow require_newsted of ManageIQ::Providers::Autosde::Inventory::Persister::PhysicalInfraManager
-# ManageIQ::Providers::Autosde::Inventory::Persister::PhysicalInfraManager must be located as it is
+# Dummy class to allow require_nested of ManageIQ::Providers::Autosde::Inventory::Persister::SdeManager
+# ManageIQ::Providers::Autosde::Inventory::Persister::SdeManager must be located as it is
 class ManageIQ::Providers::Autosde::Inventory::Persister
-  require_nested :PhysicalInfraManager
+  require_nested :SdeManager
 end

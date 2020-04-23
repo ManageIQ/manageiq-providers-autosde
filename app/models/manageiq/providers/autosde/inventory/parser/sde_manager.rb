@@ -1,6 +1,6 @@
 # This class is supposed to take the parser and the collector, and build a snapshot of the inventory.
 # The snapshot is then compared against the DB and the DB is adjusted to fit the snapshot.
-class ManageIQ::Providers::Autosde::Inventory::Parser::PhysicalInfraManager < ManageIQ::Providers::Inventory::Parser
+class ManageIQ::Providers::Autosde::Inventory::Parser::SdeManager < ManageIQ::Providers::Inventory::Parser
 
   # @return [ManageIQ::Providers::Autosde::Inventory::Collector::SdeManager]
   attr_accessor :collector

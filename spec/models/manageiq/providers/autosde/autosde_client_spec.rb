@@ -1,22 +1,25 @@
-CORRECT_HOSTNAME = '9.151.190.224'
-
 describe ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient do
   it "logs in with right credentials " do
-    client = ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient.new(:host => CORRECT_HOSTNAME)
+    client = ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient.new(
+        :host => RSpec.configuration.autosde_appliance_host)
     VCR.use_cassette("correct_login_spec") do
       expect(client.login).to be_truthy
     end
   end
 
   it "raises on login with wrong credentials" do
-    client = ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient.new('asfd', :host => CORRECT_HOSTNAME)
+    client = ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient.new(
+        'asfd', :host => RSpec.configuration.autosde_appliance_host)
     VCR.use_cassette("incorrect_login_spec") do
-      expect { client.login }.to raise_error(Exception, ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient::AUTH_ERRR_MSG)
+      expect { client.login }.to raise_error(
+                                     Exception,
+                                     ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient::AUTH_ERRR_MSG)
     end
   end
 
   it "gets a list of storage systems" do
-    client = ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient.new(:host => CORRECT_HOSTNAME)
+    client = ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient.new(
+        :host => RSpec.configuration.autosde_appliance_host)
     temp = {}
 
     VCR.use_cassette("get_storage_systems") do
@@ -24,12 +27,7 @@ describe ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient do
     end
 
     systems = temp[:systems]
-    expected = {:management_ip => "9.151.156.155", :name => "my_xiv", :storage_family => "",
-                 :system_type => {
-                     :name => "a_line", :short_version => "4", :uuid => "c87d3686-6a36-4358-bc8d-7028d24d60d3",
-                     :version => "4"}, :uuid => "f09afcc9-53be-4573-8b6f-1e5787d34d05"}
-
-    expect(systems.first.to_hash).to eq expected
+    expect(systems.first.to_hash).to eq RSpec.configuration.autosde_test_system
 
   end
 

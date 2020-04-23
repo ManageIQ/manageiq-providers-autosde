@@ -1,5 +1,5 @@
 # This class is supposed to collect raw output from the managed system
-class ManageIQ::Providers::Autosde::Inventory::Collector::PhysicalInfraManager < ManageIQ::Providers::Inventory::Collector
+class ManageIQ::Providers::Autosde::Inventory::Collector::SdeManager < ManageIQ::Providers::Inventory::Collector
 
   # @return [ManageIQ::Providers::Autosde::SdeManager]
   attr_accessor :manager

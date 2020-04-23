@@ -8,7 +8,6 @@ describe ManageIQ::Providers::Autosde::PhysicalInfraManager do
     ems = FactoryBot.create(:autosde_manager, :with_authentication, :name => "kaka")
     expect(ManageIQ::Providers::Autosde::PhysicalInfraManager.all[0].name).to eq 'kaka'
     expect(ManageIQ::Providers::PhysicalInfraManager.all[0].authentication_userid).to eq "testuser"
-    expect(ManageIQ::Providers::PhysicalInfraManager.all[0].address).to eq "ems-0000000000001"
   end
 
   it "has autosde client" do
