@@ -3,8 +3,9 @@
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
+        "in": "header",
         "scheme": "bearer",
-        "bearerFormat": "oath"
+        "bearerFormat": "oath1"
       }
     },
     "schemas": {
@@ -900,7 +901,7 @@
         "description": "StorageResource",
         "properties": {
           "advanced_attributes_map": {
-            "default": {},
+            "default": "{}",
             "description": "advanced_attributes_map",
             "format": "json",
             "type": "string",
@@ -966,7 +967,7 @@
         "description": "TODO add description",
         "properties": {
           "advanced_attributes_map": {
-            "default": {},
+            "default": "{}",
             "description": "advanced_attributes_map",
             "format": "json",
             "type": "string",

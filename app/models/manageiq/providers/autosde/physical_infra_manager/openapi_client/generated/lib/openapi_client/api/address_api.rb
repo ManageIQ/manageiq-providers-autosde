@@ -53,7 +53,7 @@ module OpenapiClient
       return_type = opts[:return_type] || 'Array<Address>' 
 
       # auth_names
-      auth_names = opts[:auth_names] || []
+      auth_names = opts[:auth_names] || ['bearerAuth']
 
       new_options = opts.merge(
         :header_params => header_params,
@@ -111,7 +111,7 @@ module OpenapiClient
       return_type = opts[:return_type] || 'Array<Address>' 
 
       # auth_names
-      auth_names = opts[:auth_names] || []
+      auth_names = opts[:auth_names] || ['bearerAuth']
 
       new_options = opts.merge(
         :header_params => header_params,
@@ -169,7 +169,7 @@ module OpenapiClient
       return_type = opts[:return_type] || 'Array<Address>' 
 
       # auth_names
-      auth_names = opts[:auth_names] || []
+      auth_names = opts[:auth_names] || ['bearerAuth']
 
       new_options = opts.merge(
         :header_params => header_params,
@@ -229,7 +229,7 @@ module OpenapiClient
       return_type = opts[:return_type] || 'Array<Address>' 
 
       # auth_names
-      auth_names = opts[:auth_names] || []
+      auth_names = opts[:auth_names] || ['bearerAuth']
 
       new_options = opts.merge(
         :header_params => header_params,

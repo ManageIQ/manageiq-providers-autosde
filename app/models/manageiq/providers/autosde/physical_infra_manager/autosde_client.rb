@@ -7,6 +7,7 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
     LOGIN_URL = "/site-manager/api/v1/engine/oidc-auth/"
     AUTH_ERRR_MSG = "Authentication error occured"
 
+    NoAuthTokenError = Class.new(StandardError)
 
     # todo (per gregoryb): remove IBM keys from the code (maybe to artifactory)
     def initialize(username="udyum@mailnesia.com", password="abCd_1234",  client_id= "NDBhNDk5MzAtZGZjMi00", secret_id= "NTNkMDdkNmMtNjFkYi00", host: "9.151.190.137")
@@ -18,12 +19,13 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
         @port=443
         @token=nil
         @logedin = false
-        OpenapiClient.configure do |config|
-            config.scheme = 'https'
-            config.verify_ssl = false
-            config.host = @host
-            config.debugging = true
-        end
+        configure_openapi_client
+        configure_typhoeus
+    end
+
+    private
+
+    def configure_typhoeus
         Typhoeus.before do |request|
             login unless @token
             auth_header = build_auth_header
@@ -31,9 +33,18 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
         end
     end
 
-    private
+    def configure_openapi_client
+        OpenapiClient.configure do |config|
+            config.scheme = 'https'
+            config.verify_ssl = false
+            config.host = @host
+            config.debugging = true
+        end
+    end
 
     def build_auth_header
+        raise NoAuthTokenError, 'No auth token!'  unless @token
+
         OpenapiClient.configure.access_token = @token
         auth_settings = OpenapiClient.configure.auth_settings
         auth_name = auth_settings.keys.first

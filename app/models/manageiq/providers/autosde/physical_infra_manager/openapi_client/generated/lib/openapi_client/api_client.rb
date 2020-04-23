@@ -25,6 +25,7 @@ module OpenapiClient
     #
     # @return [Hash]
     attr_accessor :default_headers
+    mattr_accessor :default
 
     # Initializes the ApiClient
     # @option config [Configuration] Configuration for initializing the object, default to Configuration.default
@@ -46,6 +47,7 @@ module OpenapiClient
     # @return [Array<(Object, Integer, Hash)>] an array of 3 elements:
     #   the data deserialized from response body (could be nil), response status code and response headers.
     def call_api(http_method, path, opts = {})
+
       request = build_request(http_method, path, opts)
       response = request.run
 
@@ -86,6 +88,7 @@ module OpenapiClient
     # @option opts [Object] :body HTTP body (JSON/XML)
     # @return [Typhoeus::Request] A Typhoeus Request
     def build_request(http_method, path, opts = {})
+
       url = build_request_url(path)
       http_method = http_method.to_sym.downcase
 
@@ -93,6 +96,7 @@ module OpenapiClient
       query_params = opts[:query_params] || {}
       form_params = opts[:form_params] || {}
 
+      update_params_for_auth! header_params, query_params, opts[:auth_names]
 
       # set ssl_verifyhosts option based on @config.verify_ssl_host (true/false)
       _verify_ssl_host = @config.verify_ssl_host ? 2 : 0
