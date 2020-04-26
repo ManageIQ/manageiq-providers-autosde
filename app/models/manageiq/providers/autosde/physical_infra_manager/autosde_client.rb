@@ -23,6 +23,26 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
         configure_typhoeus
     end
 
+    class ReloginClient < OpenapiClient::ApiClient
+        def call_api (http_method, path, opts = {})
+            puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>> in relogin"
+            super
+            # begin
+            #     super
+            # rescue StandardError
+            #     begin
+            #         # login a new and try once more
+            #         # login?
+            #         super
+            #     rescue  StandardError
+            #         puts ">>>>>>>>Second time!!!"
+            #     end
+            # end
+        end
+    end
+
+    OpenapiClient::ApiClient.module_eval("@@default = ReloginClient.new")
+
     private
 
     def configure_typhoeus
