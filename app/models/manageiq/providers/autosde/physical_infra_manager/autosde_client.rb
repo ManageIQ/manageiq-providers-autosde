@@ -2,6 +2,7 @@ require 'json'
 
 class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
     require_relative 'openapi_client/generated/lib/openapi_client'
+    include Vmdb::Logging
     include OpenapiClient
 
     LOGIN_URL = "/site-manager/api/v1/engine/oidc-auth/"
@@ -24,24 +25,29 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
     end
 
     class ReloginClient < OpenapiClient::ApiClient
+        # @type ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient parent
+        def initialize(parent = nil)
+            @parent = parent
+            super()
+        end
+
         def call_api (http_method, path, opts = {})
-            puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>> in relogin"
-            super
-            # begin
-            #     super
-            # rescue StandardError
-            #     begin
-            #         # login a new and try once more
-            #         # login?
-            #         super
-            #     rescue  StandardError
-            #         puts ">>>>>>>>Second time!!!"
-            #     end
-            # end
+            begin
+                super
+            rescue StandardError
+                begin
+                    @parent._log.warn("doing re-login: token is #{@parent.token}")
+                    # bypass private method
+                    @parent.send(:login)
+                    super
+                rescue e
+                    # in case re-login did not help, throw error
+                    @parent._log.error("re-login was unsuccessful: token is #{@parent.token}")
+                    raise # throw the last error
+                end
+            end
         end
     end
-
-    OpenapiClient::ApiClient.module_eval("@@default = ReloginClient.new")
 
     private
 
@@ -60,6 +66,10 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
             config.host = @host
             config.debugging = true
         end
+        # open class and add method for replacing client in generated code
+        OpenapiClient::ApiClient.class_eval("def self.default=(c); @@default=c; end;")
+        # replace APiClient with overridden to be able to intercept errors and try to re-login
+        OpenapiClient::ApiClient.default = ReloginClient.new(self)
     end
 
     def build_auth_header
@@ -71,7 +81,7 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient
         key = auth_settings[auth_name][:key]
         value =  auth_settings[auth_name][:value]
         { key => value}
-      end
+    end
 
     def login
         payload = {
