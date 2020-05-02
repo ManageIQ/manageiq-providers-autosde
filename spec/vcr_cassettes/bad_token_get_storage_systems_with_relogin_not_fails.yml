@@ -1,6 +1,47 @@
 ---
 http_interactions:
 - request:
+    method: get
+    uri: https://9.151.190.234/site-manager/api/v1/engine/storage-systems/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer __bad-token__
+      Expect:
+      - ''
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Date:
+      - Sat, 02 May 2020 14:24:26 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"detail":"Invalid Authorization header. Unable to verify bearer token"}'
+    http_version: 
+  recorded_at: Sat, 02 May 2020 14:24:26 GMT
+- request:
     method: post
     uri: https://9.151.190.234/site-manager/api/v1/engine/oidc-auth/
     body:
@@ -21,7 +62,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 02 May 2020 13:32:51 GMT
+      - Sat, 02 May 2020 14:24:27 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -36,9 +77,9 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"access_token":"5Dgn544Gl2WSMkwmBz9bNRF6av8nagwH8VxNDGZE","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"fUvPwCIxGV2nlNBuTrxuZtRJAOzPb5BcVg7qtIjsKIm12QZUFW"}'
+      string: '{"access_token":"pT0TOwMzoUCU3KnXOqvZKzzjJJbFYlSfNkjoz3Jh","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"RJpzDAKkjOotRlVPsCnttCaTWZnnMkIC2pJEPTiXRqCsLDbpUu"}'
     http_version: 
-  recorded_at: Sat, 02 May 2020 13:32:51 GMT
+  recorded_at: Sat, 02 May 2020 14:24:27 GMT
 - request:
     method: get
     uri: https://9.151.190.234/site-manager/api/v1/engine/storage-systems/
@@ -53,7 +94,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer 5Dgn544Gl2WSMkwmBz9bNRF6av8nagwH8VxNDGZE
+      - Bearer pT0TOwMzoUCU3KnXOqvZKzzjJJbFYlSfNkjoz3Jh
       Expect:
       - ''
   response:
@@ -62,7 +103,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 02 May 2020 13:32:52 GMT
+      - Sat, 02 May 2020 14:24:28 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -79,5 +120,5 @@ http_interactions:
       encoding: UTF-8
       string: "[]"
     http_version: 
-  recorded_at: Sat, 02 May 2020 13:32:52 GMT
+  recorded_at: Sat, 02 May 2020 14:24:28 GMT
 recorded_with: VCR 5.0.0

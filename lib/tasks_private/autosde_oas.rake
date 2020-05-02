@@ -7,7 +7,7 @@ namespace :autosde do
 
       root = ManageIQ::Providers::Autosde::Engine.root #ManageIQ::Environment::APP_ROOT
       # parent folder for generated stuff ( contains input spec file)
-      default_folder = "app/models/manageiq/providers/autosde/physical_infra_manager/openapi_client"
+      default_folder = "app/models/manageiq/providers/autosde/sde_manager/openapi_client"
 
       # oas file
       default_oas_file = 'site_manager_oas.json'

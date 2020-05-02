@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 23 Apr 2020 12:01:49 GMT
+      - Sat, 02 May 2020 13:46:39 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -42,9 +42,9 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"access_token":"Cd4liR8bXbg469yUozeRnr4vMwT4I2TcjSJEv18p","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"PDw8x3eY0oF93BIXDmTpzcSaajprpgEVpYUmd3toNLc0P5uyDR"}'
+      string: '{"access_token":"7rKtN8K90ryUAvKiPSZ2mk4vwLs4xL5DnlJSmkhK","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"sxfOprr3qBiIWccbeWAOrdMxCwFRNd0TjWHAWBO88ryLHyIj2y"}'
     http_version: 
-  recorded_at: Thu, 23 Apr 2020 12:03:22 GMT
+  recorded_at: Sat, 02 May 2020 13:48:20 GMT
 - request:
     method: get
     uri: https://9.151.190.224/site-manager/api/v1/engine/storage-systems/
@@ -56,10 +56,10 @@ http_interactions:
       - OpenAPI-Generator/1.0.0/ruby
       Content-Type:
       - application/json
-      Authorization:
-      - Bearer Cd4liR8bXbg469yUozeRnr4vMwT4I2TcjSJEv18p
       Accept:
       - "*/*"
+      Authorization:
+      - Bearer 7rKtN8K90ryUAvKiPSZ2mk4vwLs4xL5DnlJSmkhK
       Expect:
       - ''
   response:
@@ -68,7 +68,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 23 Apr 2020 12:01:49 GMT
+      - Sat, 02 May 2020 13:46:39 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -91,7 +91,7 @@ http_interactions:
       encoding: UTF-8
       string: '[{"management_ip":"9.151.156.155","name":"my_xiv","storage_array":null,"storage_family":"","system_type":{"name":"a_line","short_version":"4","uuid":"c87d3686-6a36-4358-bc8d-7028d24d60d3","version":"4"},"uuid":"f09afcc9-53be-4573-8b6f-1e5787d34d05"}]'
     http_version: 
-  recorded_at: Thu, 23 Apr 2020 12:03:22 GMT
+  recorded_at: Sat, 02 May 2020 13:48:20 GMT
 - request:
     method: get
     uri: https://9.151.190.224/site-manager/api/v1/engine/storage-systems/
@@ -103,10 +103,10 @@ http_interactions:
       - OpenAPI-Generator/1.0.0/ruby
       Content-Type:
       - application/json
-      Authorization:
-      - Bearer Cd4liR8bXbg469yUozeRnr4vMwT4I2TcjSJEv18p
       Accept:
       - "*/*"
+      Authorization:
+      - Bearer 7rKtN8K90ryUAvKiPSZ2mk4vwLs4xL5DnlJSmkhK
       Expect:
       - ''
   response:
@@ -115,7 +115,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 23 Apr 2020 12:01:49 GMT
+      - Sat, 02 May 2020 13:46:39 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -138,5 +138,5 @@ http_interactions:
       encoding: UTF-8
       string: '[{"management_ip":"9.151.156.155","name":"my_xiv","storage_array":null,"storage_family":"","system_type":{"name":"a_line","short_version":"4","uuid":"c87d3686-6a36-4358-bc8d-7028d24d60d3","version":"4"},"uuid":"f09afcc9-53be-4573-8b6f-1e5787d34d05"}]'
     http_version: 
-  recorded_at: Thu, 23 Apr 2020 12:03:22 GMT
+  recorded_at: Sat, 02 May 2020 13:48:20 GMT
 recorded_with: VCR 5.0.0

@@ -111,6 +111,8 @@ module OpenapiClient
 
       if attributes.key?(:'advanced_attributes_map')
         self.advanced_attributes_map = attributes[:'advanced_attributes_map']
+      else
+        self.advanced_attributes_map = '{}'
       end
 
       if attributes.key?(:'logical_free')

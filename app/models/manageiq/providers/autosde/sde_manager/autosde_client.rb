@@ -1,47 +1,80 @@
 require 'json'
+require_relative 'openapi_client/generated/lib/openapi_client'
 
 class ManageIQ::Providers::Autosde::SdeManager::AutosdeClient
-    require_relative 'openapi_client/generated/lib/openapi_client'
+    include Vmdb::Logging
     include OpenapiClient
 
     LOGIN_URL = "/site-manager/api/v1/engine/oidc-auth/"
     AUTH_ERRR_MSG = "Authentication error occured"
 
+    NoAuthTokenError = Class.new(StandardError)
 
-    # todo (per gregoryb): remove IBM keys from the code (maybe to artifactory)
-    def initialize(username="udyum@mailnesia.com", password="abCd_1234",  client_id= "NDBhNDk5MzAtZGZjMi00", secret_id= "NTNkMDdkNmMtNjFkYi00", host: "9.151.190.137")
-        @username=username
-        @password=password
-        @host=host
-        @client_id = client_id
-        @secret_id = secret_id
-        @port=443
-        @token=nil
-        @logedin = false
-        OpenapiClient.configure do |config|
-            config.scheme = 'https'
-            config.verify_ssl = false
-            config.host = @host
-            config.debugging = true
-         end
-        @storage_system_api = StorageSystemApi.new self
+    # open generated class and add method for setting custom client
+    class OpenapiClient::ApiClient
+        def self.default=(c)
+            @@default = c
+        end
     end
 
-    attr_accessor :storage_system_api
-    attr_accessor :token
+    attr_accessor :token, :host
 
-    # override original for auth login
-    class StorageSystemApi < OpenapiClient::StorageSystemApi
+    # todo (per gregoryb): remove IBM keys from the code (maybe to artifactory)
+    def initialize(username = "udyum@mailnesia.com", password = "abCd_1234", client_id = "NDBhNDk5MzAtZGZjMi00", secret_id = "NTNkMDdkNmMtNjFkYi00", host: "9.151.190.137")
+        @username = username
+        @password = password
+        @host = host
+        @client_id = client_id
+        @secret_id = secret_id
+        @port = 443
+        @token = nil
+        @logedin = false
+        # make generated code to reference our class
+        OpenapiClient::ApiClient.default = ReloginClient.new(self)
+    end
 
-        def initialize(parent)
+    class ReloginClient < OpenapiClient::ApiClient
+        # @type ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient parent
+        def initialize(parent = nil)
             @parent = parent
+            configure_openapi_client
             super()
         end
 
-        def storage_systems_get(opts = nil)
-            @parent.login  unless @parent.token
-            opts = {:header_params => {'Authorization': "Bearer #{@parent.token}" }}
-            super
+        def call_api (http_method, path, opts = {})
+            begin
+                puts "1>>>>> in overriden parent token is #{@parent.token}"
+                @parent.login unless @parent.token
+                set_auth_token
+                super
+            rescue StandardError => e
+                puts e.message
+                begin
+                    @parent._log.warn("doing re-login: token is #{@parent.token}")
+                    # bypass private method
+                    @parent.login
+                    set_auth_token
+                    super
+                rescue StandardError
+                    # in case re-login did not help, throw error
+                    @parent._log.error("re-login was unsuccessful: token is #{@parent.token}")
+                    raise # throw the last error
+                end
+            end
+        end
+
+        private def set_auth_token
+            raise NoAuthTokenError, 'No auth token!' unless @parent.token
+            OpenapiClient.configure.access_token = @parent.token
+        end
+
+        private def configure_openapi_client
+            OpenapiClient.configure do |config|
+                config.scheme = 'https'
+                config.verify_ssl = false
+                config.host = @parent.host
+                config.debugging = true
+            end
         end
     end
 
@@ -64,11 +97,9 @@ class ManageIQ::Providers::Autosde::SdeManager::AutosdeClient
         end
     end
 
-    private
-
-    def _request(clz, url, payload = nil)
+    private def _request(clz, url, payload = nil)
         uri = URI("https://%s:%s" % [@host, @port])
-        uri.path  = url
+        uri.path = url
         request = clz.new(uri.path)
         if payload != nil
             request.body = payload.to_json
@@ -76,9 +107,6 @@ class ManageIQ::Providers::Autosde::SdeManager::AutosdeClient
 
         # set headers
         request["Content-Type"] = 'application/json'
-        if @token != nil
-            request['Authorization'] = 'Bearer %s' % [@token]
-        end
 
         # send the request
         Net::HTTP.start(
@@ -87,8 +115,5 @@ class ManageIQ::Providers::Autosde::SdeManager::AutosdeClient
             :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
             https.request(request)
         end
-
     end
-
 end
-

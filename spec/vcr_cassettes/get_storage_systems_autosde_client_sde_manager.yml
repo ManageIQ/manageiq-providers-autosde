@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://9.151.190.224/site-manager/api/v1/engine/oidc-auth/
+    uri: https://9.151.190.234/site-manager/api/v1/engine/oidc-auth/
     body:
       encoding: UTF-8
       string: '{"client_id":"<client_id>","secret_id":"<secret_id>","username":"<username>","password":"<password>"}'
@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 20 Apr 2020 10:58:40 GMT
+      - Sat, 02 May 2020 14:15:50 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -32,22 +32,16 @@ http_interactions:
       - POST, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Allow-Headers:
-      - "*"
-      Access-Control-Allow-Methods:
-      - GET, POST, OPTIONS, PUT, DELETE
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"access_token":"EQpdFCfeeMEHUseptY4mAsyIDYmzXtoer4lRzP6A","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"2avemoRHPlShTZKsdWh8TS4UmG8NMvorBHYN8Jc3sfVmZdf86d"}'
+      string: '{"access_token":"RPmUAGfwA7yhBV7klgXMmr3oW8JS0PKiSxcO4e2L","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"6d2IIa3yTsdPPxrOgZgnGBZPIiBqdB9PUdUevvAwlcj8JUFBds"}'
     http_version: 
-  recorded_at: Mon, 20 Apr 2020 11:00:11 GMT
+  recorded_at: Sat, 02 May 2020 14:15:50 GMT
 - request:
     method: get
-    uri: https://9.151.190.224/site-manager/api/v1/engine/storage-systems/
+    uri: https://9.151.190.234/site-manager/api/v1/engine/storage-systems/
     body:
       encoding: US-ASCII
       string: ''
@@ -56,10 +50,10 @@ http_interactions:
       - OpenAPI-Generator/1.0.0/ruby
       Content-Type:
       - application/json
-      Authorization:
-      - Bearer EQpdFCfeeMEHUseptY4mAsyIDYmzXtoer4lRzP6A
       Accept:
       - "*/*"
+      Authorization:
+      - Bearer RPmUAGfwA7yhBV7klgXMmr3oW8JS0PKiSxcO4e2L
       Expect:
       - ''
   response:
@@ -68,7 +62,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 20 Apr 2020 10:58:40 GMT
+      - Sat, 02 May 2020 14:15:50 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -79,17 +73,11 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Allow-Headers:
-      - "*"
-      Access-Control-Allow-Methods:
-      - GET, POST, OPTIONS, PUT, DELETE
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"management_ip":"9.151.156.155","name":"my_xiv","storage_array":null,"storage_family":"","system_type":{"name":"a_line","short_version":"4","uuid":"c87d3686-6a36-4358-bc8d-7028d24d60d3","version":"4"},"uuid":"f09afcc9-53be-4573-8b6f-1e5787d34d05"}]'
+      string: "[]"
     http_version: 
-  recorded_at: Mon, 20 Apr 2020 11:00:11 GMT
+  recorded_at: Sat, 02 May 2020 14:15:50 GMT
 recorded_with: VCR 5.0.0

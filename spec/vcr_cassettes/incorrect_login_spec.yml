@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://9.151.190.224/site-manager/api/v1/engine/oidc-auth/
+    uri: https://9.151.190.234/site-manager/api/v1/engine/oidc-auth/
     body:
       encoding: UTF-8
       string: '{"client_id":"<client_id>","secret_id":"<secret_id>","username":"<username>","password":"<password>"}'
@@ -21,7 +21,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Mon, 20 Apr 2020 10:58:39 GMT
+      - Sat, 02 May 2020 14:11:53 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -32,12 +32,6 @@ http_interactions:
       - POST, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Allow-Headers:
-      - "*"
-      Access-Control-Allow-Methods:
-      - GET, POST, OPTIONS, PUT, DELETE
       Connection:
       - close
       Transfer-Encoding:
@@ -47,5 +41,5 @@ http_interactions:
       string: '{"error_description":"FBTBLU101E The userid or password that you entered
         is not correct.","error":"server_error"}'
     http_version: 
-  recorded_at: Mon, 20 Apr 2020 11:00:10 GMT
+  recorded_at: Sat, 02 May 2020 14:11:53 GMT
 recorded_with: VCR 5.0.0

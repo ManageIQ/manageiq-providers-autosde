@@ -56,6 +56,12 @@ Please follow the [installation](#installation) procedure and then run the follo
 # Load the gem
 require 'openapi_client'
 
+# Setup authorization
+OpenapiClient.configure do |config|
+  # Configure Bearer authorization (oath1): bearerAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
 api_instance = OpenapiClient::AbstractCapabilityApi.new
 
 begin
@@ -181,5 +187,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Authorization
 
- All endpoints do not require authorization.
+
+### bearerAuth
+
+- **Type**: Bearer authentication (oath1)
 
