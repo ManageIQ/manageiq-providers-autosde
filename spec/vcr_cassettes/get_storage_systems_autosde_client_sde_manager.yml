@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://9.151.190.234/site-manager/api/v1/engine/oidc-auth/
+    uri: https://9.151.190.208/site-manager/api/v1/engine/oidc-auth/
     body:
       encoding: UTF-8
       string: '{"client_id":"<client_id>","secret_id":"<secret_id>","username":"<username>","password":"<password>"}'
@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 02 May 2020 14:15:50 GMT
+      - Sun, 03 May 2020 10:01:33 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -36,12 +36,12 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"access_token":"RPmUAGfwA7yhBV7klgXMmr3oW8JS0PKiSxcO4e2L","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"6d2IIa3yTsdPPxrOgZgnGBZPIiBqdB9PUdUevvAwlcj8JUFBds"}'
+      string: '{"access_token":"em0PW1Pf3mMSj8l3zIAHsomFixzRbNFb7uB3lP8T","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"T0E1U1q3v8KnKb3mdeQJEUZFRJEwtRlFtstzZZkwpVoqktBaVb"}'
     http_version: 
-  recorded_at: Sat, 02 May 2020 14:15:50 GMT
+  recorded_at: Sun, 03 May 2020 10:01:33 GMT
 - request:
     method: get
-    uri: https://9.151.190.234/site-manager/api/v1/engine/storage-systems/
+    uri: https://9.151.190.208/site-manager/api/v1/engine/storage-systems/
     body:
       encoding: US-ASCII
       string: ''
@@ -53,7 +53,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer RPmUAGfwA7yhBV7klgXMmr3oW8JS0PKiSxcO4e2L
+      - Bearer em0PW1Pf3mMSj8l3zIAHsomFixzRbNFb7uB3lP8T
       Expect:
       - ''
   response:
@@ -62,7 +62,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 02 May 2020 14:15:50 GMT
+      - Sun, 03 May 2020 10:01:33 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -79,5 +79,5 @@ http_interactions:
       encoding: UTF-8
       string: "[]"
     http_version: 
-  recorded_at: Sat, 02 May 2020 14:15:50 GMT
+  recorded_at: Sun, 03 May 2020 10:01:33 GMT
 recorded_with: VCR 5.0.0

@@ -19,7 +19,8 @@ require "manageiq-providers-autosde"
 # WebMock.allow_net_connect!
 #
 RSpec.configure do |config|
-  config.add_setting :autosde_appliance_host, :default => '9.151.190.234'
+  config.add_setting :autosde_appliance_host, :default => '9.151.190.224'
+  config.add_setting :autosde_appliance_host_with_auth_token, :default => '9.151.190.208'
   config.add_setting :autosde_test_system, :default => {
       :management_ip => "9.151.156.155", :name => "my_xiv", :storage_family => "",
       :system_type => {

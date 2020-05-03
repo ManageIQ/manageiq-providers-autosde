@@ -19,10 +19,10 @@ describe ManageIQ::Providers::Autosde::SdeManager do
     ems = FactoryBot.create(:sde_autosde_manager, :with_authentication)
     ems.default_endpoint.hostname = RSpec.configuration.autosde_appliance_host
 
-    VCR.use_cassette("get_storages_systems_from_sde_manager-1") do
+    VCR.use_cassette("get_storages_systems_from_sde_manager") do
       systems = ems.autosde_client.class::StorageSystemApi.new.storage_systems_get
-        # expect(ems.autosde_client.class::StorageSystemApi.new.storage_systems_get[0].to_hash).to eq RSpec.configuration.autosde_test_system
       expect(systems).to be_an_instance_of(Array)
+      expect(systems[0].to_hash).to eq RSpec.configuration.autosde_test_system
     end
   end
 end

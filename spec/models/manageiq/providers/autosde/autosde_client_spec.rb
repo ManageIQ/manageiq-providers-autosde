@@ -1,8 +1,10 @@
 describe ManageIQ::Providers::Autosde::SdeManager::AutosdeClient do
 
+  AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN = RSpec.configuration.autosde_appliance_host_with_auth_token
+
   it "logs in with right credentials-1" do
     client = ManageIQ::Providers::Autosde::SdeManager::AutosdeClient.new(
-        :host => RSpec.configuration.autosde_appliance_host)
+        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
     VCR.use_cassette("correct_login_spec") do
       expect(client.login).to be_truthy
     end
@@ -10,7 +12,7 @@ describe ManageIQ::Providers::Autosde::SdeManager::AutosdeClient do
 
   it "raises on login with wrong credentials" do
     client = ManageIQ::Providers::Autosde::SdeManager::AutosdeClient.new(
-        'asfd', :host => RSpec.configuration.autosde_appliance_host)
+        'asfd', :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
 
     VCR.use_cassette("incorrect_login_spec") do
       expect { client.login }.to raise_error(
@@ -22,7 +24,7 @@ describe ManageIQ::Providers::Autosde::SdeManager::AutosdeClient do
   it "gets a list of storage systems" do
 
     client = ManageIQ::Providers::Autosde::SdeManager::AutosdeClient.new(
-        :host => RSpec.configuration.autosde_appliance_host)
+        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
 
     temp = {}
 
@@ -31,16 +33,14 @@ describe ManageIQ::Providers::Autosde::SdeManager::AutosdeClient do
     end
 
     systems = temp[:systems]
-    #expect(systems.first.to_hash).to eq RSpec.configuration.autosde_test_system
     expect(systems).to be_an_instance_of(Array)
 
   end
 
   it "does not fail when token is bad (ie expired) and re-login" do
 
-
     client = ManageIQ::Providers::Autosde::SdeManager::AutosdeClient.new(
-        :host => RSpec.configuration.autosde_appliance_host)
+        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
 
     class << client
       attr_accessor :token
@@ -56,7 +56,6 @@ describe ManageIQ::Providers::Autosde::SdeManager::AutosdeClient do
     end
 
     systems = temp[:systems]
-    #expect(systems.first.to_hash).to eq RSpec.configuration.autosde_test_system
     expect(systems).to be_an_instance_of(Array)
 
   end

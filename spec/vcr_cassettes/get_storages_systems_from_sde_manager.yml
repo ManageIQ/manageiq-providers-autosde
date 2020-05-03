@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://9.151.190.234/site-manager/api/v1/engine/oidc-auth/
+    uri: https://9.151.190.224/site-manager/api/v1/engine/oidc-auth/
     body:
       encoding: UTF-8
       string: '{"client_id":"<client_id>","secret_id":"<secret_id>","username":"<username>","password":"<password>"}'
@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 02 May 2020 13:32:51 GMT
+      - Sun, 03 May 2020 09:59:57 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -32,16 +32,22 @@ http_interactions:
       - POST, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"access_token":"5Dgn544Gl2WSMkwmBz9bNRF6av8nagwH8VxNDGZE","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"fUvPwCIxGV2nlNBuTrxuZtRJAOzPb5BcVg7qtIjsKIm12QZUFW"}'
+      string: '{"access_token":"LoyLOXzVVzP4a1NgsmTdxU0etQkzrdNZ3B8UebHQ","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"EgokhxwtbpswJhMN1NMP7B9WTPjhjuOYsDzwmLPWxfqPcYnD6D"}'
     http_version: 
-  recorded_at: Sat, 02 May 2020 13:32:51 GMT
+  recorded_at: Sun, 03 May 2020 10:01:38 GMT
 - request:
     method: get
-    uri: https://9.151.190.234/site-manager/api/v1/engine/storage-systems/
+    uri: https://9.151.190.224/site-manager/api/v1/engine/storage-systems/
     body:
       encoding: US-ASCII
       string: ''
@@ -53,7 +59,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer 5Dgn544Gl2WSMkwmBz9bNRF6av8nagwH8VxNDGZE
+      - Bearer LoyLOXzVVzP4a1NgsmTdxU0etQkzrdNZ3B8UebHQ
       Expect:
       - ''
   response:
@@ -62,7 +68,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 02 May 2020 13:32:52 GMT
+      - Sun, 03 May 2020 09:59:57 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -73,11 +79,17 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: "[]"
+      string: '[{"management_ip":"9.151.156.155","name":"my_xiv","storage_array":null,"storage_family":"","system_type":{"name":"a_line","short_version":"4","uuid":"c87d3686-6a36-4358-bc8d-7028d24d60d3","version":"4"},"uuid":"f09afcc9-53be-4573-8b6f-1e5787d34d05"}]'
     http_version: 
-  recorded_at: Sat, 02 May 2020 13:32:52 GMT
+  recorded_at: Sun, 03 May 2020 10:01:38 GMT
 recorded_with: VCR 5.0.0

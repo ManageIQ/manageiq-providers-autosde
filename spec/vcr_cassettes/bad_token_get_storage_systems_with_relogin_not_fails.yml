@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://9.151.190.234/site-manager/api/v1/engine/storage-systems/
+    uri: https://9.151.190.208/site-manager/api/v1/engine/storage-systems/
     body:
       encoding: US-ASCII
       string: ''
@@ -23,7 +23,7 @@ http_interactions:
       message: Forbidden
     headers:
       Date:
-      - Sat, 02 May 2020 14:24:26 GMT
+      - Sun, 03 May 2020 10:01:34 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -40,10 +40,10 @@ http_interactions:
       encoding: UTF-8
       string: '{"detail":"Invalid Authorization header. Unable to verify bearer token"}'
     http_version: 
-  recorded_at: Sat, 02 May 2020 14:24:26 GMT
+  recorded_at: Sun, 03 May 2020 10:01:34 GMT
 - request:
     method: post
-    uri: https://9.151.190.234/site-manager/api/v1/engine/oidc-auth/
+    uri: https://9.151.190.208/site-manager/api/v1/engine/oidc-auth/
     body:
       encoding: UTF-8
       string: '{"client_id":"<client_id>","secret_id":"<secret_id>","username":"<username>","password":"<password>"}'
@@ -62,7 +62,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 02 May 2020 14:24:27 GMT
+      - Sun, 03 May 2020 10:01:34 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -77,12 +77,12 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"access_token":"pT0TOwMzoUCU3KnXOqvZKzzjJJbFYlSfNkjoz3Jh","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"RJpzDAKkjOotRlVPsCnttCaTWZnnMkIC2pJEPTiXRqCsLDbpUu"}'
+      string: '{"access_token":"ESpnsaDZxLqHehUGbQNQjc1mw681aUwuUSQgW7Z5","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"wXTQrXlIjo6CQ7E5eKVV7lwFkNnGDnZplH65Uqjl8C8ZpD0MNR"}'
     http_version: 
-  recorded_at: Sat, 02 May 2020 14:24:27 GMT
+  recorded_at: Sun, 03 May 2020 10:01:34 GMT
 - request:
     method: get
-    uri: https://9.151.190.234/site-manager/api/v1/engine/storage-systems/
+    uri: https://9.151.190.208/site-manager/api/v1/engine/storage-systems/
     body:
       encoding: US-ASCII
       string: ''
@@ -94,7 +94,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer pT0TOwMzoUCU3KnXOqvZKzzjJJbFYlSfNkjoz3Jh
+      - Bearer ESpnsaDZxLqHehUGbQNQjc1mw681aUwuUSQgW7Z5
       Expect:
       - ''
   response:
@@ -103,7 +103,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 02 May 2020 14:24:28 GMT
+      - Sun, 03 May 2020 10:01:35 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -120,5 +120,5 @@ http_interactions:
       encoding: UTF-8
       string: "[]"
     http_version: 
-  recorded_at: Sat, 02 May 2020 14:24:28 GMT
+  recorded_at: Sun, 03 May 2020 10:01:35 GMT
 recorded_with: VCR 5.0.0
