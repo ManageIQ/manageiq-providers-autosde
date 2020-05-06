@@ -7,7 +7,6 @@ class ManageIQ::Providers::Autosde::SdeManager < ManageIQ::Providers::SdeManager
   require_nested :AutosdeClient
 
 
-  # @return [ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient]
   def autosde_client
     if @autosde_client.nil?
       @autosde_client = self.class.raw_connect(address)

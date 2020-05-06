@@ -26,7 +26,7 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager < ManageIQ::Providers::
   # todo (per gregoryb): need to enable users to provide client_id and secret_id
   def verify_credentials(auth_type = nil, options = {})
     begin
-      connect
+      connect options
     rescue => err
       raise MiqException::MiqInvalidCredentialsError, err.message
     end

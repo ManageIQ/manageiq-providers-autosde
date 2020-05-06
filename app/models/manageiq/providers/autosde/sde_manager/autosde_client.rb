@@ -34,7 +34,6 @@ class ManageIQ::Providers::Autosde::SdeManager::AutosdeClient
     end
 
     class ReloginClient < OpenapiClient::ApiClient
-        # @type ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient parent
         def initialize(parent = nil)
             @parent = parent
             configure_openapi_client
