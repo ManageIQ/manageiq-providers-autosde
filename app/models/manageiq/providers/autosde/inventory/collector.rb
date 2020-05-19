@@ -1,5 +1,5 @@
-# Dummy class to allow require_newsted of ManageIQ::Providers::Autosde::Inventory::Collector::SdeManager
-# ManageIQ::Providers::Autosde::Inventory::Collector::SdeManager must be located as it is
+# Dummy class to allow require_nested of ManageIQ::Providers::Autosde::Inventory::Collector::BlockStorageManager
+# ManageIQ::Providers::Autosde::Inventory::Collector::BlockStorageManager must be located as it is
 class ManageIQ::Providers::Autosde::Inventory::Collector
-  require_nested :SdeManager
+  require_nested :BlockStorageManager
 end

@@ -1,0 +1,3331 @@
+{
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "oath1"
+      }
+    },
+    "schemas": {
+      "AbstractCapability": {
+        "description": "Abstract capabilities are the storage system feature capabilities, in general terminology.",
+        "properties": {
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        }
+      },
+      "Account": {
+        "description": "doc-todo: General information about 'account' needed - what account - or type of account. something to guide the user.",
+        "properties": {
+          "description": {
+            "description": "description",
+            "type": "string"
+          },
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "null": true,
+              "unique": true
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        }
+      },
+      "AccountPostRequest": {
+        "description": "TODO add description",
+        "properties": {
+          "description": {
+            "description": "description",
+            "type": "string"
+          },
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "null": true,
+              "unique": true
+            }
+          }
+        },
+        "x-serializer": "Account"
+      },
+      "AccountPostResponse": {
+        "description": "TODO add description",
+        "properties": {
+          "description": {
+            "description": "description",
+            "type": "string"
+          },
+          "id": {
+            "description": "id",
+            "type": "string"
+          },
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "null": true,
+              "unique": true
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        },
+        "x-serializer": "Account"
+      },
+      "Address": {
+        "description": "Address",
+        "properties": {
+          "chap_name": {
+            "description": "chap_name",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "chap_secret": {
+            "description": "chap_secret",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "iqn": {
+            "description": "",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "port_type": {
+            "description": "port_type",
+            "enum": [
+              "ISCSI",
+              "FC",
+              "NVMeFC"
+            ],
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "secondary_ip": {
+            "description": "secondary_ip",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "wwpn": {
+            "description": "wwpn",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          }
+        }
+      },
+      "AddressCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "chap_name": {
+            "description": "chap_name",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "chap_secret": {
+            "description": "chap_secret",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "iqn": {
+            "description": "",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "name": {
+            "default": null,
+            "description": "name",
+            "type": "string"
+          },
+          "port_type": {
+            "description": "port_type",
+            "enum": [
+              "ISCSI",
+              "FC",
+              "NVMeFC"
+            ],
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "secondary_ip": {
+            "description": "secondary_ip",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "wwpn": {
+            "description": "wwpn",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          }
+        },
+        "x-serializer": "Address"
+      },
+      "AutoSDEProject": {
+        "description": "Use this for AutoSDE project information.",
+        "properties": {
+          "cores": {
+            "description": "The number of instance cores that are allowed per project. doc-todo: what is a CORE? ",
+            "type": "integer"
+          },
+          "description": {
+            "description": "Project description.",
+            "format": "text",
+            "type": "string"
+          },
+          "fixed_ips": {
+            "description": "The number of fixed IP addresses that are allowed per project.\nThis number must be equal to or greater than the number of allowed instances.\n",
+            "type": "integer"
+          },
+          "floating_ips": {
+            "description": "The number of floating IP addresses that are allowed\n per project.",
+            "type": "integer"
+          },
+          "groups": {
+            "description": "The maximum number of groups.",
+            "type": "integer"
+          },
+          "injected_file_content_bytes": {
+            "description": "The number of bytes of content that are allowed for\neach injected file.\n",
+            "format": "float",
+            "type": "number"
+          },
+          "injected_file_path_bytes": {
+            "description": "The number of bytes that are allowed\nfor each injected file path.\n",
+            "type": "integer"
+          },
+          "instances": {
+            "description": "The number of instances that are allowed per project. doc-todo: what is an instance? does it mean how many projects can exist at once?",
+            "type": "integer"
+          },
+          "key_pairs": {
+            "description": "The number of key pairs that are allowed per user. doc-todo: what is a key pair?",
+            "type": "integer"
+          },
+          "max_total_backup_gigabytes": {
+            "description": "Maximum capacity (GB) allocated to backups.",
+            "format": "float",
+            "type": "number"
+          },
+          "max_total_backups": {
+            "description": "Maximum number of backups.\nA backup is a full copy of a volume stored in an external service.\nThe service can be configured.\nThe only supported service is Object Storage. doc-todo:WHAT IS OBJECT STORAGE?\nA backup can subsequently be restored from the external service to\neither\n         the same volume that the backup was originally taken from or\n         to a new volume. Backup and restore operations can only be carried out on\n         volumes that are in an unattached and available state.\n",
+            "type": "integer"
+          },
+          "max_total_snapshots": {
+            "description": "Maximum number of snapshots allowed per project.",
+            "type": "integer"
+          },
+          "max_total_volume_gigabytes": {
+            "description": "Maximum number of gigabytes allocated to volumes per project.",
+            "format": "float",
+            "type": "number"
+          },
+          "max_total_volumes": {
+            "description": "Maximum number of provisioned volumes in the project.",
+            "type": "integer"
+          },
+          "metadata_items": {
+            "description": "The number of metadata items that are allowed for each instance.",
+            "type": "integer"
+          },
+          "name": {
+            "description": "Project name.",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "per_volume_gigabytes": {
+            "description": "The size (GB) of volumes in request\n that are allowed per volume.",
+            "format": "float",
+            "type": "number"
+          },
+          "ram": {
+            "description": "The amount of instance RAM (MB) that are allowed per project. doc-todo: RAM per project, per specific project....?",
+            "format": "float",
+            "type": "number"
+          },
+          "security_groups": {
+            "description": "The number of security groups that are allowed per project.",
+            "type": "integer"
+          },
+          "uuid": {
+            "description": "UUID",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        },
+        "type": "object"
+      },
+      "AutoSDERole": {
+        "description": "doc-todo: what types of roles is this defining?",
+        "properties": {
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        }
+      },
+      "CapabilityTranslation": {
+        "description": "doc-todo: what is capabilityTranslationProps used for / what is it?.",
+        "properties": {
+          "abstract_capability": {
+            "$ref": "#/components/schemas/AbstractCapability"
+          },
+          "abstract_capability_name": {
+            "description": "abstract_capability_name",
+            "type": "string",
+            "x-serializer": {
+              "source": "abstract_capability.name"
+            }
+          },
+          "default_value": {
+            "default": " ",
+            "description": "default_value",
+            "type": "string"
+          },
+          "native_capability": {
+            "$ref": "#/components/schemas/NativeCapability"
+          },
+          "native_capability_name": {
+            "description": "native_capability_name",
+            "type": "string",
+            "x-serializer": {
+              "source": "native_capability.name"
+            }
+          },
+          "published": {
+            "description": "published",
+            "type": "boolean",
+            "x-serializer": {
+              "source": "native_capability.published"
+            }
+          },
+          "system_type_id": {
+            "description": "system_type_id",
+            "type": "string",
+            "x-serializer": {
+              "source": "native_capability.system_type.id"
+            }
+          },
+          "to_abstract_value_mapper": {
+            "description": "Maximum value length is 32 characters.",
+            "maxLength": 32,
+            "type": "string"
+          },
+          "to_native_value_mapper": {
+            "description": "Maximum value length is 32 characters.",
+            "maxLength": 32,
+            "type": "string"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        },
+        "x-meta": {
+          "unique_together": "('native_capability','abstract_capability')"
+        }
+      },
+      "CapabilityTranslationCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "abstract_capability_name": {
+            "description": "abstract_capability_name",
+            "type": "string",
+            "x-serializer": {
+              "source": "abstract_capability.name"
+            }
+          },
+          "default_value": {
+            "default": " ",
+            "description": "default_value",
+            "type": "string"
+          },
+          "native_capability_name": {
+            "description": "native_capability_name",
+            "type": "string",
+            "x-serializer": {
+              "source": "native_capability.name"
+            }
+          },
+          "published": {
+            "description": "published",
+            "type": "boolean",
+            "x-serializer": {
+              "source": "native_capability.published"
+            }
+          },
+          "system_type_id": {
+            "description": "system_type_id",
+            "type": "string",
+            "x-serializer": {
+              "source": "native_capability.system_type.id"
+            }
+          },
+          "to_abstract_value_mapper": {
+            "description": "Maximum value length is 32 characters.",
+            "maxLength": 32,
+            "type": "string"
+          },
+          "to_native_value_mapper": {
+            "description": "Maximum value length is 32 characters.",
+            "maxLength": 32,
+            "type": "string"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        },
+        "x-serializer": "CapabilityTranslation"
+      },
+      "Host": {
+        "description": "doc-todo: what 'host' is this defining or being filled in for? Fill in host properties: name, UUID, management IP address, and IQN.",
+        "properties": {
+          "description": {
+            "description": "description",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "io_groups": {
+            "description": "io_groups",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "management_ip": {
+            "description": "management_ip",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true,
+              "unique": true
+            }
+          },
+          "name": {
+            "description": "The Virtual Host Name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "os_type": {
+            "default": "Unknown",
+            "description": "os_type",
+            "enum": [
+              "Linux",
+              "Windows",
+              "Unknown"
+            ],
+            "type": "string"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        }
+      },
+      "HostCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "chap_name": {
+            "description": "chap_name",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "chap_secret": {
+            "description": "chap_secret",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "description": {
+            "description": "description",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "io_groups": {
+            "description": "io_groups",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "iqn": {
+            "description": "",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "management_ip": {
+            "description": "management_ip",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true,
+              "unique": true
+            }
+          },
+          "name": {
+            "description": "The Virtual Host Name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "os_type": {
+            "default": "Unknown",
+            "description": "os_type",
+            "enum": [
+              "Linux",
+              "Windows",
+              "Unknown"
+            ],
+            "type": "string"
+          },
+          "port_type": {
+            "description": "port_type",
+            "enum": [
+              "ISCSI",
+              "FC",
+              "NVMeFC"
+            ],
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "secondary_ip": {
+            "description": "secondary_ip",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "wwpn": {
+            "description": "wwpn",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          }
+        },
+        "x-serializer": "Host"
+      },
+      "HostVolumeConnection": {
+        "description": "Fill in the host volume connection properties.",
+        "properties": {
+          "host": {
+            "$ref": "#/components/schemas/Host"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "volume": {
+            "$ref": "#/components/schemas/Volume"
+          }
+        }
+      },
+      "HostVolumeConnectionCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "host": {
+            "$ref": "#/components/schemas/Host",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "volume": {
+            "$ref": "#/components/schemas/Volume",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          }
+        },
+        "x-serializer": "HostVolumeConnection"
+      },
+      "NativeCapability": {
+        "description": "NativeCapability",
+        "properties": {
+          "name": {
+            "description": "name",
+            "type": "string"
+          },
+          "published": {
+            "default": true,
+            "description": "published",
+            "type": "boolean"
+          },
+          "system_type": {
+            "$ref": "#/components/schemas/SystemType"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        },
+        "x-meta": {
+          "unique_together": "('name', 'system_type',)"
+        }
+      },
+      "Profile": {
+        "description": "doc-todo: which profile is being defined??",
+        "properties": {
+          "account": {
+            "$ref": "#/components/schemas/Account",
+            "x-serializer": {
+              "description": "doc-todo: which/who's account information.",
+              "slug": "uuid"
+            }
+          },
+          "description": {
+            "default": "",
+            "description": "description",
+            "type": "string"
+          },
+          "name": {
+            "description": "name",
+            "type": "string"
+          },
+          "type": {
+            "description": "Type values are 'Native' or 'Abstract'. doc-todo:I need to know that I got these values correct.",
+            "enum": [
+              "Native",
+              "Abstract"
+            ],
+            "type": "string"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        }
+      },
+      "ProvisioningStrategy": {
+        "description": "Used for capacity provisioning details.",
+        "properties": {
+          "name": {
+            "description": "name",
+            "enum": [
+              "logical_free_capacity"
+            ],
+            "maxLength": 20,
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        }
+      },
+      "Service": {
+        "description": "Service",
+        "properties": {
+          "capability_values": {
+            "$ref": "#/components/schemas/ServiceAbstractCapabilityValue",
+            "x-model": {
+              "blank": true,
+              "null": true,
+              "related_name": "'capability_values'",
+              "relation": "ManyToMany"
+            }
+          },
+          "description": {
+            "default": "",
+            "description": "description",
+            "type": "string"
+          },
+          "name": {
+            "description": "name",
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/Profile",
+            "x-model": {
+              "blank": true,
+              "on_delete": "models.DO_NOTHING"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "project": {
+            "$ref": "#/components/schemas/AutoSDEProject",
+            "x-model": {
+              "on_delete": "models.CASCADE"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "provisioning_strategy": {
+            "$ref": "#/components/schemas/ProvisioningStrategy",
+            "x-model": {
+              "blank": true,
+              "null": true,
+              "on_delete": "models.SET_NULL",
+              "related_name": "'services'"
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "version": {
+            "default": 1,
+            "description": "The version of the service",
+            "type": "integer"
+          }
+        },
+        "x-meta": {
+          "unique_together": "('name', 'project', 'version')"
+        }
+      },
+      "ServiceAbstractCapabilityValue": {
+        "description": "ServiceAbstractCapabilityValue",
+        "properties": {
+          "abstract_capability": {
+            "$ref": "#/components/schemas/AbstractCapability"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "value": {
+            "description": "value",
+            "type": "string"
+          }
+        },
+        "x-meta": {
+          "unique_together": "(\"abstract_capability\", \"value\",)"
+        }
+      },
+      "ServiceResourceAttachment": {
+        "description": "ServiceResourceAttachment",
+        "properties": {
+          "compliant": {
+            "default": false,
+            "description": "compliant",
+            "type": "boolean"
+          },
+          "service": {
+            "$ref": "#/components/schemas/Service",
+            "x-model": {
+              "null": true
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "storage_resource": {
+            "$ref": "#/components/schemas/StorageResource",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        },
+        "x-meta": {
+          "unique_together": "(\"service\", \"storage_resource\",)"
+        }
+      },
+      "StorageResource": {
+        "description": "StorageResource",
+        "properties": {
+          "advanced_attributes_map": {
+            "default": "{}",
+            "description": "advanced_attributes_map",
+            "format": "json",
+            "type": "string",
+            "x-model": {
+              "blank": true
+            }
+          },
+          "logical_free": {
+            "default": 0,
+            "description": "The free logical capacity of this resource (gb)",
+            "format": "int64",
+            "type": "integer"
+          },
+          "logical_total": {
+            "default": 0,
+            "description": "The Total logical capacity of this resource (gb)",
+            "format": "int64",
+            "type": "integer"
+          },
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "pool_name": {
+            "description": "Pool (or slice) name",
+            "type": "string"
+          },
+          "protocol": {
+            "description": "protocol",
+            "enum": [
+              "fc",
+              "iscsi"
+            ],
+            "type": "string"
+          },
+          "storage_system": {
+            "$ref": "#/components/schemas/StorageSystem",
+            "x-model": {
+              "on_delete": "models.CASCADE"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        },
+        "x-meta": {
+          "unique_together": "(\"pool_name\", \"storage_system\",)"
+        }
+      },
+      "StorageResourceCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "advanced_attributes_map": {
+            "default": "{}",
+            "description": "advanced_attributes_map",
+            "format": "json",
+            "type": "string",
+            "x-model": {
+              "blank": true
+            }
+          },
+          "logical_free": {
+            "default": 0,
+            "description": "The free logical capacity of this resource (gb)",
+            "format": "int64",
+            "type": "integer"
+          },
+          "logical_total": {
+            "default": 0,
+            "description": "The Total logical capacity of this resource (gb)",
+            "format": "int64",
+            "type": "integer"
+          },
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "pool_name": {
+            "description": "Pool (or slice) name",
+            "type": "string"
+          },
+          "protocol": {
+            "description": "protocol",
+            "enum": [
+              "fc",
+              "iscsi"
+            ],
+            "type": "string"
+          },
+          "storage_system": {
+            "$ref": "#/components/schemas/StorageSystem",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          }
+        },
+        "x-serializer": "StorageResource"
+      },
+      "StorageSystem": {
+        "description": "Use to define storage system properties.",
+        "properties": {
+          "management_ip": {
+            "description": "management_ip",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true,
+              "unique": true
+            }
+          },
+          "name": {
+            "description": "name",
+            "maxLength": 15,
+            "type": "string"
+          },
+          "storage_array": {
+            "description": "storage_array",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "storage_family": {
+            "description": "storage_family",
+            "enum": [
+              "",
+              "ontap_7mode",
+              "ontap_cluster"
+            ],
+            "type": "string",
+            "x-model": {
+              "blank": true
+            }
+          },
+          "system_type": {
+            "$ref": "#/components/schemas/SystemType",
+            "x-model": {
+              "on_delete": "models.PROTECT"
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        }
+      },
+      "StorageSystemCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "chap_name": {
+            "description": "chap_name",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "chap_secret": {
+            "description": "chap_secret",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "iqn": {
+            "description": "",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "management_ip": {
+            "description": "management_ip",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true,
+              "unique": true
+            }
+          },
+          "name": {
+            "description": "name",
+            "maxLength": 15,
+            "type": "string"
+          },
+          "password": {
+            "description": "password",
+            "type": "string"
+          },
+          "port_type": {
+            "description": "port_type",
+            "enum": [
+              "ISCSI",
+              "FC",
+              "NVMeFC"
+            ],
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "secondary_ip": {
+            "description": "secondary_ip",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "storage_array": {
+            "description": "storage_array",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "storage_driver": {
+            "default": null,
+            "description": "storage_driver",
+            "type": "string"
+          },
+          "storage_family": {
+            "description": "storage_family",
+            "enum": [
+              "",
+              "ontap_7mode",
+              "ontap_cluster"
+            ],
+            "type": "string",
+            "x-model": {
+              "blank": true
+            }
+          },
+          "system_type": {
+            "$ref": "#/components/schemas/SystemType",
+            "x-serializer": {
+              "slug": "name"
+            }
+          },
+          "user": {
+            "description": "user",
+            "type": "string"
+          },
+          "wwpn": {
+            "description": "wwpn",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          }
+        },
+        "x-serializer": "StorageSystem"
+      },
+      "SystemType": {
+        "description": "Use to define the storage system type.",
+        "properties": {
+          "name": {
+            "default": "xiv",
+            "description": "name",
+            "enum": [
+              "a_line",
+              "xiv",
+              "ds8000",
+              "vmax",
+              "netapp",
+              "ds8x00",
+              "svc"
+            ],
+            "maxLength": 10,
+            "type": "string"
+          },
+          "short_version": {
+            "description": "short_version",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "version": {
+            "description": "SystemType version",
+            "type": "string"
+          }
+        }
+      },
+      "SystemTypeCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "name": {
+            "default": "xiv",
+            "description": "name",
+            "enum": [
+              "a_line",
+              "xiv",
+              "ds8000",
+              "vmax",
+              "netapp",
+              "ds8x00",
+              "svc"
+            ],
+            "maxLength": 10,
+            "type": "string"
+          },
+          "short_version": {
+            "description": "short_version",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "super_type": {
+            "default": null,
+            "description": "super_type",
+            "type": "string",
+            "x-model": {
+              "null": true
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "version": {
+            "description": "SystemType version",
+            "type": "string"
+          }
+        },
+        "x-serializer": "SystemType"
+      },
+      "Volume": {
+        "description": "Define volume properties on a specific storage resource.",
+        "properties": {
+          "compliant": {
+            "default": false,
+            "description": "compliant",
+            "type": "boolean"
+          },
+          "historical_service": {
+            "$ref": "#/components/schemas/Service",
+            "x-model": {
+              "null": true,
+              "on_delete": "custom_protect('Can not delete a service that is associated with volumes.')",
+              "related_name": "\"historical_service\""
+            }
+          },
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "service": {
+            "$ref": "#/components/schemas/Service",
+            "x-model": {
+              "null": true,
+              "on_delete": "custom_protect('Can not delete a service that is associated with volumes.')"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "size": {
+            "description": "size",
+            "type": "integer"
+          },
+          "storage_resource": {
+            "$ref": "#/components/schemas/StorageResource",
+            "x-model": {
+              "on_delete": "models.PROTECT",
+              "related_name": "\"storage_volumes\""
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        }
+      },
+      "VolumeCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "compliant": {
+            "default": false,
+            "description": "compliant",
+            "type": "boolean"
+          },
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "service": {
+            "$ref": "#/components/schemas/Service",
+            "x-model": {
+              "null": true,
+              "on_delete": "custom_protect('Can not delete a service that is associated with volumes.')"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "size": {
+            "description": "size",
+            "type": "integer"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        },
+        "x-serializer": "Volume"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "autosde@il.ibm.com",
+      "name": "autosde"
+    },
+    "description": "Site Manager API",
+    "license": {
+      "name": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "title": "Site Manager API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/abstract-capabilities/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AbstractCapability"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AbstractCapability"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AbstractCapability"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AbstractCapability"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AbstractCapability"
+        ]
+      },
+      "x-model": "AbstractCapability"
+    },
+    "/abstract-capabilities/{pk}/": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AbstractCapability"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AbstractCapability"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AbstractCapability"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AbstractCapability"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "AbstractCapability"
+    },
+    "/accounts/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Account"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Account"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountPostRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AccountPostResponse"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Account"
+        ]
+      },
+      "x-model": "Account"
+    },
+    "/accounts/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Account"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Account"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Account"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Account"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountPostRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Account"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Account"
+        ]
+      },
+      "x-model": "Account"
+    },
+    "/addresses/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Address"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Address"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Address"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Address"
+        ]
+      },
+      "x-model": "Address"
+    },
+    "/addresses/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Address"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Address"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Address"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Address"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "Address"
+    },
+    "/autosde-projects/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AutoSDEProject"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AutoSDEProject"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutoSDEProject"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AutoSDEProject"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AutoSDEProject"
+        ]
+      },
+      "x-model": "AutoSDEProject"
+    },
+    "/autosde-projects/{pk}/": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AutoSDEProject"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AutoSDEProject"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AutoSDEProject"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AutoSDEProject"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "AutoSDEProject"
+    },
+    "/autosde-roles/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AutoSDERole"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AutoSDERole"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutoSDERole"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AutoSDERole"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AutoSDERole"
+        ]
+      },
+      "x-model": "AutoSDERole"
+    },
+    "/autosde-roles/{pk}/": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AutoSDERole"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AutoSDERole"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AutoSDERole"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "AutoSDERole"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "AutoSDERole"
+    },
+    "/capability-translations/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CapabilityTranslation"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "CapabilityTranslation"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CapabilityTranslationCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CapabilityTranslation"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "CapabilityTranslation"
+        ]
+      },
+      "x-model": "CapabilityTranslation"
+    },
+    "/capability-translations/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CapabilityTranslation"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "CapabilityTranslation"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CapabilityTranslation"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "CapabilityTranslation"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "CapabilityTranslation"
+    },
+    "/host-volume-connection/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/HostVolumeConnection"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "HostVolumeConnection"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HostVolumeConnectionCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/HostVolumeConnection"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "HostVolumeConnection"
+        ]
+      },
+      "x-model": "HostVolumeConnection"
+    },
+    "/host-volume-connection/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/HostVolumeConnection"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "HostVolumeConnection"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/HostVolumeConnection"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "HostVolumeConnection"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "HostVolumeConnection"
+    },
+    "/hosts/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Host"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Host"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HostCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Host"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Host"
+        ]
+      },
+      "x-model": "Host"
+    },
+    "/hosts/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Host"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Host"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Host"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Host"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "Host"
+    },
+    "/native-capabilities/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NativeCapability"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "NativeCapability"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NativeCapability"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NativeCapability"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "NativeCapability"
+        ]
+      },
+      "x-model": "NativeCapability"
+    },
+    "/native-capabilities/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NativeCapability"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "NativeCapability"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NativeCapability"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "NativeCapability"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "NativeCapability"
+    },
+    "/profiles/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Profile"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Profile"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Profile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Profile"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Profile"
+        ]
+      },
+      "x-model": "Profile"
+    },
+    "/profiles/{pk}/": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Profile"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Profile"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Profile"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Profile"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "Profile"
+    },
+    "/provisioning-strategy/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProvisioningStrategy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "ProvisioningStrategy"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProvisioningStrategy"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProvisioningStrategy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "ProvisioningStrategy"
+        ]
+      },
+      "x-model": "ProvisioningStrategy"
+    },
+    "/provisioning-strategy/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProvisioningStrategy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "ProvisioningStrategy"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProvisioningStrategy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "ProvisioningStrategy"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "ProvisioningStrategy"
+    },
+    "/service-resource-attchment/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceResourceAttachment"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "ServiceResourceAttachment"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceResourceAttachment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceResourceAttachment"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "ServiceResourceAttachment"
+        ]
+      },
+      "x-model": "ServiceResourceAttachment"
+    },
+    "/service-resource-attchment/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceResourceAttachment"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "ServiceResourceAttachment"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceResourceAttachment"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "ServiceResourceAttachment"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "ServiceResourceAttachment"
+    },
+    "/services/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Service"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Service"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Service"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Service"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Service"
+        ]
+      },
+      "x-model": "Service"
+    },
+    "/services/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Service"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Service"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Service"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Service"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Service"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Service"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Service"
+        ]
+      },
+      "x-model": "Service"
+    },
+    "/storage-resources/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageResource"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageResource"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StorageResource"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageResource"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageResource"
+        ]
+      },
+      "x-model": "StorageResource"
+    },
+    "/storage-resources/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageResource"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageResource"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageResource"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageResource"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StorageResource"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageResource"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageResource"
+        ]
+      },
+      "x-model": "StorageResource"
+    },
+    "/storage-systems/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageSystem"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageSystem"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StorageSystemCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageSystem"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageSystem"
+        ]
+      },
+      "x-model": "StorageSystem"
+    },
+    "/storage-systems/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageSystem"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageSystem"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageSystem"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageSystem"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "StorageSystem"
+    },
+    "/system-types/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SystemType"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "SystemType"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SystemTypeCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SystemType"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "SystemType"
+        ]
+      },
+      "x-model": "SystemType"
+    },
+    "/system-types/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SystemType"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "SystemType"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SystemType"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "SystemType"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "SystemType"
+    },
+    "/volumes/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Volume"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Volume"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VolumeCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Volume"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Volume"
+        ]
+      },
+      "x-model": "Volume"
+    },
+    "/volumes/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Volume"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Volume"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Volume"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Volume"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Volume"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Volume"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Volume"
+        ]
+      },
+      "x-model": "Volume"
+    }
+  },
+  "servers": [
+    {
+      "url": "{protocol}://{host}:{port}/site-manager/api/v1/engine",
+      "variables": {
+        "host": {
+          "default": "localhost"
+        },
+        "port": {
+          "default": "9000"
+        },
+        "protocol": {
+          "default": "http",
+          "enum": [
+            "http",
+            "https"
+          ]
+        }
+      }
+    }
+  ],
+  "security": [
+    {"bearerAuth": [] }
+  ]
+}
