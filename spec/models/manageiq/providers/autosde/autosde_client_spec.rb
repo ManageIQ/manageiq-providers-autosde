@@ -17,7 +17,7 @@ describe ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient do
     VCR.use_cassette("incorrect_login_spec") do
       expect { client.login }.to raise_error(
                                      Exception,
-                                     ManageIQ::Providers::Autosde::PhysicalInfraManager::AutosdeClient::AUTH_ERRR_MSG)
+                                     ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient::AUTH_ERRR_MSG)
     end
   end
 
