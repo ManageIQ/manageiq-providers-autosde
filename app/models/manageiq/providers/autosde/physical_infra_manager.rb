@@ -60,10 +60,10 @@ class ManageIQ::Providers::Autosde::PhysicalInfraManager < ManageIQ::Providers::
   end
 
   def self.ems_type
-    @ems_type ||= "autosde".freeze
+    @ems_type ||= "autosde_physical_infra".freeze
   end
 
   def self.description
-    @description ||= "Autosde".freeze
+    @description ||= "Autosde Physical Infra".freeze
   end
 end

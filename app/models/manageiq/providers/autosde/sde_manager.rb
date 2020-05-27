@@ -52,11 +52,11 @@ class ManageIQ::Providers::Autosde::SdeManager < ManageIQ::Providers::SdeManager
   end
 
   def self.ems_type
-    @ems_type ||= "autosde".freeze
+    @ems_type ||= "autosde sde".freeze
   end
 
   def self.description
-    @description ||= "Autosde".freeze
+    @description ||= "Autosde Sde".freeze
   end
 end
 
