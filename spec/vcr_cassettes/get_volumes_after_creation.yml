@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://9.151.190.208/site-manager/api/v1/engine/volumes/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer KEG5FfWJj8MqRT1NP1B9qiuPeZPWby1GPTrGtDQw
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 28 May 2020 08:16:21 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"compliant":true,"historical_service":2,"name":"vol1","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"7a5fd5f2-6034-40df-a245-966e2c93f42e","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_2","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"db46fad9-543b-4f9f-b858-c3f33498f19d","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_10","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"46a85614-f71c-4e3f-9734-d5ba03d18677","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_11","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"6499e505-fb45-4348-b59a-21bd9081a309","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_13","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"971599c1-0f39-4b68-9ac1-146958f18f6d","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_14","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"8addb3f9-6143-4198-afc9-df0952169631","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_16","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"71e0a422-54f8-4421-801f-acaccfd1f873","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_test_2020-05-28
+        07:37:22 UTC","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"bcf31f20-fa11-46bf-8c96-d45c8077bfc2","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_test_2020-05-28
+        07:59:04 UTC","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"c728da14-d837-4965-a5c4-88ba7c53fe22","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_test_2020-05-28
+        08:16:14 UTC","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"085a686a-bd6a-4932-9e18-f7978a074f94","component_state":"PENDING_CREATION"}]'
+    http_version: 
+  recorded_at: Thu, 28 May 2020 08:16:16 GMT
+recorded_with: VCR 5.0.0

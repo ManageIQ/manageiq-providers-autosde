@@ -7,6 +7,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
 
     LOGIN_URL = "/site-manager/api/v1/engine/oidc-auth/"
     AUTH_ERRR_MSG = "Authentication error occured"
+    HTTP_FORBIDDEN_CODE = 403 # auth token invalid
 
     NoAuthTokenError = Class.new(StandardError)
 
@@ -42,23 +43,27 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
 
         def call_api (http_method, path, opts = {})
             begin
-                puts "1>>>>> in overriden parent token is #{@parent.token}"
                 @parent.login unless @parent.token
                 set_auth_token
                 super
-            rescue StandardError => e
-                puts e.message
-                begin
-                    @parent._log.warn("doing re-login: token is #{@parent.token}")
-                    # bypass private method
-                    @parent.login
-                    set_auth_token
-                    super
-                rescue StandardError
-                    # in case re-login did not help, throw error
-                    @parent._log.error("re-login was unsuccessful: token is #{@parent.token}")
-                    raise # throw the last error
-                end
+            rescue OpenapiClient::ApiError => e
+                case e.code
+                when HTTP_FORBIDDEN_CODE# forbidden code!
+                  begin
+                      @parent._log.warn("doing re-login: token is #{@parent.token}")
+                      # bypass private method
+                      @parent.login
+                      set_auth_token
+                      super
+                  rescue StandardError
+                      # in case re-login did not help, throw error
+                      @parent._log.error("re-login was unsuccessful: token is #{@parent.token}")
+                      raise # throw the last error
+                  end
+                else
+                  # cannot handle
+                  raise
+               end
             end
         end
 
