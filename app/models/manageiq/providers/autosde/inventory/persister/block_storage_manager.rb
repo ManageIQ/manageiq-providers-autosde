@@ -36,6 +36,10 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::BlockStorageManager < 
       )
     end
 
+    add_collection(physical_infra, :storage_resources) do |builder|
+      builder.add_default_values(:ems_id => ->(persister) { persister.manager.id })
+    end
+
   end
 
   def strategy

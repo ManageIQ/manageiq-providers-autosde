@@ -24,7 +24,10 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::BlockStorageManager < Man
 
       storage = persister.collections[:physical_storages].build(**storage_hash, :physical_chassis => chassis)
       persister.collections[:physical_storage_details].build(:resource => storage, :description => "detail description?")
+    end
 
+    collected_data[:storage_resources].each do |storage_resource_hash|
+      persister.collections[:storage_resources].build(**storage_resource_hash)
     end
   end
 
