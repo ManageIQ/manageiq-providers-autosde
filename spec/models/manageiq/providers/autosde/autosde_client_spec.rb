@@ -1,9 +1,9 @@
-describe ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient do
+describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
   AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN = RSpec.configuration.autosde_appliance_host_with_auth_token
 
   it "logs in with right credentials-1" do
-    client = ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient.new(
+    client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
         :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
     VCR.use_cassette("correct_login_spec") do
       expect(client.login).to be_truthy
@@ -11,19 +11,19 @@ describe ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient do
   end
 
   it "raises on login with wrong credentials" do
-    client = ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient.new(
+    client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
         'asfd', :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
 
     VCR.use_cassette("incorrect_login_spec") do
       expect { client.login }.to raise_error(
                                      Exception,
-                                     ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient::AUTH_ERRR_MSG)
+                                     ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::AUTH_ERRR_MSG)
     end
   end
 
   it "gets a list of storage systems" do
 
-    client = ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient.new(
+    client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
         :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
 
     temp = {}
@@ -39,7 +39,7 @@ describe ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient do
 
   it "does not fail when token is bad (ie expired) and re-login" do
 
-    client = ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient.new(
+    client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
         :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
 
     class << client

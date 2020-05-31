@@ -1,4 +1,4 @@
-class ManageIQ::Providers::Autosde::BlockStorageManager::EventCatcher::Runner < ManageIQ::Providers::BaseManager::EventCatcher::Runner
+class ManageIQ::Providers::Autosde::StorageManager::EventCatcher::Runner < ManageIQ::Providers::BaseManager::EventCatcher::Runner
   def stop_event_monitor
     event_monitor_handle.stop
   end

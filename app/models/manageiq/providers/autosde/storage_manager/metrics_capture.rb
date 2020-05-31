@@ -1,4 +1,4 @@
-class ManageIQ::Providers::Autosde::BlockStorageManager::MetricsCapture < ManageIQ::Providers::BaseManager::MetricsCapture
+class ManageIQ::Providers::Autosde::StorageManager::MetricsCapture < ManageIQ::Providers::BaseManager::MetricsCapture
 
   VIM_STYLE_COUNTERS = {
     "cpu_usage_rate_average"  => {

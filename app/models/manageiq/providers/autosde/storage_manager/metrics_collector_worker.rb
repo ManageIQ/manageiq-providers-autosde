@@ -1,4 +1,4 @@
-class ManageIQ::Providers::Autosde::BlockStorageManager::MetricsCollectorWorker < ManageIQ::Providers::BaseManager::MetricsCollectorWorker
+class ManageIQ::Providers::Autosde::StorageManager::MetricsCollectorWorker < ManageIQ::Providers::BaseManager::MetricsCollectorWorker
   require_nested :Runner
 
   self.default_queue_name = "autosde"

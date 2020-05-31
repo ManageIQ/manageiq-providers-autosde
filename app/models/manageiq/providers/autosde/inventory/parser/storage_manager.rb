@@ -1,8 +1,8 @@
 # This class is supposed to take the parser and the collector, and build a snapshot of the inventory.
 # The snapshot is then compared against the DB and the DB is adjusted to fit the snapshot.
-class ManageIQ::Providers::Autosde::Inventory::Parser::BlockStorageManager < ManageIQ::Providers::Inventory::Parser
+class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ::Providers::Inventory::Parser
 
-  # @return [ManageIQ::Providers::Autosde::Inventory::Collector::BlockStorageManager]
+  # @return [ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager]
   attr_accessor :collector
 
   # The main function that's supposed to build the inventory_items in persister.collection based on collector's data

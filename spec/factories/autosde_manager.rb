@@ -13,10 +13,10 @@ FactoryBot.define do
   end
 
   # naming confention is if we wanna class called Autosde::CamelCase, we name the factory :autosde_camel_case
-  # ManageIQ::Providers::Autosde::BlockStorageManager => :autosde_block_storage_manager
-  factory :autosde_block_storage_manager,
+  # ManageIQ::Providers::Autosde::StorageManager => :autosde_storage_manager
+  factory :autosde_storage_manager,
           :parent => :ext_management_system,
-          :class => "ManageIQ::Providers::Autosde::BlockStorageManager" do
+          :class => "ManageIQ::Providers::Autosde::StorageManager" do
   end
 
 end

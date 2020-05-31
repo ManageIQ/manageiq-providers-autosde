@@ -1,7 +1,7 @@
 # This class is supposed to collect raw output from the managed system
-class ManageIQ::Providers::Autosde::Inventory::Collector::BlockStorageManager < ManageIQ::Providers::Inventory::Collector
+class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < ManageIQ::Providers::Inventory::Collector
 
-  # @return [ManageIQ::Providers::Autosde::BlockStorageManager]
+  # @return [ManageIQ::Providers::Autosde::StorageManager]
   attr_accessor :manager
 
   def collect
@@ -20,7 +20,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::BlockStorageManager < 
 
     new_inventory[:storage_resources] = []
     @manager.autosde_client.class::StorageResourceApi.new.storage_resources_get.each do |resource|
-      # @type [ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient::StorageResource]
+      # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::StorageResource]
       resource = resource
       new_inventory[:storage_resources] << {
           :name => resource.name,

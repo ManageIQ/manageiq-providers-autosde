@@ -1,7 +1,7 @@
 require 'json'
 require_relative 'openapi_client/generated/lib/openapi_client'
 
-class ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient
+class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
     include Vmdb::Logging
     include OpenapiClient
 

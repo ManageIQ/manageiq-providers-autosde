@@ -1,6 +1,6 @@
 # This clas builds the collections. The parser then adds actual inventory items to the collections.
 # Generally, one collection per application-record class.
-class ManageIQ::Providers::Autosde::Inventory::Persister::BlockStorageManager < ManageIQ::Providers::Inventory::Persister
+class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < ManageIQ::Providers::Inventory::Persister
 
   # @return [Hash{Symbol => InventoryRefresh::InventoryCollection}] collections
   attr_reader  :collections

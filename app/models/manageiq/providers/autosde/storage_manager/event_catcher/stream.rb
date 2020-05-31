@@ -1,4 +1,4 @@
-class ManageIQ::Providers::Autosde::BlockStorageManager::EventCatcher::Stream
+class ManageIQ::Providers::Autosde::StorageManager::EventCatcher::Stream
   class ProviderUnreachable < ManageIQ::Providers::BaseManager::EventCatcher::Runner::TemporaryFailure
   end
 
