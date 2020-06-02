@@ -26,6 +26,14 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 #     # uuid
 #     attr_accessor :uuid
 #
+#
+#  Problem with autosde REST objects
+#  see https://jira.xiv.ibm.com/browse/SDE-1203
+#  Autosde server and Autosde client both are generated from oas configuration file
+#  In all places , where client anticipates object, the uuid is used instead.
+#  So, such parameter should be replaced by uuid in all places.
+#  See example of using below
+#
 
   AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN = RSpec.configuration.autosde_appliance_host_with_auth_token
 
@@ -86,6 +94,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     # create new volume
     vol_name = 'vol_test_' + Time.now.getutc.to_s
     vol_to_create = client.class::VolumeCreate.new(service: service, name: vol_name, size: 10)
+    # replace by uuid, see explanation at top
     vol_to_create.service = service.uuid
     VCR.use_cassette("create_new_volume") do
       client.class::VolumeApi.new.volumes_post(vol_to_create)
