@@ -7,13 +7,14 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
 
     LOGIN_URL = "/site-manager/api/v1/engine/oidc-auth/"
     AUTH_ERRR_MSG = "Authentication error occured"
-    HTTP_FORBIDDEN_CODE = 403 # auth token invalid
+    AUTH_TOKEN_INVALID = Rack::Utils.status_code(:forbidden)
 
     NoAuthTokenError = Class.new(StandardError)
 
     # open generated class and add method for setting custom client
     class OpenapiClient::ApiClient
-        def self.default=(c)
+      #noinspection RubyClassVariableUsageInspection
+      def self.default=(c)
             @@default = c
         end
     end
@@ -47,8 +48,8 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
                 set_auth_token
                 super
             rescue OpenapiClient::ApiError => e
-                case e.code
-                when HTTP_FORBIDDEN_CODE# forbidden code!
+              case e.code
+                when AUTH_TOKEN_INVALID
                   begin
                       @parent._log.warn("doing re-login: token is #{@parent.token}")
                       # bypass private method

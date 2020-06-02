@@ -1,16 +1,38 @@
-require 'spec_helper'
+describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
+# assumption to the test
+# -system exists
+# -resource(pool) exists
+# service exists
+#
+# When creating object, how to know which attributes to set in initializer?
+# Autocomplete does not help
+# Example: create Volume
+# Using client.class::VolumeCreate.new(service: service, name: vol_name, size: 10)
+# In order to know attributes, click on VolumeCreate, and see all its attributes accessors.
+# This will give all anticipated attributes
+# module OpenapiClient
+# class VolumeCreate
+#     # compliant
+#     attr_accessor :compliant
+#
+#     # name
+#     attr_accessor :name
+#
+#     attr_accessor :service
+#
+#     # size
+#     attr_accessor :size
+#
+#     # uuid
+#     attr_accessor :uuid
+#
 
-describe ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient do
-
-  AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN =   RSpec.configuration.autosde_appliance_host_with_auth_token
-      # '9.151.190.208'
+  AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN = RSpec.configuration.autosde_appliance_host_with_auth_token
 
   it "creates volume on storage system" do
 
-    client = ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient.new(
+    client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
         :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
-
-    resources = nil
 
     # retrieve storage system
     storage_systems = nil
@@ -20,11 +42,6 @@ describe ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient do
       expect(storage_systems).to be_an_instance_of(Array)
     end
 
-    # get first system
-    storage_system = storage_systems.first
-
-    storage_resources = nil
-
     # retrieve storage resource (pools)
     #  @type [Array<OpenapiClient::StorageResource>]
     VCR.use_cassette("get_storage_resources") do
@@ -32,8 +49,6 @@ describe ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient do
       expect(storage_resources).to be_an_instance_of(Array)
     end
 
-    # get first resource
-    storage_resource = storage_resources.first
     services = nil
     # retrieve service
     VCR.use_cassette("get_services") do
@@ -43,15 +58,13 @@ describe ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient do
     end
 
     service = services.first
-    service_id = service.uuid
-    puts "service: #{service}"
 
     # retrieve attachment
     # @type [Array<OpenapiClient::ServiceResourceAttachment>]
     # override to get uuid, not object
     class OpenapiClient::ServiceResourceAttachment
       def self.openapi_types
-         {
+        {
             :'compliant' => :'Boolean',
             :'service' => :'String',
             :'storage_resource' => :'String',
@@ -63,37 +76,26 @@ describe ManageIQ::Providers::Autosde::BlockStorageManager::AutosdeClient do
       service_resource_map = client.class::ServiceResourceAttachmentApi.new.service_resource_attchment_get
       expect(service_resource_map).to be_an_instance_of(Array)
     end
-
     volumes = nil
     # get existing volumes
     # @type [Array<OpenapiClient::Volume>]
     VCR.use_cassette("get_volumes") do
       volumes = client.class::VolumeApi.new.volumes_get
     end
-
-    puts "volumes: #{volumes}"
     volumes_count = volumes.count
-
     # create new volume
     vol_name = 'vol_test_' + Time.now.getutc.to_s
-    puts "GGGGGGGGGG_" + vol_name
-
-    vol_to_create = client.class::VolumeCreate.build_from_hash(service: service, name: vol_name, size: 10)
-    vol_to_create.service= service.uuid
-    puts "vol to create: #{vol_to_create}"
+    vol_to_create = client.class::VolumeCreate.new(service: service, name: vol_name, size: 10)
+    vol_to_create.service = service.uuid
     VCR.use_cassette("create_new_volume") do
       client.class::VolumeApi.new.volumes_post(vol_to_create)
     end
 
-    # after: again get all volumes
-
+    # after create volume: again get all volumes
     VCR.use_cassette("get_volumes_after_creation") do
       volumes = client.class::VolumeApi.new.volumes_get
-      puts "volumes: #{volumes.count}"
-      expect(volumes.count).to  eq(volumes_count +1)
+      expect(volumes.count).to eq(volumes_count + 1)
     end
-
   end
-
 end
 
