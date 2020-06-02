@@ -6,38 +6,18 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
   attr_reader  :collections
 
   def initialize_inventory_collections
-    %i[
-      physical_storages
-      physical_storage_details
-      physical_chassis
-    ].each do |name|
-      add_collection(physical_infra, name)
-    end
 
-    add_collection(physical_infra, :computer_systems) do |builder|
-      builder.add_properties(
-          :manager_ref => %i[managed_entity],
-          :parent_inventory_collections => [:physical_chassis]
-      )
-    end
-
-
-    add_collection(physical_infra, :hardwares) do |builder|
-      builder.add_properties(
-          :manager_ref => %i[computer_system],
-          :parent_inventory_collections => [:computer_systems]
-      )
-    end
-
-    add_collection(physical_infra, :volumes) do |builder|
-      builder.add_properties(
-          :manager_ref => %i[hardware],
-          :parent_inventory_collections => [:hardwares]
-      )
+    add_collection(physical_infra, :storage_systems) do |builder|
+      builder.add_default_values(:ems_id => ->(persister) { persister.manager.id })
     end
 
     add_collection(physical_infra, :storage_resources) do |builder|
-      builder.add_default_values(:ems_id => ->(persister) { persister.manager.id })
+      builder.add_default_values(
+          :ems_id => ->(persister) { persister.manager.id }
+      )
+      builder.add_properties(
+        :parent_inventory_collections => [:storage_systems]
+      )
     end
 
   end

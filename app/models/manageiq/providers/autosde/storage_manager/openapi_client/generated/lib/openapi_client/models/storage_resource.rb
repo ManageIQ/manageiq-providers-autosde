@@ -83,7 +83,7 @@ module OpenapiClient
         :'name' => :'String',
         :'pool_name' => :'String',
         :'protocol' => :'String',
-        :'storage_system' => :'StorageSystem',
+        :'storage_system' => :'String',
         :'uuid' => :'String'
       }
     end

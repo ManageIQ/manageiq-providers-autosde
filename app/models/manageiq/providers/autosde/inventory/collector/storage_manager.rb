@@ -7,14 +7,17 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   def collect
     new_inventory = {}
 
-    new_inventory[:physical_storages] = []
-
-    @manager.autosde_client.class::StorageSystemApi.new.storage_systems_get.each do |storage|
-      #  @type [OpenapiClient::StorageSystem] storage
-      new_inventory[:physical_storages] << {
-          :name => storage.name,
-          :uid_ems => storage.uuid,
-          :ems_ref => storage.uuid,
+    new_inventory[:storage_systems] = []
+    @manager.autosde_client.class::StorageSystemApi.new.storage_systems_get.each do |system|
+      # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::StorageSystem]
+      system = system
+      new_inventory[:storage_systems] << {
+          :name => system.name,
+          :ems_ref => system.uuid,
+          :uuid => system.uuid,
+          :system_type => system.system_type,
+          :storage_family => system.storage_family,
+          :management_ip => system.management_ip
       }
     end
 
@@ -29,6 +32,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
           :logical_free => resource.logical_free,
           :logical_total => resource.logical_total,
           :pool_name => resource.pool_name,
+          :storage_system_uuid => resource.storage_system
       }
     end
 

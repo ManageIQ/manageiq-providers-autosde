@@ -31,6 +31,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   # todo (per gregoryb): attach resource through storage-system, not directly.
   has_many :storage_resources, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
+  has_many :storage_systems, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
 
   # Asset details
   has_many :physical_server_details,  :through => :physical_servers,  :source => :asset_detail

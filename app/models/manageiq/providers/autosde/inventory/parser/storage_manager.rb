@@ -14,22 +14,12 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def parse
     collected_data = collector.collect
 
-    collected_data[:physical_storages].each do |storage_hash|
-      chassis = persister.collections[:physical_chassis].build(:ems_ref => storage_hash[:ems_ref])
-      computer_system = persister.collections[:computer_systems].build(:managed_entity => chassis)
-      hardware = persister.collections[:hardwares].build(:computer_system => computer_system)
-
-      # dummy volume to show how to create volumes
-      persister.collections[:volumes].build(:uid => '34', :hardware => hardware)
-
-      storage = persister.collections[:physical_storages].build(**storage_hash, :physical_chassis => chassis)
-      persister.collections[:physical_storage_details].build(:resource => storage, :description => "detail description?")
-    end
-
-    collected_data[:storage_resources].each do |storage_resource_hash|
-      persister.collections[:storage_resources].build(**storage_resource_hash)
+    collected_data[:storage_systems].each do |storage_system_hash|
+      storage_system = persister.collections[:storage_systems].build(**storage_system_hash, )
+      collected_data[:storage_resources].select  {|h| h[:storage_system_uuid] == storage_system_hash[:uuid]}.each do |storage_resource_hash|
+        storage_resource_hash.except!(:storage_system_uuid)
+        persister.collections[:storage_resources].build(**storage_resource_hash, storage_system: storage_system)
+      end
     end
   end
-
 end
-
