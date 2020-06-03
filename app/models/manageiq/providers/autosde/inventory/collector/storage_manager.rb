@@ -36,6 +36,20 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       }
     end
 
+    new_inventory[:storage_volumes] = []
+    @manager.autosde_client.class::VolumeApi.new.volumes_get.each do |volume|
+      # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::Volume]
+      volume = volume
+      new_inventory[:storage_volumes] << {
+          :name => volume.name,
+          :compliant => volume.compliant,
+          :size => volume.size,
+          :ems_ref => volume.uuid,
+          :uuid => volume.uuid,
+          :storage_resource_uuid => volume.storage_resource
+      }
+    end
+
     @inventory = new_inventory
   end
 end

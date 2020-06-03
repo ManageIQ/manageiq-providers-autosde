@@ -6,32 +6,11 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   require_nested :RefreshParser
   require_nested :AutosdeClient
 
-
-
-
-
-
-
-
   include ManageIQ::Providers::StorageManager::BlockMixin
 
-  has_many :physical_chassis,  :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
-  has_many :computer_systems, :through => :physical_chassis, :source => :computer_system
-  has_many :hardwares, :through => :computer_systems, :source => :hardware
-  # has_many :volumes, :through => :hardwares, :source => :volumes
-  has_many :volumes, :foreign_key => "hardware_id", :source => :volumes
-  has_many :physical_servers,  :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
-  # has_many :physical_storages, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
-  # has_many :physical_pools, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
-
-  # TODO (erezt):
-  #has_many :services, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
-  #has_many :resources, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
-
-
-  # todo (per gregoryb): attach resource through storage-system, not directly.
   has_many :storage_resources, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
   has_many :storage_systems, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
+  has_many :storage_volumes, :foreign_key => "ems_id", :dependent => :destroy,  :inverse_of => :ext_management_system
 
   # Asset details
   has_many :physical_server_details,  :through => :physical_servers,  :source => :asset_detail
@@ -151,13 +130,6 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     n_('Storage Manager', 'Storage Managers', number)
   end
 
-
-
-
-
-
-
-
   def autosde_client
     if @autosde_client.nil?
       @autosde_client = self.class.raw_connect(address)
@@ -211,3 +183,62 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   end
 end
 
+
+# this is a workaround for our malfunctioning client
+# See https://jira.xiv.ibm.com/browse/SDE-1203
+module OpenapiClient
+  class Volume
+    def self.openapi_types
+      {
+          :'compliant' => :'Boolean',
+          :'historical_service' => :'String',
+          :'name' => :'String',
+          :'service' => :'String',
+          :'size' => :'Integer',
+          :'storage_resource' => :'String',
+          :'uuid' => :'String'
+      }
+    end
+  end
+
+  class VolumeCreate
+    def self.openapi_types
+      {
+          :'compliant' => :'Boolean',
+          :'name' => :'String',
+          :'service' => :'String',
+          :'size' => :'Integer',
+          :'uuid' => :'String'
+      }
+    end
+  end
+
+  class StorageResource
+    def self.openapi_types
+      {
+          :'advanced_attributes_map' => :'String',
+          :'logical_free' => :'Integer',
+          :'logical_total' => :'Integer',
+          :'name' => :'String',
+          :'pool_name' => :'String',
+          :'protocol' => :'String',
+          :'storage_system' => :'String',
+          :'uuid' => :'String'
+      }
+    end
+  end
+
+  class StorageResourceCreate
+    def self.openapi_types
+      {
+          :'advanced_attributes_map' => :'String',
+          :'logical_free' => :'Integer',
+          :'logical_total' => :'Integer',
+          :'name' => :'String',
+          :'pool_name' => :'String',
+          :'protocol' => :'String',
+          :'storage_system' => :'String'
+      }
+    end
+  end
+end

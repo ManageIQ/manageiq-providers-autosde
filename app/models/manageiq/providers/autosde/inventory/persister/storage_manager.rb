@@ -7,16 +7,28 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
 
   def initialize_inventory_collections
 
+    # storage systems
     add_collection(physical_infra, :storage_systems) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.manager.id })
     end
 
+    # storage resources
     add_collection(physical_infra, :storage_resources) do |builder|
       builder.add_default_values(
           :ems_id => ->(persister) { persister.manager.id }
       )
       builder.add_properties(
         :parent_inventory_collections => [:storage_systems]
+      )
+    end
+
+    # storage volumes
+    add_collection(physical_infra, :storage_volumes) do |builder|
+      builder.add_default_values(
+          :ems_id => ->(persister) { persister.manager.id }
+      )
+      builder.add_properties(
+          :parent_inventory_collections => [:storage_resources]
       )
     end
 
