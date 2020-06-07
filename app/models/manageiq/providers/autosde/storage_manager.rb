@@ -130,6 +130,13 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     n_('Storage Manager', 'Storage Managers', number)
   end
 
+  def textual_group_list
+    [
+        %i[properties status],
+        %i[storage_relationships topology]
+    ]
+  end
+
   def autosde_client
     if @autosde_client.nil?
       @autosde_client = self.class.raw_connect(address)
