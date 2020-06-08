@@ -26,5 +26,10 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         end
       end
     end
+
+    collected_data[:storage_services].each do |storage_service_hash|
+      persister.collections[:storage_services].build(**storage_service_hash)
+    end
+
   end
 end

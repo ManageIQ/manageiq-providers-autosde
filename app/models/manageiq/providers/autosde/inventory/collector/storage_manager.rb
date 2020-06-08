@@ -50,6 +50,20 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       }
     end
 
+    new_inventory[:storage_services] = []
+    @manager.autosde_client.class::ServiceApi.new.services_get.each do |service|
+      # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::Service]
+      service = service
+      new_inventory[:storage_services] << {
+          name: service.name,
+          description: service.description,
+          uuid: service.uuid,
+          version: service.version,
+          ems_ref: service.uuid,
+      }
+
+    end
+
     @inventory = new_inventory
   end
 end

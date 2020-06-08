@@ -32,6 +32,13 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
       )
     end
 
+    # storage services
+    add_collection(physical_infra, :storage_services) do |builder|
+      builder.add_default_values(
+          :ems_id => ->(persister) { persister.manager.id }
+      )
+    end
+
   end
 
   def strategy

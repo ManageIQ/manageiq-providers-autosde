@@ -9,6 +9,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   include ManageIQ::Providers::StorageManager::BlockMixin
 
   has_many :storage_resources, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
+  has_many :storage_services, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
   has_many :storage_systems, :foreign_key => "ems_id", :dependent => :destroy, :inverse_of => :ext_management_system
   has_many :storage_volumes, :foreign_key => "ems_id", :dependent => :destroy,  :inverse_of => :ext_management_system
 
