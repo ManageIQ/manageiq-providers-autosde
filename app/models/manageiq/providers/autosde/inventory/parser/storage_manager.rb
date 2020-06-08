@@ -20,9 +20,9 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         storage_resource_hash.except!(:storage_system_uuid)
         storage_resource = persister.collections[:storage_resources].build(**storage_resource_hash, storage_system: storage_system)
 
-        collected_data[:storage_volumes].select {|h| h[:storage_resource_uuid] == storage_resource_hash[:uuid]}.each do |storage_volume_hash|
-          storage_volume_hash.except!(:storage_resource_uuid)
-          persister.collections[:storage_volumes].build(**storage_volume_hash, storage_resource: storage_resource)
+        collected_data[:cloud_volumes].select {|h| h[:storage_resource_uuid] == storage_resource_hash[:uuid]}.each do |cloud_volume_hash|
+          cloud_volume_hash.except!(:storage_resource_uuid)
+          persister.collections[:cloud_volumes].build(**cloud_volume_hash, storage_resource: storage_resource)
         end
       end
     end
