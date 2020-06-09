@@ -15,7 +15,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
           :name => system.name,
           :ems_ref => system.uuid,
           :uuid => system.uuid,
-          :system_type => system.system_type,
+          # :system_type => system.system_type,
           :storage_family => system.storage_family,
           :management_ip => system.management_ip
       }
