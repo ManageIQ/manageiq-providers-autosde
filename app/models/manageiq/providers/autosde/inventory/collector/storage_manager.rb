@@ -45,7 +45,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
           :compliant => volume.compliant,
           :size => volume.size,
           :ems_ref => volume.uuid,
-          :storage_resource_uuid => volume.storage_resource
+          :storage_resource_uuid => volume.storage_resource,
+          :storage_service_uuid => volume.service
       }
     end
 

@@ -32,21 +32,21 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
       )
     end
 
+
+    # storage services
+    add_collection(physical_infra, :storage_services) do |builder|
+      builder.add_default_values(
+          :ems_id => ->(persister) { persister.manager.id }
+      )
+    end
+
     # cloud volumes
     add_collection(physical_infra, :cloud_volumes) do |builder|
       builder.add_default_values(
           :ems_id => ->(persister) { persister.manager.id }
       )
       builder.add_properties(
-          :parent_inventory_collections => [:storage_resources]
-      )
-    end
-
-
-    # storage services
-    add_collection(physical_infra, :storage_services) do |builder|
-      builder.add_default_values(
-          :ems_id => ->(persister) { persister.manager.id }
+          :model_class => ManageIQ::Providers::Autosde::StorageManager::CloudVolume
       )
     end
 

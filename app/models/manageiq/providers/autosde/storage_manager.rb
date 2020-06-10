@@ -201,6 +201,7 @@ module OpenapiClient
           :'service' => :'String',
           :'size' => :'Integer',
           :'storage_resource' => :'String',
+          :'storage_service' => :'String',
           :'uuid' => :'String'
       }
     end
@@ -212,6 +213,7 @@ module OpenapiClient
           :'compliant' => :'Boolean',
           :'name' => :'String',
           :'service' => :'String',
+          :'resource' => :'String',
           :'size' => :'Integer',
           :'uuid' => :'String'
       }

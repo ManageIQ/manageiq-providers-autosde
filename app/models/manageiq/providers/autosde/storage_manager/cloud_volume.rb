@@ -3,14 +3,21 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   # Has to be override the base method.. It's supposed to implement creating the volume on the EMS.
   # But I only create it in MIQ DB for now.
-  # @param [ExtManagementSystem] _ext_management_system
+  # @param [ManageIQ::Providers::Autosde] _ext_management_system
   def self.raw_create_volume(_ext_management_system, _options = {})
-    storage_resource = _options[:storage_resource]
-    # todo [per gregoryb]: here we need to send the command to autosde to create the volume
+    # @type [StorageService]
+    storage_service = _options[:storage_service]
+
+    vol_to_create = _ext_management_system.autosde_client.class::VolumeCreate.new(
+        service: storage_service.ems_ref,
+        name: _options[:name],
+        size: _options[:size]
+    )
+    _ext_management_system.autosde_client.class::VolumeApi.new.volumes_post(vol_to_create)
 
     self.create(
         :ext_management_system => _ext_management_system,
-        :storage_resource => storage_resource,
+        :storage_service => storage_service,
         **_options
     )
 
