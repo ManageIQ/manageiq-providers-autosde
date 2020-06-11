@@ -15,7 +15,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
           :name => system.name,
           :ems_ref => system.uuid,
           :uuid => system.uuid,
-          # :system_type => system.system_type,
+          :system_type_uuid => system.system_type.uuid,
           :storage_family => system.storage_family,
           :management_ip => system.management_ip
       }
@@ -60,6 +60,18 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
           uuid: service.uuid,
           version: service.version,
           ems_ref: service.uuid,
+      }
+
+    end
+
+    new_inventory[:storage_system_types] = []
+    @manager.autosde_client.class::SystemTypeApi.new.system_types_get.each do |system_type|
+      # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::SystemType]
+      system_type = system_type
+      new_inventory[:storage_system_types] << {
+          name: system_type.name,
+          ems_ref: system_type.uuid,
+          version: system_type.version
       }
 
     end

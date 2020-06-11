@@ -13,15 +13,21 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   # )#
   def parse
     collected_data = collector.collect
-    resources = {}
+
+    collected_data[:storage_system_types].each do |storage_system_type_hash|
+      persister.collections[:storage_system_types].build(**storage_system_type_hash)
+    end
 
     collected_data[:storage_systems].each do |storage_system_hash|
-      storage_system = persister.collections[:storage_systems].build(**storage_system_hash, )
+      system_type_uuid = storage_system_hash.delete(:system_type_uuid)
+      storage_system_type = persister.collections[:storage_system_types].data_storage.data.select {|st| st.ems_ref == system_type_uuid}[0]
+      storage_system = persister.collections[:storage_systems].build(
+          storage_system_type: storage_system_type,
+        **storage_system_hash )
 
       collected_data[:storage_resources].select  {|h| h[:storage_system_uuid] == storage_system_hash[:uuid]}.each do |storage_resource_hash|
         storage_resource_hash.delete(:storage_system_uuid)
-        storage_resource = persister.collections[:storage_resources].build(**storage_resource_hash, storage_system: storage_system)
-        resources[storage_resource.ems_ref] = storage_resource
+        persister.collections[:storage_resources].build(**storage_resource_hash, storage_system: storage_system)
       end
     end
 
@@ -30,7 +36,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
 
       collected_data[:cloud_volumes].select {|h| h[:storage_service_uuid] == storage_service_hash[:uuid]}.each do |cloud_volume_hash|
         storage_resource_uuid = cloud_volume_hash.delete(:storage_resource_uuid)
-        storage_resource = resources[storage_resource_uuid]
+        storage_resource = persister.collections[:storage_resources].data_storage.data.select {|sr| sr.ems_ref == storage_resource_uuid} .first
         cloud_volume_hash.delete(:storage_service_uuid)
         persister.collections[:cloud_volumes].build(**cloud_volume_hash, storage_resource: storage_resource, storage_service: storage_service)
       end
