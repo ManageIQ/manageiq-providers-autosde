@@ -159,8 +159,10 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     raise MiqException::MiqHostError, "No credentials defined" if missing_credentials?(options[:auth_type])
 
     auth_token = authentication_token(options[:auth_type])
+    username   = options[:user] || authentication_userid(options[:auth_type])
+    password   = options[:pass] || authentication_password(options[:auth_type])
     host       = options[:host] || address
-    self.class.raw_connect(host).login
+    self.class.raw_connect(username, password, host).login
   end
 
   def self.validate_authentication_args(params)
@@ -170,8 +172,8 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   # is this just for verifying credentials for when you create a new instance?
   # @return AutosdeClient
-  def self.raw_connect(host)
-    ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(host: host)
+  def self.raw_connect(username, password, host)
+    ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(username: username, password: password, host: host)
   end
 
   def self.hostname_required?

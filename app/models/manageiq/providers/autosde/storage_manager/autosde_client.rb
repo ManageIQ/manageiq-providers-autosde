@@ -5,8 +5,8 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
     include Vmdb::Logging
     include OpenapiClient
 
-    LOGIN_URL = "/site-manager/api/v1/engine/oidc-auth/"
-    AUTH_ERRR_MSG = "Authentication error occured"
+    LOGIN_URL = "/site-manager/api/v1/engine/token-auth/"
+    # AUTH_ERRR_MSG = "Authentication error occured"
     AUTH_TOKEN_INVALID = Rack::Utils.status_code(:forbidden)
 
     NoAuthTokenError = Class.new(StandardError)
@@ -19,16 +19,16 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
         end
     end
 
-    attr_accessor :token, :host
+    attr_accessor :token, :username, :password, :host
 
     # todo (per gregoryb): remove IBM keys from the code (maybe to artifactory)
-    def initialize(username = "udyum@mailnesia.com", password = "abCd_1234", client_id = "NDBhNDk5MzAtZGZjMi00", secret_id = "NTNkMDdkNmMtNjFkYi00", host: "9.151.190.137")
+    def initialize(username: "udyum@mailnesia.com", password: "abCd_1234", client_id: "NDBhNDk5MzAtZGZjMi00", secret_id: "NTNkMDdkNmMtNjFkYi00", host: "9.151.190.137")
         @username = username
         @password = password
         @host = host
-        @client_id = client_id
-        @secret_id = secret_id
-        @port = 443
+        # @client_id = client_id
+        # @secret_id = secret_id
+        @port = 8000
         @token = nil
         @logedin = false
         # make generated code to reference our class
@@ -85,20 +85,22 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
 
     def login
         payload = {
-            :client_id => @client_id,
-            :secret_id => @secret_id,
+            # :client_id => @client_id,
+            # :secret_id => @secret_id,
             :username => @username,
             :password => @password,
         }
 
         @token = nil
         res = _request(Net::HTTP::Post, LOGIN_URL, payload)
+        # if res.code != "200"
         if res.instance_of? Net::HTTPOK
-            @token = JSON.parse(res.body)["access_token"]
+            @token = JSON.parse(res.body)["token"]
             @login = true
         else
             @login = false
-            raise Exception.new AUTH_ERRR_MSG
+            # raise Exception.new AUTH_ERRR_MSG
+            raise res.read_body
         end
     end
 
