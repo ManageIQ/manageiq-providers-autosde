@@ -22,13 +22,11 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
     attr_accessor :token, :username, :password, :host
 
     # todo (per gregoryb): remove IBM keys from the code (maybe to artifactory)
-    def initialize(username: "udyum@mailnesia.com", password: "abCd_1234", client_id: "NDBhNDk5MzAtZGZjMi00", secret_id: "NTNkMDdkNmMtNjFkYi00", host: "9.151.190.137")
+    def initialize(username: "autosde", password: "change_me", host: "9.151.190.137")
         @username = username
         @password = password
         @host = host
-        # @client_id = client_id
-        # @secret_id = secret_id
-        @port = 8000
+        @port = 443
         @token = nil
         @logedin = false
         # make generated code to reference our class
@@ -85,8 +83,6 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
 
     def login
         payload = {
-            # :client_id => @client_id,
-            # :secret_id => @secret_id,
             :username => @username,
             :password => @password,
         }

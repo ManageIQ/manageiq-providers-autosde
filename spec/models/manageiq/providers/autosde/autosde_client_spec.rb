@@ -1,10 +1,14 @@
 describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
   AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN = RSpec.configuration.autosde_appliance_host_with_auth_token
+  AUTOSDE_SITE_MANAGER_USER = RSpec.configuration.autosde_site_manager_user
+  AUTOSDE_SITE_MANAGER_PASSWORD = RSpec.configuration.autosde_site_manager_password
 
   it "logs in with right credentials-1" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
+        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        :username => AUTOSDE_SITE_MANAGER_USER,
+        :password => AUTOSDE_SITE_MANAGER_PASSWORD)
     VCR.use_cassette("correct_login_spec") do
       expect(client.login).to be_truthy
     end
@@ -12,7 +16,9 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
   it "raises on login with wrong credentials" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-        'asfd', :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
+        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        :username => 'wrong_user',
+        :password => AUTOSDE_SITE_MANAGER_PASSWORD)
 
     VCR.use_cassette("incorrect_login_spec") do
       expect { client.login }.to raise_error(
@@ -24,7 +30,9 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   it "gets a list of storage systems" do
 
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
+        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        :username => AUTOSDE_SITE_MANAGER_USER,
+        :password => AUTOSDE_SITE_MANAGER_PASSWORD)
 
     temp = {}
 
@@ -40,7 +48,9 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   it "does not fail when token is bad (ie expired) and re-login" do
 
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN)
+        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        :username => AUTOSDE_SITE_MANAGER_USER,
+        :password => AUTOSDE_SITE_MANAGER_PASSWORD)
 
     class << client
       attr_accessor :token
