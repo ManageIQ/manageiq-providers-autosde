@@ -42,7 +42,7 @@ module OpenapiClient
     attr_accessor :storage_array
 
     # storage_driver
-    attr_accessor :storage_driver
+    # attr_accessor :storage_driver
 
     # storage_family
     attr_accessor :storage_family
@@ -54,6 +54,9 @@ module OpenapiClient
 
     # wwpn
     attr_accessor :wwpn
+
+    attr_accessor :auto_setup
+    attr_accessor :auto_add_pools
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -89,11 +92,13 @@ module OpenapiClient
         :'port_type' => :'port_type',
         :'secondary_ip' => :'secondary_ip',
         :'storage_array' => :'storage_array',
-        :'storage_driver' => :'storage_driver',
+        # :'storage_driver' => :'storage_driver',
         :'storage_family' => :'storage_family',
         :'system_type' => :'system_type',
         :'user' => :'user',
-        :'wwpn' => :'wwpn'
+        :'wwpn' => :'wwpn',
+        :'auto_add_pools' => :'auto_add_pools',
+        :'auto_setup' => :'auto_setup'
       }
     end
 
@@ -109,11 +114,13 @@ module OpenapiClient
         :'port_type' => :'String',
         :'secondary_ip' => :'String',
         :'storage_array' => :'String',
-        :'storage_driver' => :'String',
+        # :'storage_driver' => :'String',
         :'storage_family' => :'String',
         :'system_type' => :'SystemType',
         :'user' => :'String',
-        :'wwpn' => :'String'
+        :'wwpn' => :'String',
+      :'auto_add_pools' => :'Boolean',
+          :'auto_setup' => :'Boolean'
       }
     end
 
@@ -174,11 +181,11 @@ module OpenapiClient
         self.storage_array = attributes[:'storage_array']
       end
 
-      if attributes.key?(:'storage_driver')
-        self.storage_driver = attributes[:'storage_driver']
-      else
-        self.storage_driver = 'null'
-      end
+      # if attributes.key?(:'storage_driver')
+      #   self.storage_driver = attributes[:'storage_driver']
+      # else
+      #   self.storage_driver = 'null'
+      # end
 
       if attributes.key?(:'storage_family')
         self.storage_family = attributes[:'storage_family']
@@ -195,7 +202,17 @@ module OpenapiClient
       if attributes.key?(:'wwpn')
         self.wwpn = attributes[:'wwpn']
       end
+
+      if attributes.key?(:'auto_add_pools')
+        self.auto_add_pools = attributes[:'auto_add_pools']
+      end
+
+      if attributes.key?(:'auto_setup')
+        self.auto_setup = attributes[:'auto_setup']
+      end
     end
+
+
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
@@ -263,7 +280,7 @@ module OpenapiClient
           port_type == o.port_type &&
           secondary_ip == o.secondary_ip &&
           storage_array == o.storage_array &&
-          storage_driver == o.storage_driver &&
+          # storage_driver == o.storage_driver &&
           storage_family == o.storage_family &&
           system_type == o.system_type &&
           user == o.user &&
@@ -279,7 +296,9 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [chap_name, chap_secret, iqn, management_ip, name, password, port_type, secondary_ip, storage_array, storage_driver, storage_family, system_type, user, wwpn].hash
+      [chap_name, chap_secret, iqn, management_ip, name, password, port_type, secondary_ip, storage_array,
+       # storage_driver,
+       storage_family, system_type, user, wwpn, auto_add_pools, auto_setup].hash
     end
 
     # Builds the object from hash
