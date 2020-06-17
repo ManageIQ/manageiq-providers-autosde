@@ -16,11 +16,11 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageSystem < ::StorageSys
     )
     _ext_management_system.autosde_client.class::StorageSystemApi.new.storage_systems_post(sys_to_create)
 
-    self.create(
-        :ext_management_system => _ext_management_system,
-        :name => _options[:name]
-
-    )
+    # self.create(
+    #     :ext_management_system => _ext_management_system,
+    #     :name => _options[:name]
+    #
+    # )
 
   end
 

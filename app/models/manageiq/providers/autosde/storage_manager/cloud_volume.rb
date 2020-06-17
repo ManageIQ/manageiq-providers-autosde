@@ -15,11 +15,11 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     )
     _ext_management_system.autosde_client.class::VolumeApi.new.volumes_post(vol_to_create)
 
-    self.create(
-        :ext_management_system => _ext_management_system,
-        :storage_service => storage_service,
-        **_options
-    )
+    # self.create(
+    #     :ext_management_system => _ext_management_system,
+    #     :storage_service => storage_service,
+    #     **_options
+    # )
 
   end
 
