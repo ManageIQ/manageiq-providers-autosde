@@ -6,6 +6,8 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   require_nested :RefreshParser
   require_nested :AutosdeClient
 
+  supports :storage_services
+
   include ManageIQ::Providers::StorageManager::BlockMixin
 
   # Asset details
