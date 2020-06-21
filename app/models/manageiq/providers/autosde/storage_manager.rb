@@ -137,7 +137,9 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   def autosde_client
     if @autosde_client.nil?
-      @autosde_client = self.class.raw_connect(address)
+      @autosde_client = self.class.raw_connect(authentication_userid(options[:auth_type]),
+                                               authentication_password(options[:auth_type]),
+                                               address)
     end
     @autosde_client
   end
