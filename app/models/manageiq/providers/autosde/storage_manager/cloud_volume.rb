@@ -23,6 +23,15 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   end
 
+  def raw_delete_volume
+    ems = self.ext_management_system
+    ems.autosde_client.class::VolumeApi.new.volumes_pk_delete(self.ems_ref)
+  end
+
+  def validate_delete_volume
+    return {:available => true, :message => nil}
+  end
+
   # has to be overriden and return a specifically-formatted hash.
   def self.validate_create_volume(ext_management_system)
     # check that the ems isn't nil and return a correctly formatted hash.
