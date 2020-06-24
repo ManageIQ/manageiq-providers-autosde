@@ -46,7 +46,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
           :size => volume.size * 1024 * 1024 * 1024,
           :ems_ref => volume.uuid,
           :storage_resource_uuid => volume.storage_resource,
-          :storage_service_uuid => volume.service
+          :storage_service_uuid => volume.service,
+          :status => volume.component_state
       }
     end
 

@@ -197,6 +197,10 @@ end
 # See https://jira.xiv.ibm.com/browse/SDE-1203
 module OpenapiClient
   class Volume
+
+    # component_state
+    attr_accessor :component_state
+
     def self.openapi_types
       {
           :'compliant' => :'Boolean',
@@ -206,7 +210,8 @@ module OpenapiClient
           :'size' => :'Integer',
           :'storage_resource' => :'String',
           :'storage_service' => :'String',
-          :'uuid' => :'String'
+          :'uuid' => :'String',
+          :'component_state' => :'String'
       }
     end
   end
@@ -219,7 +224,8 @@ module OpenapiClient
           :'service' => :'String',
           :'resource' => :'String',
           :'size' => :'Integer',
-          :'uuid' => :'String'
+          :'uuid' => :'String',
+          :'component_state' => :'component_state'
       }
     end
   end

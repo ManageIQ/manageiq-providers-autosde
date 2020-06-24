@@ -33,6 +33,7 @@ module OpenapiClient
     # uuid
     attr_accessor :uuid
 
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -109,6 +110,10 @@ module OpenapiClient
       if attributes.key?(:'uuid')
         self.uuid = attributes[:'uuid']
       end
+
+      if attributes.key?(:'component_state')
+        self.component_state = attributes[:'component_state']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -135,7 +140,8 @@ module OpenapiClient
           service == o.service &&
           size == o.size &&
           storage_resource == o.storage_resource &&
-          uuid == o.uuid
+          uuid == o.uuid &&
+          component_state == o.component_state
     end
 
     # @see the `==` method
@@ -147,7 +153,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [compliant, historical_service, name, service, size, storage_resource, uuid].hash
+      [compliant, historical_service, name, service, size, storage_resource, uuid, component_state].hash
     end
 
     # Builds the object from hash
