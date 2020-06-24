@@ -14,9 +14,12 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageSystem < ::StorageSys
         management_ip: _options[:management_ip],
         storage_family: "ontap_7mode"
     )
-    _ext_management_system.autosde_client.class::StorageSystemApi.new.storage_systems_post(sys_to_create)
 
-    EmsRefresh.queue_refresh(ext_management_system)
+    begin
+      _ext_management_system.autosde_client.class::StorageSystemApi.new.storage_systems_post(sys_to_create)
+    ensure
+      EmsRefresh.queue_refresh(_ext_management_system)
+    end
 
   end
 

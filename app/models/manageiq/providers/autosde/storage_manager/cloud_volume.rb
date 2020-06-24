@@ -14,7 +14,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
         size: _options[:size]
     )
     _ext_management_system.autosde_client.class::VolumeApi.new.volumes_post(vol_to_create)
-    EmsRefresh.queue_refresh(ext_management_system)
+    EmsRefresh.queue_refresh(_ext_management_system)
 
   end
 
@@ -44,7 +44,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def raw_safe_delete_volume
     self.ext_management_system.autosde_client.class::VolumeApi.new.volumes_safe_delete(self.ems_ref)
-    EmsRefresh.queue_refresh(ext_management_system)
+    EmsRefresh.queue_refresh(self.ext_management_system)
   end
 
 end
