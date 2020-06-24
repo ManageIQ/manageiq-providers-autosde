@@ -14,12 +14,9 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
         size: _options[:size]
     )
     _ext_management_system.autosde_client.class::VolumeApi.new.volumes_post(vol_to_create)
+    EmsRefresh.queue_refresh(ext_management_system)
 
-    # self.create(
-    #     :ext_management_system => _ext_management_system,
-    #     :storage_service => storage_service,
-    #     **_options
-    # )
+  end
 
   # has to be overriden and return a specifically-formatted hash.
   def self.validate_create_volume(ext_management_system)
@@ -32,6 +29,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   def raw_delete_volume
     ems = self.ext_management_system
     ems.autosde_client.class::VolumeApi.new.volumes_pk_delete(self.ems_ref)
+    EmsRefresh.queue_refresh(ems)
   end
 
   def validate_delete_volume
@@ -46,6 +44,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def raw_safe_delete_volume
     self.ext_management_system.autosde_client.class::VolumeApi.new.volumes_safe_delete(self.ems_ref)
+    EmsRefresh.queue_refresh(ext_management_system)
   end
 
 end
