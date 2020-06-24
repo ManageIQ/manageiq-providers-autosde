@@ -21,7 +21,13 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     #     **_options
     # )
 
+  # has to be overriden and return a specifically-formatted hash.
+  def self.validate_create_volume(ext_management_system)
+    # check that the ems isn't nil and return a correctly formatted hash.
+    validate_volume(ext_management_system)
   end
+
+  # ================= delete  ================
 
   def raw_delete_volume
     ems = self.ext_management_system
@@ -32,9 +38,14 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     return {:available => true, :message => nil}
   end
 
-  # has to be overriden and return a specifically-formatted hash.
-  def self.validate_create_volume(ext_management_system)
-    # check that the ems isn't nil and return a correctly formatted hash.
-    validate_volume(ext_management_system)
+  # ================ safe-delete ================
+
+  def validate_safe_delete_volume
+    return {:available => true, :message => nil}
   end
+
+  def raw_safe_delete_volume
+    self.ext_management_system.autosde_client.class::VolumeApi.new.volumes_safe_delete(self.ems_ref)
+  end
+
 end

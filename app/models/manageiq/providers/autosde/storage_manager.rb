@@ -252,4 +252,48 @@ module OpenapiClient
       }
     end
   end
+
+  class VolumeApi
+    def volumes_safe_delete(uuid, opts = {})
+      # resource path
+      local_var_path = '/safe-deletes/'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['*/*'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = "{\"volume\": \"#{uuid}\"}"
+
+      # return_type
+      return_type = opts[:return_type] || 'Array<Volume>'
+
+      # auth_names
+      auth_names = opts[:auth_names] || ['bearerAuth']
+
+      new_options = opts.merge(
+          :header_params => header_params,
+          :query_params => query_params,
+          :form_params => form_params,
+          :body => post_body,
+          :auth_names => auth_names,
+          :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VolumeApi#volumes_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+  end
 end
