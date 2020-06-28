@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://9.151.190.208/site-manager/api/v1/engine/storage-resources/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/storage-resources/
     body:
       encoding: US-ASCII
       string: ''
@@ -14,7 +14,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer KEG5FfWJj8MqRT1NP1B9qiuPeZPWby1GPTrGtDQw
+      - Bearer 70f5390c54a78be0911d2ad3d618f8218d5cd54c
       Expect:
       - ''
   response:
@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 28 May 2020 08:16:17 GMT
+      - Sun, 28 Jun 2020 11:20:35 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -38,7 +38,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"advanced_attributes_map":"{}","logical_free":0,"logical_total":0,"name":"AutoSDE_Pool_borisko","pool_name":"AutoSDE_Pool_borisko","protocol":"iscsi","storage_system":"10a105c7-b5c1-4b13-bcb5-f2f31acd1d8e","uuid":"ff3361d4-0665-4356-91ab-6385c33dbf79","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":0,"name":"AutoSDE_POOL_2","pool_name":"bk-pool","protocol":"iscsi","storage_system":"10a105c7-b5c1-4b13-bcb5-f2f31acd1d8e","uuid":"c2c3a1f2-866a-480a-b87a-5a0ed8caa83d","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":0,"name":"AutoSDE_POOL_3","pool_name":"bk-pool","protocol":"iscsi","storage_system":"10a105c7-b5c1-4b13-bcb5-f2f31acd1d8e","uuid":"6fa37dc6-942c-4bb1-a066-749bdc9e8f15","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":0,"name":"AutoSDE_POOL_44","pool_name":"bk-pool-100","protocol":"iscsi","storage_system":"10a105c7-b5c1-4b13-bcb5-f2f31acd1d8e","uuid":"0414787f-48c2-47d3-83f4-58f5f42a1b35","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":0,"name":"AutoSDE_POOL_BK-100","pool_name":"AutoSDE_POOL_BK-100","protocol":"iscsi","storage_system":"10a105c7-b5c1-4b13-bcb5-f2f31acd1d8e","uuid":"39af011c-71c6-43ed-88b8-ae633178daa3","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":0,"name":"AutoSDE_POOL_BK-101","pool_name":"AutoSDE_POOL_BK-101","protocol":"iscsi","storage_system":"10a105c7-b5c1-4b13-bcb5-f2f31acd1d8e","uuid":"384540d2-d504-48c8-ab05-2bffdc38206e","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":0,"name":"AutoSDE_POOL_BK-102","pool_name":"AutoSDE_POOL_BK-102","protocol":"iscsi","storage_system":"10a105c7-b5c1-4b13-bcb5-f2f31acd1d8e","uuid":"f0ed5506-a69d-4e23-8e8d-842cbd8fd6ba","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":0,"name":"AutoSDE_POOL_BK-103","pool_name":"AutoSDE_POOL_BK-103","protocol":"iscsi","storage_system":"10a105c7-b5c1-4b13-bcb5-f2f31acd1d8e","uuid":"021d2e79-f819-4cd5-af2d-49dd56a833d4","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":0,"name":"AutoSDE_POOL_BK-104","pool_name":"AutoSDE_POOL_BK-104","protocol":"iscsi","storage_system":"10a105c7-b5c1-4b13-bcb5-f2f31acd1d8e","uuid":"55adf162-9eda-4af6-b39a-405e65ac29df","abstract_capability_values":{},"replication_target_resource":null}]'
+      string: '[{"advanced_attributes_map":"{}","logical_free":0,"logical_total":273804165120,"name":"svc:AutoSDE_Pool_liranl","pool_name":"AutoSDE_Pool_liranl","protocol":"fc","storage_system":"cbc928f7-23e5-4288-be0f-0d2b6483331b","uuid":"ea0e2390-170f-4814-98fa-cf66810b05d2","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":273804165120,"name":"svc:AutoSDE_Pool_gregoryb","pool_name":"AutoSDE_Pool_gregoryb","protocol":"fc","storage_system":"cbc928f7-23e5-4288-be0f-0d2b6483331b","uuid":"c232e3ae-97c0-4948-a56a-8d38761c7cff","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":273804165120,"name":"svc:AutoSDE_Pool_borisko","pool_name":"AutoSDE_Pool_borisko","protocol":"fc","storage_system":"cbc928f7-23e5-4288-be0f-0d2b6483331b","uuid":"0c146316-a435-4ae1-b849-dd7fbef11ca8","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":274877906944,"name":"svc:AutoSDE_Pool_ilyak","pool_name":"AutoSDE_Pool_ilyak","protocol":"fc","storage_system":"cbc928f7-23e5-4288-be0f-0d2b6483331b","uuid":"89e7387e-a4b3-4fe4-98ad-00cc54c4481d","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":274877906944,"name":"svc:AutoSDE_Pool_felixnu","pool_name":"AutoSDE_Pool_felixnu","protocol":"fc","storage_system":"cbc928f7-23e5-4288-be0f-0d2b6483331b","uuid":"a6480058-81e5-4dbb-ab98-f2a6b7979efd","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":274877906944,"name":"svc:AutoSDE_Pool_erezt","pool_name":"AutoSDE_Pool_erezt","protocol":"fc","storage_system":"cbc928f7-23e5-4288-be0f-0d2b6483331b","uuid":"dd8d54d3-75b2-4604-878e-ac84f80f73f6","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":0,"name":"svc:AutoSDE_Pool_erantz","pool_name":"AutoSDE_Pool_erantz","protocol":"fc","storage_system":"cbc928f7-23e5-4288-be0f-0d2b6483331b","uuid":"4091ea19-d23f-463b-b9c5-2aa12d00c97f","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","logical_free":0,"logical_total":1099511627776,"name":"svc:AutoSDE_Pool_CI","pool_name":"AutoSDE_Pool_CI","protocol":"fc","storage_system":"cbc928f7-23e5-4288-be0f-0d2b6483331b","uuid":"0eaa8c5d-41a7-4e4f-ab48-a8f0feb35917","abstract_capability_values":{},"replication_target_resource":null}]'
     http_version: 
-  recorded_at: Thu, 28 May 2020 08:16:13 GMT
+  recorded_at: Sun, 28 Jun 2020 11:20:35 GMT
 recorded_with: VCR 5.0.0

@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://9.151.190.208/site-manager/api/v1/engine/oidc-auth/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/token-auth/
     body:
       encoding: UTF-8
-      string: '{"client_id":"<client_id>","secret_id":"<secret_id>","username":"<username>","password":"<password>"}'
+      string: '{"username":"<username>","password":"<password>"}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -21,22 +21,22 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 03 May 2020 10:01:32 GMT
+      - Sun, 28 Jun 2020 11:31:18 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
       - application/json
-      Vary:
-      - Accept
       Allow:
       - POST, OPTIONS
+      Vary:
+      - Accept
       X-Frame-Options:
       - SAMEORIGIN
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"access_token":"xoQ4pNIHohVBVEKLNBlkt6WffxUBL9HcLvQyDAvW","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"uKVFQE9jZojX3AcEgwVjWrD9rwDs8FmN3bxaU80nOXN8s8ALn4"}'
+      string: '{"token":"70f5390c54a78be0911d2ad3d618f8218d5cd54c"}'
     http_version: 
-  recorded_at: Sun, 03 May 2020 10:01:32 GMT
+  recorded_at: Sun, 28 Jun 2020 11:31:19 GMT
 recorded_with: VCR 5.0.0

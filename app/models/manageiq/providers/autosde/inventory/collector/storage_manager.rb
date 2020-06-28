@@ -8,7 +8,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     new_inventory = {}
 
     new_inventory[:storage_systems] = []
-    @manager.autosde_client.class::StorageSystemApi.new.storage_systems_get.each do |system|
+    @manager.autosde_client.StorageSystemApi.storage_systems_get.each do |system|
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::StorageSystem]
       system = system
       new_inventory[:storage_systems] << {
@@ -22,7 +22,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     end
 
     new_inventory[:storage_resources] = []
-    @manager.autosde_client.class::StorageResourceApi.new.storage_resources_get.each do |resource|
+    @manager.autosde_client.StorageResourceApi.storage_resources_get.each do |resource|
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::StorageResource]
       resource = resource
       new_inventory[:storage_resources] << {
@@ -37,7 +37,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     end
 
     new_inventory[:cloud_volumes] = []
-    @manager.autosde_client.class::VolumeApi.new.volumes_get.each do |volume|
+    @manager.autosde_client.VolumeApi.volumes_get.each do |volume|
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::Volume]
       volume = volume
       new_inventory[:cloud_volumes] << {
@@ -52,7 +52,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     end
 
     new_inventory[:storage_services] = []
-    @manager.autosde_client.class::ServiceApi.new.services_get.each do |service|
+    @manager.autosde_client.ServiceApi.services_get.each do |service|
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::Service]
       service = service
       new_inventory[:storage_services] << {
@@ -66,7 +66,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     end
 
     new_inventory[:storage_system_types] = []
-    @manager.autosde_client.class::SystemTypeApi.new.system_types_get.each do |system_type|
+    @manager.autosde_client.SystemTypeApi.system_types_get.each do |system_type|
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::SystemType]
       system_type = system_type
       new_inventory[:storage_system_types] << {

@@ -4,7 +4,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   AUTOSDE_SITE_MANAGER_USER = RSpec.configuration.autosde_site_manager_user
   AUTOSDE_SITE_MANAGER_PASSWORD = RSpec.configuration.autosde_site_manager_password
 
-  it "logs in with right credentials-1" do
+  it "logs in with right credentials" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
         :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
         :username => AUTOSDE_SITE_MANAGER_USER,
@@ -37,7 +37,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     temp = {}
 
     VCR.use_cassette('get_storage_systems_autosde_client_sde_manager') do
-      temp[:systems] = client.class::StorageSystemApi.new.storage_systems_get
+      temp[:systems] = client.StorageSystemApi.storage_systems_get
     end
 
     systems = temp[:systems]
@@ -51,22 +51,44 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
         :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
         :username => AUTOSDE_SITE_MANAGER_USER,
         :password => AUTOSDE_SITE_MANAGER_PASSWORD)
-
-    class << client
-      attr_accessor :token
-    end
-
-    # set bad token
-    client.token = "__bad-token__"
+    #
 
     temp = {}
 
     VCR.use_cassette("bad_token_get_storage_systems_with_relogin_not_fails") do
-      temp[:systems] = client.class::StorageSystemApi.new.storage_systems_get
+      # set bad token
+      client.token = "__bad-token__"
+      temp[:systems] = client.StorageSystemApi.storage_systems_get
     end
 
     systems = temp[:systems]
     expect(systems).to be_an_instance_of(Array)
+
+  end
+
+  it "proves clients stuffs  are different" do
+    client1 = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
+        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        :username => AUTOSDE_SITE_MANAGER_USER,
+        :password => AUTOSDE_SITE_MANAGER_PASSWORD)
+
+    client2 = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
+        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        :username => AUTOSDE_SITE_MANAGER_USER,
+        :password => AUTOSDE_SITE_MANAGER_PASSWORD)
+
+    expect(client1.object_id).not_to eq(client2.object_id)
+    expect(client1.StorageSystemApi.object_id).not_to eq(client2.StorageSystemApi.object_id)
+    expect(client1.config.object_id).not_to eq(client2.config.object_id)
+
+  end
+  it "works with object with arguments" do
+    client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
+        :host => '9.151.190.206',
+        :username => AUTOSDE_SITE_MANAGER_USER,
+        :password => AUTOSDE_SITE_MANAGER_PASSWORD)
+
+    vol_to_create = client.VolumeCreate(service: 's1', name: 'vol_name', size: 10)
 
   end
 end

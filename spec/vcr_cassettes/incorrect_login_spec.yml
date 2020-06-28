@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://9.151.190.208/site-manager/api/v1/engine/oidc-auth/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/token-auth/
     body:
       encoding: UTF-8
-      string: '{"client_id":"<client_id>","secret_id":"<secret_id>","username":"<username>","password":"<password>"}'
+      string: '{"username":"<username>","password":"<password>"}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -21,15 +21,15 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Sun, 03 May 2020 10:01:32 GMT
+      - Sun, 28 Jun 2020 11:34:31 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
       - application/json
-      Vary:
-      - Accept
       Allow:
       - POST, OPTIONS
+      Vary:
+      - Accept
       X-Frame-Options:
       - SAMEORIGIN
       Connection:
@@ -38,8 +38,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"error_description":"FBTBLU101E The userid or password that you entered
-        is not correct.","error":"server_error"}'
+      string: '{"detail":{"non_field_errors":["Unable to log in with provided credentials."]}}'
     http_version: 
-  recorded_at: Sun, 03 May 2020 10:01:32 GMT
+  recorded_at: Sun, 28 Jun 2020 11:34:31 GMT
 recorded_with: VCR 5.0.0

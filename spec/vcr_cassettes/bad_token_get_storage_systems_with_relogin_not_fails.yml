@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://9.151.190.208/site-manager/api/v1/engine/storage-systems/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/storage-systems/
     body:
       encoding: US-ASCII
       string: ''
@@ -19,15 +19,17 @@ http_interactions:
       - ''
   response:
     status:
-      code: 403
-      message: Forbidden
+      code: 401
+      message: Unauthorized
     headers:
       Date:
-      - Sun, 03 May 2020 10:01:34 GMT
+      - Sun, 28 Jun 2020 11:49:12 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
       - application/json
+      Www-Authenticate:
+      - Basic realm="api"
       Vary:
       - Accept
       Allow:
@@ -38,15 +40,15 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"detail":"Invalid Authorization header. Unable to verify bearer token"}'
+      string: '{"detail":"Invalid token."}'
     http_version: 
-  recorded_at: Sun, 03 May 2020 10:01:34 GMT
+  recorded_at: Sun, 28 Jun 2020 11:49:13 GMT
 - request:
     method: post
-    uri: https://9.151.190.208/site-manager/api/v1/engine/oidc-auth/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/token-auth/
     body:
       encoding: UTF-8
-      string: '{"client_id":"<client_id>","secret_id":"<secret_id>","username":"<username>","password":"<password>"}'
+      string: '{"username":"<username>","password":"<password>"}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -62,27 +64,27 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 03 May 2020 10:01:34 GMT
+      - Sun, 28 Jun 2020 11:49:13 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
       - application/json
-      Vary:
-      - Accept
       Allow:
       - POST, OPTIONS
+      Vary:
+      - Accept
       X-Frame-Options:
       - SAMEORIGIN
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"access_token":"ESpnsaDZxLqHehUGbQNQjc1mw681aUwuUSQgW7Z5","token_type":"Bearer","expires_in":3599,"scope":"openid","refresh_token":"wXTQrXlIjo6CQ7E5eKVV7lwFkNnGDnZplH65Uqjl8C8ZpD0MNR"}'
+      string: '{"token":"70f5390c54a78be0911d2ad3d618f8218d5cd54c"}'
     http_version: 
-  recorded_at: Sun, 03 May 2020 10:01:34 GMT
+  recorded_at: Sun, 28 Jun 2020 11:49:13 GMT
 - request:
     method: get
-    uri: https://9.151.190.208/site-manager/api/v1/engine/storage-systems/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/storage-systems/
     body:
       encoding: US-ASCII
       string: ''
@@ -94,7 +96,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer ESpnsaDZxLqHehUGbQNQjc1mw681aUwuUSQgW7Z5
+      - Bearer 70f5390c54a78be0911d2ad3d618f8218d5cd54c
       Expect:
       - ''
   response:
@@ -103,7 +105,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 03 May 2020 10:01:35 GMT
+      - Sun, 28 Jun 2020 11:49:13 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -118,7 +120,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: "[]"
+      string: '[{"management_ip":"9.151.159.178","name":"svc","storage_array":null,"storage_family":"ontap_7mode","system_type":{"name":"svc","short_version":"1","uuid":"bd4fe7e1-4ead-4828-bb44-8ed71bc86a33","version":"1.1"},"uuid":"cbc928f7-23e5-4288-be0f-0d2b6483331b"}]'
     http_version: 
-  recorded_at: Sun, 03 May 2020 10:01:35 GMT
+  recorded_at: Sun, 28 Jun 2020 11:49:13 GMT
 recorded_with: VCR 5.0.0

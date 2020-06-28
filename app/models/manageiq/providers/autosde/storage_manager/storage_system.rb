@@ -4,7 +4,7 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageSystem < ::StorageSys
   # @param [ManageIQ::Providers::Autosde] _ext_management_system
   def self.raw_create_storage_system(_ext_management_system, _options = {})
 
-    sys_to_create = _ext_management_system.autosde_client.class::StorageSystemCreate.new(
+    sys_to_create = _ext_management_system.autosde_client.StorageSystemCreate(
         name: _options[:name],
         password: _options[:password],
         user: _options[:user],
@@ -16,7 +16,7 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageSystem < ::StorageSys
     )
 
     begin
-      _ext_management_system.autosde_client.class::StorageSystemApi.new.storage_systems_post(sys_to_create)
+      _ext_management_system.autosde_client.StorageSystemApi.storage_systems_post(sys_to_create)
     ensure
       EmsRefresh.queue_refresh(_ext_management_system)
     end

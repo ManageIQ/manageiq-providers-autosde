@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://9.151.190.208/site-manager/api/v1/engine/volumes/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/volumes/
     body:
       encoding: US-ASCII
       string: ''
@@ -14,7 +14,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer KEG5FfWJj8MqRT1NP1B9qiuPeZPWby1GPTrGtDQw
+      - Bearer 70f5390c54a78be0911d2ad3d618f8218d5cd54c
       Expect:
       - ''
   response:
@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 28 May 2020 08:16:19 GMT
+      - Sun, 28 Jun 2020 11:20:35 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -38,9 +38,11 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"compliant":true,"historical_service":2,"name":"vol1","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"7a5fd5f2-6034-40df-a245-966e2c93f42e","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_2","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"db46fad9-543b-4f9f-b858-c3f33498f19d","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_10","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"46a85614-f71c-4e3f-9734-d5ba03d18677","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_11","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"6499e505-fb45-4348-b59a-21bd9081a309","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_13","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"971599c1-0f39-4b68-9ac1-146958f18f6d","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_14","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"8addb3f9-6143-4198-afc9-df0952169631","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_16","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"71e0a422-54f8-4421-801f-acaccfd1f873","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_bk_test_2020-05-28
-        07:37:22 UTC","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"bcf31f20-fa11-46bf-8c96-d45c8077bfc2","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_test_2020-05-28
-        07:59:04 UTC","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"c728da14-d837-4965-a5c4-88ba7c53fe22","component_state":"PENDING_CREATION"}]'
+      string: '[{"compliant":true,"historical_service":7,"name":"bk-demo-102","service":"a810c22a-0863-4d45-b059-3438bfcb8237","size":13,"storage_resource":"0c146316-a435-4ae1-b849-dd7fbef11ca8","uuid":"2fe91b17-b602-43fb-b004-b6061da4fe1d","component_state":"CREATED"},{"compliant":true,"historical_service":2,"name":"vol_test_2020-06-26
+        11:41:08 UTC","service":"6ac78be9-d6cc-4c3f-8882-bec5e6be1dc3","size":10,"storage_resource":"0eaa8c5d-41a7-4e4f-ab48-a8f0feb35917","uuid":"3ac47b1f-6b6d-4ddf-a118-5a15b15383b4","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_test_2020-06-28
+        10:28:00 UTC","service":"6ac78be9-d6cc-4c3f-8882-bec5e6be1dc3","size":10,"storage_resource":"0eaa8c5d-41a7-4e4f-ab48-a8f0feb35917","uuid":"228f3035-0095-4157-bef5-5162e9d4c923","component_state":"PENDING_CREATION"},{"compliant":true,"historical_service":2,"name":"vol_test_bk1","service":"6ac78be9-d6cc-4c3f-8882-bec5e6be1dc3","size":10,"storage_resource":"0eaa8c5d-41a7-4e4f-ab48-a8f0feb35917","uuid":"df0aff23-9b91-4eef-96e4-fa89802271e8","component_state":"CREATED"},{"compliant":true,"historical_service":2,"name":"vol_test_bk12020-06-28
+        13_51_44","service":"6ac78be9-d6cc-4c3f-8882-bec5e6be1dc3","size":10,"storage_resource":"0eaa8c5d-41a7-4e4f-ab48-a8f0feb35917","uuid":"4db84f93-cbcd-4071-8f3a-12f323b57080","component_state":"CREATED"},{"compliant":true,"historical_service":2,"name":"vol_test_bk_2020-06-28
+        14_17_13","service":"6ac78be9-d6cc-4c3f-8882-bec5e6be1dc3","size":10,"storage_resource":"0eaa8c5d-41a7-4e4f-ab48-a8f0feb35917","uuid":"16741d44-5a64-4f63-add5-f6e54da10aca","component_state":"CREATED"}]'
     http_version: 
-  recorded_at: Thu, 28 May 2020 08:16:14 GMT
+  recorded_at: Sun, 28 Jun 2020 11:20:35 GMT
 recorded_with: VCR 5.0.0

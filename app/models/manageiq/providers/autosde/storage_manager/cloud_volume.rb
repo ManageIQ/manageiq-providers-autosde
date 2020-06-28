@@ -8,12 +8,12 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     # @type [StorageService]
     storage_service = _options[:storage_service]
 
-    vol_to_create = _ext_management_system.autosde_client.class::VolumeCreate.new(
+    vol_to_create = _ext_management_system.autosde_client.VolumeCreate(
         service: storage_service.ems_ref,
         name: _options[:name],
         size: _options[:size]
     )
-    _ext_management_system.autosde_client.class::VolumeApi.new.volumes_post(vol_to_create)
+    _ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create)
     EmsRefresh.queue_refresh(_ext_management_system)
 
   end
@@ -28,7 +28,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def raw_delete_volume
     ems = self.ext_management_system
-    ems.autosde_client.class::VolumeApi.new.volumes_pk_delete(self.ems_ref)
+    ems.autosde_client.VolumeApi.volumes_pk_delete(self.ems_ref)
     EmsRefresh.queue_refresh(ems)
   end
 
@@ -43,7 +43,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   end
 
   def raw_safe_delete_volume
-    self.ext_management_system.autosde_client.class::VolumeApi.new.volumes_safe_delete(self.ems_ref)
+    self.ext_management_system.autosde_client.VolumeApi.volumes_safe_delete(self.ems_ref)
     EmsRefresh.queue_refresh(self.ext_management_system)
   end
 

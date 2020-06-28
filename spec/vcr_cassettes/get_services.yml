@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://9.151.190.208/site-manager/api/v1/engine/services/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/services/
     body:
       encoding: US-ASCII
       string: ''
@@ -14,7 +14,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer KEG5FfWJj8MqRT1NP1B9qiuPeZPWby1GPTrGtDQw
+      - Bearer 70f5390c54a78be0911d2ad3d618f8218d5cd54c
       Expect:
       - ''
   response:
@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 28 May 2020 08:16:18 GMT
+      - Sun, 28 Jun 2020 11:20:35 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -38,7 +38,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"capability_values":[],"description":"s1","name":"s1","profile":"f033e665-60c1-4123-bf47-b031267eaaab","project":"9ef494a2-1029-459f-a21d-c04f546d9b45","provisioning_strategy":null,"uuid":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","version":1}]'
+      string: '[{"capability_values":[],"description":"auto_created_service","name":"svc:AutoSDE_Pool_CI","profile":"0d8c43b3-5021-43f3-96c4-3c0bfbe768b1","project":"3da033b5-2a3f-4e11-920a-fec8ef48a5bb","provisioning_strategy":null,"uuid":"6ac78be9-d6cc-4c3f-8882-bec5e6be1dc3","version":1},{"capability_values":[],"description":"auto_created_service","name":"svc:AutoSDE_Pool_erantz","profile":"0d8c43b3-5021-43f3-96c4-3c0bfbe768b1","project":"3da033b5-2a3f-4e11-920a-fec8ef48a5bb","provisioning_strategy":null,"uuid":"f1d91bdd-61c0-4ba9-8485-9f7cabd1c449","version":1},{"capability_values":[],"description":"auto_created_service","name":"svc:AutoSDE_Pool_erezt","profile":"0d8c43b3-5021-43f3-96c4-3c0bfbe768b1","project":"3da033b5-2a3f-4e11-920a-fec8ef48a5bb","provisioning_strategy":null,"uuid":"eb583f29-3fa1-4a43-8d4f-f7855b46a495","version":1},{"capability_values":[],"description":"auto_created_service","name":"svc:AutoSDE_Pool_felixnu","profile":"0d8c43b3-5021-43f3-96c4-3c0bfbe768b1","project":"3da033b5-2a3f-4e11-920a-fec8ef48a5bb","provisioning_strategy":null,"uuid":"c60ed59c-4303-46c0-ae3a-79397047169d","version":1},{"capability_values":[],"description":"auto_created_service","name":"svc:AutoSDE_Pool_ilyak","profile":"0d8c43b3-5021-43f3-96c4-3c0bfbe768b1","project":"3da033b5-2a3f-4e11-920a-fec8ef48a5bb","provisioning_strategy":null,"uuid":"40f6ae84-fa66-46e8-98a9-89f2681f112c","version":1},{"capability_values":[],"description":"auto_created_service","name":"svc:AutoSDE_Pool_borisko","profile":"0d8c43b3-5021-43f3-96c4-3c0bfbe768b1","project":"3da033b5-2a3f-4e11-920a-fec8ef48a5bb","provisioning_strategy":null,"uuid":"a810c22a-0863-4d45-b059-3438bfcb8237","version":1},{"capability_values":[],"description":"auto_created_service","name":"svc:AutoSDE_Pool_gregoryb","profile":"0d8c43b3-5021-43f3-96c4-3c0bfbe768b1","project":"3da033b5-2a3f-4e11-920a-fec8ef48a5bb","provisioning_strategy":null,"uuid":"2e134717-252a-47fe-a1ef-df5f1c7c5e5a","version":1},{"capability_values":[],"description":"auto_created_service","name":"svc:AutoSDE_Pool_liranl","profile":"0d8c43b3-5021-43f3-96c4-3c0bfbe768b1","project":"3da033b5-2a3f-4e11-920a-fec8ef48a5bb","provisioning_strategy":null,"uuid":"e0a0a271-7c9c-4cc4-9b15-2824d99dac74","version":1}]'
     http_version: 
-  recorded_at: Thu, 28 May 2020 08:16:14 GMT
+  recorded_at: Sun, 28 Jun 2020 11:20:35 GMT
 recorded_with: VCR 5.0.0

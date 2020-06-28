@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://9.151.190.208/site-manager/api/v1/engine/volumes/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/volumes/
     body:
       encoding: UTF-8
-      string: '{"compliant":false,"name":"vol_test_2020-05-28 08:16:14 UTC","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10}'
+      string: '{"compliant":false,"name":"vol_test_bk_2020-06-28 14_20_35","service":"6ac78be9-d6cc-4c3f-8882-bec5e6be1dc3","size":10}'
     headers:
       User-Agent:
       - OpenAPI-Generator/1.0.0/ruby
@@ -14,7 +14,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer KEG5FfWJj8MqRT1NP1B9qiuPeZPWby1GPTrGtDQw
+      - Bearer 70f5390c54a78be0911d2ad3d618f8218d5cd54c
       Expect:
       - ''
   response:
@@ -23,7 +23,7 @@ http_interactions:
       message: Created
     headers:
       Date:
-      - Thu, 28 May 2020 08:16:20 GMT
+      - Sun, 28 Jun 2020 11:20:40 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -38,8 +38,8 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"compliant":true,"historical_service":2,"name":"vol_test_2020-05-28
-        08:16:14 UTC","service":"8794d810-4ad7-4c24-ab1d-0b724270dd1c","size":10,"storage_resource":"ff3361d4-0665-4356-91ab-6385c33dbf79","uuid":"085a686a-bd6a-4932-9e18-f7978a074f94","component_state":"PENDING_CREATION"}'
+      string: '{"compliant":true,"historical_service":2,"name":"vol_test_bk_2020-06-28
+        14_20_35","service":"6ac78be9-d6cc-4c3f-8882-bec5e6be1dc3","size":10,"storage_resource":"0eaa8c5d-41a7-4e4f-ab48-a8f0feb35917","uuid":"696af844-264b-49ff-aa9f-86c21589b360","component_state":"CREATED"}'
     http_version: 
-  recorded_at: Thu, 28 May 2020 08:16:15 GMT
+  recorded_at: Sun, 28 Jun 2020 11:20:41 GMT
 recorded_with: VCR 5.0.0
