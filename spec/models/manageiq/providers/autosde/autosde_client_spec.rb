@@ -36,7 +36,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
     temp = {}
 
-    VCR.use_cassette('get_storage_systems_autosde_client_sde_manager') do
+    VCR.use_cassette('get_storage_systems_autosde_client') do
       temp[:systems] = client.StorageSystemApi.storage_systems_get
     end
 

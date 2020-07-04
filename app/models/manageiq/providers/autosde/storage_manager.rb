@@ -195,71 +195,9 @@ end
 
 # this is a workaround for our malfunctioning client
 # See https://jira.xiv.ibm.com/browse/SDE-1203
+# TODO delete this when generation will be fixed
 module OpenapiClient
-  class Volume
-
-    # component_state
-    attr_accessor :component_state
-
-    def self.openapi_types
-      {
-          :'compliant' => :'Boolean',
-          :'historical_service' => :'String',
-          :'name' => :'String',
-          :'service' => :'String',
-          :'size' => :'Integer',
-          :'storage_resource' => :'String',
-          :'storage_service' => :'String',
-          :'uuid' => :'String',
-          :'component_state' => :'String'
-      }
-    end
-  end
-
-  class VolumeCreate
-    def self.openapi_types
-      {
-          :'compliant' => :'Boolean',
-          :'name' => :'String',
-          :'service' => :'String',
-          :'resource' => :'String',
-          :'size' => :'Integer',
-          :'uuid' => :'String',
-          :'component_state' => :'component_state'
-      }
-    end
-  end
-
-  class StorageResource
-    def self.openapi_types
-      {
-          :'advanced_attributes_map' => :'String',
-          :'logical_free' => :'Integer',
-          :'logical_total' => :'Integer',
-          :'name' => :'String',
-          :'pool_name' => :'String',
-          :'protocol' => :'String',
-          :'storage_system' => :'String',
-          :'uuid' => :'String'
-      }
-    end
-  end
-
-  class StorageResourceCreate
-    def self.openapi_types
-      {
-          :'advanced_attributes_map' => :'String',
-          :'logical_free' => :'Integer',
-          :'logical_total' => :'Integer',
-          :'name' => :'String',
-          :'pool_name' => :'String',
-          :'protocol' => :'String',
-          :'storage_system' => :'String'
-      }
-    end
-  end
-
-  class VolumeApi
+   class VolumeApi
     def volumes_safe_delete(uuid, opts = {})
       # resource path
       local_var_path = '/safe-deletes/'

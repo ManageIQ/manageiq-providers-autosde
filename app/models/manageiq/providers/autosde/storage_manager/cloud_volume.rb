@@ -44,6 +44,8 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def raw_safe_delete_volume
     self.ext_management_system.autosde_client.VolumeApi.volumes_safe_delete(self.ems_ref)
+    #self.ext_management_system.autosde_client.VolumeSafeDelete.vo(self.ems_ref)
+
     EmsRefresh.queue_refresh(self.ext_management_system)
   end
 

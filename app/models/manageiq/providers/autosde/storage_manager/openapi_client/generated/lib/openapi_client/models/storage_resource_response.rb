@@ -13,10 +13,28 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'date'
 
 module OpenapiClient
-  # Used for capacity provisioning details.
-  class ProvisioningStrategy
+  # TODO add description
+  class StorageResourceResponse
+    # advanced_attributes_map
+    attr_accessor :advanced_attributes_map
+
+    # logical_free
+    attr_accessor :logical_free
+
+    # The Total logical capacity of this resource (gb)
+    attr_accessor :logical_total
+
     # name
     attr_accessor :name
+
+    # Pool (or slice) name
+    attr_accessor :pool_name
+
+    # protocol
+    attr_accessor :protocol
+
+    # !!uuid of storage_system
+    attr_accessor :storage_system
 
     # uuid
     attr_accessor :uuid
@@ -46,7 +64,13 @@ module OpenapiClient
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'advanced_attributes_map' => :'advanced_attributes_map',
+        :'logical_free' => :'logical_free',
+        :'logical_total' => :'logical_total',
         :'name' => :'name',
+        :'pool_name' => :'pool_name',
+        :'protocol' => :'protocol',
+        :'storage_system' => :'storage_system',
         :'uuid' => :'uuid'
       }
     end
@@ -54,7 +78,13 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'advanced_attributes_map' => :'String',
+        :'logical_free' => :'Integer',
+        :'logical_total' => :'Integer',
         :'name' => :'String',
+        :'pool_name' => :'String',
+        :'protocol' => :'String',
+        :'storage_system' => :'String',
         :'uuid' => :'String'
       }
     end
@@ -69,19 +99,47 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::ProvisioningStrategy` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::StorageResourceResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::ProvisioningStrategy`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::StorageResourceResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'advanced_attributes_map')
+        self.advanced_attributes_map = attributes[:'advanced_attributes_map']
+      end
+
+      if attributes.key?(:'logical_free')
+        self.logical_free = attributes[:'logical_free']
+      else
+        self.logical_free = 0
+      end
+
+      if attributes.key?(:'logical_total')
+        self.logical_total = attributes[:'logical_total']
+      else
+        self.logical_total = 0
+      end
+
       if attributes.key?(:'name')
         self.name = attributes[:'name']
+      end
+
+      if attributes.key?(:'pool_name')
+        self.pool_name = attributes[:'pool_name']
+      end
+
+      if attributes.key?(:'protocol')
+        self.protocol = attributes[:'protocol']
+      end
+
+      if attributes.key?(:'storage_system')
+        self.storage_system = attributes[:'storage_system']
       end
 
       if attributes.key?(:'uuid')
@@ -93,30 +151,25 @@ module OpenapiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if !@name.nil? && @name.to_s.length > 20
-        invalid_properties.push('invalid value for "name", the character length must be smaller than or equal to 20.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      name_validator = EnumAttributeValidator.new('String', ["logical_free_capacity"])
-      return false unless name_validator.valid?(@name)
-      return false if !@name.nil? && @name.to_s.length > 20
+      protocol_validator = EnumAttributeValidator.new('String', ["fc", "iscsi"])
+      return false unless protocol_validator.valid?(@protocol)
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] name Object to be assigned
-    def name=(name)
-      validator = EnumAttributeValidator.new('String', ["logical_free_capacity"])
-      unless validator.valid?(name)
-        fail ArgumentError, "invalid value for \"name\", must be one of #{validator.allowable_values}."
+    # @param [Object] protocol Object to be assigned
+    def protocol=(protocol)
+      validator = EnumAttributeValidator.new('String', ["fc", "iscsi"])
+      unless validator.valid?(protocol)
+        fail ArgumentError, "invalid value for \"protocol\", must be one of #{validator.allowable_values}."
       end
-      @name = name
+      @protocol = protocol
     end
 
     # Checks equality by comparing each attribute.
@@ -124,7 +177,13 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          advanced_attributes_map == o.advanced_attributes_map &&
+          logical_free == o.logical_free &&
+          logical_total == o.logical_total &&
           name == o.name &&
+          pool_name == o.pool_name &&
+          protocol == o.protocol &&
+          storage_system == o.storage_system &&
           uuid == o.uuid
     end
 
@@ -137,7 +196,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, uuid].hash
+      [advanced_attributes_map, logical_free, logical_total, name, pool_name, protocol, storage_system, uuid].hash
     end
 
     # Builds the object from hash

@@ -1,13 +1,5 @@
 {
   "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "in": "header",
-        "scheme": "bearer",
-        "bearerFormat": "oath1"
-      }
-    },
     "schemas": {
       "AbstractCapability": {
         "description": "Abstract capabilities are the storage system feature capabilities, in general terminology.",
@@ -901,7 +893,7 @@
         "description": "StorageResource",
         "properties": {
           "advanced_attributes_map": {
-            "default": "{}",
+            "default": { },
             "description": "advanced_attributes_map",
             "format": "json",
             "type": "string",
@@ -911,9 +903,13 @@
           },
           "logical_free": {
             "default": 0,
-            "description": "The free logical capacity of this resource (gb)",
+            "description": "logical_free",
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
           },
           "logical_total": {
             "default": 0,
@@ -967,7 +963,7 @@
         "description": "TODO add description",
         "properties": {
           "advanced_attributes_map": {
-            "default": "{}",
+            "default": { },
             "description": "advanced_attributes_map",
             "format": "json",
             "type": "string",
@@ -977,9 +973,13 @@
           },
           "logical_free": {
             "default": 0,
-            "description": "The free logical capacity of this resource (gb)",
+            "description": "logical_free",
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
           },
           "logical_total": {
             "default": 0,
@@ -1007,9 +1007,78 @@
             "type": "string"
           },
           "storage_system": {
-            "$ref": "#/components/schemas/StorageSystem",
+            "description": "!!uuid of storage_system",
+            "type": "string",
+            "x-model": "#/components/schemas/StorageSystem",
             "x-serializer": {
               "slug": "uuid"
+            }
+          }
+        },
+        "x-serializer": "StorageResource"
+      },
+      "StorageResourceResponse": {
+        "description": "TODO add description",
+        "properties": {
+          "advanced_attributes_map": {
+            "default": { },
+            "description": "advanced_attributes_map",
+            "format": "json",
+            "type": "string",
+            "x-model": {
+              "blank": true
+            }
+          },
+          "logical_free": {
+            "default": 0,
+            "description": "logical_free",
+            "format": "int64",
+            "type": "integer",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "logical_total": {
+            "default": 0,
+            "description": "The Total logical capacity of this resource (gb)",
+            "format": "int64",
+            "type": "integer"
+          },
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "pool_name": {
+            "description": "Pool (or slice) name",
+            "type": "string"
+          },
+          "protocol": {
+            "description": "protocol",
+            "enum": [
+              "fc",
+              "iscsi"
+            ],
+            "type": "string"
+          },
+          "storage_system": {
+            "description": "!!uuid of storage_system",
+            "type": "string",
+            "x-model": "#/components/schemas/StorageSystem",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
             }
           }
         },
@@ -1072,6 +1141,16 @@
       "StorageSystemCreate": {
         "description": "TODO add description",
         "properties": {
+          "auto_add_pools": {
+            "default": false,
+            "description": "auto_add_pools",
+            "type": "boolean"
+          },
+          "auto_setup": {
+            "default": false,
+            "description": "auto_setup",
+            "type": "boolean"
+          },
           "chap_name": {
             "description": "chap_name",
             "type": "string",
@@ -1340,11 +1419,9 @@
             }
           },
           "service": {
-            "$ref": "#/components/schemas/Service",
-            "x-model": {
-              "null": true,
-              "on_delete": "custom_protect('Can not delete a service that is associated with volumes.')"
-            },
+            "description": "!!uuid of service",
+            "type": "string",
+            "x-model": "#/components/schemas/Service",
             "x-serializer": {
               "slug": "uuid"
             }
@@ -1364,6 +1441,122 @@
           }
         },
         "x-serializer": "Volume"
+      },
+      "VolumeSafeDelete": {
+        "description": "Volume safe delete api",
+        "properties": {
+          "task_id": {
+            "description": "task_id",
+            "format": "text",
+            "type": "string"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "volume": {
+            "$ref": "#/components/schemas/Volume",
+            "x-model": {
+              "null": true
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          }
+        }
+      },
+      "VolumeSafeDeleteCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "volume": {
+            "$ref": "#/components/schemas/Volume",
+            "x-model": {
+              "null": true
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          }
+        },
+        "x-serializer": "VolumeSafeDelete"
+      },
+      "volumeResponse": {
+        "description": "TODO add description",
+        "properties": {
+          "compliant": {
+            "default": false,
+            "description": "compliant",
+            "type": "boolean"
+          },
+          "historical_service": {
+            "$ref": "#/components/schemas/Service",
+            "x-model": {
+              "null": true,
+              "on_delete": "custom_protect('Can not delete a service that is associated with volumes.')",
+              "related_name": "\"historical_service\""
+            }
+          },
+          "name": {
+            "description": "name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "service": {
+            "description": "!!uuid of service",
+            "type": "string",
+            "x-model": "#/components/schemas/Service",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "size": {
+            "description": "size",
+            "type": "integer"
+          },
+          "storage_resource": {
+            "description": "!!uuid of storage_resource",
+            "type": "string",
+            "x-model": "#/components/schemas/StorageResource",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        },
+        "x-serializer": "Volume"
+      },
+      "volumeUpdate": {
+        "description": "TODO add description",
+        "properties": {
+          "size": {
+            "description": "size",
+            "type": "integer"
+          }
+        },
+        "x-serializer": "Volume"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "bearerFormat": "oath1",
+        "in": "header",
+        "scheme": "bearer",
+        "type": "http"
       }
     }
   },
@@ -1496,7 +1689,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/Account"
+                    "$ref": "#/components/schemas/AccountPostResponse"
                   },
                   "type": "array"
                 }
@@ -1549,7 +1742,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/Account"
+                    "$ref": "#/components/schemas/AccountPostResponse"
                   },
                   "type": "array"
                 }
@@ -1569,7 +1762,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/Account"
+                    "$ref": "#/components/schemas/AccountPostResponse"
                   },
                   "type": "array"
                 }
@@ -1609,7 +1802,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/Account"
+                    "$ref": "#/components/schemas/AccountPostResponse"
                   },
                   "type": "array"
                 }
@@ -2578,6 +2771,112 @@
       ],
       "x-model": "ProvisioningStrategy"
     },
+    "/safe-deletes/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/VolumeSafeDelete"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "VolumeSafeDelete"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VolumeSafeDeleteCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/VolumeSafeDelete"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "VolumeSafeDelete"
+        ]
+      },
+      "x-model": "VolumeSafeDelete"
+    },
+    "/safe-deletes/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/VolumeSafeDelete"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "VolumeSafeDelete"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/VolumeSafeDelete"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "VolumeSafeDelete"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "VolumeSafeDelete"
+    },
     "/service-resource-attchment/": {
       "get": {
         "responses": {
@@ -2828,7 +3127,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/StorageResource"
+                    "$ref": "#/components/schemas/StorageResourceResponse"
                   },
                   "type": "array"
                 }
@@ -2846,7 +3145,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StorageResource"
+                "$ref": "#/components/schemas/StorageResourceCreate"
               }
             }
           },
@@ -2858,7 +3157,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/StorageResource"
+                    "$ref": "#/components/schemas/StorageResourceResponse"
                   },
                   "type": "array"
                 }
@@ -2881,7 +3180,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/StorageResource"
+                    "$ref": "#/components/schemas/StorageResourceResponse"
                   },
                   "type": "array"
                 }
@@ -2901,7 +3200,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/StorageResource"
+                    "$ref": "#/components/schemas/StorageResourceResponse"
                   },
                   "type": "array"
                 }
@@ -2929,7 +3228,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StorageResource"
+                "$ref": "#/components/schemas/StorageResourceCreate"
               }
             }
           },
@@ -2941,7 +3240,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/StorageResource"
+                    "$ref": "#/components/schemas/StorageResourceResponse"
                   },
                   "type": "array"
                 }
@@ -3176,7 +3475,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/Volume"
+                    "$ref": "#/components/schemas/volumeResponse"
                   },
                   "type": "array"
                 }
@@ -3206,7 +3505,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/Volume"
+                    "$ref": "#/components/schemas/volumeResponse"
                   },
                   "type": "array"
                 }
@@ -3249,7 +3548,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/Volume"
+                    "$ref": "#/components/schemas/volumeResponse"
                   },
                   "type": "array"
                 }
@@ -3277,7 +3576,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Volume"
+                "$ref": "#/components/schemas/volumeUpdate"
               }
             }
           },
@@ -3289,7 +3588,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/Volume"
+                    "$ref": "#/components/schemas/volumeResponse"
                   },
                   "type": "array"
                 }
@@ -3305,6 +3604,11 @@
       "x-model": "Volume"
     }
   },
+  "security": [
+    {
+      "bearerAuth": [ ]
+    }
+  ],
   "servers": [
     {
       "url": "{protocol}://{host}:{port}/site-manager/api/v1/engine",
@@ -3324,8 +3628,5 @@
         }
       }
     }
-  ],
-  "security": [
-    {"bearerAuth": [] }
   ]
 }

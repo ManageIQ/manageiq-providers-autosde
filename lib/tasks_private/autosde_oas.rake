@@ -7,7 +7,7 @@ namespace :autosde do
 
       root = ManageIQ::Providers::Autosde::Engine.root #ManageIQ::Environment::APP_ROOT
       # parent folder for generated stuff ( contains input spec file)
-      default_folder = "app/models/manageiq/providers/autosde/sde_manager/openapi_client"
+      default_folder = "app/models/manageiq/providers/autosde/storage_manager/openapi_client"
 
       # oas file
       default_oas_file = 'site_manager_oas.json'
@@ -47,9 +47,10 @@ namespace :autosde do
     # helpers
 
     def build_command(output_dir, generated)
+      puts ">>>>> #{output_dir}"
       # exclude some not needed things
       env = " --env JAVA_OPTS=\"${JAVA_OPTS} -Dapis -Dmodels  -DsupportingFiles -DmodelDocs=false -DmodelTests=false -DapiTests=false -DapiDocs=false\" "
-      "docker run #{env} --rm -v #{output_dir}:/local:z openapitools/openapi-generator-cli generate -i /local/site_manager_oas.json -g ruby -o /local/#{generated} --skip-validate-spec"
+      "docker run #{env} --rm -v #{output_dir}:/local openapitools/openapi-generator-cli generate -i /local/site_manager_oas.json -g ruby -o /local/#{generated} --skip-validate-spec"
     end
 
     def validate_directory(directory)

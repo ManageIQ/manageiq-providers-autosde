@@ -23,7 +23,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
 
     new_inventory[:storage_resources] = []
     @manager.autosde_client.StorageResourceApi.storage_resources_get.each do |resource|
-      # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::StorageResource]
+      # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::StorageResourceResponse]
       resource = resource
       new_inventory[:storage_resources] << {
           :name => resource.name,
@@ -38,7 +38,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
 
     new_inventory[:cloud_volumes] = []
     @manager.autosde_client.VolumeApi.volumes_get.each do |volume|
-      # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::Volume]
+      # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::VolumeResponse]
       volume = volume
       new_inventory[:cloud_volumes] << {
           :name => volume.name,

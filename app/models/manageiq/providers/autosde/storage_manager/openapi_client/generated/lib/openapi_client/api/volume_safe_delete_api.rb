@@ -13,27 +13,27 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'cgi'
 
 module OpenapiClient
-  class ProvisioningStrategyApi
+  class VolumeSafeDeleteApi
     attr_accessor :api_client
 
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
     # @param [Hash] opts the optional parameters
-    # @return [Array<ProvisioningStrategy>]
-    def provisioning_strategy_get(opts = {})
-      data, _status_code, _headers = provisioning_strategy_get_with_http_info(opts)
+    # @return [Array<VolumeSafeDelete>]
+    def safe_deletes_get(opts = {})
+      data, _status_code, _headers = safe_deletes_get_with_http_info(opts)
       data
     end
 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<ProvisioningStrategy>, Integer, Hash)>] Array<ProvisioningStrategy> data, response status code and response headers
-    def provisioning_strategy_get_with_http_info(opts = {})
+    # @return [Array<(Array<VolumeSafeDelete>, Integer, Hash)>] Array<VolumeSafeDelete> data, response status code and response headers
+    def safe_deletes_get_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: ProvisioningStrategyApi.provisioning_strategy_get ...'
+        @api_client.config.logger.debug 'Calling API: VolumeSafeDeleteApi.safe_deletes_get ...'
       end
       # resource path
-      local_var_path = '/provisioning-strategy/'
+      local_var_path = '/safe-deletes/'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -50,7 +50,7 @@ module OpenapiClient
       post_body = opts[:body] 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<ProvisioningStrategy>' 
+      return_type = opts[:return_type] || 'Array<VolumeSafeDelete>' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -66,32 +66,32 @@ module OpenapiClient
 
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: ProvisioningStrategyApi#provisioning_strategy_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: VolumeSafeDeleteApi#safe_deletes_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
 
     # @param pk [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<ProvisioningStrategy>]
-    def provisioning_strategy_pk_delete(pk, opts = {})
-      data, _status_code, _headers = provisioning_strategy_pk_delete_with_http_info(pk, opts)
+    # @return [Array<VolumeSafeDelete>]
+    def safe_deletes_pk_delete(pk, opts = {})
+      data, _status_code, _headers = safe_deletes_pk_delete_with_http_info(pk, opts)
       data
     end
 
     # @param pk [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<ProvisioningStrategy>, Integer, Hash)>] Array<ProvisioningStrategy> data, response status code and response headers
-    def provisioning_strategy_pk_delete_with_http_info(pk, opts = {})
+    # @return [Array<(Array<VolumeSafeDelete>, Integer, Hash)>] Array<VolumeSafeDelete> data, response status code and response headers
+    def safe_deletes_pk_delete_with_http_info(pk, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: ProvisioningStrategyApi.provisioning_strategy_pk_delete ...'
+        @api_client.config.logger.debug 'Calling API: VolumeSafeDeleteApi.safe_deletes_pk_delete ...'
       end
       # verify the required parameter 'pk' is set
       if @api_client.config.client_side_validation && pk.nil?
-        fail ArgumentError, "Missing the required parameter 'pk' when calling ProvisioningStrategyApi.provisioning_strategy_pk_delete"
+        fail ArgumentError, "Missing the required parameter 'pk' when calling VolumeSafeDeleteApi.safe_deletes_pk_delete"
       end
       # resource path
-      local_var_path = '/provisioning-strategy/{pk}'.sub('{' + 'pk' + '}', CGI.escape(pk.to_s))
+      local_var_path = '/safe-deletes/{pk}'.sub('{' + 'pk' + '}', CGI.escape(pk.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -108,7 +108,7 @@ module OpenapiClient
       post_body = opts[:body] 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<ProvisioningStrategy>' 
+      return_type = opts[:return_type] || 'Array<VolumeSafeDelete>' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -124,32 +124,32 @@ module OpenapiClient
 
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: ProvisioningStrategyApi#provisioning_strategy_pk_delete\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: VolumeSafeDeleteApi#safe_deletes_pk_delete\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
 
     # @param pk [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<ProvisioningStrategy>]
-    def provisioning_strategy_pk_get(pk, opts = {})
-      data, _status_code, _headers = provisioning_strategy_pk_get_with_http_info(pk, opts)
+    # @return [Array<VolumeSafeDelete>]
+    def safe_deletes_pk_get(pk, opts = {})
+      data, _status_code, _headers = safe_deletes_pk_get_with_http_info(pk, opts)
       data
     end
 
     # @param pk [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<ProvisioningStrategy>, Integer, Hash)>] Array<ProvisioningStrategy> data, response status code and response headers
-    def provisioning_strategy_pk_get_with_http_info(pk, opts = {})
+    # @return [Array<(Array<VolumeSafeDelete>, Integer, Hash)>] Array<VolumeSafeDelete> data, response status code and response headers
+    def safe_deletes_pk_get_with_http_info(pk, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: ProvisioningStrategyApi.provisioning_strategy_pk_get ...'
+        @api_client.config.logger.debug 'Calling API: VolumeSafeDeleteApi.safe_deletes_pk_get ...'
       end
       # verify the required parameter 'pk' is set
       if @api_client.config.client_side_validation && pk.nil?
-        fail ArgumentError, "Missing the required parameter 'pk' when calling ProvisioningStrategyApi.provisioning_strategy_pk_get"
+        fail ArgumentError, "Missing the required parameter 'pk' when calling VolumeSafeDeleteApi.safe_deletes_pk_get"
       end
       # resource path
-      local_var_path = '/provisioning-strategy/{pk}'.sub('{' + 'pk' + '}', CGI.escape(pk.to_s))
+      local_var_path = '/safe-deletes/{pk}'.sub('{' + 'pk' + '}', CGI.escape(pk.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -166,7 +166,7 @@ module OpenapiClient
       post_body = opts[:body] 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<ProvisioningStrategy>' 
+      return_type = opts[:return_type] || 'Array<VolumeSafeDelete>' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -182,32 +182,32 @@ module OpenapiClient
 
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: ProvisioningStrategyApi#provisioning_strategy_pk_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: VolumeSafeDeleteApi#safe_deletes_pk_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
 
-    # @param provisioning_strategy [ProvisioningStrategy] 
+    # @param volume_safe_delete_create [VolumeSafeDeleteCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<ProvisioningStrategy>]
-    def provisioning_strategy_post(provisioning_strategy, opts = {})
-      data, _status_code, _headers = provisioning_strategy_post_with_http_info(provisioning_strategy, opts)
+    # @return [Array<VolumeSafeDelete>]
+    def safe_deletes_post(volume_safe_delete_create, opts = {})
+      data, _status_code, _headers = safe_deletes_post_with_http_info(volume_safe_delete_create, opts)
       data
     end
 
-    # @param provisioning_strategy [ProvisioningStrategy] 
+    # @param volume_safe_delete_create [VolumeSafeDeleteCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<ProvisioningStrategy>, Integer, Hash)>] Array<ProvisioningStrategy> data, response status code and response headers
-    def provisioning_strategy_post_with_http_info(provisioning_strategy, opts = {})
+    # @return [Array<(Array<VolumeSafeDelete>, Integer, Hash)>] Array<VolumeSafeDelete> data, response status code and response headers
+    def safe_deletes_post_with_http_info(volume_safe_delete_create, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: ProvisioningStrategyApi.provisioning_strategy_post ...'
+        @api_client.config.logger.debug 'Calling API: VolumeSafeDeleteApi.safe_deletes_post ...'
       end
-      # verify the required parameter 'provisioning_strategy' is set
-      if @api_client.config.client_side_validation && provisioning_strategy.nil?
-        fail ArgumentError, "Missing the required parameter 'provisioning_strategy' when calling ProvisioningStrategyApi.provisioning_strategy_post"
+      # verify the required parameter 'volume_safe_delete_create' is set
+      if @api_client.config.client_side_validation && volume_safe_delete_create.nil?
+        fail ArgumentError, "Missing the required parameter 'volume_safe_delete_create' when calling VolumeSafeDeleteApi.safe_deletes_post"
       end
       # resource path
-      local_var_path = '/provisioning-strategy/'
+      local_var_path = '/safe-deletes/'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -223,10 +223,10 @@ module OpenapiClient
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:body] || @api_client.object_to_http_body(provisioning_strategy) 
+      post_body = opts[:body] || @api_client.object_to_http_body(volume_safe_delete_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<ProvisioningStrategy>' 
+      return_type = opts[:return_type] || 'Array<VolumeSafeDelete>' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -242,7 +242,7 @@ module OpenapiClient
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: ProvisioningStrategyApi#provisioning_strategy_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: VolumeSafeDeleteApi#safe_deletes_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

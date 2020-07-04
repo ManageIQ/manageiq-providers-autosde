@@ -151,6 +151,10 @@ Class | Method | HTTP request | Description
 *OpenapiClient::VolumeApi* | [**volumes_pk_get**](docs/VolumeApi.md#volumes_pk_get) | **GET** /volumes/{pk} | 
 *OpenapiClient::VolumeApi* | [**volumes_pk_put**](docs/VolumeApi.md#volumes_pk_put) | **PUT** /volumes/{pk} | 
 *OpenapiClient::VolumeApi* | [**volumes_post**](docs/VolumeApi.md#volumes_post) | **POST** /volumes/ | 
+*OpenapiClient::VolumeSafeDeleteApi* | [**safe_deletes_get**](docs/VolumeSafeDeleteApi.md#safe_deletes_get) | **GET** /safe-deletes/ | 
+*OpenapiClient::VolumeSafeDeleteApi* | [**safe_deletes_pk_delete**](docs/VolumeSafeDeleteApi.md#safe_deletes_pk_delete) | **DELETE** /safe-deletes/{pk} | 
+*OpenapiClient::VolumeSafeDeleteApi* | [**safe_deletes_pk_get**](docs/VolumeSafeDeleteApi.md#safe_deletes_pk_get) | **GET** /safe-deletes/{pk} | 
+*OpenapiClient::VolumeSafeDeleteApi* | [**safe_deletes_post**](docs/VolumeSafeDeleteApi.md#safe_deletes_post) | **POST** /safe-deletes/ | 
 
 
 ## Documentation for Models
@@ -177,12 +181,17 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::ServiceResourceAttachment](docs/ServiceResourceAttachment.md)
  - [OpenapiClient::StorageResource](docs/StorageResource.md)
  - [OpenapiClient::StorageResourceCreate](docs/StorageResourceCreate.md)
+ - [OpenapiClient::StorageResourceResponse](docs/StorageResourceResponse.md)
  - [OpenapiClient::StorageSystem](docs/StorageSystem.md)
  - [OpenapiClient::StorageSystemCreate](docs/StorageSystemCreate.md)
  - [OpenapiClient::SystemType](docs/SystemType.md)
  - [OpenapiClient::SystemTypeCreate](docs/SystemTypeCreate.md)
  - [OpenapiClient::Volume](docs/Volume.md)
  - [OpenapiClient::VolumeCreate](docs/VolumeCreate.md)
+ - [OpenapiClient::VolumeResponse](docs/VolumeResponse.md)
+ - [OpenapiClient::VolumeSafeDelete](docs/VolumeSafeDelete.md)
+ - [OpenapiClient::VolumeSafeDeleteCreate](docs/VolumeSafeDeleteCreate.md)
+ - [OpenapiClient::VolumeUpdate](docs/VolumeUpdate.md)
 
 
 ## Documentation for Authorization

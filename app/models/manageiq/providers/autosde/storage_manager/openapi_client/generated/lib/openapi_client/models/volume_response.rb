@@ -13,40 +13,37 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'date'
 
 module OpenapiClient
-  # Used for capacity provisioning details.
-  class ProvisioningStrategy
+  # TODO add description
+  class VolumeResponse
+    # compliant
+    attr_accessor :compliant
+
+    attr_accessor :historical_service
+
     # name
     attr_accessor :name
+
+    # !!uuid of service
+    attr_accessor :service
+
+    # size
+    attr_accessor :size
+
+    # !!uuid of storage_resource
+    attr_accessor :storage_resource
 
     # uuid
     attr_accessor :uuid
 
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'compliant' => :'compliant',
+        :'historical_service' => :'historical_service',
         :'name' => :'name',
+        :'service' => :'service',
+        :'size' => :'size',
+        :'storage_resource' => :'storage_resource',
         :'uuid' => :'uuid'
       }
     end
@@ -54,7 +51,12 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'compliant' => :'Boolean',
+        :'historical_service' => :'Service',
         :'name' => :'String',
+        :'service' => :'String',
+        :'size' => :'Integer',
+        :'storage_resource' => :'String',
         :'uuid' => :'String'
       }
     end
@@ -69,19 +71,41 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::ProvisioningStrategy` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::VolumeResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::ProvisioningStrategy`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::VolumeResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'compliant')
+        self.compliant = attributes[:'compliant']
+      else
+        self.compliant = false
+      end
+
+      if attributes.key?(:'historical_service')
+        self.historical_service = attributes[:'historical_service']
+      end
+
       if attributes.key?(:'name')
         self.name = attributes[:'name']
+      end
+
+      if attributes.key?(:'service')
+        self.service = attributes[:'service']
+      end
+
+      if attributes.key?(:'size')
+        self.size = attributes[:'size']
+      end
+
+      if attributes.key?(:'storage_resource')
+        self.storage_resource = attributes[:'storage_resource']
       end
 
       if attributes.key?(:'uuid')
@@ -93,30 +117,13 @@ module OpenapiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if !@name.nil? && @name.to_s.length > 20
-        invalid_properties.push('invalid value for "name", the character length must be smaller than or equal to 20.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      name_validator = EnumAttributeValidator.new('String', ["logical_free_capacity"])
-      return false unless name_validator.valid?(@name)
-      return false if !@name.nil? && @name.to_s.length > 20
       true
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] name Object to be assigned
-    def name=(name)
-      validator = EnumAttributeValidator.new('String', ["logical_free_capacity"])
-      unless validator.valid?(name)
-        fail ArgumentError, "invalid value for \"name\", must be one of #{validator.allowable_values}."
-      end
-      @name = name
     end
 
     # Checks equality by comparing each attribute.
@@ -124,7 +131,12 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          compliant == o.compliant &&
+          historical_service == o.historical_service &&
           name == o.name &&
+          service == o.service &&
+          size == o.size &&
+          storage_resource == o.storage_resource &&
           uuid == o.uuid
     end
 
@@ -137,7 +149,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, uuid].hash
+      [compliant, historical_service, name, service, size, storage_resource, uuid].hash
     end
 
     # Builds the object from hash

@@ -96,15 +96,27 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
       volumes = client.VolumeApi.volumes_get
     end
     volumes_count = volumes.count
+
+    # @type OpenapiClient::VolumeResponse
+    any_volume = volumes.first
+    expect(any_volume).to be_an_instance_of(OpenapiClient::VolumeResponse)
+    puts '&&&&&'
+    p any_volume
+    p OpenapiClient::VolumeResponse.openapi_types
+    expect(any_volume.service).to be_a(String)
+
     # create new volume
     vol_name = 'vol_test_bk_'  +  Time.now.strftime('%Y-%m-%d %H_%M_%S')
-    vol_to_create = client.VolumeCreate(service: service, name: vol_name, size: 10)
+    vol_to_create = client.VolumeCreate(service: service.uuid, name: vol_name, size: 10)
+    expect(vol_to_create).to be_an_instance_of(OpenapiClient::VolumeCreate)
+    expect(vol_to_create.service).to be_a(String)
+
     # replace by uuid, see explanation at top
-    vol_to_create.service = service.uuid
+    #vol_to_create.service = service.uuid
     VCR.use_cassette("create_new_volume") do
       client.VolumeApi.volumes_post(vol_to_create)
     end
-    sleep 10
+    #sleep 10
     # after create volume: again get all volumes
     VCR.use_cassette("get_volumes_after_creation") do
       volumes = client.VolumeApi.volumes_get
