@@ -116,6 +116,19 @@
               "null": true
             }
           },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
           "iqn": {
             "description": "",
             "type": "string",
@@ -182,6 +195,19 @@
               "blank": true,
               "null": true
             }
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
           },
           "iqn": {
             "description": "",
@@ -476,6 +502,19 @@
       "Host": {
         "description": "doc-todo: what 'host' is this defining or being filled in for? Fill in host properties: name, UUID, management IP address, and IQN.",
         "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
           "description": {
             "description": "description",
             "type": "string",
@@ -547,6 +586,19 @@
               "blank": true,
               "null": true
             }
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
           },
           "description": {
             "description": "description",
@@ -633,6 +685,19 @@
       "HostVolumeConnection": {
         "description": "Fill in the host volume connection properties.",
         "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
           "host": {
             "$ref": "#/components/schemas/Host"
           },
@@ -653,6 +718,19 @@
       "HostVolumeConnectionCreate": {
         "description": "TODO add description",
         "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
           "host": {
             "$ref": "#/components/schemas/Host",
             "x-serializer": {
@@ -771,6 +849,19 @@
               "related_name": "'capability_values'",
               "relation": "ManyToMany"
             }
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
           },
           "description": {
             "default": "",
@@ -901,6 +992,19 @@
               "blank": true
             }
           },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
           "logical_free": {
             "default": 0,
             "description": "logical_free",
@@ -971,6 +1075,19 @@
               "blank": true
             }
           },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
           "logical_free": {
             "default": 0,
             "description": "logical_free",
@@ -1028,6 +1145,19 @@
             "x-model": {
               "blank": true
             }
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
           },
           "logical_free": {
             "default": 0,
@@ -1087,6 +1217,19 @@
       "StorageSystem": {
         "description": "Use to define storage system properties.",
         "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
           "management_ip": {
             "description": "management_ip",
             "type": "string",
@@ -1167,6 +1310,19 @@
               "null": true
             }
           },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
           "iqn": {
             "description": "",
             "type": "string",
@@ -1223,9 +1379,12 @@
             }
           },
           "storage_driver": {
-            "default": null,
             "description": "storage_driver",
-            "type": "string"
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
           },
           "storage_family": {
             "description": "storage_family",
@@ -1263,6 +1422,19 @@
       "SystemType": {
         "description": "Use to define the storage system type.",
         "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
           "name": {
             "default": "xiv",
             "description": "name",
@@ -1301,6 +1473,19 @@
       "SystemTypeCreate": {
         "description": "TODO add description",
         "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
           "name": {
             "default": "xiv",
             "description": "name",
@@ -1352,6 +1537,19 @@
             "default": false,
             "description": "compliant",
             "type": "boolean"
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
           },
           "historical_service": {
             "$ref": "#/components/schemas/Service",
@@ -1410,6 +1608,19 @@
             "default": false,
             "description": "compliant",
             "type": "boolean"
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
           },
           "name": {
             "description": "name",
@@ -1492,6 +1703,19 @@
             "default": false,
             "description": "compliant",
             "type": "boolean"
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
           },
           "historical_service": {
             "$ref": "#/components/schemas/Service",

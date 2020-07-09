@@ -17,6 +17,9 @@ module OpenapiClient
   class Service
     attr_accessor :capability_values
 
+    # component_state
+    attr_accessor :component_state
+
     # description
     attr_accessor :description
 
@@ -35,10 +38,33 @@ module OpenapiClient
     # The version of the service
     attr_accessor :version
 
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'capability_values' => :'capability_values',
+        :'component_state' => :'component_state',
         :'description' => :'description',
         :'name' => :'name',
         :'profile' => :'profile',
@@ -53,6 +79,7 @@ module OpenapiClient
     def self.openapi_types
       {
         :'capability_values' => :'ServiceAbstractCapabilityValue',
+        :'component_state' => :'String',
         :'description' => :'String',
         :'name' => :'String',
         :'profile' => :'Profile',
@@ -86,6 +113,10 @@ module OpenapiClient
 
       if attributes.key?(:'capability_values')
         self.capability_values = attributes[:'capability_values']
+      end
+
+      if attributes.key?(:'component_state')
+        self.component_state = attributes[:'component_state']
       end
 
       if attributes.key?(:'description')
@@ -125,13 +156,30 @@ module OpenapiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if !@component_state.nil? && @component_state.to_s.length > 32
+        invalid_properties.push('invalid value for "component_state", the character length must be smaller than or equal to 32.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      component_state_validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
+      return false unless component_state_validator.valid?(@component_state)
+      return false if !@component_state.nil? && @component_state.to_s.length > 32
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] component_state Object to be assigned
+    def component_state=(component_state)
+      validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
+      unless validator.valid?(component_state)
+        fail ArgumentError, "invalid value for \"component_state\", must be one of #{validator.allowable_values}."
+      end
+      @component_state = component_state
     end
 
     # Checks equality by comparing each attribute.
@@ -140,6 +188,7 @@ module OpenapiClient
       return true if self.equal?(o)
       self.class == o.class &&
           capability_values == o.capability_values &&
+          component_state == o.component_state &&
           description == o.description &&
           name == o.name &&
           profile == o.profile &&
@@ -158,7 +207,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [capability_values, description, name, profile, project, provisioning_strategy, uuid, version].hash
+      [capability_values, component_state, description, name, profile, project, provisioning_strategy, uuid, version].hash
     end
 
     # Builds the object from hash

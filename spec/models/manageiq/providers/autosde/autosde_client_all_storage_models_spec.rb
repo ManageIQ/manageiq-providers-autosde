@@ -39,15 +39,19 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
   AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN = RSpec.configuration.autosde_appliance_host_with_auth_token
 
-  it "creates volume on storage system" do
+  client = nil
 
+  before(:all) do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        :host =>  AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
         :username => 'autosde',
-        :password => 'change_me'
+        :password => 'change_me',
+        :scheme => 'https'
     )
+  end
 
-    # retrieve storage system
+  it "creates volume on storage system" do
+  # retrieve storage system
     storage_systems = nil
     #  @type [Array<OpenapiClient::StorageSystem>]
     VCR.use_cassette("get_storage_system") do
@@ -121,6 +125,14 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     VCR.use_cassette("get_volumes_after_creation") do
       volumes = client.VolumeApi.volumes_get
       expect(volumes.count).to eq(volumes_count + 1)
+    end
+  end
+
+  it "check component state exists" do
+    VCR.use_cassette("check_state_exists") do
+    volumes =  client.VolumeApi.volumes_get
+    volume = volumes.first
+    expect(volume).to have_attributes(:component_state => a_string_starting_with("CREATED"))
     end
   end
 end

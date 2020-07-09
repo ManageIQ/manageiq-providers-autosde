@@ -15,6 +15,9 @@ require 'date'
 module OpenapiClient
   # doc-todo: what 'host' is this defining or being filled in for? Fill in host properties: name, UUID, management IP address, and IQN.
   class Host
+    # component_state
+    attr_accessor :component_state
+
     # description
     attr_accessor :description
 
@@ -58,6 +61,7 @@ module OpenapiClient
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'component_state' => :'component_state',
         :'description' => :'description',
         :'io_groups' => :'io_groups',
         :'management_ip' => :'management_ip',
@@ -70,6 +74,7 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'component_state' => :'String',
         :'description' => :'String',
         :'io_groups' => :'String',
         :'management_ip' => :'String',
@@ -99,6 +104,10 @@ module OpenapiClient
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'component_state')
+        self.component_state = attributes[:'component_state']
+      end
 
       if attributes.key?(:'description')
         self.description = attributes[:'description']
@@ -131,15 +140,32 @@ module OpenapiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if !@component_state.nil? && @component_state.to_s.length > 32
+        invalid_properties.push('invalid value for "component_state", the character length must be smaller than or equal to 32.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      component_state_validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
+      return false unless component_state_validator.valid?(@component_state)
+      return false if !@component_state.nil? && @component_state.to_s.length > 32
       os_type_validator = EnumAttributeValidator.new('String', ["Linux", "Windows", "Unknown"])
       return false unless os_type_validator.valid?(@os_type)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] component_state Object to be assigned
+    def component_state=(component_state)
+      validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
+      unless validator.valid?(component_state)
+        fail ArgumentError, "invalid value for \"component_state\", must be one of #{validator.allowable_values}."
+      end
+      @component_state = component_state
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -157,6 +183,7 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          component_state == o.component_state &&
           description == o.description &&
           io_groups == o.io_groups &&
           management_ip == o.management_ip &&
@@ -174,7 +201,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [description, io_groups, management_ip, name, os_type, uuid].hash
+      [component_state, description, io_groups, management_ip, name, os_type, uuid].hash
     end
 
     # Builds the object from hash

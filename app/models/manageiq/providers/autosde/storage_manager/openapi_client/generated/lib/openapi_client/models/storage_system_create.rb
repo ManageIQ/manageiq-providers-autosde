@@ -27,6 +27,9 @@ module OpenapiClient
     # chap_secret
     attr_accessor :chap_secret
 
+    # component_state
+    attr_accessor :component_state
+
     attr_accessor :iqn
 
     # management_ip
@@ -90,6 +93,7 @@ module OpenapiClient
         :'auto_setup' => :'auto_setup',
         :'chap_name' => :'chap_name',
         :'chap_secret' => :'chap_secret',
+        :'component_state' => :'component_state',
         :'iqn' => :'iqn',
         :'management_ip' => :'management_ip',
         :'name' => :'name',
@@ -112,6 +116,7 @@ module OpenapiClient
         :'auto_setup' => :'Boolean',
         :'chap_name' => :'String',
         :'chap_secret' => :'String',
+        :'component_state' => :'String',
         :'iqn' => :'String',
         :'management_ip' => :'String',
         :'name' => :'String',
@@ -168,6 +173,10 @@ module OpenapiClient
         self.chap_secret = attributes[:'chap_secret']
       end
 
+      if attributes.key?(:'component_state')
+        self.component_state = attributes[:'component_state']
+      end
+
       if attributes.key?(:'iqn')
         self.iqn = attributes[:'iqn']
       end
@@ -198,8 +207,6 @@ module OpenapiClient
 
       if attributes.key?(:'storage_driver')
         self.storage_driver = attributes[:'storage_driver']
-      else
-        self.storage_driver = 'null'
       end
 
       if attributes.key?(:'storage_family')
@@ -223,6 +230,10 @@ module OpenapiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if !@component_state.nil? && @component_state.to_s.length > 32
+        invalid_properties.push('invalid value for "component_state", the character length must be smaller than or equal to 32.')
+      end
+
       if !@name.nil? && @name.to_s.length > 15
         invalid_properties.push('invalid value for "name", the character length must be smaller than or equal to 15.')
       end
@@ -233,12 +244,25 @@ module OpenapiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      component_state_validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
+      return false unless component_state_validator.valid?(@component_state)
+      return false if !@component_state.nil? && @component_state.to_s.length > 32
       return false if !@name.nil? && @name.to_s.length > 15
       port_type_validator = EnumAttributeValidator.new('String', ["ISCSI", "FC", "NVMeFC"])
       return false unless port_type_validator.valid?(@port_type)
       storage_family_validator = EnumAttributeValidator.new('String', ["", "ontap_7mode", "ontap_cluster"])
       return false unless storage_family_validator.valid?(@storage_family)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] component_state Object to be assigned
+    def component_state=(component_state)
+      validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
+      unless validator.valid?(component_state)
+        fail ArgumentError, "invalid value for \"component_state\", must be one of #{validator.allowable_values}."
+      end
+      @component_state = component_state
     end
 
     # Custom attribute writer method with validation
@@ -280,6 +304,7 @@ module OpenapiClient
           auto_setup == o.auto_setup &&
           chap_name == o.chap_name &&
           chap_secret == o.chap_secret &&
+          component_state == o.component_state &&
           iqn == o.iqn &&
           management_ip == o.management_ip &&
           name == o.name &&
@@ -303,7 +328,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [auto_add_pools, auto_setup, chap_name, chap_secret, iqn, management_ip, name, password, port_type, secondary_ip, storage_array, storage_driver, storage_family, system_type, user, wwpn].hash
+      [auto_add_pools, auto_setup, chap_name, chap_secret, component_state, iqn, management_ip, name, password, port_type, secondary_ip, storage_array, storage_driver, storage_family, system_type, user, wwpn].hash
     end
 
     # Builds the object from hash

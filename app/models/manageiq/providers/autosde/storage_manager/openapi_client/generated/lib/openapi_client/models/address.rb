@@ -21,6 +21,9 @@ module OpenapiClient
     # chap_secret
     attr_accessor :chap_secret
 
+    # component_state
+    attr_accessor :component_state
+
     attr_accessor :iqn
 
     # port_type
@@ -62,6 +65,7 @@ module OpenapiClient
       {
         :'chap_name' => :'chap_name',
         :'chap_secret' => :'chap_secret',
+        :'component_state' => :'component_state',
         :'iqn' => :'iqn',
         :'port_type' => :'port_type',
         :'secondary_ip' => :'secondary_ip',
@@ -75,6 +79,7 @@ module OpenapiClient
       {
         :'chap_name' => :'String',
         :'chap_secret' => :'String',
+        :'component_state' => :'String',
         :'iqn' => :'String',
         :'port_type' => :'String',
         :'secondary_ip' => :'String',
@@ -112,6 +117,10 @@ module OpenapiClient
         self.chap_secret = attributes[:'chap_secret']
       end
 
+      if attributes.key?(:'component_state')
+        self.component_state = attributes[:'component_state']
+      end
+
       if attributes.key?(:'iqn')
         self.iqn = attributes[:'iqn']
       end
@@ -137,15 +146,32 @@ module OpenapiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if !@component_state.nil? && @component_state.to_s.length > 32
+        invalid_properties.push('invalid value for "component_state", the character length must be smaller than or equal to 32.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      component_state_validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
+      return false unless component_state_validator.valid?(@component_state)
+      return false if !@component_state.nil? && @component_state.to_s.length > 32
       port_type_validator = EnumAttributeValidator.new('String', ["ISCSI", "FC", "NVMeFC"])
       return false unless port_type_validator.valid?(@port_type)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] component_state Object to be assigned
+    def component_state=(component_state)
+      validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
+      unless validator.valid?(component_state)
+        fail ArgumentError, "invalid value for \"component_state\", must be one of #{validator.allowable_values}."
+      end
+      @component_state = component_state
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -165,6 +191,7 @@ module OpenapiClient
       self.class == o.class &&
           chap_name == o.chap_name &&
           chap_secret == o.chap_secret &&
+          component_state == o.component_state &&
           iqn == o.iqn &&
           port_type == o.port_type &&
           secondary_ip == o.secondary_ip &&
@@ -181,7 +208,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [chap_name, chap_secret, iqn, port_type, secondary_ip, uuid, wwpn].hash
+      [chap_name, chap_secret, component_state, iqn, port_type, secondary_ip, uuid, wwpn].hash
     end
 
     # Builds the object from hash

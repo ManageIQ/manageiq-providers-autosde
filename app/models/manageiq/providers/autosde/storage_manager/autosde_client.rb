@@ -13,12 +13,13 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
 
   attr_accessor :token, :username, :password, :host
 
-  def initialize(username:, password:, host:)
+  def initialize(username:, password:, host:, port: 443, token: nil, scheme: 'https')
+    @scheme = scheme
     @username = username
     @password = password
     @host = host
-    @port = 443
-    @token = nil
+    @port = port
+    @token = token
     super(configure_openapi_client)
   end
 
@@ -26,6 +27,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
   # usage : <this>.StorageSystemApi.storage_systems_get
   OpenapiClient.constants.each do |method|
     clazz = "OpenapiClient::#{method}".constantize
+    attr_accessor method
     define_method method do |*args|
       if method.to_s.end_with?('Api')
         clazz.new(self)
@@ -37,6 +39,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
 
   # override OpenApiClient::ApiClient method
   def call_api (http_method, path, opts = {})
+    puts ">>>>>> in call_api #{opts} #{http_method} #{path}"
     begin
       login unless @token
       set_auth_token
@@ -109,7 +112,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
 
   def configure_openapi_client
     Configuration.new.tap do |config|
-      config.scheme = 'https'
+      config.scheme = @scheme
       config.verify_ssl = false
       config.host = @host
       config.debugging = true
