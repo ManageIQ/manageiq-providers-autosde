@@ -17,7 +17,15 @@ FactoryBot.define do
   factory :autosde_storage_manager,
           :parent => :ext_management_system,
           :class => "ManageIQ::Providers::Autosde::StorageManager" do
-  end
 
+    trait :with_autosde_credentials do
+      after(:create) do |ems, _|
+        ems.authentications << FactoryBot.create(:authentication,
+           :userid => RSpec.configuration.autosde_site_manager_user,
+           :password => RSpec.configuration.autosde_site_manager_password)
+      end
+    end
+
+  end
 end
 

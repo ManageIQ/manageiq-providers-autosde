@@ -1,0 +1,452 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://9.151.190.206/site-manager/api/v1/engine/token-auth/
+    body:
+      encoding: UTF-8
+      string: '{"username":"<username>","password":"<password>"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:14 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Allow:
+      - POST, OPTIONS
+      Vary:
+      - Accept
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"token":"c86b85aa27a578b0b2df71b761ed28889f6395cf"}'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+- request:
+    method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/storage-systems/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c86b85aa27a578b0b2df71b761ed28889f6395cf
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:14 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"component_state":"PENDING_CREATION","management_ip":"9.151.159.178","name":"svc","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"svc","short_version":"1","uuid":"cb969f8d-d98f-4362-bcc2-06f1b5cbd809","version":"1.1"},"uuid":"60197969-da2c-4982-948f-c145b17bce50"}]'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+- request:
+    method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/storage-resources/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c86b85aa27a578b0b2df71b761ed28889f6395cf
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:14 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":1095216660480,"logical_total":1099511627776,"name":"svc:AutoSDE_Pool_CI","pool_name":"AutoSDE_Pool_CI","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"1c7f6b72-bdf1-4a17-8186-7f07765ae045","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":268435456000,"logical_total":268435456000,"name":"svc:AutoSDE_Pool_erantz","pool_name":"AutoSDE_Pool_erantz","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"8c393039-5aa9-4a78-a51c-a5183308856f","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":274877906944,"logical_total":274877906944,"name":"svc:AutoSDE_Pool_erezt","pool_name":"AutoSDE_Pool_erezt","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"a06abd1e-927d-4637-bd3f-c2a01d9b233c","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":272730423296,"logical_total":274877906944,"name":"svc:AutoSDE_Pool_felixnu","pool_name":"AutoSDE_Pool_felixnu","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"1a0ae612-aa8d-471c-9750-40c4330d7ebb","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":241591910400,"logical_total":274877906944,"name":"svc:AutoSDE_Pool_ilyak","pool_name":"AutoSDE_Pool_ilyak","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"92cfdd90-e745-470c-88f0-b07295580e88","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":254476812288,"logical_total":273804165120,"name":"svc:AutoSDE_Pool_borisko","pool_name":"AutoSDE_Pool_borisko","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"9e5d857f-7592-4c1c-bc80-e48d399b1938","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":265214230528,"logical_total":273804165120,"name":"svc:AutoSDE_Pool_gregoryb","pool_name":"AutoSDE_Pool_gregoryb","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"4c941f0d-935b-4052-8705-ec4761f9572d","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":272730423296,"logical_total":273804165120,"name":"svc:AutoSDE_Pool_liranl","pool_name":"AutoSDE_Pool_liranl","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"946c7906-9fdb-4afd-96d6-688409b2c0a1","abstract_capability_values":{},"replication_target_resource":null}]'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+- request:
+    method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/volumes/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c86b85aa27a578b0b2df71b761ed28889f6395cf
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:14 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"compliant":true,"component_state":"CREATED","historical_service":7,"name":"bk-10-07-11-41","service":"5b4bce06-ed0b-4a24-abb8-ae465d378ed8","size":1,"storage_resource":"9e5d857f-7592-4c1c-bc80-e48d399b1938","uuid":"4b944ec7-3a9a-448f-9e4a-201ca586425e"}]'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+- request:
+    method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/services/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c86b85aa27a578b0b2df71b761ed28889f6395cf
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:14 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_CI","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"e8af7f19-98b7-4168-9e64-349f697412bf","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_erantz","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"16cf9169-63e1-4242-9408-88ba0cca8725","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_erezt","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"49da6cdb-224a-48e3-ad3e-260ecf11e541","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_felixnu","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"2d435d9e-d685-4d5e-b911-ac79d8762f7e","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_ilyak","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"58a54c07-36a8-4c17-8eb5-de282562bf06","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_borisko","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"5b4bce06-ed0b-4a24-abb8-ae465d378ed8","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_gregoryb","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"c07a7f07-8202-4a1d-8a9f-f6a14a92d7e7","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_liranl","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"b4ae6a7e-6345-4e40-8ce6-120bb65255dc","version":1}]'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+- request:
+    method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/system-types/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c86b85aa27a578b0b2df71b761ed28889f6395cf
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:14 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"component_state":"PENDING_CREATION","name":"svc","short_version":"1","uuid":"cb969f8d-d98f-4362-bcc2-06f1b5cbd809","version":"1.1"},{"component_state":"PENDING_CREATION","name":"a_line","short_version":"1","uuid":"ffec412c-19c0-443c-a1b3-f02cd23c3ae8","version":"1.1"}]'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+- request:
+    method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/storage-systems/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c86b85aa27a578b0b2df71b761ed28889f6395cf
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:14 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"component_state":"PENDING_CREATION","management_ip":"9.151.159.178","name":"svc","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"svc","short_version":"1","uuid":"cb969f8d-d98f-4362-bcc2-06f1b5cbd809","version":"1.1"},"uuid":"60197969-da2c-4982-948f-c145b17bce50"}]'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+- request:
+    method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/storage-resources/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c86b85aa27a578b0b2df71b761ed28889f6395cf
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:14 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":1095216660480,"logical_total":1099511627776,"name":"svc:AutoSDE_Pool_CI","pool_name":"AutoSDE_Pool_CI","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"1c7f6b72-bdf1-4a17-8186-7f07765ae045","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":268435456000,"logical_total":268435456000,"name":"svc:AutoSDE_Pool_erantz","pool_name":"AutoSDE_Pool_erantz","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"8c393039-5aa9-4a78-a51c-a5183308856f","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":274877906944,"logical_total":274877906944,"name":"svc:AutoSDE_Pool_erezt","pool_name":"AutoSDE_Pool_erezt","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"a06abd1e-927d-4637-bd3f-c2a01d9b233c","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":272730423296,"logical_total":274877906944,"name":"svc:AutoSDE_Pool_felixnu","pool_name":"AutoSDE_Pool_felixnu","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"1a0ae612-aa8d-471c-9750-40c4330d7ebb","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":241591910400,"logical_total":274877906944,"name":"svc:AutoSDE_Pool_ilyak","pool_name":"AutoSDE_Pool_ilyak","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"92cfdd90-e745-470c-88f0-b07295580e88","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":254476812288,"logical_total":273804165120,"name":"svc:AutoSDE_Pool_borisko","pool_name":"AutoSDE_Pool_borisko","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"9e5d857f-7592-4c1c-bc80-e48d399b1938","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":265214230528,"logical_total":273804165120,"name":"svc:AutoSDE_Pool_gregoryb","pool_name":"AutoSDE_Pool_gregoryb","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"4c941f0d-935b-4052-8705-ec4761f9572d","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":272730423296,"logical_total":273804165120,"name":"svc:AutoSDE_Pool_liranl","pool_name":"AutoSDE_Pool_liranl","protocol":"fc","storage_system":"60197969-da2c-4982-948f-c145b17bce50","uuid":"946c7906-9fdb-4afd-96d6-688409b2c0a1","abstract_capability_values":{},"replication_target_resource":null}]'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+- request:
+    method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/volumes/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c86b85aa27a578b0b2df71b761ed28889f6395cf
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:14 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"compliant":true,"component_state":"CREATED","historical_service":7,"name":"bk-10-07-11-41","service":"5b4bce06-ed0b-4a24-abb8-ae465d378ed8","size":1,"storage_resource":"9e5d857f-7592-4c1c-bc80-e48d399b1938","uuid":"4b944ec7-3a9a-448f-9e4a-201ca586425e"}]'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+- request:
+    method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/services/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c86b85aa27a578b0b2df71b761ed28889f6395cf
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:14 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_CI","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"e8af7f19-98b7-4168-9e64-349f697412bf","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_erantz","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"16cf9169-63e1-4242-9408-88ba0cca8725","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_erezt","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"49da6cdb-224a-48e3-ad3e-260ecf11e541","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_felixnu","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"2d435d9e-d685-4d5e-b911-ac79d8762f7e","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_ilyak","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"58a54c07-36a8-4c17-8eb5-de282562bf06","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_borisko","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"5b4bce06-ed0b-4a24-abb8-ae465d378ed8","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_gregoryb","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"c07a7f07-8202-4a1d-8a9f-f6a14a92d7e7","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc:AutoSDE_Pool_liranl","profile":"7207cd3a-e77a-4bd2-930e-bd6a13d6af39","project":"8e36eceb-5fd5-444c-861b-945ff316308c","provisioning_strategy":null,"uuid":"b4ae6a7e-6345-4e40-8ce6-120bb65255dc","version":1}]'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+- request:
+    method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/system-types/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c86b85aa27a578b0b2df71b761ed28889f6395cf
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Jul 2020 14:10:15 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"component_state":"PENDING_CREATION","name":"svc","short_version":"1","uuid":"cb969f8d-d98f-4362-bcc2-06f1b5cbd809","version":"1.1"},{"component_state":"PENDING_CREATION","name":"a_line","short_version":"1","uuid":"ffec412c-19c0-443c-a1b3-f02cd23c3ae8","version":"1.1"}]'
+    http_version: 
+  recorded_at: Mon, 13 Jul 2020 14:07:31 GMT
+recorded_with: VCR 5.0.0

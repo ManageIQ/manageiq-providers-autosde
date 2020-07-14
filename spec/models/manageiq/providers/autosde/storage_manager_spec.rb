@@ -16,13 +16,13 @@ describe ManageIQ::Providers::Autosde::StorageManager do
   end
 
   it "can get storage systems " do
-    ems = FactoryBot.create(:autosde_storage_manager, :with_authentication)
-    ems.default_endpoint.hostname = RSpec.configuration.autosde_appliance_host
+    # use special trait: with_autosde_credentials, to supply real credentials when first run
+    ems = FactoryBot.create(:autosde_storage_manager, :with_autosde_credentials, :hostname => RSpec.configuration.autosde_appliance_host_with_auth_token )
 
-    VCR.use_cassette("get_storages_systems_from_sde_manager") do
+    VCR.use_cassette("get_storage_systems_from_storage_manager") do
       systems = ems.autosde_client.StorageSystemApi.storage_systems_get
       expect(systems).to be_an_instance_of(Array)
-      expect(systems[0].to_hash).to eq RSpec.configuration.autosde_test_system
+      expect(systems.first.management_ip).to be_truthy
     end
   end
 end
