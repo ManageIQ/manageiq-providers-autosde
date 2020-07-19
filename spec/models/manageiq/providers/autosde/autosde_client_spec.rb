@@ -7,16 +7,19 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   it "logs in with right credentials" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
         :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        #:scheme => 'http',
         :username => AUTOSDE_SITE_MANAGER_USER,
         :password => AUTOSDE_SITE_MANAGER_PASSWORD)
+    client.login
     VCR.use_cassette("correct_login_spec") do
-      expect(client.login).to be_truthy
+       expect(client.token.size).to be > 10
     end
   end
 
   it "raises on login with wrong credentials" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
         :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        #:scheme => 'http',
         :username => 'wrong_user',
         :password => AUTOSDE_SITE_MANAGER_PASSWORD)
 
@@ -31,6 +34,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
         :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        # :scheme => 'http',
         :username => AUTOSDE_SITE_MANAGER_USER,
         :password => AUTOSDE_SITE_MANAGER_PASSWORD)
 
@@ -49,6 +53,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
         :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+        #:scheme => 'http',
         :username => AUTOSDE_SITE_MANAGER_USER,
         :password => AUTOSDE_SITE_MANAGER_PASSWORD)
     #
@@ -84,11 +89,12 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   end
   it "works with object with arguments" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-        :host => '9.151.190.206',
+        :host => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
         :username => AUTOSDE_SITE_MANAGER_USER,
         :password => AUTOSDE_SITE_MANAGER_PASSWORD)
 
     vol_to_create = client.VolumeCreate(service: 's1', name: 'vol_name', size: 10)
+    expect(vol_to_create).to be_instance_of(OpenapiClient::VolumeCreate)
 
   end
 end

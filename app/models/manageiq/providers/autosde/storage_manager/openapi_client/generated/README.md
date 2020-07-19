@@ -58,7 +58,7 @@ require 'openapi_client'
 
 # Setup authorization
 OpenapiClient.configure do |config|
-  # Configure Bearer authorization (oath1): bearerAuth
+  # Configure Bearer authorization: bearerAuth
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
@@ -92,6 +92,7 @@ Class | Method | HTTP request | Description
 *OpenapiClient::AddressApi* | [**addresses_pk_delete**](docs/AddressApi.md#addresses_pk_delete) | **DELETE** /addresses/{pk} | 
 *OpenapiClient::AddressApi* | [**addresses_pk_get**](docs/AddressApi.md#addresses_pk_get) | **GET** /addresses/{pk} | 
 *OpenapiClient::AddressApi* | [**addresses_post**](docs/AddressApi.md#addresses_post) | **POST** /addresses/ | 
+*OpenapiClient::AuthenticationApi* | [**token_auth_post**](docs/AuthenticationApi.md#token_auth_post) | **POST** /token-auth | 
 *OpenapiClient::AutoSDEProjectApi* | [**autosde_projects_get**](docs/AutoSDEProjectApi.md#autosde_projects_get) | **GET** /autosde-projects/ | 
 *OpenapiClient::AutoSDEProjectApi* | [**autosde_projects_pk_delete**](docs/AutoSDEProjectApi.md#autosde_projects_pk_delete) | **DELETE** /autosde-projects/{pk}/ | 
 *OpenapiClient::AutoSDEProjectApi* | [**autosde_projects_pk_get**](docs/AutoSDEProjectApi.md#autosde_projects_pk_get) | **GET** /autosde-projects/{pk}/ | 
@@ -165,6 +166,8 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::AccountPostResponse](docs/AccountPostResponse.md)
  - [OpenapiClient::Address](docs/Address.md)
  - [OpenapiClient::AddressCreate](docs/AddressCreate.md)
+ - [OpenapiClient::AuthResponse](docs/AuthResponse.md)
+ - [OpenapiClient::Authentication](docs/Authentication.md)
  - [OpenapiClient::AutoSDEProject](docs/AutoSDEProject.md)
  - [OpenapiClient::AutoSDERole](docs/AutoSDERole.md)
  - [OpenapiClient::CapabilityTranslation](docs/CapabilityTranslation.md)
@@ -178,6 +181,7 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::ProvisioningStrategy](docs/ProvisioningStrategy.md)
  - [OpenapiClient::Service](docs/Service.md)
  - [OpenapiClient::ServiceAbstractCapabilityValue](docs/ServiceAbstractCapabilityValue.md)
+ - [OpenapiClient::ServiceCreate](docs/ServiceCreate.md)
  - [OpenapiClient::ServiceResourceAttachment](docs/ServiceResourceAttachment.md)
  - [OpenapiClient::StorageResource](docs/StorageResource.md)
  - [OpenapiClient::StorageResourceCreate](docs/StorageResourceCreate.md)
@@ -199,5 +203,5 @@ Class | Method | HTTP request | Description
 
 ### bearerAuth
 
-- **Type**: Bearer authentication (oath1)
+- **Type**: Bearer authentication
 

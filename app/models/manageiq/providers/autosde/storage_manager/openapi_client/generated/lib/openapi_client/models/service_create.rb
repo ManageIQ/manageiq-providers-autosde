@@ -13,8 +13,8 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'date'
 
 module OpenapiClient
-  # Service
-  class Service
+  # TODO add description
+  class ServiceCreate
     attr_accessor :capability_values
 
     # component_state
@@ -31,9 +31,6 @@ module OpenapiClient
     attr_accessor :project
 
     attr_accessor :provisioning_strategy
-
-    # resource_service
-    attr_accessor :resource_service
 
     # uuid
     attr_accessor :uuid
@@ -73,7 +70,6 @@ module OpenapiClient
         :'profile' => :'profile',
         :'project' => :'project',
         :'provisioning_strategy' => :'provisioning_strategy',
-        :'resource_service' => :'resource_service',
         :'uuid' => :'uuid',
         :'version' => :'version'
       }
@@ -89,7 +85,6 @@ module OpenapiClient
         :'profile' => :'Profile',
         :'project' => :'AutoSDEProject',
         :'provisioning_strategy' => :'ProvisioningStrategy',
-        :'resource_service' => :'Boolean',
         :'uuid' => :'String',
         :'version' => :'Integer'
       }
@@ -105,13 +100,13 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::Service` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::ServiceCreate` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::Service`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::ServiceCreate`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
@@ -144,12 +139,6 @@ module OpenapiClient
 
       if attributes.key?(:'provisioning_strategy')
         self.provisioning_strategy = attributes[:'provisioning_strategy']
-      end
-
-      if attributes.key?(:'resource_service')
-        self.resource_service = attributes[:'resource_service']
-      else
-        self.resource_service = false
       end
 
       if attributes.key?(:'uuid')
@@ -205,7 +194,6 @@ module OpenapiClient
           profile == o.profile &&
           project == o.project &&
           provisioning_strategy == o.provisioning_strategy &&
-          resource_service == o.resource_service &&
           uuid == o.uuid &&
           version == o.version
     end
@@ -219,7 +207,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [capability_values, component_state, description, name, profile, project, provisioning_strategy, resource_service, uuid, version].hash
+      [capability_values, component_state, description, name, profile, project, provisioning_strategy, uuid, version].hash
     end
 
     # Builds the object from hash

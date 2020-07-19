@@ -11,6 +11,7 @@ lib/openapi_client.rb
 lib/openapi_client/api/abstract_capability_api.rb
 lib/openapi_client/api/account_api.rb
 lib/openapi_client/api/address_api.rb
+lib/openapi_client/api/authentication_api.rb
 lib/openapi_client/api/auto_sde_project_api.rb
 lib/openapi_client/api/auto_sde_role_api.rb
 lib/openapi_client/api/capability_translation_api.rb
@@ -36,6 +37,8 @@ lib/openapi_client/models/account_post_request.rb
 lib/openapi_client/models/account_post_response.rb
 lib/openapi_client/models/address.rb
 lib/openapi_client/models/address_create.rb
+lib/openapi_client/models/auth_response.rb
+lib/openapi_client/models/authentication.rb
 lib/openapi_client/models/auto_sde_project.rb
 lib/openapi_client/models/auto_sde_role.rb
 lib/openapi_client/models/capability_translation.rb
@@ -49,6 +52,7 @@ lib/openapi_client/models/profile.rb
 lib/openapi_client/models/provisioning_strategy.rb
 lib/openapi_client/models/service.rb
 lib/openapi_client/models/service_abstract_capability_value.rb
+lib/openapi_client/models/service_create.rb
 lib/openapi_client/models/service_resource_attachment.rb
 lib/openapi_client/models/storage_resource.rb
 lib/openapi_client/models/storage_resource_create.rb

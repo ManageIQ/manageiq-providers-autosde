@@ -254,6 +254,29 @@
         },
         "x-serializer": "Address"
       },
+      "AuthResponse": {
+        "description": "TODO add description",
+        "properties": {
+          "token": {
+            "description": "token",
+            "type": "string"
+          }
+        },
+        "x-serializer": "Authentication"
+      },
+      "Authentication": {
+        "description": "Authentication",
+        "properties": {
+          "password": {
+            "description": "password",
+            "type": "string"
+          },
+          "username": {
+            "description": "username",
+            "type": "string"
+          }
+        }
+      },
       "AutoSDEProject": {
         "description": "Use this for AutoSDE project information.",
         "properties": {
@@ -900,6 +923,11 @@
               "related_name": "'services'"
             }
           },
+          "resource_service": {
+            "default": false,
+            "description": "resource_service",
+            "type": "boolean"
+          },
           "uuid": {
             "description": "uuid",
             "type": "string",
@@ -942,6 +970,85 @@
         "x-meta": {
           "unique_together": "(\"abstract_capability\", \"value\",)"
         }
+      },
+      "ServiceCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "capability_values": {
+            "$ref": "#/components/schemas/ServiceAbstractCapabilityValue",
+            "x-model": {
+              "blank": true,
+              "null": true,
+              "related_name": "'capability_values'",
+              "relation": "ManyToMany"
+            }
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
+          "description": {
+            "default": "",
+            "description": "description",
+            "type": "string"
+          },
+          "name": {
+            "description": "name",
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/Profile",
+            "x-model": {
+              "blank": true,
+              "on_delete": "models.DO_NOTHING"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "project": {
+            "$ref": "#/components/schemas/AutoSDEProject",
+            "x-model": {
+              "on_delete": "models.CASCADE"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "provisioning_strategy": {
+            "$ref": "#/components/schemas/ProvisioningStrategy",
+            "x-model": {
+              "blank": true,
+              "null": true,
+              "on_delete": "models.SET_NULL",
+              "related_name": "'services'"
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "version": {
+            "default": 1,
+            "description": "The version of the service",
+            "type": "integer"
+          }
+        },
+        "x-serializer": "Service"
       },
       "ServiceResourceAttachment": {
         "description": "ServiceResourceAttachment",
@@ -1777,8 +1884,6 @@
     },
     "securitySchemes": {
       "bearerAuth": {
-        "bearerFormat": "oath1",
-        "in": "header",
         "scheme": "bearer",
         "type": "http"
       }
@@ -3233,7 +3338,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Service"
+                "$ref": "#/components/schemas/ServiceCreate"
               }
             }
           },
@@ -3690,6 +3795,37 @@
         }
       ],
       "x-model": "SystemType"
+    },
+    "/token-auth": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Authentication"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "security": [ ],
+        "tags": [
+          "Authentication"
+        ]
+      },
+      "x-model": "Authentication"
     },
     "/volumes/": {
       "get": {

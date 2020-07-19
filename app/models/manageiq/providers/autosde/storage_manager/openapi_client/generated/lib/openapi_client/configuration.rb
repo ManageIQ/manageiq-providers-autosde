@@ -197,7 +197,6 @@ module OpenapiClient
           {
             type: 'bearer',
             in: 'header',
-            format: 'oath1',
             key: 'Authorization',
             value: "Bearer #{access_token}"
           },

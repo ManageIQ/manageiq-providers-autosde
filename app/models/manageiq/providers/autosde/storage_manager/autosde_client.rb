@@ -1,11 +1,9 @@
-require 'json'
 require_relative 'openapi_client/generated/lib/openapi_client'
 
 class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClient::ApiClient
   include Vmdb::Logging
   include OpenapiClient
 
-  LOGIN_URL = "/site-manager/api/v1/engine/token-auth/"
   AUTH_ERRR_MSG = "Authentication error occured"
   AUTH_TOKEN_INVALID = Rack::Utils.status_code(:unauthorized)
 
@@ -20,6 +18,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
     @host = host
     @port = port
     @token = token
+    @count = 0
     super(configure_openapi_client)
   end
 
@@ -40,16 +39,21 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
   # override OpenApiClient::ApiClient method
   def call_api (http_method, path, opts = {})
     puts ">>>>>> in call_api #{opts} #{http_method} #{path}"
+
     begin
-      login unless @token
-      set_auth_token
-      super
+      if opts[:login]
+        super
+      else
+        login unless @token
+        set_auth_token
+        super
+      end
+
     rescue OpenapiClient::ApiError => e
       case e.code
       when AUTH_TOKEN_INVALID
         begin
           _log.warn("doing re-login: token is #{@token}")
-          # bypass private method
           login
           set_auth_token
           super
@@ -66,50 +70,23 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
   end
 
   def login
-    payload = {
-        :username => @username,
-        :password => @password,
-    }
 
-    @token = nil
-    res = _request(Net::HTTP::Post, LOGIN_URL, payload)
-    # if res.code != "200"
-    if res.instance_of? Net::HTTPOK
-      @token = JSON.parse(res.body)["token"]
-      @login = true
-    else
-      @login = false
-      # raise Exception.new AUTH_ERRR_MSG
-      # raise res.read_body
-      raise AUTH_ERRR_MSG
-     end
-  end
+    begin
+      auth_request = Authentication(username:@username, password: @password)
+      # prevents endless loop
+      opts = {:login => true}
+      data  = self.AuthenticationApi.token_auth_post(auth_request, opts)
+      @token  = data.token
+     rescue
+      raise Exception.new AUTH_ERRR_MSG
+    end
+   end
 
   private
 
-  def _request(clz, url, payload = nil)
-    uri = URI("https://%s:%s" % [@host, @port])
-    uri.path = url
-    request = clz.new(uri.path)
-    if payload != nil
-      request.body = payload.to_json
-    end
-
-    # set headers
-    request["Content-Type"] = 'application/json'
-
-    # send the request
-    Net::HTTP.start(
-        uri.host, uri.port,
-        :use_ssl => uri.scheme == 'https',
-        :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
-      https.request(request)
-    end
-  end
-
   def set_auth_token
     raise NoAuthTokenError, 'No auth token!' unless @token
-    config.access_token = @token
+      config.access_token = @token
   end
 
   def configure_openapi_client

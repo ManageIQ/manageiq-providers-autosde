@@ -253,24 +253,24 @@ module OpenapiClient
       return data, status_code, headers
     end
 
-    # @param service [Service] 
+    # @param service_create [ServiceCreate] 
     # @param [Hash] opts the optional parameters
     # @return [Array<Service>]
-    def services_post(service, opts = {})
-      data, _status_code, _headers = services_post_with_http_info(service, opts)
+    def services_post(service_create, opts = {})
+      data, _status_code, _headers = services_post_with_http_info(service_create, opts)
       data
     end
 
-    # @param service [Service] 
+    # @param service_create [ServiceCreate] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Array<Service>, Integer, Hash)>] Array<Service> data, response status code and response headers
-    def services_post_with_http_info(service, opts = {})
+    def services_post_with_http_info(service_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ServiceApi.services_post ...'
       end
-      # verify the required parameter 'service' is set
-      if @api_client.config.client_side_validation && service.nil?
-        fail ArgumentError, "Missing the required parameter 'service' when calling ServiceApi.services_post"
+      # verify the required parameter 'service_create' is set
+      if @api_client.config.client_side_validation && service_create.nil?
+        fail ArgumentError, "Missing the required parameter 'service_create' when calling ServiceApi.services_post"
       end
       # resource path
       local_var_path = '/services/'
@@ -289,7 +289,7 @@ module OpenapiClient
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:body] || @api_client.object_to_http_body(service) 
+      post_body = opts[:body] || @api_client.object_to_http_body(service_create) 
 
       # return_type
       return_type = opts[:return_type] || 'Array<Service>' 
