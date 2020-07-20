@@ -9,7 +9,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
 
   NoAuthTokenError = Class.new(StandardError)
 
-  attr_accessor :token, :username, :password, :host
+  attr_accessor :token, :username, :password, :host, :port
 
   def initialize(username:, password:, host:, port: 443, token: nil, scheme: 'https')
     @scheme = scheme

@@ -139,7 +139,8 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     if @autosde_client.nil?
       @autosde_client = self.class.raw_connect(authentication_userid,
                                                authentication_password,
-                                               address)
+                                               address,
+                                               port)
     end
     @autosde_client
   end
@@ -164,7 +165,8 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     username   = options[:user] || authentication_userid(options[:auth_type])
     password   = options[:pass] || authentication_password(options[:auth_type])
     host       = options[:host] || address
-    self.class.raw_connect(username, password, host).login
+    port       = options[:port] || self.port
+    self.class.raw_connect(username, password, host, port).login
   end
 
   def self.validate_authentication_args(params)
@@ -174,8 +176,8 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   # is this just for verifying credentials for when you create a new instance?
   # @return AutosdeClient
-  def self.raw_connect(username, password, host)
-    ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(username: username, password: password, host: host)
+  def self.raw_connect(username, password, host, port)
+    ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(username: username, password: password, host: host, port: port)
   end
 
   def self.hostname_required?
