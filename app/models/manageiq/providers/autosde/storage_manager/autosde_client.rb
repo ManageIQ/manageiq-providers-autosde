@@ -79,7 +79,9 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
       @login = true
     else
       @login = false
-      raise Exception.new AUTH_ERRR_MSG
+      # raise Exception.new AUTH_ERRR_MSG
+      # raise res.read_body
+      raise AUTH_ERRR_MSG
      end
   end
 
