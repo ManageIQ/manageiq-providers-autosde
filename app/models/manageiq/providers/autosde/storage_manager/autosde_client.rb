@@ -78,8 +78,9 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
       data  = self.AuthenticationApi.token_auth_post(auth_request, opts)
       @token  = data.token
      rescue
-      raise Exception.new AUTH_ERRR_MSG
-    end
+       # raise Exception.new AUTH_ERRR_MSG
+       # raise res.read_body
+       raise AUTH_ERRR_MSG    end
    end
 
   private
