@@ -4,7 +4,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
   include Vmdb::Logging
   include OpenapiClient
 
-  AUTH_ERRR_MSG = "Authentication error occured"
+  AUTH_ERRR_MSG = "Authentication error occured. "
   AUTH_TOKEN_INVALID = Rack::Utils.status_code(:unauthorized)
 
   NoAuthTokenError = Class.new(StandardError)
@@ -77,10 +77,9 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
       opts = {:login => true}
       data  = self.AuthenticationApi.token_auth_post(auth_request, opts)
       @token  = data.token
-     rescue
-       # raise Exception.new AUTH_ERRR_MSG
-       # raise res.read_body
-       raise AUTH_ERRR_MSG    end
+    rescue => e
+      raise AUTH_ERRR_MSG + e.to_s
+     end
    end
 
   private
@@ -96,6 +95,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
       config.verify_ssl = false
       config.host = @host
       config.debugging = true
+      config.verify_ssl_host = false
       end
   end
 end
