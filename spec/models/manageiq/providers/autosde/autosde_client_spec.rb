@@ -24,9 +24,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
         :password => AUTOSDE_SITE_MANAGER_PASSWORD)
 
     VCR.use_cassette("incorrect_login_spec") do
-      expect { client.login }.to raise_error(
-                                     Exception,
-                                     ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::AUTH_ERRR_MSG)
+      expect { client.login }.to raise_error(RuntimeError, /Authentication error/)
     end
   end
 
