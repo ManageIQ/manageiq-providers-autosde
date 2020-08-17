@@ -117,6 +117,10 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     end
   end
 
+  def self.supported_for_create?
+    true
+  end
+
   def console_supported?
     false
   end
@@ -144,6 +148,14 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
                                                port)
     end
     @autosde_client
+  end
+
+
+  def self.verify_credentials(options = {})
+    self::raw_connect(options["authentications"]["default"]["userid"],
+                     ManageIQ::Password::try_decrypt(options["authentications"]["default"]["password"]),
+                     options["endpoints"]["default"]["hostname"],
+                     options["endpoints"]["default"]["port"]).login
   end
 
   # is this just for verifying credentials for when you create a new instance?
@@ -193,6 +205,83 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   def self.description
     @description ||= "Autosde".freeze
   end
+
+  def self.params_for_create
+    @params_for_create ||= {
+        :fields => [
+            {
+                :component => 'sub-form',
+                :name => 'endpoints-subform',
+                :title => _('Endpoints'),
+                :fields => [
+                    {
+                        :component => 'validate-provider-credentials',
+                        :name => 'authentications.default.valid',
+                        :skipSubmit => true,
+                        :validationDependencies => %w[name type api_version provider_region keystone_v3_domain_id],
+                        :fields => [
+                            {
+                                :component => "select-field",
+                                :name => "endpoints.default.security_protocol",
+                                :label => _("Security Protocol"),
+                                :isRequired => true,
+                                :validate => [{:type => "required-validator"}],
+                                :options => [
+                                    {
+                                        :label => _("SSL without validation"),
+                                        :value => "ssl-no-validation"
+                                    },
+                                # todo[per gregoryb]: need to provide ssl and non-ssl
+                                # {
+                                #     :label => _("SSL"),
+                                #     :value => "ssl-with-validation"
+                                # },
+                                # {
+                                #     :label => _("Non-SSL"),
+                                #     :value => "non-ssl"
+                                # }
+                                ]
+                            },
+                            {
+                                :component => "text-field",
+                                :name => "endpoints.default.hostname",
+                                :label => _("Hostname (or IPv4 or IPv6 address)"),
+                                :isRequired => true,
+                                :validate => [{:type => "required-validator"}],
+                            },
+                            {
+                                :component => "text-field",
+                                :name => "endpoints.default.port",
+                                :label => _("API Port"),
+                                :type => "number",
+                                :initialValue => 443,
+                                :isRequired => true,
+                                :validate => [{:type => "required-validator"}],
+                            },
+                            {
+                                :component => "text-field",
+                                :name => "authentications.default.userid",
+                                :label => "Username",
+                                :isRequired => true,
+                                :validate => [{:type => "required-validator"}],
+                            },
+                            {
+                                :component => "password-field",
+                                :name => "authentications.default.password",
+                                :label => "Password",
+                                :type => "password",
+                                :isRequired => true,
+                                :validate => [{:type => "required-validator"}],
+                            },
+                        ]
+                    }
+                ],
+            },
+        ]
+    }
+  end
+
+
 end
 
 
