@@ -7,7 +7,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   require_nested :AutosdeClient
 
   supports :storage_services
-  supports :ems_storage_edit
+  supports :ems_storage_new
 
   include ManageIQ::Providers::StorageManager::BlockMixin
 
