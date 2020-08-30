@@ -10,8 +10,8 @@ require 'rspec/rails'
 require 'miq-hash_struct'
 
 
-Dir[Rails.root.join("spec/shared/**/*.rb")].each { |f| require f }
-Dir[File.join(__dir__, "support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join("spec/shared/**/*.rb")].sort.each { |f| require f }
+Dir[File.join(__dir__, "support/**/*.rb")].sort.each { |f| require f }
 
 require "manageiq-providers-autosde"
 

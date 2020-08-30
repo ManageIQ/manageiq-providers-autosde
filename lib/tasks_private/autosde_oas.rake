@@ -2,10 +2,10 @@ namespace :autosde do
   namespace :oas do
     desc "generates openApi client for autosde site-manage API "
 
-    task :generate_client  do
+    task :generate_client do
       require 'optimist'
 
-      root = ManageIQ::Providers::Autosde::Engine.root #ManageIQ::Environment::APP_ROOT
+      root = ManageIQ::Providers::Autosde::Engine.root # ManageIQ::Environment::APP_ROOT
       # parent folder for generated stuff ( contains input spec file)
       default_folder = "app/models/manageiq/providers/autosde/storage_manager/openapi_client"
 
@@ -18,7 +18,7 @@ namespace :autosde do
       generated_path = File.join(abs_path, generated)
 
       # clean old generated files
-      rm_r generated_path if Dir.exist?(generated_path)
+      rm_r(generated_path) if Dir.exist?(generated_path)
 
       # create folder for generated stuff anew
       mkdir_p generated_path
@@ -41,7 +41,6 @@ namespace :autosde do
 
       # modify  files
       modify_generate_files(generated_path)
-
     end
 
     # helpers
@@ -60,6 +59,7 @@ namespace :autosde do
       unless File.writable?(directory)
         return 'Destination directory must be writable'
       end
+
       nil
     end
 
@@ -73,7 +73,5 @@ namespace :autosde do
       content = text.gsub(/#{search_pattern}/, replace_string)
       File.open(file_path, "w") { |file| file << content }
     end
-
   end
 end
-

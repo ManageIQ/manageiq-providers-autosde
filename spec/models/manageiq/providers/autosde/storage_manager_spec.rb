@@ -1,5 +1,4 @@
 describe ManageIQ::Providers::Autosde::StorageManager do
-
   it 'type is autosde' do
     expect(described_class.ems_type).to eq('autosde')
   end
@@ -17,7 +16,7 @@ describe ManageIQ::Providers::Autosde::StorageManager do
 
   it "can get storage systems " do
     # use special trait: with_autosde_credentials, to supply real credentials when first run
-    ems = FactoryBot.create(:autosde_storage_manager, :with_autosde_credentials, :hostname => RSpec.configuration.autosde_appliance_host_with_auth_token )
+    ems = FactoryBot.create(:autosde_storage_manager, :with_autosde_credentials, :hostname => RSpec.configuration.autosde_appliance_host_with_auth_token)
 
     VCR.use_cassette("get_storage_systems_from_storage_manager") do
       systems = ems.autosde_client.StorageSystemApi.storage_systems_get

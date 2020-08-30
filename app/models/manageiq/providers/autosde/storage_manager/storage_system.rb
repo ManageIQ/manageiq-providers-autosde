@@ -3,16 +3,15 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageSystem < ::StorageSys
 
   # @param [ManageIQ::Providers::Autosde] _ext_management_system
   def self.raw_create_storage_system(_ext_management_system, _options = {})
-
     sys_to_create = _ext_management_system.autosde_client.StorageSystemCreate(
-        name: _options[:name],
-        password: _options[:password],
-        user: _options[:user],
-        system_type: _options[:system_type],
-        auto_add_pools: true,
-        auto_setup: true,
-        management_ip: _options[:management_ip],
-        storage_family: "ontap_7mode"
+      :name           => _options[:name],
+      :password       => _options[:password],
+      :user           => _options[:user],
+      :system_type    => _options[:system_type],
+      :auto_add_pools => true,
+      :auto_setup     => true,
+      :management_ip  => _options[:management_ip],
+      :storage_family => "ontap_7mode"
     )
 
     begin
@@ -20,7 +19,5 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageSystem < ::StorageSys
     ensure
       EmsRefresh.queue_refresh(_ext_management_system)
     end
-
   end
-
 end

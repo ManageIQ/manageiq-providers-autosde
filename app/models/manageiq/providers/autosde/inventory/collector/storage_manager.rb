@@ -1,6 +1,5 @@
 # This class is supposed to collect raw output from the managed system
 class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < ManageIQ::Providers::Inventory::Collector
-
   # @return [ManageIQ::Providers::Autosde::StorageManager]
   attr_accessor :manager
 
@@ -12,12 +11,12 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::StorageSystem]
       system = system
       new_inventory[:storage_systems] << {
-          :name => system.name,
-          :ems_ref => system.uuid,
-          :uuid => system.uuid,
-          :system_type_uuid => system.system_type.uuid,
-          :storage_family => system.storage_family,
-          :management_ip => system.management_ip
+        :name             => system.name,
+        :ems_ref          => system.uuid,
+        :uuid             => system.uuid,
+        :system_type_uuid => system.system_type.uuid,
+        :storage_family   => system.storage_family,
+        :management_ip    => system.management_ip
       }
     end
 
@@ -26,13 +25,13 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::StorageResourceResponse]
       resource = resource
       new_inventory[:storage_resources] << {
-          :name => resource.name,
-          :uuid => resource.uuid,
-          :ems_ref => resource.uuid,
-          :logical_free => resource.logical_free,
-          :logical_total => resource.logical_total,
-          :pool_name => resource.pool_name,
-          :storage_system_uuid => resource.storage_system
+        :name                => resource.name,
+        :uuid                => resource.uuid,
+        :ems_ref             => resource.uuid,
+        :logical_free        => resource.logical_free,
+        :logical_total       => resource.logical_total,
+        :pool_name           => resource.pool_name,
+        :storage_system_uuid => resource.storage_system
       }
     end
 
@@ -41,13 +40,13 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::VolumeResponse]
       volume = volume
       new_inventory[:cloud_volumes] << {
-          :name => volume.name,
-          :compliant => volume.compliant,
-          :size => volume.size * 1024 * 1024 * 1024,
-          :ems_ref => volume.uuid,
-          :storage_resource_uuid => volume.storage_resource,
-          :storage_service_uuid => volume.service,
-          :status => volume.component_state
+        :name                  => volume.name,
+        :compliant             => volume.compliant,
+        :size                  => volume.size * 1024 * 1024 * 1024,
+        :ems_ref               => volume.uuid,
+        :storage_resource_uuid => volume.storage_resource,
+        :storage_service_uuid  => volume.service,
+        :status                => volume.component_state
       }
     end
 
@@ -56,13 +55,12 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::Service]
       service = service
       new_inventory[:storage_services] << {
-          name: service.name,
-          description: service.description,
-          uuid: service.uuid,
-          version: service.version,
-          ems_ref: service.uuid,
+        :name        => service.name,
+        :description => service.description,
+        :uuid        => service.uuid,
+        :version     => service.version,
+        :ems_ref     => service.uuid,
       }
-
     end
 
     new_inventory[:storage_system_types] = []
@@ -70,11 +68,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::SystemType]
       system_type = system_type
       new_inventory[:storage_system_types] << {
-          name: system_type.name,
-          ems_ref: system_type.uuid,
-          version: system_type.version
+        :name    => system_type.name,
+        :ems_ref => system_type.uuid,
+        :version => system_type.version
       }
-
     end
 
     @inventory = new_inventory

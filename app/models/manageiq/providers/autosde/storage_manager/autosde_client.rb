@@ -4,7 +4,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
   include Vmdb::Logging
   include OpenapiClient
 
-  AUTH_ERRR_MSG = "Authentication error occured. "
+  AUTH_ERRR_MSG = "Authentication error occured. ".freeze
   AUTH_TOKEN_INVALID = Rack::Utils.status_code(:unauthorized)
 
   NoAuthTokenError = Class.new(StandardError)
@@ -37,7 +37,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
   end
 
   # override OpenApiClient::ApiClient method
-  def call_api (http_method, path, opts = {})
+  def call_api(http_method, path, opts = {})
     puts ">>>>>> in call_api #{opts} #{http_method} #{path}"
 
     begin
@@ -48,7 +48,6 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
         set_auth_token
         super
       end
-
     rescue OpenapiClient::ApiError => e
       case e.code
       when AUTH_TOKEN_INVALID
@@ -57,7 +56,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
           login
           set_auth_token
           super
-        rescue StandardError
+        rescue
           # in case re-login did not help, throw error
           _log.error("re-login was unsuccessful: token is #{@token}")
           raise # throw the last error
@@ -70,23 +69,21 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
   end
 
   def login
-
-    begin
-      auth_request = Authentication(username:@username, password: @password)
-      # prevents endless loop
-      opts = {:login => true}
-      data  = self.AuthenticationApi.token_auth_post(auth_request, opts)
-      @token  = data.token
-    rescue => e
-      raise AUTH_ERRR_MSG + e.to_s
-     end
-   end
+    auth_request = Authentication(:username => @username, :password => @password)
+    # prevents endless loop
+    opts = {:login => true}
+    data = self.AuthenticationApi.token_auth_post(auth_request, opts)
+    @token = data.token
+  rescue => e
+    raise AUTH_ERRR_MSG + e.to_s
+  end
 
   private
 
   def set_auth_token
     raise NoAuthTokenError, 'No auth token!' unless @token
-      config.access_token = @token
+
+    config.access_token = @token
   end
 
   def configure_openapi_client
@@ -96,7 +93,6 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
       config.host = @host
       config.debugging = true
       config.verify_ssl_host = false
-      end
+    end
   end
 end
-

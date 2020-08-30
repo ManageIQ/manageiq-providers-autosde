@@ -19,11 +19,11 @@ class ManageIQ::Providers::Autosde::StorageManager::EventCatcher::Stream
 
   def fake_events
     [
-      OpenStruct.new(:name       => %w(instance_power_on instance_power_off).sample,
+      OpenStruct.new(:name       => %w[instance_power_on instance_power_off].sample,
                      :id         => Time.zone.now.to_i,
                      :timestamp  => Time.zone.now,
                      :vm_ems_ref => [1, 2].sample),
-      OpenStruct.new(:name       => %w(instance_power_on instance_power_off).sample,
+      OpenStruct.new(:name       => %w[instance_power_on instance_power_off].sample,
                      :id         => Time.zone.now.to_i + 1,
                      :timestamp  => Time.zone.now,
                      :vm_ems_ref => [1, 2].sample),
@@ -31,19 +31,17 @@ class ManageIQ::Providers::Autosde::StorageManager::EventCatcher::Stream
   end
 
   def poll
-    @ems.with_provider_connection do |connection|
+    @ems.with_provider_connection do |_connection|
       catch(:stop_polling) do
-        begin
-          loop do
-            fake_events.each do |activity|
-              throw :stop_polling if @stop_polling
-              yield activity.to_h
-            end
-            sleep @poll_sleep
+        loop do
+          fake_events.each do |activity|
+            throw :stop_polling if @stop_polling
+            yield activity.to_h
           end
-        rescue => exception
-          raise ProviderUnreachable, exception.message
+          sleep @poll_sleep
         end
+      rescue => exception
+        raise ProviderUnreachable, exception.message
       end
     end
   end

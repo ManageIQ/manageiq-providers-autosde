@@ -14,7 +14,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   # Asset details
   has_many :physical_server_details,  :through => :physical_servers,  :source => :asset_detail
   has_many :physical_storage_details, :through => :physical_storages, :source => :asset_detail
-  # TODO (erezt):
+  # TODO: (erezt):
   # has_many :services_details, :through => :services, :source => :asset_detail
   # has_many :resources_details, :through => :resources, :source => :asset_detail
 
@@ -72,9 +72,9 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   def assign_health_states
     {
-        :total_valid    => count_health_state("Valid"),
-        :total_warning  => count_health_state("Warning"),
-        :total_critical => count_health_state("Critical"),
+      :total_valid    => count_health_state("Valid"),
+      :total_warning  => count_health_state("Warning"),
+      :total_critical => count_health_state("Critical"),
     }
   end
 
@@ -93,7 +93,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   def assign_resources_info
     {
-        :total_resources => count_resources,
+      :total_resources => count_resources,
     }
   end
 
@@ -135,8 +135,8 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   def textual_group_list
     [
-        %i[properties status],
-        %i[storage_relationships topology]
+      %i[properties status],
+      %i[storage_relationships topology]
     ]
   end
 
@@ -150,17 +150,16 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     @autosde_client
   end
 
-
   def self.verify_credentials(options = {})
-    self::raw_connect(options["authentications"]["default"]["userid"],
-                     ManageIQ::Password::try_decrypt(options["authentications"]["default"]["password"]),
-                     options["endpoints"]["default"]["hostname"],
-                     options["endpoints"]["default"]["port"]).login
+    raw_connect(options["authentications"]["default"]["userid"],
+                ManageIQ::Password.try_decrypt(options["authentications"]["default"]["password"]),
+                options["endpoints"]["default"]["hostname"],
+                options["endpoints"]["default"]["port"]).login
   end
 
   # is this just for verifying credentials for when you create a new instance?
   # todo (per gregoryb): need to enable users to provide client_id and secret_id
-  def verify_credentials(auth_type = nil, options = {})
+  def verify_credentials(_auth_type = nil, _options = {})
     begin
       connect
     rescue => err
@@ -184,13 +183,13 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   def self.validate_authentication_args(params)
     # return args to be used in raw_connect
-    return [params[:default_userid], ManageIQ::Password.encrypt(params[:default_password])]
+    [params[:default_userid], ManageIQ::Password.encrypt(params[:default_password])]
   end
 
   # is this just for verifying credentials for when you create a new instance?
   # @return AutosdeClient
   def self.raw_connect(username, password, host, port)
-    ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(username: username, password: password, host: host, port: port)
+    ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(:username => username, :password => password, :host => host, :port => port)
   end
 
   def self.hostname_required?
@@ -208,88 +207,85 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   def self.params_for_create
     @params_for_create ||= {
-        :fields => [
+      :fields => [
+        {
+          :component => 'sub-form',
+          :name      => 'endpoints-subform',
+          :title     => _('Endpoints'),
+          :fields    => [
             {
-                :component => 'sub-form',
-                :name => 'endpoints-subform',
-                :title => _('Endpoints'),
-                :fields => [
+              :component              => 'validate-provider-credentials',
+              :name                   => 'authentications.default.valid',
+              :skipSubmit             => true,
+              :validationDependencies => %w[name type api_version provider_region keystone_v3_domain_id],
+              :fields                 => [
+                {
+                  :component  => "select-field",
+                  :name       => "endpoints.default.security_protocol",
+                  :label      => _("Security Protocol"),
+                  :isRequired => true,
+                  :validate   => [{:type => "required-validator"}],
+                  :options    => [
                     {
-                        :component => 'validate-provider-credentials',
-                        :name => 'authentications.default.valid',
-                        :skipSubmit => true,
-                        :validationDependencies => %w[name type api_version provider_region keystone_v3_domain_id],
-                        :fields => [
-                            {
-                                :component => "select-field",
-                                :name => "endpoints.default.security_protocol",
-                                :label => _("Security Protocol"),
-                                :isRequired => true,
-                                :validate => [{:type => "required-validator"}],
-                                :options => [
-                                    {
-                                        :label => _("SSL without validation"),
-                                        :value => "ssl-no-validation"
-                                    },
-                                # todo[per gregoryb]: need to provide ssl and non-ssl
-                                # {
-                                #     :label => _("SSL"),
-                                #     :value => "ssl-with-validation"
-                                # },
-                                # {
-                                #     :label => _("Non-SSL"),
-                                #     :value => "non-ssl"
-                                # }
-                                ]
-                            },
-                            {
-                                :component => "text-field",
-                                :name => "endpoints.default.hostname",
-                                :label => _("Hostname (or IPv4 or IPv6 address)"),
-                                :isRequired => true,
-                                :validate => [{:type => "required-validator"}],
-                            },
-                            {
-                                :component => "text-field",
-                                :name => "endpoints.default.port",
-                                :label => _("API Port"),
-                                :type => "number",
-                                :initialValue => 443,
-                                :isRequired => true,
-                                :validate => [{:type => "required-validator"}],
-                            },
-                            {
-                                :component => "text-field",
-                                :name => "authentications.default.userid",
-                                :label => "Username",
-                                :isRequired => true,
-                                :validate => [{:type => "required-validator"}],
-                            },
-                            {
-                                :component => "password-field",
-                                :name => "authentications.default.password",
-                                :label => "Password",
-                                :type => "password",
-                                :isRequired => true,
-                                :validate => [{:type => "required-validator"}],
-                            },
-                        ]
-                    }
-                ],
-            },
-        ]
+                      :label => _("SSL without validation"),
+                      :value => "ssl-no-validation"
+                    },
+                    # todo[per gregoryb]: need to provide ssl and non-ssl
+                    # {
+                    #     :label => _("SSL"),
+                    #     :value => "ssl-with-validation"
+                    # },
+                    # {
+                    #     :label => _("Non-SSL"),
+                    #     :value => "non-ssl"
+                    # }
+                  ]
+                },
+                {
+                  :component  => "text-field",
+                  :name       => "endpoints.default.hostname",
+                  :label      => _("Hostname (or IPv4 or IPv6 address)"),
+                  :isRequired => true,
+                  :validate   => [{:type => "required-validator"}],
+                },
+                {
+                  :component    => "text-field",
+                  :name         => "endpoints.default.port",
+                  :label        => _("API Port"),
+                  :type         => "number",
+                  :initialValue => 443,
+                  :isRequired   => true,
+                  :validate     => [{:type => "required-validator"}],
+                },
+                {
+                  :component  => "text-field",
+                  :name       => "authentications.default.userid",
+                  :label      => "Username",
+                  :isRequired => true,
+                  :validate   => [{:type => "required-validator"}],
+                },
+                {
+                  :component  => "password-field",
+                  :name       => "authentications.default.password",
+                  :label      => "Password",
+                  :type       => "password",
+                  :isRequired => true,
+                  :validate   => [{:type => "required-validator"}],
+                },
+              ]
+            }
+          ],
+        },
+      ]
     }
   end
-
-
 end
-
 
 # this is a workaround for our malfunctioning client
 # See https://jira.xiv.ibm.com/browse/SDE-1203
 # TODO delete this when generation will be fixed
 module OpenapiClient
-   class VolumeApi
+  class VolumeApi
     def volumes_safe_delete(uuid, opts = {})
       # resource path
       local_var_path = '/safe-deletes/'
@@ -317,17 +313,17 @@ module OpenapiClient
       auth_names = opts[:auth_names] || ['bearerAuth']
 
       new_options = opts.merge(
-          :header_params => header_params,
-          :query_params => query_params,
-          :form_params => form_params,
-          :body => post_body,
-          :auth_names => auth_names,
-          :return_type => return_type
+        :header_params => header_params,
+        :query_params  => query_params,
+        :form_params   => form_params,
+        :body          => post_body,
+        :auth_names    => auth_names,
+        :return_type   => return_type
       )
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: VolumeApi#volumes_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug("API called: VolumeApi#volumes_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}")
       end
       return data, status_code, headers
     end
