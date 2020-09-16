@@ -40,7 +40,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       volume = volume
       new_inventory[:cloud_volumes] << {
         :name                  => volume.name,
-        :compliant             => volume.compliant,
         :size                  => volume.size * 1024 * 1024 * 1024,
         :ems_ref               => volume.uuid,
         :storage_resource_uuid => volume.storage_resource,
