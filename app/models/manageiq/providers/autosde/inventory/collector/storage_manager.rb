@@ -30,7 +30,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :ems_ref             => resource.uuid,
         :logical_free        => resource.logical_free,
         :logical_total       => resource.logical_total,
-        :pool_name           => resource.pool_name,
         :storage_system_uuid => resource.storage_system
       }
     end
