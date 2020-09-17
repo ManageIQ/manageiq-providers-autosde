@@ -49,7 +49,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     end
 
     # storage system types
-    add_collection(physical_infra, :storage_system_types) do |builder|
+    add_collection(physical_infra, :storage_system_families) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }
       )

@@ -61,11 +61,11 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       }
     end
 
-    new_inventory[:storage_system_types] = []
+    new_inventory[:storage_system_families] = []
     @manager.autosde_client.SystemTypeApi.system_types_get.each do |system_type|
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::SystemType]
       system_type = system_type
-      new_inventory[:storage_system_types] << {
+      new_inventory[:storage_system_families] << {
         :name    => system_type.name,
         :ems_ref => system_type.uuid,
         :version => system_type.version

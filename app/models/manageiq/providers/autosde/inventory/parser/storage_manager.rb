@@ -13,15 +13,15 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def parse
     collected_data = collector.collect
 
-    collected_data[:storage_system_types].each do |storage_system_type_hash|
-      persister.collections[:storage_system_types].build(**storage_system_type_hash)
+    collected_data[:storage_system_families].each do |storage_system_family_hash|
+      persister.collections[:storage_system_families].build(**storage_system_family_hash)
     end
 
     collected_data[:storage_systems].each do |storage_system_hash|
       system_type_uuid = storage_system_hash.delete(:system_type_uuid)
-      storage_system_type = persister.collections[:storage_system_types].data_storage.data.select { |st| st.ems_ref == system_type_uuid }[0]
+      storage_system_family = persister.collections[:storage_system_families].data_storage.data.select { |st| st.ems_ref == system_type_uuid }[0]
       storage_system = persister.collections[:storage_systems].build(
-        :storage_system_type => storage_system_type,
+        :storage_system_family => storage_system_family,
       **storage_system_hash
       )
 
