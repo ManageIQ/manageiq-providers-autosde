@@ -1,8 +1,8 @@
-class ManageIQ::Providers::Autosde::StorageManager::StorageSystem < ::StorageSystem
+class ManageIQ::Providers::Autosde::StorageManager::PhyscialStorage < ::PhysicalStorage
   supports :create
 
   # @param [ManageIQ::Providers::Autosde] _ext_management_system
-  def self.raw_create_storage_system(_ext_management_system, _options = {})
+  def self.raw_create_physical_storage(_ext_management_system, _options = {})
     sys_to_create = _ext_management_system.autosde_client.StorageSystemCreate(
       :name           => _options[:name],
       :password       => _options[:password],
