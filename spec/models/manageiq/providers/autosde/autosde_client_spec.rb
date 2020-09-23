@@ -10,8 +10,9 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
       :username => AUTOSDE_SITE_MANAGER_USER,
       :password => AUTOSDE_SITE_MANAGER_PASSWORD
     )
-    client.login
+
     VCR.use_cassette("correct_login_spec") do
+      client.login
       expect(client.token.size).to be > 10
     end
   end
