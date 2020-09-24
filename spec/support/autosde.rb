@@ -25,7 +25,7 @@ VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = true
   config.ignore_hosts 'codeclimate.com' if ENV['CI']
   config.cassette_library_dir = File.join(ManageIQ::Providers::Autosde::Engine.root, 'spec/vcr_cassettes')
-  config.default_cassette_options = {record: :new_episodes}
+  config.default_cassette_options = {record: :none, allow_unused_http_interactions: true}
 
   # output cassette debug into to console
   config.debug_logger = IO.new STDOUT.fileno
