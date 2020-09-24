@@ -13,7 +13,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     @availability_zone = AvailabilityZone.where(:name => "AutoSDE", :ems_id => @manager.id).first
 
     # storage systems
-    add_collection(physical_infra, :storage_systems) do |builder|
+    add_collection(physical_infra, :physical_storages) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.manager.id })
     end
 
@@ -23,7 +23,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
         :ems_id => ->(persister) { persister.manager.id }
       )
       builder.add_properties(
-        :parent_inventory_collections => [:storage_systems]
+        :parent_inventory_collections => [:physical_storages]
       )
     end
 
@@ -49,7 +49,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     end
 
     # storage system types
-    add_collection(physical_infra, :storage_system_families) do |builder|
+    add_collection(physical_infra, :physical_storage_families) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }
       )

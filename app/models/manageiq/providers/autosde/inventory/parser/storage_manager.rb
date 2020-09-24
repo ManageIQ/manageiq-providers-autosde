@@ -13,21 +13,21 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def parse
     collected_data = collector.collect
 
-    collected_data[:storage_system_families].each do |storage_system_family_hash|
-      persister.collections[:storage_system_families].build(**storage_system_family_hash)
+    collected_data[:physical_storage_families].each do |physical_storage_family_hash|
+      persister.collections[:physical_storage_families].build(**physical_storage_family_hash)
     end
 
-    collected_data[:storage_systems].each do |storage_system_hash|
-      system_type_uuid = storage_system_hash.delete(:system_type_uuid)
-      storage_system_family = persister.collections[:storage_system_families].data_storage.data.select { |st| st.ems_ref == system_type_uuid }[0]
-      storage_system = persister.collections[:storage_systems].build(
-        :storage_system_family => storage_system_family,
-      **storage_system_hash
+    collected_data[:physical_storages].each do |physical_storage_hash|
+      system_type_uuid = physical_storage_hash.delete(:system_type_uuid)
+      physical_storage_family = persister.collections[:physical_storage_families].data_storage.data.select { |st| st.ems_ref == system_type_uuid }[0]
+      physical_storage = persister.collections[:physical_storages].build(
+        :physical_storage_family => physical_storage_family,
+      **physical_storage_hash
       )
 
-      collected_data[:storage_resources].select { |h| h[:storage_system_uuid] == storage_system_hash[:uuid] }.each do |storage_resource_hash|
+      collected_data[:storage_resources].select { |h| h[:storage_system_uuid] == physical_storage_hash[:uuid] }.each do |storage_resource_hash|
         storage_resource_hash.delete(:storage_system_uuid)
-        persister.collections[:storage_resources].build(**storage_resource_hash, :storage_system => storage_system)
+        persister.collections[:storage_resources].build(**storage_resource_hash, :physical_storage => physical_storage)
       end
     end
 

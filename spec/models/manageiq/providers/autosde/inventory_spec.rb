@@ -13,7 +13,7 @@ describe ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager do
     expect(manager.storage_systems).to_not be_empty
     expect(manager.storage_resources).to_not be_empty
     expect(manager.storage_services).to_not be_empty
-    expect(manager.storage_system_families).to_not be_empty
+    expect(manager.physical_storage_families).to_not be_empty
     expect(manager.cloud_volumes).to_not be_empty
     expect(manager.cloud_volumes.first).to be_instance_of(ManageIQ::Providers::Autosde::StorageManager::CloudVolume)
   end

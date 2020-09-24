@@ -6,17 +6,17 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   def collect
     new_inventory = {}
 
-    new_inventory[:storage_systems] = []
+    new_inventory[:physical_storages] = []
     @manager.autosde_client.StorageSystemApi.storage_systems_get.each do |system|
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::StorageSystem]
       system = system
-      new_inventory[:storage_systems] << {
+      new_inventory[:physical_storages] << {
         :name             => system.name,
         :ems_ref          => system.uuid,
         :uuid             => system.uuid,
         :system_type_uuid => system.system_type.uuid,
         :storage_family   => system.storage_family,
-        :management_ip    => system.management_ip
+
       }
     end
 
@@ -61,11 +61,11 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       }
     end
 
-    new_inventory[:storage_system_families] = []
+    new_inventory[:physical_storage_families] = []
     @manager.autosde_client.SystemTypeApi.system_types_get.each do |system_type|
       # @type [ManageIQ::Providers::Autosde::StorageManager::AutosdeClient::SystemType]
       system_type = system_type
-      new_inventory[:storage_system_families] << {
+      new_inventory[:physical_storage_families] << {
         :name    => system_type.name,
         :ems_ref => system_type.uuid,
         :version => system_type.version
