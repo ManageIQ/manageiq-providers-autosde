@@ -1,4 +1,4 @@
-class ManageIQ::Providers::Autosde::StorageManager::PhyscialStorage < ::PhysicalStorage
+class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::PhysicalStorage
   supports :create
 
   # @param [ManageIQ::Providers::Autosde] _ext_management_system
