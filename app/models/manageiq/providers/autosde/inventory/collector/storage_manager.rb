@@ -13,7 +13,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       new_inventory[:physical_storages] << {
         :name             => system.name,
         :ems_ref          => system.uuid,
-        :uuid             => system.uuid,
         :system_type_uuid => system.system_type.uuid,
 
       }
@@ -25,7 +24,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       resource = resource
       new_inventory[:storage_resources] << {
         :name                => resource.name,
-        :uuid                => resource.uuid,
         :ems_ref             => resource.uuid,
         :logical_free        => resource.logical_free,
         :logical_total       => resource.logical_total,
@@ -54,7 +52,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       new_inventory[:storage_services] << {
         :name        => service.name,
         :description => service.description,
-        :uuid        => service.uuid,
         :version     => service.version,
         :ems_ref     => service.uuid,
       }
