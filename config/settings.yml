@@ -1,0 +1,28 @@
+:ems:
+  :ems_autosde:
+    :blacklisted_event_names: []
+    :event_handling:
+      :event_groups:
+        :power:
+          :critical:
+            - AUTOSDE_instance_power_on
+            - AUTOSDE_instance_power_off
+:http_proxy:
+  :autosde:
+    :host:
+    :password:
+    :port:
+    :user:
+:workers:
+  :worker_base:
+    :event_catcher:
+      :event_catcher_autosde:
+        :poll: 20.seconds
+    :queue_worker_base:
+      :ems_metrics_collector_worker:
+        :ems_metrics_collector_worker_autosde: {}
+      :ems_refresh_worker:
+        :ems_refresh_worker_autosde: {}
+:ems_refresh:
+  :autosde:
+    :inventory_object_refresh: true
