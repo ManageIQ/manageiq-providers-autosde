@@ -1,6 +1,7 @@
 class ManageIQ::Providers::Autosde::StorageManager::MetricsCapture < ManageIQ::Providers::BaseManager::MetricsCapture
+
   VIM_STYLE_COUNTERS = {
-    "cpu_usage_rate_average"     => {
+    "cpu_usage_rate_average"  => {
       :counter_key           => "cpu_usage_rate_average",
       :instance              => "",
       :capture_interval      => "20",
@@ -10,7 +11,7 @@ class ManageIQ::Providers::Autosde::StorageManager::MetricsCapture < ManageIQ::P
       :capture_interval_name => "realtime"
     },
 
-    "disk_usage_rate_average"    => {
+    "disk_usage_rate_average" => {
       :counter_key           => "disk_usage_rate_average",
       :instance              => "",
       :capture_interval      => "20",
@@ -28,7 +29,7 @@ class ManageIQ::Providers::Autosde::StorageManager::MetricsCapture < ManageIQ::P
       :unit_key              => "percent",
       :capture_interval_name => "realtime"
     },
-    "net_usage_rate_average"     => {
+    "net_usage_rate_average"  => {
       :counter_key           => "net_usage_rate_average",
       :instance              => "",
       :capture_interval      => "20",
@@ -37,7 +38,7 @@ class ManageIQ::Providers::Autosde::StorageManager::MetricsCapture < ManageIQ::P
       :unit_key              => "kilobytespersecond",
       :capture_interval_name => "realtime"
     }
-  }.freeze
+  }
 
   def perf_collect_metrics(interval_name, start_time = nil, end_time = nil)
     raise "No EMS defined" if target.ext_management_system.nil?
@@ -45,12 +46,12 @@ class ManageIQ::Providers::Autosde::StorageManager::MetricsCapture < ManageIQ::P
     log_header = "[#{interval_name}] for: [#{target.class.name}], [#{target.id}], [#{target.name}]"
 
     end_time ||= Time.now
-    end_time = end_time.utc
+    end_time     = end_time.utc
     start_time ||= end_time - 4.hours # 4 hours for symmetry with VIM
     start_time   = start_time.utc
 
     begin
-      target.ext_management_system.with_provider_connection do |_connection|
+      target.ext_management_system.with_provider_connection do |connection|
         [{target.ems_ref => VIM_STYLE_COUNTERS},
          {target.ems_ref => fake_metrics(start_time, end_time)}]
       end
@@ -67,7 +68,7 @@ class ManageIQ::Providers::Autosde::StorageManager::MetricsCapture < ManageIQ::P
   def fake_metrics(start_time, end_time)
     timestamp = start_time
     metrics = {}
-    while timestamp < end_time
+    while (timestamp < end_time)
       metrics[timestamp] = {
         'cpu_usage_rate_average'  => rand(100).to_f,
         'disk_usage_rate_average' => rand(100).to_f,

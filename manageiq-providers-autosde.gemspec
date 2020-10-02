@@ -1,6 +1,5 @@
 # coding: utf-8
-
-lib = File.expand_path('lib', __dir__)
+lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'manageiq/providers/autosde/version'
 
@@ -9,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = ManageIQ::Providers::Autosde::VERSION
   spec.authors       = ["ManageIQ Authors"]
 
-  spec.summary       = "Autosde plugin for ManageIQ"
-  spec.description   = "Autosde plugin for ManageIQ"
+  spec.summary       = "ManageIQ plugin for the Autosde provider."
+  spec.description   = "ManageIQ plugin for the Autosde provider."
   spec.homepage      = "https://github.com/ManageIQ/manageiq-providers-autosde"
   spec.license       = "Apache-2.0"
 
