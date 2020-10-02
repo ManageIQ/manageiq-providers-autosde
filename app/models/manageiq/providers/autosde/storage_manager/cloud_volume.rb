@@ -1,6 +1,5 @@
 class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   supports :create
-  supports :safe_delete
 
   # Has to be override the base method.. It's supposed to implement creating the volume on the EMS.
   # But I only create it in MIQ DB for now.
@@ -34,18 +33,5 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def validate_delete_volume
     {:available => true, :message => nil}
-  end
-
-  # ================ safe-delete ================
-
-  def validate_safe_delete_volume
-    {:available => true, :message => nil}
-  end
-
-  def raw_safe_delete_volume
-    ext_management_system.autosde_client.VolumeApi.volumes_safe_delete(ems_ref)
-    # self.ext_management_system.autosde_client.VolumeSafeDelete.vo(self.ems_ref)
-
-    EmsRefresh.queue_refresh(ext_management_system)
   end
 end
