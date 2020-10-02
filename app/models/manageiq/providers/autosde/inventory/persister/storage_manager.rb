@@ -1,4 +1,4 @@
-# This clas builds the collections. The parser then adds actual inventory items to the collections.
+# This class builds the collections. The parser then adds actual inventory items to the collections.
 # Generally, one collection per application-record class.
 class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < ManageIQ::Providers::Inventory::Persister
   # @return [Hash{Symbol => InventoryRefresh::InventoryCollection}] collections
@@ -12,7 +12,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
 
     @availability_zone = AvailabilityZone.where(:name => "AutoSDE", :ems_id => @manager.id).first
 
-    # storage systems
+    # physical storages
     add_collection(physical_infra, :physical_storages) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.manager.id })
     end
@@ -48,7 +48,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
       )
     end
 
-    # storage system types
+    # physical storage families
     add_collection(physical_infra, :physical_storage_families) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }

@@ -38,8 +38,6 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
 
   # override OpenApiClient::ApiClient method
   def call_api(http_method, path, opts = {})
-    puts ">>>>>> in call_api #{opts} #{http_method} #{path}"
-
     begin
       if opts[:login]
         super
