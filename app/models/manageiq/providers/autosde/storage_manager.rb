@@ -3,7 +3,6 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   require_nested :MetricsCollectorWorker
   require_nested :Refresher
   require_nested :RefreshWorker
-  require_nested :RefreshParser
   require_nested :AutosdeClient
 
   supports :storage_services
