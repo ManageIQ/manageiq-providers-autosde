@@ -11,7 +11,7 @@ module ManageIQ
         end
 
         def self.plugin_name
-          _('ManageIQ Providers Autosde')
+          _('Autosde Provider')
         end
       end
     end
