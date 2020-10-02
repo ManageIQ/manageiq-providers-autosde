@@ -1,6 +1,4 @@
 class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::StorageManager
-  require_nested :MetricsCapture
-  require_nested :MetricsCollectorWorker
   require_nested :Refresher
   require_nested :RefreshWorker
   require_nested :RefreshParser
