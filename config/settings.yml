@@ -15,9 +15,6 @@
     :user:
 :workers:
   :worker_base:
-    :event_catcher:
-      :event_catcher_autosde:
-        :poll: 20.seconds
     :queue_worker_base:
       :ems_refresh_worker:
         :ems_refresh_worker_autosde: {}
