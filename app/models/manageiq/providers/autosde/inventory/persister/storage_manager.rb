@@ -8,6 +8,9 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     # physical storages
     add_collection(physical_infra, :physical_storages) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.manager.id })
+      builder.add_properties(
+          :model_class => ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage
+      )
     end
 
     # storage resources
