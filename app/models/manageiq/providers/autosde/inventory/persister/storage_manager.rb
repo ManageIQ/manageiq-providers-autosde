@@ -46,14 +46,6 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
         :ems_id => ->(persister) { persister.manager.id }
       )
     end
-
-    # availability zones
-    add_collection(physical_infra, :availability_zones) do |builder|
-      builder.add_default_values(
-          :ems_id => ->(persister) { persister.manager.id },
-          :name => "AutoSDE",
-      )
-    end
   end
 
   def strategy
