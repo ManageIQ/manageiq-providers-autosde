@@ -11,6 +11,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   #     :ems_ref => "s2", :name => "Storage 3", :ems_id=>persister.manager.id
   # )#
   def parse
+    availability_zone = persister.collections[:availability_zones].build() # We just need one zone, and all of its values are default
+
     collected_data = collector.collect
 
     collected_data[:physical_storage_families].each do |physical_storage_family_hash|
@@ -38,7 +40,9 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         storage_resource_uuid = cloud_volume_hash.delete(:storage_resource_uuid)
         storage_resource = persister.collections[:storage_resources].data_storage.data.find { |sr| sr.ems_ref == storage_resource_uuid }
         cloud_volume_hash.delete(:storage_service_uuid)
-        persister.collections[:cloud_volumes].build(**cloud_volume_hash, :storage_resource => storage_resource, :storage_service => storage_service)
+        persister.collections[:cloud_volumes].build(
+            **cloud_volume_hash, :storage_resource => storage_resource, :storage_service => storage_service,
+            availability_zone => availability_zone)
       end
     end
   end
