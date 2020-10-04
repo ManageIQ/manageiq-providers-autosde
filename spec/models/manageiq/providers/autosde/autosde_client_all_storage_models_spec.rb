@@ -111,7 +111,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
     # create new volume
     vol_name = 'vol_test_bk_' + Time.now.strftime('%Y-%m-%d %H_%M_%S')
-    vol_to_create = client.VolumeCreate(:service => service.ems_ref, :name => vol_name, :size => 10)
+    vol_to_create = client.VolumeCreate(:service => service.uuid, :name => vol_name, :size => 10)
     expect(vol_to_create).to be_an_instance_of(OpenapiClient::VolumeCreate)
     expect(vol_to_create.service).to be_a(String)
 

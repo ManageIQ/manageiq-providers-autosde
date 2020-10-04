@@ -11,7 +11,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   #     :ems_ref => "s2", :name => "Storage 3", :ems_id=>persister.manager.id
   # )#
   def parse
-    availability_zone = persister.collections[:availability_zones].build() # We just need one zone, and all of its values are default
+    availability_zone = persister.collections[:availability_zones].build(:ems_ref => "1") # We just need one zone, and all of its values are default
 
     collector.physical_storage_families.each do |physical_storage_family_hash|
       persister.collections[:physical_storage_families].build(**physical_storage_family_hash)
