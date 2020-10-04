@@ -13,13 +13,11 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def parse
     availability_zone = persister.collections[:availability_zones].build() # We just need one zone, and all of its values are default
 
-    collected_data = collector.collect
-
-    collected_data[:physical_storage_families].each do |physical_storage_family_hash|
+    collector.physical_storage_families.each do |physical_storage_family_hash|
       persister.collections[:physical_storage_families].build(**physical_storage_family_hash)
     end
 
-    collected_data[:physical_storages].each do |physical_storage_hash|
+    collector.physical_storages.each do |physical_storage_hash|
       system_type_uuid = physical_storage_hash.delete(:system_type_uuid)
       physical_storage_family = persister.collections[:physical_storage_families].data_storage.data.select { |st| st.ems_ref == system_type_uuid }[0]
       physical_storage = persister.collections[:physical_storages].build(
@@ -27,16 +25,16 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       **physical_storage_hash
       )
 
-      collected_data[:storage_resources].select { |h| h[:storage_system_uuid] == physical_storage_hash[:ems_ref] }.each do |storage_resource_hash|
+      collector.storage_resources.select { |h| h[:storage_system_uuid] == physical_storage_hash[:ems_ref] }.each do |storage_resource_hash|
         storage_resource_hash.delete(:storage_system_uuid)
         persister.collections[:storage_resources].build(**storage_resource_hash, :physical_storage => physical_storage)
       end
     end
 
-    collected_data[:storage_services].each do |storage_service_hash|
+    collector.storage_services.each do |storage_service_hash|
       storage_service = persister.collections[:storage_services].build(**storage_service_hash)
 
-      collected_data[:cloud_volumes].select { |h| h[:storage_service_uuid] == storage_service_hash[:ems_ref] }.each do |cloud_volume_hash|
+      collector.cloud_volumes.select { |h| h[:storage_service_uuid] == storage_service_hash[:ems_ref] }.each do |cloud_volume_hash|
         storage_resource_uuid = cloud_volume_hash.delete(:storage_resource_uuid)
         storage_resource = persister.collections[:storage_resources].data_storage.data.find { |sr| sr.ems_ref == storage_resource_uuid }
         cloud_volume_hash.delete(:storage_service_uuid)

@@ -3,10 +3,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   # @return [ManageIQ::Providers::Autosde::StorageManager]
   attr_accessor :manager
 
-  def collect
-    new_inventory = {}
-
-    new_inventory[:physical_storages] = @manager.autosde_client.StorageSystemApi.storage_systems_get.map { |system|
+  def physical_storages
+    @physical_storages ||= @manager.autosde_client.StorageSystemApi.storage_systems_get.map { |system|
       {
           :name => system.name,
           :ems_ref => system.uuid,
@@ -14,7 +12,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
 
       }
     }
-    new_inventory[:storage_resources] = @manager.autosde_client.StorageResourceApi.storage_resources_get.map { |resource|
+  end
+
+  def storage_resources
+    @storage_resources ||= @manager.autosde_client.StorageResourceApi.storage_resources_get.map { |resource|
       {
           :name => resource.name,
           :ems_ref => resource.uuid,
@@ -23,9 +24,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
           :storage_system_uuid => resource.storage_system
       }
     }
+  end
 
-
-    new_inventory[:cloud_volumes] = @manager.autosde_client.VolumeApi.volumes_get.map { |volume|
+  def cloud_volumes
+    @cloud_volumes ||=  @manager.autosde_client.VolumeApi.volumes_get.map { |volume|
       {
           :name => volume.name,
           :size => volume.size * 1024 * 1024 * 1024,
@@ -35,8 +37,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
           :status => volume.component_state
       }
     }
+  end
 
-    new_inventory[:storage_services] = @manager.autosde_client.ServiceApi.services_get.map { |service|
+  def storage_services
+    @storage_services ||= @manager.autosde_client.ServiceApi.services_get.map { |service|
       {
           :name => service.name,
           :description => service.description,
@@ -44,16 +48,15 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
           :ems_ref => service.uuid,
       }
     }
+  end
 
-
-    new_inventory[:physical_storage_families] = @manager.autosde_client.SystemTypeApi.system_types_get.map { |system_type|
+  def physical_storage_families
+    @physical_storage_families ||= @manager.autosde_client.SystemTypeApi.system_types_get.map { |system_type|
       {
           :name => system_type.name,
           :ems_ref => system_type.uuid,
           :version => system_type.version
       }
     }
-
-    @inventory = new_inventory
   end
 end
