@@ -7,7 +7,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   # The main function that's supposed to build the inventory_items in persister.collection based on collector's data
   #
   # example of how to build:
-  # persister.collections[:physical_storages].build(
+  # persister.physical_storages.build(
   #     :ems_ref => "s2", :name => "Storage 3", :ems_id=>persister.manager.id
   # )#
   def parse
@@ -20,14 +20,14 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
 
   def physical_storage_families
     collector.physical_storage_families.each do |physical_storage_family_hash|
-      persister.collections[:physical_storage_families].build(**physical_storage_family_hash)
+      persister.physical_storage_families.build(**physical_storage_family_hash)
     end
   end
 
   def physical_storages
     collector.physical_storages.each do |physical_storage_hash|
       system_type_uuid = physical_storage_hash.delete(:system_type_uuid)
-      persister.collections[:physical_storages].build(
+      persister.physical_storages.build(
           :physical_storage_family => persister.physical_storage_families.lazy_find(system_type_uuid),
           **physical_storage_hash
       )
@@ -37,7 +37,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def storage_resources
     collector.storage_resources.each do |storage_resource_hash|
       physical_storage_ems_ref = storage_resource_hash.delete(:storage_system_uuid)
-      persister.collections[:storage_resources].build(
+      persister.storage_resources.build(
           **storage_resource_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
       )
     end
@@ -45,7 +45,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
 
   def storage_services
     collector.storage_services.each do |storage_service_hash|
-      persister.collections[:storage_services].build(**storage_service_hash)
+      persister.storage_services.build(**storage_service_hash)
     end
   end
 
@@ -53,7 +53,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     collector.cloud_volumes.each do |cloud_volume_hash|
       storage_resource_uuid = cloud_volume_hash.delete(:storage_resource_uuid)
       storage_service_uuid = cloud_volume_hash.delete(:storage_service_uuid)
-      persister.collections[:cloud_volumes].build(
+      persister.cloud_volumes.build(
           **cloud_volume_hash,
           :storage_resource => persister.storage_resources.lazy_find(storage_resource_uuid),
           :storage_service => persister.storage_services.lazy_find(storage_service_uuid))
