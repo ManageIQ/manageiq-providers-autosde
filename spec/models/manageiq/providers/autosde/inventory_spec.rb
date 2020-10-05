@@ -11,10 +11,15 @@ describe ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager do
     # @type manager [ManageIQ::Providers::Autosde::StorageManager]
     manager = ManageIQ::Providers::Autosde::StorageManager.first
     expect(manager.physical_storages).to_not be_empty
-    expect(manager.storage_resources).to_not be_empty
-    expect(manager.storage_services).to_not be_empty
     expect(manager.physical_storage_families).to_not be_empty
+    expect(manager.physical_storages.first.physical_storage_family).to eq(manager.physical_storage_families.first)
+
+    expect(manager.storage_resources).to_not be_empty
+    expect(manager.storage_resources.first.physical_storage).to eq(manager.physical_storages.first)
+
+    expect(manager.storage_services).to_not be_empty
     expect(manager.cloud_volumes).to_not be_empty
+
     expect(manager.cloud_volumes.first).to be_instance_of(ManageIQ::Providers::Autosde::StorageManager::CloudVolume)
   end
 end

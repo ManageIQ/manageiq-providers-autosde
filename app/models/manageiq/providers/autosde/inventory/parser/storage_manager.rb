@@ -11,34 +11,52 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   #     :ems_ref => "s2", :name => "Storage 3", :ems_id=>persister.manager.id
   # )#
   def parse
+    physical_storage_families
+    physical_storages
+    storage_resources
+    storage_services
+    cloud_volumes
+  end
+
+  def physical_storage_families
     collector.physical_storage_families.each do |physical_storage_family_hash|
       persister.collections[:physical_storage_families].build(**physical_storage_family_hash)
     end
+  end
 
+  def physical_storages
     collector.physical_storages.each do |physical_storage_hash|
       system_type_uuid = physical_storage_hash.delete(:system_type_uuid)
-      physical_storage_family = persister.collections[:physical_storage_families].data_storage.data.select { |st| st.ems_ref == system_type_uuid }[0]
-      physical_storage = persister.collections[:physical_storages].build(
-        :physical_storage_family => physical_storage_family,
-      **physical_storage_hash
+      persister.collections[:physical_storages].build(
+          :physical_storage_family => persister.physical_storage_families.lazy_find(system_type_uuid),
+          **physical_storage_hash
       )
-
-      collector.storage_resources.select { |h| h[:storage_system_uuid] == physical_storage_hash[:ems_ref] }.each do |storage_resource_hash|
-        storage_resource_hash.delete(:storage_system_uuid)
-        persister.collections[:storage_resources].build(**storage_resource_hash, :physical_storage => physical_storage)
-      end
     end
+  end
 
+  def storage_resources
+    collector.storage_resources.each do |storage_resource_hash|
+      physical_storage_ems_ref = storage_resource_hash.delete(:storage_system_uuid)
+      persister.collections[:storage_resources].build(
+          **storage_resource_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
+      )
+    end
+  end
+
+  def storage_services
     collector.storage_services.each do |storage_service_hash|
-      storage_service = persister.collections[:storage_services].build(**storage_service_hash)
+      persister.collections[:storage_services].build(**storage_service_hash)
+    end
+  end
 
-      collector.cloud_volumes.select { |h| h[:storage_service_uuid] == storage_service_hash[:ems_ref] }.each do |cloud_volume_hash|
-        storage_resource_uuid = cloud_volume_hash.delete(:storage_resource_uuid)
-        storage_resource = persister.collections[:storage_resources].data_storage.data.find { |sr| sr.ems_ref == storage_resource_uuid }
-        cloud_volume_hash.delete(:storage_service_uuid)
-        persister.collections[:cloud_volumes].build(
-            **cloud_volume_hash, :storage_resource => storage_resource, :storage_service => storage_service)
-      end
+  def cloud_volumes
+    collector.cloud_volumes.each do |cloud_volume_hash|
+      storage_resource_uuid = cloud_volume_hash.delete(:storage_resource_uuid)
+      storage_service_uuid = cloud_volume_hash.delete(:storage_service_uuid)
+      persister.collections[:cloud_volumes].build(
+          **cloud_volume_hash,
+          :storage_resource => persister.storage_resources.lazy_find(storage_resource_uuid),
+          :storage_service => persister.storage_services.lazy_find(storage_service_uuid))
     end
   end
 end
