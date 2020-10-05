@@ -27,10 +27,13 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def physical_storages
     collector.physical_storages.each do |physical_storage_hash|
       system_type_uuid = physical_storage_hash.delete(:system_type_uuid)
-      persister.physical_storages.build(
+      physical_storage = persister.physical_storages.build(
         :physical_storage_family => persister.physical_storage_families.lazy_find(system_type_uuid),
         **physical_storage_hash
       )
+
+      # asset detail is required for physical_storage, even if we don't use it.
+      persister.physical_storage_details.build(:resource => physical_storage)
     end
   end
 

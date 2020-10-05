@@ -13,6 +13,7 @@ describe ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager do
     expect(manager.physical_storages).to_not be_empty
     expect(manager.physical_storage_families).to_not be_empty
     expect(manager.physical_storages.first.physical_storage_family).to eq(manager.physical_storage_families.find_by(:name=>'svc'))
+    expect(manager.physical_storages.first.asset_detail).to be_instance_of(AssetDetail)
 
     expect(manager.storage_resources).to_not be_empty
     expect(manager.storage_resources.first.physical_storage).to eq(manager.physical_storages.first)

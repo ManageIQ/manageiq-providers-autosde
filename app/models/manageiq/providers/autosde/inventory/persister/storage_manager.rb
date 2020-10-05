@@ -49,6 +49,9 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
         :ems_id => ->(persister) { persister.manager.id }
       )
     end
+
+    # asset details
+    add_collection(physical_infra, :physical_storage_details)
   end
 
   def strategy
