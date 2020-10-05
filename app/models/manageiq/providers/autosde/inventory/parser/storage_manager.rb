@@ -28,8 +28,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     collector.physical_storages.each do |physical_storage_hash|
       system_type_uuid = physical_storage_hash.delete(:system_type_uuid)
       persister.physical_storages.build(
-          :physical_storage_family => persister.physical_storage_families.lazy_find(system_type_uuid),
-          **physical_storage_hash
+        :physical_storage_family => persister.physical_storage_families.lazy_find(system_type_uuid),
+        **physical_storage_hash
       )
     end
   end
@@ -38,7 +38,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     collector.storage_resources.each do |storage_resource_hash|
       physical_storage_ems_ref = storage_resource_hash.delete(:storage_system_uuid)
       persister.storage_resources.build(
-          **storage_resource_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
+        **storage_resource_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
       )
     end
   end
@@ -54,9 +54,10 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       storage_resource_uuid = cloud_volume_hash.delete(:storage_resource_uuid)
       storage_service_uuid = cloud_volume_hash.delete(:storage_service_uuid)
       persister.cloud_volumes.build(
-          **cloud_volume_hash,
-          :storage_resource => persister.storage_resources.lazy_find(storage_resource_uuid),
-          :storage_service => persister.storage_services.lazy_find(storage_service_uuid))
+        **cloud_volume_hash,
+        :storage_resource => persister.storage_resources.lazy_find(storage_resource_uuid),
+        :storage_service  => persister.storage_services.lazy_find(storage_service_uuid)
+      )
     end
   end
 end

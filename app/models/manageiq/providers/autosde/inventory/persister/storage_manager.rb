@@ -9,14 +9,14 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     add_collection(physical_infra, :physical_storages) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.manager.id })
       builder.add_properties(
-          :model_class => ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage
+        :model_class => ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage
       )
     end
 
     # storage resources
     add_collection(physical_infra, :storage_resources) do |builder|
       builder.add_default_values(
-        :ems_id => ->(persister) { persister.manager.id },
+        :ems_id => ->(persister) { persister.manager.id }
       )
       builder.add_properties(
         :parent_inventory_collections => [:physical_storages]
@@ -33,10 +33,10 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     # cloud volumes
     add_collection(physical_infra, :cloud_volumes) do |builder|
       builder.add_default_values(
-        :ems_id               => ->(persister) { persister.manager.id },
-        :status               => "Available",
-        :volume_type          => "ISCSI/FC",
-        :bootable             => "false",
+        :ems_id      => ->(persister) { persister.manager.id },
+        :status      => "Available",
+        :volume_type => "ISCSI/FC",
+        :bootable    => "false"
       )
       builder.add_properties(
         :model_class => ManageIQ::Providers::Autosde::StorageManager::CloudVolume

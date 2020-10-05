@@ -20,7 +20,7 @@ VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = true
   config.ignore_hosts 'codeclimate.com' if ENV['CI']
   config.cassette_library_dir = File.join(ManageIQ::Providers::Autosde::Engine.root, 'spec/vcr_cassettes')
-  config.default_cassette_options = {record: :none, allow_unused_http_interactions: true}
+  config.default_cassette_options = {:record => :none, :allow_unused_http_interactions => true}
 
   # output cassette debug into to console
   config.debug_logger = IO.new STDOUT.fileno
@@ -31,11 +31,8 @@ VCR.configure do |config|
   # mask secret fields from all requests in the cassettes
   %w[username password].each do |field|
     config.filter_sensitive_data "<#{field}>" do |interaction|
-      begin
-        JSON.parse(interaction.request.body)[field]
-      rescue JSON::ParserError
-      end
+      JSON.parse(interaction.request.body)[field]
+    rescue JSON::ParserError
     end
   end
 end
-

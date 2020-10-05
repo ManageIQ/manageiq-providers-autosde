@@ -2,7 +2,7 @@ module ManageIQ::Providers::Autosde::Inventory::Persister::Definitions::CloudCol
   extend ActiveSupport::Concern
 
   def initialize_cloud_inventory_collections
-    %i(vms).each do |name|
+    %i[vms].each do |name|
       add_collection(cloud, name)
     end
   end

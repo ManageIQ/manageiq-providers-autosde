@@ -207,20 +207,20 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
       :fields => [
         {
           :component => 'sub-form',
-          :id      => 'endpoints-subform',
+          :id        => 'endpoints-subform',
           :name      => 'endpoints-subform',
           :title     => _('Endpoints'),
           :fields    => [
             {
               :component              => 'validate-provider-credentials',
-              :id                   => 'authentications.default.valid',
+              :id                     => 'authentications.default.valid',
               :name                   => 'authentications.default.valid',
               :skipSubmit             => true,
               :validationDependencies => %w[type endpoints.default.hostname authentications.default.userid authentications.default.password],
               :fields                 => [
                 {
                   :component  => "select",
-                  :id       => "endpoints.default.security_protocol",
+                  :id         => "endpoints.default.security_protocol",
                   :name       => "endpoints.default.security_protocol",
                   :label      => _("Security Protocol"),
                   :isRequired => true,
@@ -243,7 +243,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
                 },
                 {
                   :component  => "text-field",
-                  :id       => "endpoints.default.hostname",
+                  :id         => "endpoints.default.hostname",
                   :name       => "endpoints.default.hostname",
                   :label      => _("Hostname (or IPv4 or IPv6 address)"),
                   :isRequired => true,
@@ -251,7 +251,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
                 },
                 {
                   :component    => "text-field",
-                  :id         => "endpoints.default.port",
+                  :id           => "endpoints.default.port",
                   :name         => "endpoints.default.port",
                   :label        => _("API Port"),
                   :type         => "number",
@@ -269,7 +269,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
                 },
                 {
                   :component  => "password-field",
-                  :id       => "authentications.default.password",
+                  :id         => "authentications.default.password",
                   :name       => "authentications.default.password",
                   :label      => "Password",
                   :type       => "password",
