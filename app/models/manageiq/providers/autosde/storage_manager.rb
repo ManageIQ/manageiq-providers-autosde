@@ -49,6 +49,10 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     define_method(:singular_route_key) { "ems_block_storage" }
   end
 
+  def queue_name_for_ems_refresh
+    queue_name
+  end
+
   def self.ems_type
     @ems_type ||= "storage_manager".freeze
   end
