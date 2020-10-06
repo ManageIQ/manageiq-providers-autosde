@@ -5,9 +5,12 @@ namespace :autosde do
     task :generate_client do
       require 'optimist'
 
+      GEM_NAME = 'autosde_openapi_client'.freeze
+      MODULE_NAME = 'OpenapiClient'.freeze
+
       root = ManageIQ::Providers::Autosde::Engine.root # ManageIQ::Environment::APP_ROOT
       # parent folder for generated stuff ( contains input spec file)
-      default_folder = "app/models/manageiq/providers/autosde/storage_manager/openapi_client"
+      default_folder = "lib/autosde_oas_client"
 
       # oas file
       default_oas_file = 'site_manager_oas.json'
@@ -49,7 +52,11 @@ namespace :autosde do
       puts ">>>>> #{output_dir}"
       # exclude some not needed things
       env = " --env JAVA_OPTS=\"${JAVA_OPTS} -Dapis -Dmodels  -DsupportingFiles -DmodelDocs=false -DmodelTests=false -DapiTests=false -DapiDocs=false\" "
-      "docker run #{env} --rm -v #{output_dir}:/local openapitools/openapi-generator-cli generate -i /local/site_manager_oas.json -g ruby -o /local/#{generated} --skip-validate-spec"
+      "docker run #{env} --rm -v #{output_dir}:/local openapitools/openapi-generator-cli:v4.3.1 \\
+      generate -i /local/site_manager_oas.json -g ruby \\
+      --additional-properties=gemName=#{GEM_NAME} \\
+      --additional-properties=moduleName=#{MODULE_NAME} \\
+      -o /local/#{generated} --skip-validate-spec"
     end
 
     def validate_directory(directory)
@@ -64,7 +71,7 @@ namespace :autosde do
     end
 
     def modify_generate_files(dir)
-      file_name = 'openapi_client.rb'
+      file_name = "#{GEM_NAME}.rb"
       file_path = File.join(dir, 'lib', file_name)
       puts "file path => #{file_path}"
       search_pattern = 'require'
