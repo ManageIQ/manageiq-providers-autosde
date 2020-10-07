@@ -87,7 +87,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
       config.scheme = @scheme
       config.verify_ssl = false
       config.host = @host
-      config.debugging = true
+      config.debugging = false
       config.verify_ssl_host = false
     end
   end
