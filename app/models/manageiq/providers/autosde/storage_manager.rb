@@ -44,6 +44,17 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   virtual_column :total_resources, :type => :integer
   virtual_column :resources_info, :type => :json
 
+  attribute :volume_availability_zones, :boolean
+  attribute :cloud_tenants, :boolean
+
+  def cloud_tenants
+    nil
+  end
+
+  def volume_availability_zones
+    nil
+  end
+
   class << model_name
     define_method(:route_key) { "ems_block_storages" }
     define_method(:singular_route_key) { "ems_block_storage" }
