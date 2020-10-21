@@ -1,5 +1,16 @@
 # This class is supposed to collect raw output from the managed system
 class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < ManageIQ::Providers::Inventory::Collector
+
+  BYTES_TO_DISPLAY_SIZE = 1.0 / 1.gigabytes
+  
+  UNIT_TO_BYTE = {
+      'GIB'=> 1.gigabytes,
+      'GB' => 1000000000,
+      'B' => 1
+  }
+
+  SIZE_PRECISION = 1
+
   # @return [ManageIQ::Providers::Autosde::StorageManager]
   attr_accessor :manager
 
@@ -19,8 +30,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
       {
         :name                => resource.name,
         :ems_ref             => resource.uuid,
-        :logical_free        => resource.logical_free,
-        :logical_total       => resource.logical_total,
+        :logical_free        => format_bytes_to_size(resource.logical_free, 'B'),
+        :logical_total       => format_bytes_to_size(resource.logical_total, 'B'),
         :storage_system_uuid => resource.storage_system
       }
     end
@@ -30,7 +41,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     @cloud_volumes ||= @manager.autosde_client.VolumeApi.volumes_get.map do |volume|
       {
         :name                  => volume.name,
-        :size                  => volume.size * 1024 * 1024 * 1024,
+        :size                  => format_bytes_to_size(volume.size , 'GiB'),
         :ems_ref               => volume.uuid,
         :storage_resource_uuid => volume.storage_resource,
         :storage_service_uuid  => volume.service,
@@ -58,5 +69,11 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :version => system_type.version
       }
     end
+  end
+
+  private
+  
+  def format_bytes_to_size(bytes, unit)
+    (bytes * UNIT_TO_BYTE[unit.upcase] * BYTES_TO_DISPLAY_SIZE).round(SIZE_PRECISION)
   end
 end
