@@ -1,5 +1,12 @@
 class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::PhysicalStorage
   supports :create
+  supports :delete
+
+  def raw_delete_physical_storage
+    ems = ext_management_system
+    ems.autosde_client.StorageSystemApi.storage_systems_pk_delete(ems_ref)
+    EmsRefresh.queue_refresh(ems)
+  end
 
   # @param [ManageIQ::Providers::Autosde] _ext_management_system
   def self.raw_create_physical_storage(_ext_management_system, _options = {})
