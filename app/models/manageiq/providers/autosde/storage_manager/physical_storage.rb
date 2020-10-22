@@ -11,13 +11,13 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
   # @param [ManageIQ::Providers::Autosde] _ext_management_system
   def self.raw_create_physical_storage(_ext_management_system, _options = {})
     sys_to_create = _ext_management_system.autosde_client.StorageSystemCreate(
-      :name           => _options[:name],
-      :password       => _options[:password],
-      :user           => _options[:user],
-      :system_type    => _options[:system_type],
+      :name           => _options['name'],
+      :password       => _options['password'],
+      :user           => _options['user'],
+      :system_type    => PhysicalStorageFamily.find(_options['physical_storage_family_id']).name,
       :auto_add_pools => true,
       :auto_setup     => true,
-      :management_ip  => _options[:management_ip],
+      :management_ip  => _options['management_ip'],
       :storage_family => "ontap_7mode"
     )
 
