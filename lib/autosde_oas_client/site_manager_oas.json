@@ -769,6 +769,64 @@
         },
         "x-serializer": "HostVolumeConnection"
       },
+      "Job": {
+        "description": "Job",
+        "properties": {
+          "date_finished": {
+            "description": "date_finished",
+            "format": "date-time",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "date_started": {
+            "description": "date_started",
+            "format": "date-time",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "status": {
+            "description": "status",
+            "type": "string"
+          },
+          "task_args": {
+            "description": "task_args",
+            "format": "text",
+            "type": "string"
+          },
+          "task_id": {
+            "description": "task_id",
+            "type": "string"
+          },
+          "task_kwargs": {
+            "description": "task_kwargs",
+            "format": "text",
+            "type": "string"
+          },
+          "task_name": {
+            "description": "task_name",
+            "type": "string"
+          }
+        }
+      },
+      "JobCreate": {
+        "description": "JobCreate",
+        "properties": {
+          "task_args": {
+            "description": "task_args",
+            "type": "string"
+          },
+          "task_name": {
+            "description": "task_name",
+            "type": "string"
+          }
+        }
+      },
       "NativeCapability": {
         "description": "NativeCapability",
         "properties": {
@@ -1086,6 +1144,267 @@
         "x-meta": {
           "unique_together": "(\"service\", \"storage_resource\",)"
         }
+      },
+      "Snapshot": {
+        "description": "Define volume snapshot.",
+        "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
+          "description": {
+            "description": "description",
+            "format": "text",
+            "type": "string"
+          },
+          "name": {
+            "description": "name",
+            "format": "text",
+            "type": "string"
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "volume": {
+            "$ref": "#/components/schemas/Volume",
+            "x-model": {
+              "on_delete": "models.CASCADE"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          }
+        }
+      },
+      "SnapshotCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
+          "description": {
+            "description": "description",
+            "format": "text",
+            "type": "string"
+          },
+          "name": {
+            "description": "name",
+            "format": "text",
+            "type": "string"
+          },
+          "volume": {
+            "$ref": "#/components/schemas/Volume",
+            "x-model": {
+              "on_delete": "models.CASCADE"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          }
+        },
+        "x-serializer": "Snapshot"
+      },
+      "StorageHost": {
+        "description": "Storage host",
+        "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
+          "description": {
+            "description": "description",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "io_groups": {
+            "description": "io_groups",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "name": {
+            "description": "The Storage Host Name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "storage_system": {
+            "$ref": "#/components/schemas/StorageSystem",
+            "x-model": {
+              "on_delete": "models.CASCADE"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          }
+        }
+      },
+      "StorageHostCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "chap_name": {
+            "description": "chap_name",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "chap_secret": {
+            "description": "chap_secret",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
+          "description": {
+            "description": "description",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "io_groups": {
+            "description": "io_groups",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "iqn": {
+            "description": "",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "name": {
+            "description": "The Storage Host Name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "port_type": {
+            "description": "port_type",
+            "enum": [
+              "ISCSI",
+              "FC",
+              "NVMeFC"
+            ],
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "storage_system": {
+            "$ref": "#/components/schemas/StorageSystem",
+            "x-model": {
+              "on_delete": "models.CASCADE"
+            },
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "wwpn": {
+            "description": "wwpn",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          }
+        },
+        "x-serializer": "StorageHost"
+      },
+      "StorageHostResponse": {
+        "description": "TODO add description",
+        "properties": {
+
+
+          "name": {
+            "description": "The Storage Host Name",
+            "type": "string",
+            "x-model": {
+              "unique": true
+            }
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            }
+          }
+
+        },
+        "x-serializer": "StorageHost"
       },
       "StorageResource": {
         "description": "StorageResource",
@@ -2788,6 +3107,59 @@
       ],
       "x-model": "Host"
     },
+    "/jobs": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Job"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Job"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Job"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Job"
+        ]
+      },
+      "x-model": "Job"
+    },
     "/native-capabilities/": {
       "get": {
         "responses": {
@@ -3453,6 +3825,218 @@
         ]
       },
       "x-model": "Service"
+    },
+    "/snapshots/": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Snapshot"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Snapshot"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SnapshotCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Snapshot"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Snapshot"
+        ]
+      },
+      "x-model": "Snapshot"
+    },
+    "/snapshots/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Snapshot"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Snapshot"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Snapshot"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "Snapshot"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "Snapshot"
+    },
+    "/storage-hosts": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageHostResponse"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageHost"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StorageHostCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageHost"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageHost"
+        ]
+      },
+      "x-model": "StorageHost"
+    },
+    "/storage-hosts/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageHost"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageHost"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageHost"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageHost"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "StorageHost"
     },
     "/storage-resources/": {
       "get": {
