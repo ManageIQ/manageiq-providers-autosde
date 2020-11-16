@@ -1874,7 +1874,13 @@
       "volumeUpdate": {
         "description": "TODO add description",
         "properties": {
+          "name": {
+            "default": null,
+            "description": "name",
+            "type": "string"
+          },
           "size": {
+            "default": null,
             "description": "size",
             "type": "integer"
           }
