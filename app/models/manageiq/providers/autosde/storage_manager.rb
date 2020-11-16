@@ -5,6 +5,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   supports :storage_services
   supports :ems_storage_new
+  supports :volume_resizing
 
   include ManageIQ::Providers::StorageManager::BlockMixin
 

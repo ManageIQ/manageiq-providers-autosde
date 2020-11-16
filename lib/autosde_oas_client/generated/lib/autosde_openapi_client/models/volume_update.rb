@@ -15,12 +15,16 @@ require 'date'
 module OpenapiClient
   # TODO add description
   class VolumeUpdate
+    # name
+    attr_accessor :name
+
     # size
     attr_accessor :size
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'name' => :'name',
         :'size' => :'size'
       }
     end
@@ -28,6 +32,7 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'name' => :'String',
         :'size' => :'Integer'
       }
     end
@@ -53,6 +58,12 @@ module OpenapiClient
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
+      else
+        self.name = 'null'
+      end
+
       if attributes.key?(:'size')
         self.size = attributes[:'size']
       end
@@ -76,6 +87,7 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          name == o.name &&
           size == o.size
     end
 
@@ -88,7 +100,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [size].hash
+      [name, size].hash
     end
 
     # Builds the object from hash
