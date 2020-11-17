@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param storage_host_create [StorageHostCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<StorageHost>]
+    # @return [Array<StorageHostResponse>]
     def storage_hosts_post(storage_host_create, opts = {})
       data, _status_code, _headers = storage_hosts_post_with_http_info(storage_host_create, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param storage_host_create [StorageHostCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<StorageHost>, Integer, Hash)>] Array<StorageHost> data, response status code and response headers
+    # @return [Array<(Array<StorageHostResponse>, Integer, Hash)>] Array<StorageHostResponse> data, response status code and response headers
     def storage_hosts_post_with_http_info(storage_host_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: StorageHostApi.storage_hosts_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(storage_host_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<StorageHost>' 
+      return_type = opts[:return_type] || 'Array<StorageHostResponse>' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

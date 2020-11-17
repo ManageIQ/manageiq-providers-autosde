@@ -15,24 +15,72 @@ require 'date'
 module OpenapiClient
   # TODO add description
   class StorageHostResponse
+    # addresses
+    attr_accessor :addresses
+
+    # component_state
+    attr_accessor :component_state
+
+    # description
+    attr_accessor :description
+
+    # io_groups
+    attr_accessor :io_groups
+
     # The Storage Host Name
     attr_accessor :name
 
-    attr_accessor :addresses
+    # !!uuid of storage_system
+    attr_accessor :storage_system
+
+    # uuid
+    attr_accessor :uuid
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'addresses' => :'addresses',
+        :'component_state' => :'component_state',
+        :'description' => :'description',
+        :'io_groups' => :'io_groups',
         :'name' => :'name',
-        :'addresses' => :'addresses'
+        :'storage_system' => :'storage_system',
+        :'uuid' => :'uuid'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'addresses' => :'Array<Address>',
+        :'component_state' => :'String',
+        :'description' => :'String',
+        :'io_groups' => :'String',
         :'name' => :'String',
-        :'addresses' => :'Array<Address>'
+        :'storage_system' => :'String',
+        :'uuid' => :'String'
       }
     end
 
@@ -57,14 +105,34 @@ module OpenapiClient
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'name')
-        self.name = attributes[:'name']
-      end
-
       if attributes.key?(:'addresses')
         if (value = attributes[:'addresses']).is_a?(Array)
           self.addresses = value
         end
+      end
+
+      if attributes.key?(:'component_state')
+        self.component_state = attributes[:'component_state']
+      end
+
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
+      end
+
+      if attributes.key?(:'io_groups')
+        self.io_groups = attributes[:'io_groups']
+      end
+
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
+      end
+
+      if attributes.key?(:'storage_system')
+        self.storage_system = attributes[:'storage_system']
+      end
+
+      if attributes.key?(:'uuid')
+        self.uuid = attributes[:'uuid']
       end
     end
 
@@ -72,13 +140,30 @@ module OpenapiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if !@component_state.nil? && @component_state.to_s.length > 32
+        invalid_properties.push('invalid value for "component_state", the character length must be smaller than or equal to 32.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      component_state_validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
+      return false unless component_state_validator.valid?(@component_state)
+      return false if !@component_state.nil? && @component_state.to_s.length > 32
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] component_state Object to be assigned
+    def component_state=(component_state)
+      validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
+      unless validator.valid?(component_state)
+        fail ArgumentError, "invalid value for \"component_state\", must be one of #{validator.allowable_values}."
+      end
+      @component_state = component_state
     end
 
     # Checks equality by comparing each attribute.
@@ -86,8 +171,13 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          addresses == o.addresses &&
+          component_state == o.component_state &&
+          description == o.description &&
+          io_groups == o.io_groups &&
           name == o.name &&
-          addresses == o.addresses
+          storage_system == o.storage_system &&
+          uuid == o.uuid
     end
 
     # @see the `==` method
@@ -99,7 +189,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, addresses].hash
+      [addresses, component_state, description, io_groups, name, storage_system, uuid].hash
     end
 
     # Builds the object from hash

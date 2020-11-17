@@ -9,7 +9,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :name             => system.name,
         :ems_ref          => system.uuid,
         :system_type_uuid => system.system_type.uuid,
-
       }
     end
   end
@@ -22,6 +21,28 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :logical_free        => resource.logical_free,
         :logical_total       => resource.logical_total,
         :storage_system_uuid => resource.storage_system
+      }
+    end
+  end
+
+  def addresses
+    @addresses ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.map do |address|
+      {
+        :ems_ref                => address.addresses[0].uuid,
+        :iqn                    => address.addresses[0].iqn,
+        :wwpn                   => address.addresses[0].wwpn,
+        :storage_consumers_uuid => address.uuid,
+        :storage_system_uuid    => address.storage_system
+      }
+    end
+  end
+
+  def storage_consumers
+    @storage_consumers ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.map do |consumer|
+      {
+        :name                => consumer.name,
+        :ems_ref             => consumer.uuid,
+        :storage_system_uuid => consumer.storage_system
       }
     end
   end

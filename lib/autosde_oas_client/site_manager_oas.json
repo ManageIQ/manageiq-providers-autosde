@@ -1387,8 +1387,42 @@
       "StorageHostResponse": {
         "description": "TODO add description",
         "properties": {
-
-
+          "addresses": {
+            "description": "addresses",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            },
+            "type": "array"
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
+          "description": {
+            "description": "description",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "io_groups": {
+            "description": "io_groups",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
           "name": {
             "description": "The Storage Host Name",
             "type": "string",
@@ -1396,13 +1430,23 @@
               "unique": true
             }
           },
-          "addresses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Address"
+          "storage_system": {
+            "description": "!!uuid of storage_system",
+            "type": "string",
+            "x-model": "#/components/schemas/StorageSystem",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
             }
           }
-
         },
         "x-serializer": "StorageHost"
       },
@@ -3970,7 +4014,7 @@
               "*/*": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/StorageHost"
+                    "$ref": "#/components/schemas/StorageHostResponse"
                   },
                   "type": "array"
                 }
