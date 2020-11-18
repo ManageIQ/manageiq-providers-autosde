@@ -113,6 +113,8 @@ Class | Method | HTTP request | Description
 *OpenapiClient::HostVolumeConnectionApi* | [**host_volume_connection_pk_delete**](docs/HostVolumeConnectionApi.md#host_volume_connection_pk_delete) | **DELETE** /host-volume-connection/{pk} | 
 *OpenapiClient::HostVolumeConnectionApi* | [**host_volume_connection_pk_get**](docs/HostVolumeConnectionApi.md#host_volume_connection_pk_get) | **GET** /host-volume-connection/{pk} | 
 *OpenapiClient::HostVolumeConnectionApi* | [**host_volume_connection_post**](docs/HostVolumeConnectionApi.md#host_volume_connection_post) | **POST** /host-volume-connection/ | 
+*OpenapiClient::JobApi* | [**jobs_get**](docs/JobApi.md#jobs_get) | **GET** /jobs | 
+*OpenapiClient::JobApi* | [**jobs_post**](docs/JobApi.md#jobs_post) | **POST** /jobs | 
 *OpenapiClient::NativeCapabilityApi* | [**native_capabilities_get**](docs/NativeCapabilityApi.md#native_capabilities_get) | **GET** /native-capabilities/ | 
 *OpenapiClient::NativeCapabilityApi* | [**native_capabilities_pk_delete**](docs/NativeCapabilityApi.md#native_capabilities_pk_delete) | **DELETE** /native-capabilities/{pk} | 
 *OpenapiClient::NativeCapabilityApi* | [**native_capabilities_pk_get**](docs/NativeCapabilityApi.md#native_capabilities_pk_get) | **GET** /native-capabilities/{pk} | 
@@ -134,6 +136,14 @@ Class | Method | HTTP request | Description
 *OpenapiClient::ServiceResourceAttachmentApi* | [**service_resource_attchment_pk_delete**](docs/ServiceResourceAttachmentApi.md#service_resource_attchment_pk_delete) | **DELETE** /service-resource-attchment/{pk} | 
 *OpenapiClient::ServiceResourceAttachmentApi* | [**service_resource_attchment_pk_get**](docs/ServiceResourceAttachmentApi.md#service_resource_attchment_pk_get) | **GET** /service-resource-attchment/{pk} | 
 *OpenapiClient::ServiceResourceAttachmentApi* | [**service_resource_attchment_post**](docs/ServiceResourceAttachmentApi.md#service_resource_attchment_post) | **POST** /service-resource-attchment/ | 
+*OpenapiClient::SnapshotApi* | [**snapshots_get**](docs/SnapshotApi.md#snapshots_get) | **GET** /snapshots/ | 
+*OpenapiClient::SnapshotApi* | [**snapshots_pk_delete**](docs/SnapshotApi.md#snapshots_pk_delete) | **DELETE** /snapshots/{pk} | 
+*OpenapiClient::SnapshotApi* | [**snapshots_pk_get**](docs/SnapshotApi.md#snapshots_pk_get) | **GET** /snapshots/{pk} | 
+*OpenapiClient::SnapshotApi* | [**snapshots_post**](docs/SnapshotApi.md#snapshots_post) | **POST** /snapshots/ | 
+*OpenapiClient::StorageHostApi* | [**storage_hosts_get**](docs/StorageHostApi.md#storage_hosts_get) | **GET** /storage-hosts | 
+*OpenapiClient::StorageHostApi* | [**storage_hosts_pk_delete**](docs/StorageHostApi.md#storage_hosts_pk_delete) | **DELETE** /storage-hosts/{pk} | 
+*OpenapiClient::StorageHostApi* | [**storage_hosts_pk_get**](docs/StorageHostApi.md#storage_hosts_pk_get) | **GET** /storage-hosts/{pk} | 
+*OpenapiClient::StorageHostApi* | [**storage_hosts_post**](docs/StorageHostApi.md#storage_hosts_post) | **POST** /storage-hosts | 
 *OpenapiClient::StorageResourceApi* | [**storage_resources_get**](docs/StorageResourceApi.md#storage_resources_get) | **GET** /storage-resources/ | 
 *OpenapiClient::StorageResourceApi* | [**storage_resources_pk_delete**](docs/StorageResourceApi.md#storage_resources_pk_delete) | **DELETE** /storage-resources/{pk} | 
 *OpenapiClient::StorageResourceApi* | [**storage_resources_pk_get**](docs/StorageResourceApi.md#storage_resources_pk_get) | **GET** /storage-resources/{pk} | 
@@ -176,6 +186,8 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::HostCreate](docs/HostCreate.md)
  - [OpenapiClient::HostVolumeConnection](docs/HostVolumeConnection.md)
  - [OpenapiClient::HostVolumeConnectionCreate](docs/HostVolumeConnectionCreate.md)
+ - [OpenapiClient::Job](docs/Job.md)
+ - [OpenapiClient::JobCreate](docs/JobCreate.md)
  - [OpenapiClient::NativeCapability](docs/NativeCapability.md)
  - [OpenapiClient::Profile](docs/Profile.md)
  - [OpenapiClient::ProvisioningStrategy](docs/ProvisioningStrategy.md)
@@ -183,6 +195,11 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::ServiceAbstractCapabilityValue](docs/ServiceAbstractCapabilityValue.md)
  - [OpenapiClient::ServiceCreate](docs/ServiceCreate.md)
  - [OpenapiClient::ServiceResourceAttachment](docs/ServiceResourceAttachment.md)
+ - [OpenapiClient::Snapshot](docs/Snapshot.md)
+ - [OpenapiClient::SnapshotCreate](docs/SnapshotCreate.md)
+ - [OpenapiClient::StorageHost](docs/StorageHost.md)
+ - [OpenapiClient::StorageHostCreate](docs/StorageHostCreate.md)
+ - [OpenapiClient::StorageHostResponse](docs/StorageHostResponse.md)
  - [OpenapiClient::StorageResource](docs/StorageResource.md)
  - [OpenapiClient::StorageResourceCreate](docs/StorageResourceCreate.md)
  - [OpenapiClient::StorageResourceResponse](docs/StorageResourceResponse.md)
