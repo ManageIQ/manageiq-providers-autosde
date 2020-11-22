@@ -20,4 +20,4 @@
         :ems_refresh_worker_autosde: {}
 :ems_refresh:
   :autosde:
-    :inventory_object_refresh: true
+    :refresh_interval: 15.minutes
