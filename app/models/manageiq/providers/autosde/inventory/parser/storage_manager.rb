@@ -14,7 +14,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     physical_storage_families
     physical_storages
     storage_resources
-    storage_consumers
+    physical_storage_consumers
     addresses
     storage_services
     cloud_volumes
@@ -48,20 +48,20 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def addresses
     collector.addresses.each do |address_hash|
       physical_storage_ems_ref = address_hash.delete(:storage_system_uuid)
-      storage_consumers_uuid = address_hash.delete(:storage_consumers_uuid)
+      physical_storage_consumers_uuid = address_hash.delete(:physical_storage_consumers_uuid)
       persister.addresses.build(
         **address_hash,
         :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref),
-        :storage_consumer => persister.storage_consumers.lazy_find(storage_consumers_uuid),
+        :physical_storage_consumer => persister.physical_storage_consumers.lazy_find(physical_storage_consumers_uuid),
       )
     end
   end
 
-  def storage_consumers
-    collector.storage_consumers.each do |storage_consumer_hash|
-      physical_storage_ems_ref = storage_consumer_hash.delete(:storage_system_uuid)
-      persister.storage_consumers.build(
-        **storage_consumer_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
+  def physical_storage_consumers
+    collector.physical_storage_consumers.each do |physical_storage_consumer_hash|
+      physical_storage_ems_ref = physical_storage_consumer_hash.delete(:storage_system_uuid)
+      persister.physical_storage_consumers.build(
+        **physical_storage_consumer_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
       )
     end
   end
