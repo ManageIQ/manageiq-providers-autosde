@@ -46,14 +46,16 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   end
 
   def addresses
-    collector.addresses.each do |address_hash|
-      physical_storage_ems_ref = address_hash.delete(:storage_system_uuid)
-      physical_storage_consumers_uuid = address_hash.delete(:physical_storage_consumers_uuid)
-      persister.addresses.build(
-        **address_hash,
-        :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref),
-        :physical_storage_consumer => persister.physical_storage_consumers.lazy_find(physical_storage_consumers_uuid),
-      )
+    collector.addresses.each do |addresses_array|
+      addresses_array.each do |address_hash|
+        physical_storage_ems_ref = address_hash.delete(:storage_system_uuid)
+        physical_storage_consumers_uuid = address_hash.delete(:physical_storage_consumers_uuid)
+        persister.addresses.build(
+            **address_hash,
+            :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref),
+            :physical_storage_consumer => persister.physical_storage_consumers.lazy_find(physical_storage_consumers_uuid),
+            )
+      end
     end
   end
 

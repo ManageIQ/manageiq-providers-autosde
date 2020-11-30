@@ -26,14 +26,29 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   end
 
   def addresses
-    @addresses ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.map do |address|
-      {
-        :ems_ref                => address.addresses[0].uuid,
-        :iqn                    => address.addresses[0].iqn,
-        :wwpn                   => address.addresses[0].wwpn,
-        :physical_storage_consumers_uuid => address.uuid,
-        :storage_system_uuid    => address.storage_system
-      }
+    @addresses ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.map do |addresses|
+      addresses_array = []
+
+      addresses.addresses.each do |address|
+        if address.port_type == "ISCSI"
+          port = IscsiAddress.create(:iqn => address.iqn)
+        elsif address.port_type == "FC" || address.port_type == "NVMeFC"
+          port = FiberChannelAddress.create(
+              :wwpn => address.wwpn,
+              :chap_name => address.chap_name,
+              :chap_secret => address.chap_secret
+          )
+        end
+
+        addresses_array << {
+          :ems_ref => address.uuid,
+          :physical_storage_consumers_uuid => addresses.uuid,
+          :storage_system_uuid => addresses.storage_system,
+          :port => port
+        }
+      end
+
+      addresses_array
     end
   end
 
