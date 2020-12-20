@@ -23,21 +23,21 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
       )
     end
 
-    # addresses
-    add_collection(physical_infra, :addresses) do |builder|
+    # san_addresses
+    add_collection(physical_infra, :san_addresses) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }
       )
       builder.add_properties(
-        :parent_inventory_collections => [:physical_storage_consumers]
+        :parent_inventory_collections => [:host_initiators]
       )
       builder.add_properties(
         :parent_inventory_collections => [:physical_storages]
       )
     end
 
-    # physical storage consumers
-    add_collection(physical_infra, :physical_storage_consumers) do |builder|
+    # host initiators
+    add_collection(physical_infra, :host_initiators) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }
       )

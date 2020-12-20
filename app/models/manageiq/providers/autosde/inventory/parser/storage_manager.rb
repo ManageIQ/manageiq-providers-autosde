@@ -14,8 +14,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     physical_storage_families
     physical_storages
     storage_resources
-    physical_storage_consumers
-    addresses
+    host_initiators
+    san_addresses
     storage_services
     cloud_volumes
   end
@@ -45,25 +45,23 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     end
   end
 
-  def addresses
-    collector.addresses.each do |addresses_array|
-      addresses_array.each do |address_hash|
-        physical_storage_ems_ref = address_hash.delete(:storage_system_uuid)
-        physical_storage_consumers_uuid = address_hash.delete(:physical_storage_consumers_uuid)
-        persister.addresses.build(
-            **address_hash,
-            :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref),
-            :physical_storage_consumer => persister.physical_storage_consumers.lazy_find(physical_storage_consumers_uuid),
+  def san_addresses
+    collector.san_addresses.each do |san_addresses_array|
+      san_addresses_array.each do |san_address_hash|
+        host_initiators_uuid = san_address_hash.delete(:host_initiators_uuid)
+        persister.san_addresses.build(
+            **san_address_hash,
+            :owner => persister.host_initiators.lazy_find(host_initiators_uuid),
             )
       end
     end
   end
 
-  def physical_storage_consumers
-    collector.physical_storage_consumers.each do |physical_storage_consumer_hash|
-      physical_storage_ems_ref = physical_storage_consumer_hash.delete(:storage_system_uuid)
-      persister.physical_storage_consumers.build(
-        **physical_storage_consumer_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
+  def host_initiators
+    collector.host_initiators.each do |host_initiator_hash|
+      physical_storage_ems_ref = host_initiator_hash.delete(:storage_system_uuid)
+      persister.host_initiators.build(
+        **host_initiator_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
       )
     end
   end

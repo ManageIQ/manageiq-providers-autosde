@@ -25,25 +25,25 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     end
   end
 
-  def addresses
-    @addresses ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.map do |addresses|
+  def san_addresses
+    @san_addresses ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.map do |addresses|
       addresses_array = []
 
       addresses.addresses.each do |address|
         if address.port_type == "ISCSI"
-          port = IscsiAddress.create(:iqn => address.iqn)
+          port = IscsiAddress.create(
+              :iqn => address.iqn,
+              :chap_name => address.chap_name,
+              :chap_secret => address.chap_secret)
         elsif address.port_type == "FC" || address.port_type == "NVMeFC"
           port = FiberChannelAddress.create(
-              :wwpn => address.wwpn,
-              :chap_name => address.chap_name,
-              :chap_secret => address.chap_secret
+              :wwpn => address.wwpn
           )
         end
 
         addresses_array << {
           :ems_ref => address.uuid,
-          :physical_storage_consumers_uuid => addresses.uuid,
-          :storage_system_uuid => addresses.storage_system,
+          :host_initiators_uuid => addresses.uuid,
           :port => port
         }
       end
@@ -52,12 +52,12 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     end
   end
 
-  def physical_storage_consumers
-    @physical_storage_consumers ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.map do |consumer|
+  def host_initiators
+    @host_initiators ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.map do |host_initiator|
       {
-        :name                => consumer.name,
-        :ems_ref             => consumer.uuid,
-        :storage_system_uuid => consumer.storage_system
+        :name                => host_initiator.name,
+        :ems_ref             => host_initiator.uuid,
+        :storage_system_uuid => host_initiator.storage_system
       }
     end
   end
