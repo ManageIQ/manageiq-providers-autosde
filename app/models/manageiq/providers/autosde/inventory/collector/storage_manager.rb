@@ -31,20 +31,21 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
 
       addresses.addresses.each do |address|
         if address.port_type == "ISCSI"
-          port = IscsiAddress.create(
-              :iqn => address.iqn,
-              :chap_name => address.chap_name,
-              :chap_secret => address.chap_secret)
-        elsif address.port_type == "FC" || address.port_type == "NVMeFC"
-          port = FiberChannelAddress.create(
-              :wwpn => address.wwpn
-          )
+          port_type = IscsiAddress
+        elsif address.port_type == "FC"
+          port_type = FiberChannelAddress
+        elsif address.port_type == "NVMeFC"
+          port_type = NonvolatileMemoryExpressAddress
         end
 
         addresses_array << {
           :ems_ref => address.uuid,
           :host_initiators_uuid => addresses.uuid,
-          :port => port
+          :type => port_type,
+          :iqn => address.iqn,
+          :chap_name => address.chap_name,
+          :chap_secret => address.chap_secret,
+          :wwpn => address.wwpn
         }
       end
 
