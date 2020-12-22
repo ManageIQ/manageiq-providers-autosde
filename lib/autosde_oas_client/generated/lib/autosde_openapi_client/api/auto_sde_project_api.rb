@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param auto_sde_project [AutoSDEProject] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<AutoSDEProject>]
+    # @return [AutoSDEProject]
     def autosde_projects_post(auto_sde_project, opts = {})
       data, _status_code, _headers = autosde_projects_post_with_http_info(auto_sde_project, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param auto_sde_project [AutoSDEProject] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<AutoSDEProject>, Integer, Hash)>] Array<AutoSDEProject> data, response status code and response headers
+    # @return [Array<(AutoSDEProject, Integer, Hash)>] AutoSDEProject data, response status code and response headers
     def autosde_projects_post_with_http_info(auto_sde_project, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AutoSDEProjectApi.autosde_projects_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(auto_sde_project) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<AutoSDEProject>' 
+      return_type = opts[:return_type] || 'AutoSDEProject' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param auto_sde_role [AutoSDERole] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<AutoSDERole>]
+    # @return [AutoSDERole]
     def autosde_roles_post(auto_sde_role, opts = {})
       data, _status_code, _headers = autosde_roles_post_with_http_info(auto_sde_role, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param auto_sde_role [AutoSDERole] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<AutoSDERole>, Integer, Hash)>] Array<AutoSDERole> data, response status code and response headers
+    # @return [Array<(AutoSDERole, Integer, Hash)>] AutoSDERole data, response status code and response headers
     def autosde_roles_post_with_http_info(auto_sde_role, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AutoSDERoleApi.autosde_roles_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(auto_sde_role) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<AutoSDERole>' 
+      return_type = opts[:return_type] || 'AutoSDERole' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

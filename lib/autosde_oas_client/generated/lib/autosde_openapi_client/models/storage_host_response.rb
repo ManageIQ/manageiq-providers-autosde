@@ -36,6 +36,9 @@ module OpenapiClient
     # uuid
     attr_accessor :uuid
 
+    # volumes
+    attr_accessor :volumes
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -67,7 +70,8 @@ module OpenapiClient
         :'io_groups' => :'io_groups',
         :'name' => :'name',
         :'storage_system' => :'storage_system',
-        :'uuid' => :'uuid'
+        :'uuid' => :'uuid',
+        :'volumes' => :'volumes'
       }
     end
 
@@ -80,7 +84,8 @@ module OpenapiClient
         :'io_groups' => :'String',
         :'name' => :'String',
         :'storage_system' => :'String',
-        :'uuid' => :'String'
+        :'uuid' => :'String',
+        :'volumes' => :'Array<Volume>'
       }
     end
 
@@ -134,6 +139,12 @@ module OpenapiClient
       if attributes.key?(:'uuid')
         self.uuid = attributes[:'uuid']
       end
+
+      if attributes.key?(:'volumes')
+        if (value = attributes[:'volumes']).is_a?(Array)
+          self.volumes = value
+        end
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -177,7 +188,8 @@ module OpenapiClient
           io_groups == o.io_groups &&
           name == o.name &&
           storage_system == o.storage_system &&
-          uuid == o.uuid
+          uuid == o.uuid &&
+          volumes == o.volumes
     end
 
     # @see the `==` method
@@ -189,7 +201,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [addresses, component_state, description, io_groups, name, storage_system, uuid].hash
+      [addresses, component_state, description, io_groups, name, storage_system, uuid, volumes].hash
     end
 
     # Builds the object from hash

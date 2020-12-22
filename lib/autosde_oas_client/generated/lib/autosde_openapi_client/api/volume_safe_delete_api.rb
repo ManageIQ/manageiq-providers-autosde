@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param volume_safe_delete_create [VolumeSafeDeleteCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<VolumeSafeDelete>]
+    # @return [VolumeSafeDelete]
     def safe_deletes_post(volume_safe_delete_create, opts = {})
       data, _status_code, _headers = safe_deletes_post_with_http_info(volume_safe_delete_create, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param volume_safe_delete_create [VolumeSafeDeleteCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<VolumeSafeDelete>, Integer, Hash)>] Array<VolumeSafeDelete> data, response status code and response headers
+    # @return [Array<(VolumeSafeDelete, Integer, Hash)>] VolumeSafeDelete data, response status code and response headers
     def safe_deletes_post_with_http_info(volume_safe_delete_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VolumeSafeDeleteApi.safe_deletes_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(volume_safe_delete_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<VolumeSafeDelete>' 
+      return_type = opts[:return_type] || 'VolumeSafeDelete' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

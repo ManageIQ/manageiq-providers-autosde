@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param provisioning_strategy [ProvisioningStrategy] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<ProvisioningStrategy>]
+    # @return [ProvisioningStrategy]
     def provisioning_strategy_post(provisioning_strategy, opts = {})
       data, _status_code, _headers = provisioning_strategy_post_with_http_info(provisioning_strategy, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param provisioning_strategy [ProvisioningStrategy] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<ProvisioningStrategy>, Integer, Hash)>] Array<ProvisioningStrategy> data, response status code and response headers
+    # @return [Array<(ProvisioningStrategy, Integer, Hash)>] ProvisioningStrategy data, response status code and response headers
     def provisioning_strategy_post_with_http_info(provisioning_strategy, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProvisioningStrategyApi.provisioning_strategy_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(provisioning_strategy) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<ProvisioningStrategy>' 
+      return_type = opts[:return_type] || 'ProvisioningStrategy' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

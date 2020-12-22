@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param profile [Profile] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<Profile>]
+    # @return [Profile]
     def profiles_post(profile, opts = {})
       data, _status_code, _headers = profiles_post_with_http_info(profile, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param profile [Profile] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<Profile>, Integer, Hash)>] Array<Profile> data, response status code and response headers
+    # @return [Array<(Profile, Integer, Hash)>] Profile data, response status code and response headers
     def profiles_post_with_http_info(profile, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProfileApi.profiles_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(profile) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<Profile>' 
+      return_type = opts[:return_type] || 'Profile' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

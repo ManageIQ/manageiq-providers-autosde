@@ -190,7 +190,7 @@ module OpenapiClient
     # @param pk [Integer] 
     # @param volume_update [VolumeUpdate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<VolumeResponse>]
+    # @return [VolumeResponse]
     def volumes_pk_put(pk, volume_update, opts = {})
       data, _status_code, _headers = volumes_pk_put_with_http_info(pk, volume_update, opts)
       data
@@ -199,7 +199,7 @@ module OpenapiClient
     # @param pk [Integer] 
     # @param volume_update [VolumeUpdate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<VolumeResponse>, Integer, Hash)>] Array<VolumeResponse> data, response status code and response headers
+    # @return [Array<(VolumeResponse, Integer, Hash)>] VolumeResponse data, response status code and response headers
     def volumes_pk_put_with_http_info(pk, volume_update, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VolumeApi.volumes_pk_put ...'
@@ -232,7 +232,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(volume_update) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<VolumeResponse>' 
+      return_type = opts[:return_type] || 'VolumeResponse' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -255,7 +255,7 @@ module OpenapiClient
 
     # @param volume_create [VolumeCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<VolumeResponse>]
+    # @return [VolumeResponse]
     def volumes_post(volume_create, opts = {})
       data, _status_code, _headers = volumes_post_with_http_info(volume_create, opts)
       data
@@ -263,7 +263,7 @@ module OpenapiClient
 
     # @param volume_create [VolumeCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<VolumeResponse>, Integer, Hash)>] Array<VolumeResponse> data, response status code and response headers
+    # @return [Array<(VolumeResponse, Integer, Hash)>] VolumeResponse data, response status code and response headers
     def volumes_post_with_http_info(volume_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VolumeApi.volumes_post ...'
@@ -292,7 +292,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(volume_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<VolumeResponse>' 
+      return_type = opts[:return_type] || 'VolumeResponse' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

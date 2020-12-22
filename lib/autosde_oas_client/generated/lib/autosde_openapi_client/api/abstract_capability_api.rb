@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param abstract_capability [AbstractCapability] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<AbstractCapability>]
+    # @return [AbstractCapability]
     def abstract_capabilities_post(abstract_capability, opts = {})
       data, _status_code, _headers = abstract_capabilities_post_with_http_info(abstract_capability, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param abstract_capability [AbstractCapability] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<AbstractCapability>, Integer, Hash)>] Array<AbstractCapability> data, response status code and response headers
+    # @return [Array<(AbstractCapability, Integer, Hash)>] AbstractCapability data, response status code and response headers
     def abstract_capabilities_post_with_http_info(abstract_capability, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AbstractCapabilityApi.abstract_capabilities_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(abstract_capability) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<AbstractCapability>' 
+      return_type = opts[:return_type] || 'AbstractCapability' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

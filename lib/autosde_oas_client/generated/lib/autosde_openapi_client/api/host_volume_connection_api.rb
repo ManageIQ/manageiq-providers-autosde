@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param host_volume_connection_create [HostVolumeConnectionCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<HostVolumeConnection>]
+    # @return [HostVolumeConnection]
     def host_volume_connection_post(host_volume_connection_create, opts = {})
       data, _status_code, _headers = host_volume_connection_post_with_http_info(host_volume_connection_create, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param host_volume_connection_create [HostVolumeConnectionCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<HostVolumeConnection>, Integer, Hash)>] Array<HostVolumeConnection> data, response status code and response headers
+    # @return [Array<(HostVolumeConnection, Integer, Hash)>] HostVolumeConnection data, response status code and response headers
     def host_volume_connection_post_with_http_info(host_volume_connection_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: HostVolumeConnectionApi.host_volume_connection_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(host_volume_connection_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<HostVolumeConnection>' 
+      return_type = opts[:return_type] || 'HostVolumeConnection' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

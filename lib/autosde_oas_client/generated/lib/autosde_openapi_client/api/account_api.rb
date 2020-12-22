@@ -190,7 +190,7 @@ module OpenapiClient
     # @param pk [Integer] 
     # @param account_post_request [AccountPostRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<AccountPostResponse>]
+    # @return [AccountPostResponse]
     def accounts_pk_put(pk, account_post_request, opts = {})
       data, _status_code, _headers = accounts_pk_put_with_http_info(pk, account_post_request, opts)
       data
@@ -199,7 +199,7 @@ module OpenapiClient
     # @param pk [Integer] 
     # @param account_post_request [AccountPostRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<AccountPostResponse>, Integer, Hash)>] Array<AccountPostResponse> data, response status code and response headers
+    # @return [Array<(AccountPostResponse, Integer, Hash)>] AccountPostResponse data, response status code and response headers
     def accounts_pk_put_with_http_info(pk, account_post_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountApi.accounts_pk_put ...'
@@ -232,7 +232,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(account_post_request) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<AccountPostResponse>' 
+      return_type = opts[:return_type] || 'AccountPostResponse' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -255,7 +255,7 @@ module OpenapiClient
 
     # @param account_post_request [AccountPostRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<AccountPostResponse>]
+    # @return [AccountPostResponse]
     def accounts_post(account_post_request, opts = {})
       data, _status_code, _headers = accounts_post_with_http_info(account_post_request, opts)
       data
@@ -263,7 +263,7 @@ module OpenapiClient
 
     # @param account_post_request [AccountPostRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<AccountPostResponse>, Integer, Hash)>] Array<AccountPostResponse> data, response status code and response headers
+    # @return [Array<(AccountPostResponse, Integer, Hash)>] AccountPostResponse data, response status code and response headers
     def accounts_post_with_http_info(account_post_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountApi.accounts_post ...'
@@ -292,7 +292,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(account_post_request) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<AccountPostResponse>' 
+      return_type = opts[:return_type] || 'AccountPostResponse' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

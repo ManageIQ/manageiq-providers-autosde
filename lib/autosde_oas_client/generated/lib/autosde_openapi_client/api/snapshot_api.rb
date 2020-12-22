@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param snapshot_create [SnapshotCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<Snapshot>]
+    # @return [Snapshot]
     def snapshots_post(snapshot_create, opts = {})
       data, _status_code, _headers = snapshots_post_with_http_info(snapshot_create, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param snapshot_create [SnapshotCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<Snapshot>, Integer, Hash)>] Array<Snapshot> data, response status code and response headers
+    # @return [Array<(Snapshot, Integer, Hash)>] Snapshot data, response status code and response headers
     def snapshots_post_with_http_info(snapshot_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SnapshotApi.snapshots_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(snapshot_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<Snapshot>' 
+      return_type = opts[:return_type] || 'Snapshot' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

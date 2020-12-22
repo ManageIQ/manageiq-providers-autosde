@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param service_resource_attachment [ServiceResourceAttachment] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<ServiceResourceAttachment>]
+    # @return [ServiceResourceAttachment]
     def service_resource_attchment_post(service_resource_attachment, opts = {})
       data, _status_code, _headers = service_resource_attchment_post_with_http_info(service_resource_attachment, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param service_resource_attachment [ServiceResourceAttachment] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<ServiceResourceAttachment>, Integer, Hash)>] Array<ServiceResourceAttachment> data, response status code and response headers
+    # @return [Array<(ServiceResourceAttachment, Integer, Hash)>] ServiceResourceAttachment data, response status code and response headers
     def service_resource_attchment_post_with_http_info(service_resource_attachment, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ServiceResourceAttachmentApi.service_resource_attchment_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(service_resource_attachment) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<ServiceResourceAttachment>' 
+      return_type = opts[:return_type] || 'ServiceResourceAttachment' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

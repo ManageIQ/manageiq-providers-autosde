@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param address_create [AddressCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<Address>]
+    # @return [Address]
     def addresses_post(address_create, opts = {})
       data, _status_code, _headers = addresses_post_with_http_info(address_create, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param address_create [AddressCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<Address>, Integer, Hash)>] Array<Address> data, response status code and response headers
+    # @return [Array<(Address, Integer, Hash)>] Address data, response status code and response headers
     def addresses_post_with_http_info(address_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AddressApi.addresses_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(address_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<Address>' 
+      return_type = opts[:return_type] || 'Address' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

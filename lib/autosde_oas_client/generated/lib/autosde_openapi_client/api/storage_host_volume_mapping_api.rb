@@ -13,27 +13,27 @@ OpenAPI Generator version: 4.3.1
 require 'cgi'
 
 module OpenapiClient
-  class HostApi
+  class StorageHostVolumeMappingApi
     attr_accessor :api_client
 
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
     # @param [Hash] opts the optional parameters
-    # @return [Array<Host>]
-    def hosts_get(opts = {})
-      data, _status_code, _headers = hosts_get_with_http_info(opts)
+    # @return [Array<StorageHostVolumeMappingCreate>]
+    def storage_hosts_mapping_get(opts = {})
+      data, _status_code, _headers = storage_hosts_mapping_get_with_http_info(opts)
       data
     end
 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<Host>, Integer, Hash)>] Array<Host> data, response status code and response headers
-    def hosts_get_with_http_info(opts = {})
+    # @return [Array<(Array<StorageHostVolumeMappingCreate>, Integer, Hash)>] Array<StorageHostVolumeMappingCreate> data, response status code and response headers
+    def storage_hosts_mapping_get_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: HostApi.hosts_get ...'
+        @api_client.config.logger.debug 'Calling API: StorageHostVolumeMappingApi.storage_hosts_mapping_get ...'
       end
       # resource path
-      local_var_path = '/hosts/'
+      local_var_path = '/storage-hosts-mapping'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -50,7 +50,7 @@ module OpenapiClient
       post_body = opts[:body] 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<Host>' 
+      return_type = opts[:return_type] || 'Array<StorageHostVolumeMappingCreate>' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -66,32 +66,32 @@ module OpenapiClient
 
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: HostApi#hosts_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: StorageHostVolumeMappingApi#storage_hosts_mapping_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
 
     # @param pk [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<Host>]
-    def hosts_pk_delete(pk, opts = {})
-      data, _status_code, _headers = hosts_pk_delete_with_http_info(pk, opts)
+    # @return [Array<StorageHostVolumeMapping>]
+    def storage_hosts_mapping_pk_delete(pk, opts = {})
+      data, _status_code, _headers = storage_hosts_mapping_pk_delete_with_http_info(pk, opts)
       data
     end
 
     # @param pk [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<Host>, Integer, Hash)>] Array<Host> data, response status code and response headers
-    def hosts_pk_delete_with_http_info(pk, opts = {})
+    # @return [Array<(Array<StorageHostVolumeMapping>, Integer, Hash)>] Array<StorageHostVolumeMapping> data, response status code and response headers
+    def storage_hosts_mapping_pk_delete_with_http_info(pk, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: HostApi.hosts_pk_delete ...'
+        @api_client.config.logger.debug 'Calling API: StorageHostVolumeMappingApi.storage_hosts_mapping_pk_delete ...'
       end
       # verify the required parameter 'pk' is set
       if @api_client.config.client_side_validation && pk.nil?
-        fail ArgumentError, "Missing the required parameter 'pk' when calling HostApi.hosts_pk_delete"
+        fail ArgumentError, "Missing the required parameter 'pk' when calling StorageHostVolumeMappingApi.storage_hosts_mapping_pk_delete"
       end
       # resource path
-      local_var_path = '/hosts/{pk}'.sub('{' + 'pk' + '}', CGI.escape(pk.to_s))
+      local_var_path = '/storage-hosts-mapping/{pk}'.sub('{' + 'pk' + '}', CGI.escape(pk.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -108,7 +108,7 @@ module OpenapiClient
       post_body = opts[:body] 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<Host>' 
+      return_type = opts[:return_type] || 'Array<StorageHostVolumeMapping>' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -124,32 +124,32 @@ module OpenapiClient
 
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: HostApi#hosts_pk_delete\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: StorageHostVolumeMappingApi#storage_hosts_mapping_pk_delete\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
 
     # @param pk [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<Host>]
-    def hosts_pk_get(pk, opts = {})
-      data, _status_code, _headers = hosts_pk_get_with_http_info(pk, opts)
+    # @return [Array<StorageHostVolumeMapping>]
+    def storage_hosts_mapping_pk_get(pk, opts = {})
+      data, _status_code, _headers = storage_hosts_mapping_pk_get_with_http_info(pk, opts)
       data
     end
 
     # @param pk [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<Host>, Integer, Hash)>] Array<Host> data, response status code and response headers
-    def hosts_pk_get_with_http_info(pk, opts = {})
+    # @return [Array<(Array<StorageHostVolumeMapping>, Integer, Hash)>] Array<StorageHostVolumeMapping> data, response status code and response headers
+    def storage_hosts_mapping_pk_get_with_http_info(pk, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: HostApi.hosts_pk_get ...'
+        @api_client.config.logger.debug 'Calling API: StorageHostVolumeMappingApi.storage_hosts_mapping_pk_get ...'
       end
       # verify the required parameter 'pk' is set
       if @api_client.config.client_side_validation && pk.nil?
-        fail ArgumentError, "Missing the required parameter 'pk' when calling HostApi.hosts_pk_get"
+        fail ArgumentError, "Missing the required parameter 'pk' when calling StorageHostVolumeMappingApi.storage_hosts_mapping_pk_get"
       end
       # resource path
-      local_var_path = '/hosts/{pk}'.sub('{' + 'pk' + '}', CGI.escape(pk.to_s))
+      local_var_path = '/storage-hosts-mapping/{pk}'.sub('{' + 'pk' + '}', CGI.escape(pk.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -166,7 +166,7 @@ module OpenapiClient
       post_body = opts[:body] 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<Host>' 
+      return_type = opts[:return_type] || 'Array<StorageHostVolumeMapping>' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -182,32 +182,32 @@ module OpenapiClient
 
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: HostApi#hosts_pk_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: StorageHostVolumeMappingApi#storage_hosts_mapping_pk_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
 
-    # @param host_create [HostCreate] 
+    # @param storage_host_volume_mapping_create [StorageHostVolumeMappingCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Host]
-    def hosts_post(host_create, opts = {})
-      data, _status_code, _headers = hosts_post_with_http_info(host_create, opts)
+    # @return [StorageHostVolumeMappingCreate]
+    def storage_hosts_mapping_post(storage_host_volume_mapping_create, opts = {})
+      data, _status_code, _headers = storage_hosts_mapping_post_with_http_info(storage_host_volume_mapping_create, opts)
       data
     end
 
-    # @param host_create [HostCreate] 
+    # @param storage_host_volume_mapping_create [StorageHostVolumeMappingCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Host, Integer, Hash)>] Host data, response status code and response headers
-    def hosts_post_with_http_info(host_create, opts = {})
+    # @return [Array<(StorageHostVolumeMappingCreate, Integer, Hash)>] StorageHostVolumeMappingCreate data, response status code and response headers
+    def storage_hosts_mapping_post_with_http_info(storage_host_volume_mapping_create, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: HostApi.hosts_post ...'
+        @api_client.config.logger.debug 'Calling API: StorageHostVolumeMappingApi.storage_hosts_mapping_post ...'
       end
-      # verify the required parameter 'host_create' is set
-      if @api_client.config.client_side_validation && host_create.nil?
-        fail ArgumentError, "Missing the required parameter 'host_create' when calling HostApi.hosts_post"
+      # verify the required parameter 'storage_host_volume_mapping_create' is set
+      if @api_client.config.client_side_validation && storage_host_volume_mapping_create.nil?
+        fail ArgumentError, "Missing the required parameter 'storage_host_volume_mapping_create' when calling StorageHostVolumeMappingApi.storage_hosts_mapping_post"
       end
       # resource path
-      local_var_path = '/hosts/'
+      local_var_path = '/storage-hosts-mapping'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -223,10 +223,10 @@ module OpenapiClient
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:body] || @api_client.object_to_http_body(host_create) 
+      post_body = opts[:body] || @api_client.object_to_http_body(storage_host_volume_mapping_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Host' 
+      return_type = opts[:return_type] || 'StorageHostVolumeMappingCreate' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -242,7 +242,7 @@ module OpenapiClient
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: HostApi#hosts_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: StorageHostVolumeMappingApi#storage_hosts_mapping_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

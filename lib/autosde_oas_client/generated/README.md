@@ -143,7 +143,12 @@ Class | Method | HTTP request | Description
 *OpenapiClient::StorageHostApi* | [**storage_hosts_get**](docs/StorageHostApi.md#storage_hosts_get) | **GET** /storage-hosts | 
 *OpenapiClient::StorageHostApi* | [**storage_hosts_pk_delete**](docs/StorageHostApi.md#storage_hosts_pk_delete) | **DELETE** /storage-hosts/{pk} | 
 *OpenapiClient::StorageHostApi* | [**storage_hosts_pk_get**](docs/StorageHostApi.md#storage_hosts_pk_get) | **GET** /storage-hosts/{pk} | 
+*OpenapiClient::StorageHostApi* | [**storage_hosts_pk_put**](docs/StorageHostApi.md#storage_hosts_pk_put) | **PUT** /storage-hosts/{pk} | 
 *OpenapiClient::StorageHostApi* | [**storage_hosts_post**](docs/StorageHostApi.md#storage_hosts_post) | **POST** /storage-hosts | 
+*OpenapiClient::StorageHostVolumeMappingApi* | [**storage_hosts_mapping_get**](docs/StorageHostVolumeMappingApi.md#storage_hosts_mapping_get) | **GET** /storage-hosts-mapping | 
+*OpenapiClient::StorageHostVolumeMappingApi* | [**storage_hosts_mapping_pk_delete**](docs/StorageHostVolumeMappingApi.md#storage_hosts_mapping_pk_delete) | **DELETE** /storage-hosts-mapping/{pk} | 
+*OpenapiClient::StorageHostVolumeMappingApi* | [**storage_hosts_mapping_pk_get**](docs/StorageHostVolumeMappingApi.md#storage_hosts_mapping_pk_get) | **GET** /storage-hosts-mapping/{pk} | 
+*OpenapiClient::StorageHostVolumeMappingApi* | [**storage_hosts_mapping_post**](docs/StorageHostVolumeMappingApi.md#storage_hosts_mapping_post) | **POST** /storage-hosts-mapping | 
 *OpenapiClient::StorageResourceApi* | [**storage_resources_get**](docs/StorageResourceApi.md#storage_resources_get) | **GET** /storage-resources/ | 
 *OpenapiClient::StorageResourceApi* | [**storage_resources_pk_delete**](docs/StorageResourceApi.md#storage_resources_pk_delete) | **DELETE** /storage-resources/{pk} | 
 *OpenapiClient::StorageResourceApi* | [**storage_resources_pk_get**](docs/StorageResourceApi.md#storage_resources_pk_get) | **GET** /storage-resources/{pk} | 
@@ -200,6 +205,9 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::StorageHost](docs/StorageHost.md)
  - [OpenapiClient::StorageHostCreate](docs/StorageHostCreate.md)
  - [OpenapiClient::StorageHostResponse](docs/StorageHostResponse.md)
+ - [OpenapiClient::StorageHostUpdate](docs/StorageHostUpdate.md)
+ - [OpenapiClient::StorageHostVolumeMapping](docs/StorageHostVolumeMapping.md)
+ - [OpenapiClient::StorageHostVolumeMappingCreate](docs/StorageHostVolumeMappingCreate.md)
  - [OpenapiClient::StorageResource](docs/StorageResource.md)
  - [OpenapiClient::StorageResourceCreate](docs/StorageResourceCreate.md)
  - [OpenapiClient::StorageResourceResponse](docs/StorageResourceResponse.md)

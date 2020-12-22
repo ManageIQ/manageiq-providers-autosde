@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param native_capability [NativeCapability] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<NativeCapability>]
+    # @return [NativeCapability]
     def native_capabilities_post(native_capability, opts = {})
       data, _status_code, _headers = native_capabilities_post_with_http_info(native_capability, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param native_capability [NativeCapability] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<NativeCapability>, Integer, Hash)>] Array<NativeCapability> data, response status code and response headers
+    # @return [Array<(NativeCapability, Integer, Hash)>] NativeCapability data, response status code and response headers
     def native_capabilities_post_with_http_info(native_capability, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: NativeCapabilityApi.native_capabilities_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(native_capability) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<NativeCapability>' 
+      return_type = opts[:return_type] || 'NativeCapability' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

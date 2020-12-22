@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param storage_system_create [StorageSystemCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<StorageSystem>]
+    # @return [StorageSystem]
     def storage_systems_post(storage_system_create, opts = {})
       data, _status_code, _headers = storage_systems_post_with_http_info(storage_system_create, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param storage_system_create [StorageSystemCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<StorageSystem>, Integer, Hash)>] Array<StorageSystem> data, response status code and response headers
+    # @return [Array<(StorageSystem, Integer, Hash)>] StorageSystem data, response status code and response headers
     def storage_systems_post_with_http_info(storage_system_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: StorageSystemApi.storage_systems_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(storage_system_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<StorageSystem>' 
+      return_type = opts[:return_type] || 'StorageSystem' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
