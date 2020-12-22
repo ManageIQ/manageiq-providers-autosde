@@ -61,7 +61,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     collector.host_initiators.each do |host_initiator_hash|
       physical_storage_ems_ref = host_initiator_hash.delete(:storage_system_uuid)
       persister.host_initiators.build(
-        **host_initiator_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
+        **host_initiator_hash,
+        :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
       )
     end
   end

@@ -31,9 +31,6 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
       builder.add_properties(
         :parent_inventory_collections => [:host_initiators]
       )
-      builder.add_properties(
-        :parent_inventory_collections => [:physical_storages]
-      )
     end
 
     # host initiators
