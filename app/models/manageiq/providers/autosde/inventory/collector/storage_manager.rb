@@ -39,13 +39,13 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         end
 
         addresses_array << {
-          :ems_ref => address.uuid,
+          :ems_ref              => address.uuid,
           :host_initiators_uuid => addresses.uuid,
-          :type => port_type,
-          :iqn => address.iqn,
-          :chap_name => address.chap_name,
-          :chap_secret => address.chap_secret,
-          :wwpn => address.wwpn
+          :type                 => port_type,
+          :iqn                  => address.iqn,
+          :chap_name            => address.chap_name,
+          :chap_secret          => address.chap_secret,
+          :wwpn                 => address.wwpn
         }
       end
 

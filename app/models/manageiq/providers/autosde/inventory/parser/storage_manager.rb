@@ -50,9 +50,9 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       san_addresses_array.each do |san_address_hash|
         host_initiators_uuid = san_address_hash.delete(:host_initiators_uuid)
         persister.san_addresses.build(
-            **san_address_hash,
-            :owner => persister.host_initiators.lazy_find(host_initiators_uuid),
-            )
+          **san_address_hash,
+          :owner => persister.host_initiators.lazy_find(host_initiators_uuid)
+        )
       end
     end
   end
