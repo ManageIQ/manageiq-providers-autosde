@@ -35,7 +35,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         elsif address.port_type == "FC"
           port_type = FiberChannelAddress
         elsif address.port_type == "NVMeFC"
-          port_type = NonvolatileMemoryExpressAddress
+          port_type = NvmeAddress
         end
 
         addresses_array << {
