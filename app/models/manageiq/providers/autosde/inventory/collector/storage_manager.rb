@@ -25,42 +25,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     end
   end
 
-  def san_addresses
-    @san_addresses ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.map do |addresses|
-      addresses_array = []
-
-      addresses.addresses.each do |address|
-        if address.port_type == "ISCSI"
-          port_type = "IscsiAddress"
-        elsif address.port_type == "FC"
-          port_type = "FiberChannelAddress"
-        elsif address.port_type == "NVMeFC"
-          port_type = "NvmeAddress"
-        end
-
-        addresses_array << {
-          :ems_ref              => address.uuid,
-          :host_initiators_uuid => addresses.uuid,
-          :type                 => port_type,
-          :iqn                  => address.iqn,
-          :chap_name            => address.chap_name,
-          :chap_secret          => address.chap_secret,
-          :wwpn                 => address.wwpn
-        }
-      end
-
-      addresses_array
-    end
-  end
-
-  def host_initiators
-    @host_initiators ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.map do |host_initiator|
-      {
-        :name                => host_initiator.name,
-        :ems_ref             => host_initiator.uuid,
-        :storage_system_uuid => host_initiator.storage_system
-      }
-    end
+  def storage_hosts
+    @storage_hosts ||= @manager.autosde_client.StorageHostApi.storage_hosts_get
   end
 
   def cloud_volumes
