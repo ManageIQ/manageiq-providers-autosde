@@ -31,11 +31,11 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
 
       addresses.addresses.each do |address|
         if address.port_type == "ISCSI"
-          port_type = IscsiAddress
+          port_type = "IscsiAddress"
         elsif address.port_type == "FC"
-          port_type = FiberChannelAddress
+          port_type = "FiberChannelAddress"
         elsif address.port_type == "NVMeFC"
-          port_type = NvmeAddress
+          port_type = "NvmeAddress"
         end
 
         addresses_array << {
