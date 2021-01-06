@@ -34,14 +34,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     end
 
     # host initiators
-    add_collection(storage, :host_initiators) do |builder|
-      builder.add_default_values(
-        :ems_id => ->(persister) { persister.manager.id }
-      )
-      builder.add_properties(
-        :parent_inventory_collections => [:physical_storages]
-      )
-    end
+    add_collection(storage, :host_initiators)
 
     # storage services
     add_collection(storage, :storage_services) do |builder|
