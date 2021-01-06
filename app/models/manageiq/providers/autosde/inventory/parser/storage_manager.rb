@@ -52,43 +52,27 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       "NVMeFC" => "NvmeAddress"
     }
 
-    san_addresses = collector.storage_hosts.flat_map do |host_initiator|
+    collector.storage_hosts.flat_map do |host_initiator|
       host_initiator.addresses.flat_map do |address|
-        {
-          :ems_ref              => address.uuid,
-          :host_initiators_uuid => host_initiator.uuid,
-          :type                 => port_type[address.port_type],
-          :iqn                  => address.iqn,
-          :chap_name            => address.chap_name,
-          :chap_secret          => address.chap_secret,
-          :wwpn                 => address.wwpn
-        }
+        persister.san_addresses.build(
+          :ems_ref     => address.uuid,
+          :owner       => persister.host_initiators.lazy_find(host_initiator.uuid),
+          :type        => port_type[address.port_type],
+          :iqn         => address.iqn,
+          :chap_name   => address.chap_name,
+          :chap_secret => address.chap_secret,
+          :wwpn        => address.wwpn
+        )
       end
-    end
-
-    san_addresses.each do |san_address_hash|
-      host_initiators_uuid = san_address_hash.delete(:host_initiators_uuid)
-      persister.san_addresses.build(
-        **san_address_hash,
-        :owner => persister.host_initiators.lazy_find(host_initiators_uuid)
-      )
     end
   end
 
   def host_initiators
-    host_initiators = collector.storage_hosts.map do |host_initiator|
-      {
-        :name                => host_initiator.name,
-        :ems_ref             => host_initiator.uuid,
-        :storage_system_uuid => host_initiator.storage_system
-      }
-    end
-
-    host_initiators.each do |host_initiator_hash|
-      physical_storage_ems_ref = host_initiator_hash.delete(:storage_system_uuid)
+    collector.storage_hosts.each do |host_initiator|
       persister.host_initiators.build(
-        **host_initiator_hash,
-        :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
+        :name             => host_initiator.name,
+        :ems_ref          => host_initiator.uuid,
+        :physical_storage => persister.physical_storages.lazy_find(host_initiator.storage_system)
       )
     end
   end
