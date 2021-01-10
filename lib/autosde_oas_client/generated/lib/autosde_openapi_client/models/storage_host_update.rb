@@ -14,36 +14,15 @@ require 'date'
 
 module OpenapiClient
   # TODO add description
-  class StorageHostCreate
-    # chap_name
-    attr_accessor :chap_name
+  class StorageHostUpdate
+    # operation
+    attr_accessor :operation
 
-    # chap_secret
-    attr_accessor :chap_secret
-
-    # component_state
-    attr_accessor :component_state
-
-    # description
-    attr_accessor :description
-
-    # io_groups
-    attr_accessor :io_groups
-
-    attr_accessor :iqn
-
-    # The Storage Host Name
-    attr_accessor :name
+    # port
+    attr_accessor :port
 
     # port_type
     attr_accessor :port_type
-
-    attr_accessor :storage_system
-
-    attr_accessor :volumes
-
-    # wwpn
-    attr_accessor :wwpn
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -70,34 +49,18 @@ module OpenapiClient
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'chap_name' => :'chap_name',
-        :'chap_secret' => :'chap_secret',
-        :'component_state' => :'component_state',
-        :'description' => :'description',
-        :'io_groups' => :'io_groups',
-        :'iqn' => :'iqn',
-        :'name' => :'name',
-        :'port_type' => :'port_type',
-        :'storage_system' => :'storage_system',
-        :'volumes' => :'volumes',
-        :'wwpn' => :'wwpn'
+        :'operation' => :'operation',
+        :'port' => :'port',
+        :'port_type' => :'port_type'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'chap_name' => :'String',
-        :'chap_secret' => :'String',
-        :'component_state' => :'String',
-        :'description' => :'String',
-        :'io_groups' => :'String',
-        :'iqn' => :'String',
-        :'name' => :'String',
-        :'port_type' => :'String',
-        :'storage_system' => :'StorageSystem',
-        :'volumes' => :'Volume',
-        :'wwpn' => :'String'
+        :'operation' => :'String',
+        :'port' => :'String',
+        :'port_type' => :'String'
       }
     end
 
@@ -111,59 +74,27 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::StorageHostCreate` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::StorageHostUpdate` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::StorageHostCreate`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::StorageHostUpdate`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'chap_name')
-        self.chap_name = attributes[:'chap_name']
+      if attributes.key?(:'operation')
+        self.operation = attributes[:'operation']
       end
 
-      if attributes.key?(:'chap_secret')
-        self.chap_secret = attributes[:'chap_secret']
-      end
-
-      if attributes.key?(:'component_state')
-        self.component_state = attributes[:'component_state']
-      end
-
-      if attributes.key?(:'description')
-        self.description = attributes[:'description']
-      end
-
-      if attributes.key?(:'io_groups')
-        self.io_groups = attributes[:'io_groups']
-      end
-
-      if attributes.key?(:'iqn')
-        self.iqn = attributes[:'iqn']
-      end
-
-      if attributes.key?(:'name')
-        self.name = attributes[:'name']
+      if attributes.key?(:'port')
+        self.port = attributes[:'port']
       end
 
       if attributes.key?(:'port_type')
         self.port_type = attributes[:'port_type']
-      end
-
-      if attributes.key?(:'storage_system')
-        self.storage_system = attributes[:'storage_system']
-      end
-
-      if attributes.key?(:'volumes')
-        self.volumes = attributes[:'volumes']
-      end
-
-      if attributes.key?(:'wwpn')
-        self.wwpn = attributes[:'wwpn']
       end
     end
 
@@ -171,8 +102,8 @@ module OpenapiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if !@component_state.nil? && @component_state.to_s.length > 32
-        invalid_properties.push('invalid value for "component_state", the character length must be smaller than or equal to 32.')
+      if !@port.nil? && @port.to_s.length > 20
+        invalid_properties.push('invalid value for "port", the character length must be smaller than or equal to 20.')
       end
 
       invalid_properties
@@ -181,28 +112,38 @@ module OpenapiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      component_state_validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
-      return false unless component_state_validator.valid?(@component_state)
-      return false if !@component_state.nil? && @component_state.to_s.length > 32
-      port_type_validator = EnumAttributeValidator.new('String', ["ISCSI", "FC", "NVMeFC"])
+      operation_validator = EnumAttributeValidator.new('String', ["add", "delete"])
+      return false unless operation_validator.valid?(@operation)
+      return false if !@port.nil? && @port.to_s.length > 20
+      port_type_validator = EnumAttributeValidator.new('String', ["ISCSI", "FC"])
       return false unless port_type_validator.valid?(@port_type)
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] component_state Object to be assigned
-    def component_state=(component_state)
-      validator = EnumAttributeValidator.new('String', ["PENDING_CREATION", "CREATED", "DELETED", "PENDING_DELETION", "MODIFICATION", "PENDING_MODIFICATION"])
-      unless validator.valid?(component_state)
-        fail ArgumentError, "invalid value for \"component_state\", must be one of #{validator.allowable_values}."
+    # @param [Object] operation Object to be assigned
+    def operation=(operation)
+      validator = EnumAttributeValidator.new('String', ["add", "delete"])
+      unless validator.valid?(operation)
+        fail ArgumentError, "invalid value for \"operation\", must be one of #{validator.allowable_values}."
       end
-      @component_state = component_state
+      @operation = operation
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] port Value to be assigned
+    def port=(port)
+      if !port.nil? && port.to_s.length > 20
+        fail ArgumentError, 'invalid value for "port", the character length must be smaller than or equal to 20.'
+      end
+
+      @port = port
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] port_type Object to be assigned
     def port_type=(port_type)
-      validator = EnumAttributeValidator.new('String', ["ISCSI", "FC", "NVMeFC"])
+      validator = EnumAttributeValidator.new('String', ["ISCSI", "FC"])
       unless validator.valid?(port_type)
         fail ArgumentError, "invalid value for \"port_type\", must be one of #{validator.allowable_values}."
       end
@@ -214,17 +155,9 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          chap_name == o.chap_name &&
-          chap_secret == o.chap_secret &&
-          component_state == o.component_state &&
-          description == o.description &&
-          io_groups == o.io_groups &&
-          iqn == o.iqn &&
-          name == o.name &&
-          port_type == o.port_type &&
-          storage_system == o.storage_system &&
-          volumes == o.volumes &&
-          wwpn == o.wwpn
+          operation == o.operation &&
+          port == o.port &&
+          port_type == o.port_type
     end
 
     # @see the `==` method
@@ -236,7 +169,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [chap_name, chap_secret, component_state, description, io_groups, iqn, name, port_type, storage_system, volumes, wwpn].hash
+      [operation, port, port_type].hash
     end
 
     # Builds the object from hash

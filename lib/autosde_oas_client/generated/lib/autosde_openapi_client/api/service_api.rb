@@ -190,7 +190,7 @@ module OpenapiClient
     # @param pk [Integer] 
     # @param service [Service] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<Service>]
+    # @return [Service]
     def services_pk_put(pk, service, opts = {})
       data, _status_code, _headers = services_pk_put_with_http_info(pk, service, opts)
       data
@@ -199,7 +199,7 @@ module OpenapiClient
     # @param pk [Integer] 
     # @param service [Service] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<Service>, Integer, Hash)>] Array<Service> data, response status code and response headers
+    # @return [Array<(Service, Integer, Hash)>] Service data, response status code and response headers
     def services_pk_put_with_http_info(pk, service, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ServiceApi.services_pk_put ...'
@@ -232,7 +232,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(service) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<Service>' 
+      return_type = opts[:return_type] || 'Service' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -255,7 +255,7 @@ module OpenapiClient
 
     # @param service_create [ServiceCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<Service>]
+    # @return [Service]
     def services_post(service_create, opts = {})
       data, _status_code, _headers = services_post_with_http_info(service_create, opts)
       data
@@ -263,7 +263,7 @@ module OpenapiClient
 
     # @param service_create [ServiceCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<Service>, Integer, Hash)>] Array<Service> data, response status code and response headers
+    # @return [Array<(Service, Integer, Hash)>] Service data, response status code and response headers
     def services_post_with_http_info(service_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ServiceApi.services_post ...'
@@ -292,7 +292,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(service_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<Service>' 
+      return_type = opts[:return_type] || 'Service' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

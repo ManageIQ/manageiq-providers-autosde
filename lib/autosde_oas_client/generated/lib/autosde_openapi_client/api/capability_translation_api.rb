@@ -189,7 +189,7 @@ module OpenapiClient
 
     # @param capability_translation_create [CapabilityTranslationCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<CapabilityTranslation>]
+    # @return [CapabilityTranslation]
     def capability_translations_post(capability_translation_create, opts = {})
       data, _status_code, _headers = capability_translations_post_with_http_info(capability_translation_create, opts)
       data
@@ -197,7 +197,7 @@ module OpenapiClient
 
     # @param capability_translation_create [CapabilityTranslationCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<CapabilityTranslation>, Integer, Hash)>] Array<CapabilityTranslation> data, response status code and response headers
+    # @return [Array<(CapabilityTranslation, Integer, Hash)>] CapabilityTranslation data, response status code and response headers
     def capability_translations_post_with_http_info(capability_translation_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CapabilityTranslationApi.capability_translations_post ...'
@@ -226,7 +226,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(capability_translation_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<CapabilityTranslation>' 
+      return_type = opts[:return_type] || 'CapabilityTranslation' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

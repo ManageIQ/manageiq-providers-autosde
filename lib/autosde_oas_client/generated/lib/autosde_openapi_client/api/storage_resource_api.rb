@@ -190,7 +190,7 @@ module OpenapiClient
     # @param pk [Integer] 
     # @param storage_resource_create [StorageResourceCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<StorageResourceResponse>]
+    # @return [StorageResourceResponse]
     def storage_resources_pk_put(pk, storage_resource_create, opts = {})
       data, _status_code, _headers = storage_resources_pk_put_with_http_info(pk, storage_resource_create, opts)
       data
@@ -199,7 +199,7 @@ module OpenapiClient
     # @param pk [Integer] 
     # @param storage_resource_create [StorageResourceCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<StorageResourceResponse>, Integer, Hash)>] Array<StorageResourceResponse> data, response status code and response headers
+    # @return [Array<(StorageResourceResponse, Integer, Hash)>] StorageResourceResponse data, response status code and response headers
     def storage_resources_pk_put_with_http_info(pk, storage_resource_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: StorageResourceApi.storage_resources_pk_put ...'
@@ -232,7 +232,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(storage_resource_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<StorageResourceResponse>' 
+      return_type = opts[:return_type] || 'StorageResourceResponse' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']
@@ -255,7 +255,7 @@ module OpenapiClient
 
     # @param storage_resource_create [StorageResourceCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<StorageResourceResponse>]
+    # @return [StorageResourceResponse]
     def storage_resources_post(storage_resource_create, opts = {})
       data, _status_code, _headers = storage_resources_post_with_http_info(storage_resource_create, opts)
       data
@@ -263,7 +263,7 @@ module OpenapiClient
 
     # @param storage_resource_create [StorageResourceCreate] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Array<StorageResourceResponse>, Integer, Hash)>] Array<StorageResourceResponse> data, response status code and response headers
+    # @return [Array<(StorageResourceResponse, Integer, Hash)>] StorageResourceResponse data, response status code and response headers
     def storage_resources_post_with_http_info(storage_resource_create, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: StorageResourceApi.storage_resources_post ...'
@@ -292,7 +292,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(storage_resource_create) 
 
       # return_type
-      return_type = opts[:return_type] || 'Array<StorageResourceResponse>' 
+      return_type = opts[:return_type] || 'StorageResourceResponse' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['bearerAuth']

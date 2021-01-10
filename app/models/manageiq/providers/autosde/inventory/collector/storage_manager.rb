@@ -9,7 +9,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :name             => system.name,
         :ems_ref          => system.uuid,
         :system_type_uuid => system.system_type.uuid,
-
       }
     end
   end
@@ -24,6 +23,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :storage_system_uuid => resource.storage_system
       }
     end
+  end
+
+  def storage_hosts
+    @storage_hosts ||= @manager.autosde_client.StorageHostApi.storage_hosts_get
   end
 
   def cloud_volumes

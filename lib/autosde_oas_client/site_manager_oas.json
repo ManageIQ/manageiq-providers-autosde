@@ -1285,6 +1285,14 @@
               "editable": false,
               "unique": true
             }
+          },
+          "volumes": {
+            "$ref": "#/components/schemas/Volume",
+            "x-model": {
+              "related_name": "'hosts'",
+              "relation": "ManyToMany",
+              "through": "'storageHostVolumeMapping'"
+            }
           }
         }
       },
@@ -1373,6 +1381,14 @@
               "slug": "uuid"
             }
           },
+          "volumes": {
+            "$ref": "#/components/schemas/Volume",
+            "x-model": {
+              "related_name": "'hosts'",
+              "relation": "ManyToMany",
+              "through": "'storageHostVolumeMapping'"
+            }
+          },
           "wwpn": {
             "description": "wwpn",
             "type": "string",
@@ -1387,8 +1403,42 @@
       "StorageHostResponse": {
         "description": "TODO add description",
         "properties": {
-
-
+          "addresses": {
+            "description": "addresses",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            },
+            "type": "array"
+          },
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
+          "description": {
+            "description": "description",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "io_groups": {
+            "description": "io_groups",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
           "name": {
             "description": "The Storage Host Name",
             "type": "string",
@@ -1396,15 +1446,198 @@
               "unique": true
             }
           },
-          "addresses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Address"
+          "storage_system": {
+            "description": "!!uuid of storage_system",
+            "type": "string",
+            "x-model": "#/components/schemas/StorageSystem",
+            "x-serializer": {
+              "slug": "uuid"
             }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "volumes": {
+            "description": "volumes",
+            "items": {
+              "$ref": "#/components/schemas/Volume"
+            },
+            "type": "array"
           }
-
         },
         "x-serializer": "StorageHost"
+      },
+      "StorageHostUpdate": {
+        "description": "TODO add description",
+        "properties": {
+          "operation": {
+            "description": "operation",
+            "enum": [
+              "add",
+              "delete"
+            ],
+            "type": "string"
+          },
+          "port": {
+            "description": "port",
+            "maxLength": 20,
+            "type": "string"
+          },
+          "port_type": {
+            "description": "port_type",
+            "enum": [
+              "ISCSI",
+              "FC"
+            ],
+            "type": "string"
+          }
+        },
+        "x-serializer": "StorageHost"
+      },
+      "StorageHostVolumeMapping": {
+        "description": "connects storage host and volume .",
+        "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
+          "host": {
+            "$ref": "#/components/schemas/StorageHost",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "lun": {
+            "default": 0,
+            "description": "lun",
+            "type": "integer",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "mapped_date": {
+            "description": "mapped_date",
+            "format": "date-time",
+            "type": "string",
+            "x-model": {
+              "auto_now_add": true,
+              "blank": true,
+              "null": true
+            }
+          },
+          "unmapped_date": {
+            "description": "unmapped_date",
+            "format": "date-time",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "volume": {
+            "$ref": "#/components/schemas/Volume",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          }
+        }
+      },
+      "StorageHostVolumeMappingCreate": {
+        "description": "TODO add description",
+        "properties": {
+          "component_state": {
+            "description": "component_state",
+            "enum": [
+              "PENDING_CREATION",
+              "CREATED",
+              "DELETED",
+              "PENDING_DELETION",
+              "MODIFICATION",
+              "PENDING_MODIFICATION"
+            ],
+            "maxLength": 32,
+            "type": "string"
+          },
+          "host": {
+            "description": "!!uuid of host",
+            "type": "string",
+            "x-model": "#/components/schemas/StorageHost",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          },
+          "lun": {
+            "default": 0,
+            "description": "lun",
+            "type": "integer",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "mapped_date": {
+            "description": "mapped_date",
+            "format": "date-time",
+            "type": "string",
+            "x-model": {
+              "auto_now_add": true,
+              "blank": true,
+              "null": true
+            }
+          },
+          "unmapped_date": {
+            "description": "unmapped_date",
+            "format": "date-time",
+            "type": "string",
+            "x-model": {
+              "blank": true,
+              "null": true
+            }
+          },
+          "uuid": {
+            "description": "uuid",
+            "type": "string",
+            "x-model": {
+              "default": "generate_uuid",
+              "editable": false,
+              "unique": true
+            }
+          },
+          "volume": {
+            "description": "!!uuid of volume",
+            "type": "string",
+            "x-model": "#/components/schemas/Volume",
+            "x-serializer": {
+              "slug": "uuid"
+            }
+          }
+        },
+        "x-serializer": "StorageHostVolumeMapping"
       },
       "StorageResource": {
         "description": "StorageResource",
@@ -2266,10 +2499,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/AbstractCapability"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/AbstractCapability"
                 }
               }
             },
@@ -2372,10 +2602,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/AccountPostResponse"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/AccountPostResponse"
                 }
               }
             },
@@ -2455,10 +2682,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/AccountPostResponse"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/AccountPostResponse"
                 }
               }
             },
@@ -2508,10 +2732,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Address"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/Address"
                 }
               }
             },
@@ -2614,10 +2835,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/AutoSDEProject"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/AutoSDEProject"
                 }
               }
             },
@@ -2720,10 +2938,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/AutoSDERole"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/AutoSDERole"
                 }
               }
             },
@@ -2826,10 +3041,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/CapabilityTranslation"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/CapabilityTranslation"
                 }
               }
             },
@@ -2932,10 +3144,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/HostVolumeConnection"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/HostVolumeConnection"
                 }
               }
             },
@@ -3038,10 +3247,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Host"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/Host"
                 }
               }
             },
@@ -3144,10 +3350,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Job"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             },
@@ -3197,10 +3400,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/NativeCapability"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/NativeCapability"
                 }
               }
             },
@@ -3303,10 +3503,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Profile"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/Profile"
                 }
               }
             },
@@ -3409,10 +3606,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/ProvisioningStrategy"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/ProvisioningStrategy"
                 }
               }
             },
@@ -3515,10 +3709,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/VolumeSafeDelete"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/VolumeSafeDelete"
                 }
               }
             },
@@ -3621,10 +3812,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/ServiceResourceAttachment"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/ServiceResourceAttachment"
                 }
               }
             },
@@ -3727,10 +3915,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Service"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/Service"
                 }
               }
             },
@@ -3810,10 +3995,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Service"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/Service"
                 }
               }
             },
@@ -3863,10 +4045,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Snapshot"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/Snapshot"
                 }
               }
             },
@@ -3969,10 +4148,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/StorageHost"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/StorageHostResponse"
                 }
               }
             },
@@ -3984,6 +4160,109 @@
         ]
       },
       "x-model": "StorageHost"
+    },
+    "/storage-hosts-mapping": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageHostVolumeMappingCreate"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageHostVolumeMapping"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StorageHostVolumeMappingCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/StorageHostVolumeMappingCreate"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageHostVolumeMapping"
+        ]
+      },
+      "x-model": "StorageHostVolumeMapping"
+    },
+    "/storage-hosts-mapping/{pk}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageHostVolumeMapping"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageHostVolumeMapping"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StorageHostVolumeMapping"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageHostVolumeMapping"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pk",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "x-model": "StorageHostVolumeMapping"
     },
     "/storage-hosts/{pk}": {
       "delete": {
@@ -4036,6 +4315,33 @@
           }
         }
       ],
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StorageHostUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/StorageHost"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "tags": [
+          "StorageHost"
+        ]
+      },
       "x-model": "StorageHost"
     },
     "/storage-resources/": {
@@ -4075,10 +4381,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/StorageResourceResponse"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/StorageResourceResponse"
                 }
               }
             },
@@ -4158,10 +4461,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/StorageResourceResponse"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/StorageResourceResponse"
                 }
               }
             },
@@ -4211,10 +4511,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/StorageSystem"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/StorageSystem"
                 }
               }
             },
@@ -4317,10 +4614,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/SystemType"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/SystemType"
                 }
               }
             },
@@ -4454,10 +4748,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/volumeResponse"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/volumeResponse"
                 }
               }
             },
@@ -4537,10 +4828,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/volumeResponse"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/volumeResponse"
                 }
               }
             },

@@ -14,6 +14,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     physical_storage_families
     physical_storages
     storage_resources
+    host_initiators
+    san_addresses
     storage_services
     cloud_volumes
   end
@@ -39,6 +41,38 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       physical_storage_ems_ref = storage_resource_hash.delete(:storage_system_uuid)
       persister.storage_resources.build(
         **storage_resource_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
+      )
+    end
+  end
+
+  def san_addresses
+    port_type = {
+      "ISCSI"  => "IscsiAddress",
+      "FC"     => "FiberChannelAddress",
+      "NVMeFC" => "NvmeAddress"
+    }
+
+    collector.storage_hosts.flat_map do |host_initiator|
+      host_initiator.addresses.flat_map do |address|
+        persister.san_addresses.build(
+          :ems_ref     => address.uuid,
+          :owner       => persister.host_initiators.lazy_find(host_initiator.uuid),
+          :type        => port_type[address.port_type],
+          :iqn         => address.iqn,
+          :chap_name   => address.chap_name,
+          :chap_secret => address.chap_secret,
+          :wwpn        => address.wwpn
+        )
+      end
+    end
+  end
+
+  def host_initiators
+    collector.storage_hosts.each do |host_initiator|
+      persister.host_initiators.build(
+        :name             => host_initiator.name,
+        :ems_ref          => host_initiator.uuid,
+        :physical_storage => persister.physical_storages.lazy_find(host_initiator.storage_system)
       )
     end
   end
