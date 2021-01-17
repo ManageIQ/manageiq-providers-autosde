@@ -89,6 +89,9 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
       config.host = @host
       config.debugging = false
       config.verify_ssl_host = false
+      config.server_index = nil # new ruby client generator feature: by default set this to 0; then server url is
+      # taken from oas. which is localhost.
+      # when set to nil, url refers to config.host, as it should be
     end
   end
 end
