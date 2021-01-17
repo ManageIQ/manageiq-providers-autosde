@@ -1,4 +1,4 @@
-require 'autosde_oas_client/generated/lib/autosde_openapi_client'
+require 'autosde_openapi_client'
 
 class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClient::ApiClient
   include Vmdb::Logging
