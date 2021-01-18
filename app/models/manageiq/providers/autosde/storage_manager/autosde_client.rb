@@ -1,8 +1,8 @@
 require 'autosde_openapi_client'
 
-class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClient::ApiClient
+class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < AutosdeOpenapiClient::ApiClient
   include Vmdb::Logging
-  include OpenapiClient
+  include AutosdeOpenapiClient
 
   AUTH_ERRR_MSG = "Authentication error occured. ".freeze
   AUTH_TOKEN_INVALID = Rack::Utils.status_code(:unauthorized)
@@ -22,10 +22,10 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
     super(configure_openapi_client)
   end
 
-  # generates access methods for OpenApiClient , like StorageSystemApi or CreateVolume
+  # generates access methods for AutosdeOpenapiClient , like StorageSystemApi or CreateVolume
   # usage : <this>.StorageSystemApi.storage_systems_get
-  OpenapiClient.constants.each do |method|
-    clazz = "OpenapiClient::#{method}".constantize
+  AutosdeOpenapiClient.constants.each do |method|
+    clazz = "AutosdeOpenapiClient::#{method}".constantize
     attr_accessor method
     define_method method do |*args|
       if method.to_s.end_with?('Api')
@@ -36,7 +36,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
     end
   end
 
-  # override OpenApiClient::ApiClient method
+  # override AutosdeOpenapiClient::ApiClient method
   def call_api(http_method, path, opts = {})
     if opts[:login]
       super
@@ -45,7 +45,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
       set_auth_token
       super
     end
-  rescue OpenapiClient::ApiError => e
+  rescue AutosdeOpenapiClient::ApiError => e
     case e.code
     when AUTH_TOKEN_INVALID
       begin
@@ -89,7 +89,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < OpenapiClien
       config.host = @host
       config.debugging = false
       config.verify_ssl_host = false
-      config.server_index = nil # new ruby client generator feature: by default set this to 0; then server url is
+      config.server_index = nil # by default is set to 0; then server url is
       # taken from oas. which is localhost.
       # when set to nil, url refers to config.host, as it should be
     end
