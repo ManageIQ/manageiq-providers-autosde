@@ -93,6 +93,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     )
 
     vol_to_create = client.VolumeCreate(:service => 's1', :name => 'vol_name', :size => 10)
-    expect(vol_to_create).to be_instance_of(OpenapiClient::VolumeCreate)
+    expect(vol_to_create).to be_instance_of(AutosdeOpenapiClient::VolumeCreate)
   end
 end
