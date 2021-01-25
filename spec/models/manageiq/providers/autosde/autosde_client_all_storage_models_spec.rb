@@ -10,7 +10,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   # Using client.VolumeCreat(service: service, name: vol_name, size: 10)
   # In order to know attributes, click on VolumeCreate, and see all its attributes accessors.
   # This will give all anticipated attributes
-  # module OpenapiClient
+  # module AutosdeOpenapiClient
   # class VolumeCreate
   #     # compliant
   #     attr_accessor :compliant
@@ -53,14 +53,14 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   it "creates volume on storage system" do
     # retrieve storage system
     storage_systems = nil
-    #  @type [Array<OpenapiClient::StorageSystem>]
+    #  @type [Array<AutosdeOpenapiClient::StorageSystem>]
     VCR.use_cassette("get_storage_system") do
       storage_systems = client.StorageSystemApi.storage_systems_get
       expect(storage_systems).to be_an_instance_of(Array)
     end
 
     # retrieve storage resource (pools)
-    #  @type [Array<OpenapiClient::StorageResource>]
+    #  @type [Array<AutosdeOpenapiClient::StorageResource>]
     VCR.use_cassette("get_storage_resources") do
       storage_resources = client.StorageResourceApi.storage_resources_get
       expect(storage_resources).to be_an_instance_of(Array)
@@ -69,7 +69,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     services = nil
     # retrieve service
     VCR.use_cassette("get_services") do
-      # @type [Array<OpenapiClient::Service>]
+      # @type [Array<AutosdeOpenapiClient::Service>]
       services = client.ServiceApi.services_get
       expect(services).to be_an_instance_of(Array)
     end
@@ -77,9 +77,9 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     service = services.first
 
     # retrieve attachment
-    # @type [Array<OpenapiClient::ServiceResourceAttachment>]
+    # @type [Array<AutosdeOpenapiClient::ServiceResourceAttachment>]
     # override to get uuid, not object
-    class OpenapiClient::ServiceResourceAttachment
+    class AutosdeOpenapiClient::ServiceResourceAttachment
       def self.openapi_types
         {
           :compliant        => :Boolean,
@@ -95,24 +95,24 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     end
     volumes = nil
     # get existing volumes
-    # @type [Array<OpenapiClient::Volume>]
+    # @type [Array<AutosdeOpenapiClient::Volume>]
     VCR.use_cassette("get_volumes") do
       volumes = client.VolumeApi.volumes_get
     end
     volumes_count = volumes.count
 
-    # @type OpenapiClient::VolumeResponse
+    # @type AutosdeOpenapiClient::VolumeResponse
     any_volume = volumes.first
-    expect(any_volume).to be_an_instance_of(OpenapiClient::VolumeResponse)
+    expect(any_volume).to be_an_instance_of(AutosdeOpenapiClient::VolumeResponse)
     puts '&&&&&'
     p any_volume
-    p OpenapiClient::VolumeResponse.openapi_types
+    p AutosdeOpenapiClient::VolumeResponse.openapi_types
     expect(any_volume.service).to be_a(String)
 
     # create new volume
     vol_name = 'vol_test_bk_' + Time.zone.now.strftime('%Y-%m-%d %H_%M_%S')
     vol_to_create = client.VolumeCreate(:service => service.uuid, :name => vol_name, :size => 10)
-    expect(vol_to_create).to be_an_instance_of(OpenapiClient::VolumeCreate)
+    expect(vol_to_create).to be_an_instance_of(AutosdeOpenapiClient::VolumeCreate)
     expect(vol_to_create.service).to be_a(String)
 
     # replace by uuid, see explanation at top
