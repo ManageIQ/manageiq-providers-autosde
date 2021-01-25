@@ -2,7 +2,6 @@ require 'autosde_openapi_client'
 
 class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < AutosdeOpenapiClient::ApiClient
   include Vmdb::Logging
-  include AutosdeOpenapiClient
 
   AUTH_ERRR_MSG = "Authentication error occured. ".freeze
   AUTH_TOKEN_INVALID = Rack::Utils.status_code(:unauthorized)
@@ -83,7 +82,7 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < AutosdeOpena
   end
 
   def configure_openapi_client
-    Configuration.new.tap do |config|
+    AutosdeOpenapiClient::Configuration.new.tap do |config|
       config.scheme = @scheme
       config.verify_ssl = false
       config.host = @host
