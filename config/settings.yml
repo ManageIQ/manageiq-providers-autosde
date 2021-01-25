@@ -13,11 +13,9 @@
     :password:
     :port:
     :user:
-:workers:
-  :worker_base:
-    :queue_worker_base:
-      :ems_refresh_worker:
-        :ems_refresh_worker_autosde: {}
 :ems_refresh:
   :autosde:
     :refresh_interval: 15.minutes
+:workers:
+  :ems_refresh_worker_autosde:
+    :inherits_from: ems_refresh_worker
