@@ -12,10 +12,7 @@ class ManageIQ::Providers::Autosde::StorageManager::HostInitiator < ::HostInitia
       :chap_secret    => options['chap_secret'] || ""
     )
 
-    begin
-      ext_management_system.autosde_client.StorageHostApi.storage_hosts_post(host_initiator_to_create)
-    ensure
-      EmsRefresh.queue_refresh(ext_management_system)
-    end
+    ext_management_system.autosde_client.StorageHostApi.storage_hosts_post(host_initiator_to_create)
+    EmsRefresh.queue_refresh(ext_management_system)
   end
 end
