@@ -18,6 +18,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     san_addresses
     storage_services
     cloud_volumes
+    volume_mappings
   end
 
   def physical_storage_families
@@ -73,6 +74,18 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :name             => host_initiator.name,
         :ems_ref          => host_initiator.uuid,
         :physical_storage => persister.physical_storages.lazy_find(host_initiator.storage_system)
+      )
+    end
+  end
+
+  def volume_mappings
+    collector.volume_mappings.each do |volume_mapping_hash|
+      cloud_volume = volume_mapping_hash.delete(:volume_uuid)
+      host_initiator = volume_mapping_hash.delete(:host_initiator_uuid)
+      persister.volume_mappings.build(
+        **volume_mapping_hash,
+        :cloud_volume   => persister.cloud_volumes.lazy_find(cloud_volume),
+        :host_initiator => persister.host_initiators.lazy_find(host_initiator)
       )
     end
   end

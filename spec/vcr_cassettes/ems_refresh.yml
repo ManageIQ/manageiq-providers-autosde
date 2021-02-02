@@ -82,6 +82,49 @@ http_interactions:
   recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
 - request:
     method: get
+    uri: https://9.151.190.206/site-manager/api/v1/engine/storage-hosts-mapping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+        - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+        - application/json
+      Accept:
+        - "*/*"
+      Authorization:
+        - Bearer b7eb9b69b518d2dae9656660f1789f199921c65f
+      Expect:
+        - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+        - Thu, 07 Jan 2021 09:35:15 GMT
+      Server:
+        - gunicorn/19.9.0
+      Content-Type:
+        - application/json
+      Vary:
+        - Accept
+      Allow:
+        - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+        - SAMEORIGIN
+      Transfer-Encoding:
+        - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"component_state": "PENDING_CREATION", "host": "3e3025b3-5ec6-4fa8-9bcd-7d854c875b4e", "lun": 0, "volume": "3706e734-6bc2-48c1-abd9-bb0189ad2a97", "uuid": "504e06cb-7172-487b-b874-49a226513ccf"}]'
+    http_version:
+  recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
+
+
+- request:
+    method: get
     uri: https://9.151.190.206/site-manager/api/v1/engine/storage-systems/
     body:
       encoding: US-ASCII

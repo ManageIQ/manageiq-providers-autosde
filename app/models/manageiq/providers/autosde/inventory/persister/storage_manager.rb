@@ -36,6 +36,9 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     # host initiators
     add_collection(storage, :host_initiators)
 
+    # volume mappings
+    add_collection(storage, :volume_mappings)
+
     # storage services
     add_collection(storage, :storage_services) do |builder|
       builder.add_default_values(

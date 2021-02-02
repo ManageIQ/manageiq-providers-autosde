@@ -29,6 +29,17 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     @storage_hosts ||= @manager.autosde_client.StorageHostApi.storage_hosts_get
   end
 
+  def volume_mappings
+    @volume_mappings ||= @manager.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_get.map do |mapping|
+      {
+        :lun => mapping.lun,
+        :host_initiator_uuid => mapping.host,
+        :volume_uuid => mapping.volume,
+        :ems_ref => mapping.uuid
+      }
+    end
+  end
+
   def cloud_volumes
     @cloud_volumes ||= @manager.autosde_client.VolumeApi.volumes_get.map do |volume|
       {
@@ -48,7 +59,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :name        => service.name,
         :description => service.description,
         :version     => service.version,
-        :ems_ref     => service.uuid,
+        :ems_ref     => service.uuid
       }
     end
   end
