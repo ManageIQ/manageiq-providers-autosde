@@ -1,5 +1,6 @@
 class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   supports :create
+  supports :safe_delete
 
   def self.raw_create_volume(_ext_management_system, _options = {})
     # @type [StorageService]
@@ -48,5 +49,16 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
     ems.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details)
     EmsRefresh.queue_refresh(ems)
+  end
+
+  # ================ safe-delete ================
+  def validate_safe_delete_volume
+    {:available => true, :message => nil}
+  end
+
+  def raw_safe_delete_volume
+    ext_management_system.autosde_client.VolumeApi.volumes_safe_delete(ems_ref)
+
+    EmsRefresh.queue_refresh(ext_management_system)
   end
 end
