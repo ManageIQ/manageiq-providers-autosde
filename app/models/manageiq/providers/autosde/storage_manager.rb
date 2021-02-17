@@ -230,11 +230,12 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
                   :label      => _("Security Protocol"),
                   :isRequired => true,
                   :validate   => [{:type => "required"}],
+                  :includeEmpty => true,
                   :options    => [
                     {
                       :label => _("SSL without validation"),
                       :value => "ssl-no-validation"
-                    },
+                    }
                     # todo[per gregoryb]: need to provide ssl and non-ssl
                     # {
                     #     :label => _("SSL"),
