@@ -224,13 +224,14 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
               :validationDependencies => %w[type endpoints.default.hostname authentications.default.userid authentications.default.password],
               :fields                 => [
                 {
-                  :component  => "select",
-                  :id         => "endpoints.default.security_protocol",
-                  :name       => "endpoints.default.security_protocol",
-                  :label      => _("Security Protocol"),
-                  :isRequired => true,
-                  :validate   => [{:type => "required"}],
-                  :options    => [
+                  :component    => "select",
+                  :id           => "endpoints.default.security_protocol",
+                  :name         => "endpoints.default.security_protocol",
+                  :label        => _("Security Protocol"),
+                  :isRequired   => true,
+                  :validate     => [{:type => "required"}],
+                  :initialValue => 'ssl-no-validation',
+                  :options      => [
                     {
                       :label => _("SSL without validation"),
                       :value => "ssl-no-validation"
