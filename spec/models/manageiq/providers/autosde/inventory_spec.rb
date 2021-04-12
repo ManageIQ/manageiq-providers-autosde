@@ -2,7 +2,7 @@ describe ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager do
   let(:ems) do
     FactoryBot.create(:autosde_storage_manager,
                       :with_autosde_credentials,
-                      :hostname => Rails.application.secrets.autosde[:appliance_host_with_auth_token])
+                      :hostname => Rails.application.secrets.autosde[:appliance_host])
   end
 
   it "gets inventory from the appliance" do

@@ -1,7 +1,7 @@
 describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   it "logs in with right credentials" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-      :host     => Rails.application.secrets.autosde[:appliance_host_with_auth_token],
+      :host     => Rails.application.secrets.autosde[:appliance_host],
       #:scheme => 'http',
       :username => Rails.application.secrets.autosde[:site_manager_user],
       :password => Rails.application.secrets.autosde[:site_manager_password]
@@ -15,7 +15,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
   it "raises on login with wrong credentials" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-      :host     => Rails.application.secrets.autosde[:appliance_host_with_auth_token],
+      :host     => Rails.application.secrets.autosde[:appliance_host],
       #:scheme => 'http',
       :username => 'wrong_user',
       :password => Rails.application.secrets.autosde[:site_manager_password]
@@ -28,7 +28,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
   it "gets a list of storage systems" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-      :host     => Rails.application.secrets.autosde[:appliance_host_with_auth_token],
+      :host     => Rails.application.secrets.autosde[:appliance_host],
       # :scheme => 'http',
       :username => Rails.application.secrets.autosde[:site_manager_user],
       :password => Rails.application.secrets.autosde[:site_manager_password]
@@ -46,7 +46,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
   it "does not fail when token is bad (ie expired) and re-login" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-      :host     => Rails.application.secrets.autosde[:appliance_host_with_auth_token],
+      :host     => Rails.application.secrets.autosde[:appliance_host],
       #:scheme => 'http',
       :username => Rails.application.secrets.autosde[:site_manager_user],
       :password => Rails.application.secrets.autosde[:site_manager_password]
@@ -66,13 +66,13 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
   it "proves clients stuffs  are different" do
     client1 = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-      :host     => Rails.application.secrets.autosde[:appliance_host_with_auth_token],
+      :host     => Rails.application.secrets.autosde[:appliance_host],
       :username => Rails.application.secrets.autosde[:site_manager_user],
       :password => Rails.application.secrets.autosde[:site_manager_password]
     )
 
     client2 = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-      :host     => Rails.application.secrets.autosde[:appliance_host_with_auth_token],
+      :host     => Rails.application.secrets.autosde[:appliance_host],
       :username => Rails.application.secrets.autosde[:site_manager_user],
       :password => Rails.application.secrets.autosde[:site_manager_password]
     )
@@ -83,7 +83,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   end
   it "works with object with arguments" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-      :host     => Rails.application.secrets.autosde[:appliance_host_with_auth_token],
+      :host     => Rails.application.secrets.autosde[:appliance_host],
       :username => Rails.application.secrets.autosde[:site_manager_user],
       :password => Rails.application.secrets.autosde[:site_manager_password]
     )
