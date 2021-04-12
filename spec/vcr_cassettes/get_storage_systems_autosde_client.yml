@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://9.151.190.206/site-manager/api/v1/engine/token-auth/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth/
     body:
       encoding: UTF-8
       string: '{"username":"<username>","password":"<password>"}'
@@ -41,7 +41,7 @@ http_interactions:
   recorded_at: Thu, 02 Jul 2020 09:49:02 GMT
 - request:
     method: get
-    uri: https://9.151.190.206/site-manager/api/v1/engine/storage-systems/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems/
     body:
       encoding: US-ASCII
       string: ''
@@ -82,7 +82,7 @@ http_interactions:
   recorded_at: Thu, 02 Jul 2020 09:49:02 GMT
 - request:
     method: post
-    uri: https://9.151.190.206/site-manager/api/v1/engine/auth-token-2
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/auth-token-2
     body:
       encoding: UTF-8
       string: '{"password":"<password>","username":"<username>"}'
@@ -117,7 +117,7 @@ http_interactions:
   recorded_at: Fri, 17 Jul 2020 10:48:47 GMT
 - request:
     method: post
-    uri: https://9.151.190.206/site-manager/api/v1/engine/token-auth
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth
     body:
       encoding: UTF-8
       string: '{"password":"<password>","username":"<username>"}'
