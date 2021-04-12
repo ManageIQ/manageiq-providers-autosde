@@ -36,14 +36,9 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   #
   #
   #
-
-  AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN = RSpec.configuration.autosde_appliance_host_with_auth_token
-
-  client = nil
-
-  before(:all) do
-    client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-      :host     => AUTOSDE_APPLIANCE_HOST_WITH_AUTH_TOKEN,
+  let!(:client) do
+    ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
+      :host     => Rails.application.secrets.autosde[:appliance_host_with_auth_token],
       :username => 'autosde',
       :password => 'change_me',
       :scheme   => 'https'
@@ -104,9 +99,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     # @type AutosdeOpenapiClient::VolumeResponse
     any_volume = volumes.first
     expect(any_volume).to be_an_instance_of(AutosdeOpenapiClient::VolumeResponse)
-    puts '&&&&&'
-    p any_volume
-    p AutosdeOpenapiClient::VolumeResponse.openapi_types
     expect(any_volume.service).to be_a(String)
 
     # create new volume
