@@ -1,6 +1,9 @@
 class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   supports :create
   supports :safe_delete
+  supports :update do
+    unsupported_reason_add(:update, _("The Volume is not connected to an active Provider")) unless ext_management_system
+  end
 
   def self.raw_create_volume(_ext_management_system, _options = {})
     # @type [StorageService]
