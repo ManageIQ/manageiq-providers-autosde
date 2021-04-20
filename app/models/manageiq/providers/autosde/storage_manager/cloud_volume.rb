@@ -38,11 +38,6 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   # ================= edit  ================
 
-  # override the function in manageiq\app\models\cloud_volume\operations.rb
-  def validate_update_volume
-    {:available => true, :message => nil}
-  end
-
   def raw_update_volume(options = {})
     ems = ext_management_system
     update_details = ems.autosde_client.VolumeUpdate(
