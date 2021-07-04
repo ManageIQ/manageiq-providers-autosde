@@ -7,12 +7,10 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def self.raw_create_volume(_ext_management_system, _options = {})
     # @type [StorageService]
-    storage_service = _options[:storage_service]
-
     vol_to_create = _ext_management_system.autosde_client.VolumeCreate(
-      :service => storage_service.ems_ref,
-      :name    => _options[:name],
-      :size    => _options[:size]
+      :service => _options["storage_service"],
+      :name    => _options["name"],
+      :size    => _options["size"]
     )
     _ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create)
     EmsRefresh.queue_refresh(_ext_management_system)
@@ -61,13 +59,13 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   end
 
   def self.params_for_create(provider)
-    services = provider.storage_services.map { |service| {:value => service.id, :label => service.name} }
+    services = provider.storage_services.map { |service| {:value => service.ems_ref, :label => service.name} }
     @params_for_create ||= {
       :fields => [
         {
           :component    => "select",
-          :name         => "storage.pools",
-          :id           => "storage.pools",
+          :name         => "storage_service",
+          :id           => "storage_service",
           :label        => _("Storage Pool"),
           :isRequired   => true,
           :validate     => [{:type => "required"}],
@@ -76,8 +74,8 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
         },
         {
           :component  => "text-field",
-          :id         => "storage.volume.size",
-          :name       => "storage.volume.size",
+          :id         => "size",
+          :name       => "size",
           :label      => _("Size (GiB)"),
           :isRequired => true,
           :validate   => [{:type => "required"},
