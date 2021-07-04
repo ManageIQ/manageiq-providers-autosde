@@ -61,17 +61,17 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   end
 
   def self.params_for_create(provider)
-    services = provider.storage_services.map{|service| {:value => service.id, :label => service.name}}
+    services = provider.storage_services.map { |service| {:value => service.id, :label => service.name} }
     @params_for_create ||= {
       :fields => [
         {
-          :component  => "select",
-          :name       => "storage.pools",
-          :id         => "storage.pools",
-          :label      => _("Storage Pool"),
-          :isRequired => true,
-          :validate   => [{:type => "required"}],
-          :options    => services,
+          :component    => "select",
+          :name         => "storage.pools",
+          :id           => "storage.pools",
+          :label        => _("Storage Pool"),
+          :isRequired   => true,
+          :validate     => [{:type => "required"}],
+          :options      => services,
           :includeEmpty => true
         },
         {
