@@ -59,4 +59,32 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
     EmsRefresh.queue_refresh(ext_management_system)
   end
+
+  def self.params_for_create(provider)
+    services = provider.storage_services.map{|service| {:value => service.id, :label => service.name}}
+    @params_for_create ||= {
+      :fields => [
+        {
+          :component  => "select",
+          :name       => "storage.pools",
+          :id         => "storage.pools",
+          :label      => _("Storage Pool"),
+          :isRequired => true,
+          :validate   => [{:type => "required"}],
+          :options    => services,
+          :includeEmpty => true
+        },
+        {
+          :component  => "text-field",
+          :id         => "storage.volume.size",
+          :name       => "storage.volume.size",
+          :label      => _("Size (GiB)"),
+          :isRequired => true,
+          :validate   => [{:type => "required"},
+                          {:type => "pattern", :pattern => '^[-+]?[0-9]\\d*$', :message => _("Must be an integer")},
+                          {:type => "min-number-value", :value => 1, :message => _('Must be greater than or equal to 1')}],
+        }
+      ]
+    }
+  end
 end
