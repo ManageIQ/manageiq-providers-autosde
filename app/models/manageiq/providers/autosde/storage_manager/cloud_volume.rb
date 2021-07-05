@@ -5,15 +5,15 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     unsupported_reason_add(:update, _("The Volume is not connected to an active Provider")) unless ext_management_system
   end
 
-  def self.raw_create_volume(_ext_management_system, options = {})
+  def self.raw_create_volume(ext_management_system, options = {})
     # @type [StorageService]
-    vol_to_create = _ext_management_system.autosde_client.VolumeCreate(
+    vol_to_create = ext_management_system.autosde_client.VolumeCreate(
       :service => options["storage_service"],
       :name    => options["name"],
       :size    => options["size"]
     )
-    _ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create)
-    EmsRefresh.queue_refresh(_ext_management_system)
+    ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create)
+    EmsRefresh.queue_refresh(ext_management_system)
   end
 
   # has to be overriden and return a specifically-formatted hash.
