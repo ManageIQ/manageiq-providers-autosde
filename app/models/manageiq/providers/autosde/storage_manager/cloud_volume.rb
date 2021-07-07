@@ -60,7 +60,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def self.params_for_create(provider)
     services = provider.storage_services.map { |service| {:value => service.ems_ref, :label => service.name} }
-    @params_for_create = {
+    {
       :fields => [
         {
           :component    => "select",
