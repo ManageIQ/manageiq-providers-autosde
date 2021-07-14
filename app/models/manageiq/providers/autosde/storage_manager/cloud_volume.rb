@@ -8,7 +8,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   def self.raw_create_volume(ext_management_system, options = {})
     # @type [StorageService]
     vol_to_create = ext_management_system.autosde_client.VolumeCreate(
-      :service => options["storage_service"],
+      :service => ExtManagementSystem.find(options["ems_id"]).storage_services.detect {|e| e.id.to_s ==  options["storage_service_id"]}.ems_ref,
       :name    => options["name"],
       :size    => options["size"]
     )
@@ -37,13 +37,11 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   # ================= edit  ================
 
   def raw_update_volume(options = {})
-    ems = ext_management_system
-    update_details = ems.autosde_client.VolumeUpdate(
-      :name => options[:name],
-      :size => options[:size]
+    update_details = ext_management_system.autosde_client.VolumeUpdate(
+      :name => options["name"],
+      :size => options["size_GB"]
     )
-
-    ems.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details)
+    ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details)
     EmsRefresh.queue_refresh(ems)
   end
 
@@ -58,19 +56,55 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     EmsRefresh.queue_refresh(ext_management_system)
   end
 
-  def self.params_for_create(provider)
-    services = provider.storage_services.map { |service| {:value => service.ems_ref, :label => service.name} }
+  def self.params_for_update(provider, params)
+    services = provider.storage_services.map { |service| {:value => service.id, :label => service.name} }
+    storage_service_id = ExtManagementSystem.find(params["ems_id"]).cloud_volumes.detect {|e| e.id.to_s ==  params["record_id"]}.storage_service_id
+    service_value = services.detect {|e| e[:value] ==   storage_service_id}[:label]
+
+    init_volume_size = (ExtManagementSystem.find(params["ems_id"]).cloud_volumes.detect {|e| e.id.to_s ==  params["record_id"]}.size / 1.0.gigabyte).round
+
     {
       :fields => [
         {
-          :component    => "select",
+          :component    => "text-field",
           :name         => "storage_service",
           :id           => "storage_service",
           :label        => _("Storage Pool"),
           :isRequired   => true,
           :validate     => [{:type => "required"}],
+          :initialValue => service_value,
+          :isDisabled   => true
+        },
+        {
+          :component  => "text-field",
+          :id         => "size_GB",
+          :name       => "size_GB",
+          :label      => _("Size (GiB)"),
+          :isRequired => true,
+          :validate   => [{:type => "required"},
+                          {:type => "pattern", :pattern => '^[-+]?[0-9]\\d*$', :message => _("Must be an integer")},
+                          {:type => "min-number-value", :value => 1, :message => _('Must be greater than or equal to 1')}],
+          :initialValue => init_volume_size,
+        }
+      ]
+    }
+  end
+
+  def self.params_for_create(provider)
+    services = provider.storage_services.map { |service| {:value => service.id, :label => service.name} }
+
+    {
+      :fields => [
+        {
+          :component    => "select",
+          :name         => "storage_service_id",
+          :id           => "storage_service_id",
+          :label        => _("Storage Pool"),
+          :isRequired   => true,
+          :validate     => [{:type => "required"}],
           :options      => services,
-          :includeEmpty => true
+          :includeEmpty => true,
+          :isDisabled   => false
         },
         {
           :component  => "text-field",
@@ -85,4 +119,5 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       ]
     }
   end
+
 end
