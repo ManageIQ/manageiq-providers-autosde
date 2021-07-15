@@ -8,7 +8,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   def self.raw_create_volume(ext_management_system, options = {})
     # @type [StorageService]
     vol_to_create = ext_management_system.autosde_client.VolumeCreate(
-      :service => ExtManagementSystem.find(options["ems_id"]).storage_services.detect {|e| e.id.to_s ==  options["storage_service_id"]}.ems_ref,
+      :service => ExtManagementSystem.find(options["ems_id"]).storage_services.detect { |e| e.id.to_s == options["storage_service_id"] }.ems_ref,
       :name    => options["name"],
       :size    => options["size"]
     )
@@ -58,10 +58,10 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def self.params_for_update(provider, params)
     services = provider.storage_services.map { |service| {:value => service.id, :label => service.name} }
-    storage_service_id = ExtManagementSystem.find(params["ems_id"]).cloud_volumes.detect {|e| e.id.to_s ==  params["record_id"]}.storage_service_id
-    service_value = services.detect {|e| e[:value] ==   storage_service_id}[:label]
+    storage_service_id = ExtManagementSystem.find(params["ems_id"]).cloud_volumes.detect { |e| e.id.to_s == params["record_id"] }.storage_service_id
+    service_value = services.detect { |e| e[:value] == storage_service_id }[:label]
 
-    init_volume_size = (ExtManagementSystem.find(params["ems_id"]).cloud_volumes.detect {|e| e.id.to_s ==  params["record_id"]}.size / 1.0.gigabyte).round
+    init_volume_size = (ExtManagementSystem.find(params["ems_id"]).cloud_volumes.detect { |e| e.id.to_s == params["record_id"] }.size / 1.0.gigabyte).round
 
     {
       :fields => [
@@ -76,14 +76,14 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
           :isDisabled   => true
         },
         {
-          :component  => "text-field",
-          :id         => "size_GB",
-          :name       => "size_GB",
-          :label      => _("Size (GiB)"),
-          :isRequired => true,
-          :validate   => [{:type => "required"},
-                          {:type => "pattern", :pattern => '^[-+]?[0-9]\\d*$', :message => _("Must be an integer")},
-                          {:type => "min-number-value", :value => 1, :message => _('Must be greater than or equal to 1')}],
+          :component    => "text-field",
+          :id           => "size_GB",
+          :name         => "size_GB",
+          :label        => _("Size (GiB)"),
+          :isRequired   => true,
+          :validate     => [{:type => "required"},
+                            {:type => "pattern", :pattern => '^[-+]?[0-9]\\d*$', :message => _("Must be an integer")},
+                            {:type => "min-number-value", :value => 1, :message => _('Must be greater than or equal to 1')}],
           :initialValue => init_volume_size,
         }
       ]
@@ -119,5 +119,4 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       ]
     }
   end
-
 end
