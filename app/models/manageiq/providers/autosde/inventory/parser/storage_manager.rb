@@ -71,9 +71,11 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def host_initiators
     collector.storage_hosts.each do |host_initiator|
       persister.host_initiators.build(
-        :name             => host_initiator.name,
-        :ems_ref          => host_initiator.uuid,
-        :physical_storage => persister.physical_storages.lazy_find(host_initiator.storage_system)
+        :name              => host_initiator.name,
+        :ems_ref           => host_initiator.uuid,
+        :physical_storage  => persister.physical_storages.lazy_find(host_initiator.storage_system),
+        :status            => host_initiator.status,
+        :host_cluster_name => host_initiator.host_cluster_name
       )
     end
   end
