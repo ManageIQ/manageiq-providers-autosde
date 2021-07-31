@@ -65,6 +65,12 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
         :ems_id => ->(persister) { persister.manager.id }
       )
     end
+    # wwpn candidates
+    add_collection(storage, :wwpn_candidates) do |builder|
+      builder.add_default_values(
+        :ems_id => ->(persister) { persister.manager.id }
+      )
+    end
   end
 
   def strategy

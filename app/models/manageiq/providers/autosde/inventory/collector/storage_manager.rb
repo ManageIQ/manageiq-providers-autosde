@@ -33,10 +33,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   def volume_mappings
     @volume_mappings ||= @manager.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_get.map do |mapping|
       {
-        :lun => mapping.lun,
+        :lun                 => mapping.lun,
         :host_initiator_uuid => mapping.host,
-        :volume_uuid => mapping.volume,
-        :ems_ref => mapping.uuid
+        :volume_uuid         => mapping.volume,
+        :ems_ref             => mapping.uuid
       }
     end
   end
@@ -74,5 +74,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :version => system_type.version
       }
     end
+  end
+
+  def wwpn_candidates
+    @wwpn_candidates ||= @manager.autosde_client.StorageHostWWPNCandidatesApi
+                                 .storage_hosts_wwpn_candidates_get
   end
 end

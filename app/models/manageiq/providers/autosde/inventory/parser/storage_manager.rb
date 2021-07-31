@@ -19,6 +19,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     storage_services
     cloud_volumes
     volume_mappings
+    wwpn_candidates
   end
 
   def physical_storage_families
@@ -106,6 +107,16 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         **cloud_volume_hash,
         :storage_resource => persister.storage_resources.lazy_find(storage_resource_uuid),
         :storage_service  => persister.storage_services.lazy_find(storage_service_uuid)
+      )
+    end
+  end
+
+  def wwpn_candidates
+    collector.wwpn_candidates.each do |candidate|
+      persister.wwpn_candidates.build(
+        :candidate        => candidate.wwpn,
+        :ems_ref          => candidate.wwpn,
+        :physical_storage => persister.physical_storages.lazy_find(candidate.system_uuid)
       )
     end
   end
