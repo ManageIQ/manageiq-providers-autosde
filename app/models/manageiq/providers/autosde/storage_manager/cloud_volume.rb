@@ -56,12 +56,9 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     EmsRefresh.queue_refresh(ext_management_system)
   end
 
-  def self.params_for_update(provider, params)
-    services = provider.storage_services.map { |service| {:value => service.id, :label => service.name} }
-    storage_service_id = ExtManagementSystem.find(params["ems_id"]).cloud_volumes.detect { |e| e.id.to_s == params["record_id"] }.storage_service_id
-    service_value = services.detect { |e| e[:value] == storage_service_id }[:label]
-
-    init_volume_size = (ExtManagementSystem.find(params["ems_id"]).cloud_volumes.detect { |e| e.id.to_s == params["record_id"] }.size / 1.0.gigabyte).round
+  def params_for_update
+    ems = ExtManagementSystem.find(ems_id)
+    service_value = ems.storage_services.detect { {:value => id, :label => name} }[:name]
 
     {
       :fields => [
@@ -84,7 +81,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
           :validate     => [{:type => "required"},
                             {:type => "pattern", :pattern => '^[-+]?[0-9]\\d*$', :message => _("Must be an integer")},
                             {:type => "min-number-value", :value => 1, :message => _('Must be greater than or equal to 1')}],
-          :initialValue => init_volume_size,
+          :initialValue => (size / 1.0.gigabyte).round,
         }
       ]
     }
