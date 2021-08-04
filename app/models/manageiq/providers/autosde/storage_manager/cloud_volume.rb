@@ -8,7 +8,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   def self.raw_create_volume(ext_management_system, options = {})
     # @type [StorageService]
     vol_to_create = ext_management_system.autosde_client.VolumeCreate(
-      :service => ExtManagementSystem.find(options["ems_id"]).storage_services.detect { |e| e.id.to_s == options["storage_service_id"] }.ems_ref,
+      :service => ext_management_system.storage_services.find(options["storage_service_id"]).ems_ref,
       :name    => options["name"],
       :size    => options["size"]
     )
@@ -58,7 +58,8 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def params_for_update
     ems = ExtManagementSystem.find(ems_id)
-    service_value = ems.storage_services.detect { {:value => id, :label => name} }[:name]
+    storage_service_id = ems.cloud_volumes.find_by(:id => id)[:storage_service_id]
+    service_value = ems.storage_services.find_by(:id => storage_service_id)[:name]
 
     {
       :fields => [
