@@ -57,10 +57,6 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   end
 
   def params_for_update
-    ems = ExtManagementSystem.find(ems_id)
-    storage_service_id = ems.cloud_volumes.find_by(:id => id)[:storage_service_id]
-    service_value = ems.storage_services.find_by(:id => storage_service_id)[:name]
-
     {
       :fields => [
         {
@@ -70,7 +66,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
           :label        => _("Storage Pool"),
           :isRequired   => true,
           :validate     => [{:type => "required"}],
-          :initialValue => service_value,
+          :initialValue => storage_service.name,
           :isDisabled   => true
         },
         {
