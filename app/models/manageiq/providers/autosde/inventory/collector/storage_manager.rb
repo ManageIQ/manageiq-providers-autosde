@@ -9,7 +9,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :name             => system.name,
         :ems_ref          => system.uuid,
         :system_type_uuid => system.system_type.uuid,
-        :health_state           => system.status
+        :health_state     => system.status
       }
     end
   end
