@@ -1,5 +1,6 @@
 # This class is supposed to collect raw output from the managed system
 class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < ManageIQ::Providers::Inventory::Collector
+  
   # @return [ManageIQ::Providers::Autosde::StorageManager]
   attr_accessor :manager
 
