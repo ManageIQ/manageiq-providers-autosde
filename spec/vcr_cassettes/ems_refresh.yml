@@ -125,7 +125,7 @@ http_interactions:
 
 - request:
     method: get
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems
     body:
       encoding: US-ASCII
       string: ''
