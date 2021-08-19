@@ -41,7 +41,7 @@ http_interactions:
   recorded_at: Sun, 28 Jun 2020 11:20:35 GMT
 - request:
     method: get
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems
     body:
       encoding: US-ASCII
       string: ''
