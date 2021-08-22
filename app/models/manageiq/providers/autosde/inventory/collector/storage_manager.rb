@@ -9,6 +9,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :name             => system.name,
         :ems_ref          => system.uuid,
         :system_type_uuid => system.system_type.uuid,
+        :health_state     => system.status
       }
     end
   end
@@ -48,7 +49,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
         :ems_ref               => volume.uuid,
         :storage_resource_uuid => volume.storage_resource,
         :storage_service_uuid  => volume.service,
-        :status                => volume.component_state
+        :status                => volume.component_state,
+        :health_state          => volume.status
       }
     end
   end
