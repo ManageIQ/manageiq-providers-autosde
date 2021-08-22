@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/services/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/services
     body:
       encoding: US-ASCII
       string: ''

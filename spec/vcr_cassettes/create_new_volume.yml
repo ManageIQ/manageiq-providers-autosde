@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/volumes/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/volumes
     body:
       encoding: UTF-8
       string: '{"compliant":false,"name":"vol_test_bk_2020-06-28 14_20_35","service":"6ac78be9-d6cc-4c3f-8882-bec5e6be1dc3","size":10}'
