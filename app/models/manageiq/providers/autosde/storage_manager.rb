@@ -9,6 +9,10 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   supports :cloud_volume_create
   supports :cloud_volume
 
+  supports :add_storage
+  supports :add_host_initiator
+  supports :add_volume_mapping
+
   include ManageIQ::Providers::StorageManager::BlockMixin
 
   # Asset details
