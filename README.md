@@ -1,9 +1,9 @@
 # ManageIQ::Providers::Autosde
 
-[![Build Status](https://travis-ci.com/ManageIQ/manageiq-providers-autosde.svg?branch=lasker)](https://travis-ci.com/ManageIQ/manageiq-providers-autosde)
+[![Build Status](https://travis-ci.com/ManageIQ/manageiq-providers-autosde.svg?branch=morphy)](https://travis-ci.com/ManageIQ/manageiq-providers-autosde)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ed875a9a7610a4bbe31a/maintainability)](https://codeclimate.com/github/ManageIQ/manageiq-providers-autosde/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ed875a9a7610a4bbe31a/test_coverage)](https://codeclimate.com/github/ManageIQ/manageiq-providers-autosde/test_coverage)
-[![Security](https://hakiri.io/github/ManageIQ/manageiq-providers-autosde/lasker.svg)](https://hakiri.io/github/ManageIQ/manageiq-providers-autosde/lasker)
+[![Security](https://hakiri.io/github/ManageIQ/manageiq-providers-autosde/morphy.svg)](https://hakiri.io/github/ManageIQ/manageiq-providers-autosde/morphy)
 
 [![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ManageIQ/manageiq-providers-autosde?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
