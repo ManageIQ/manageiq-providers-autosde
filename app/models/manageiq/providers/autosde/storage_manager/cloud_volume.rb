@@ -10,7 +10,8 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     vol_to_create = ext_management_system.autosde_client.VolumeCreate(
       :service => ext_management_system.storage_services.find(options["storage_service_id"]).ems_ref,
       :name    => options["name"],
-      :size    => options["size"]
+      :size    => options["size"],
+      :count   => options["count"]
     )
     ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create)
     EmsRefresh.queue_refresh(ext_management_system)
@@ -109,6 +110,16 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
           :validate   => [{:type => "required"},
                           {:type => "pattern", :pattern => '^[-+]?[0-9]\\d*$', :message => _("Must be an integer")},
                           {:type => "min-number-value", :value => 1, :message => _('Must be greater than or equal to 1')}],
+        },
+        {
+          :component    => "text-field",
+          :id           => "count",
+          :name         => "count",
+          :label        => _("How many volumes to create. If greater than one, the volume names will be appended with a running index."),
+          :initialValue => _("1"),
+          :validate     => [{:type => "required"},
+                            {:type => "pattern", :pattern => '^[-+]?[0-9]\\d*$', :message => _("Must be an integer")},
+                            {:type => "min-number-value", :value => 1, :message => _('Must be greater than or equal to 1')}],
         }
       ]
     }
