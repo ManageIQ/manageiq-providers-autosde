@@ -22,12 +22,6 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     EmsRefresh.queue_refresh(ext_management_system)
   end
 
-  # has to be overriden and return a specifically-formatted hash.
-  def self.validate_create_volume(ext_management_system)
-    # check that the ems isn't nil and return a correctly formatted hash.
-    validate_volume(ext_management_system)
-  end
-
   # ================= delete  ================
 
   def raw_delete_volume
