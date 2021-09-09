@@ -58,7 +58,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   end
 
   def params_for_update
-    initialSize = (size / 1.0.gigabyte).round
+    initial_size = (size / 1.0.gigabyte).round
     {
       :fields => [
         {
@@ -79,8 +79,8 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
           :isRequired   => true,
           :validate     => [{:type => "required"},
                             {:type => "pattern", :pattern => '^[-+]?[0-9]\\d*$', :message => _("Must be an integer")},
-                            {:type => "min-number-value", :value => initialSize, :message => _("Must be greater than or equal to %d" % [initialSize])}],
-          :initialValue => initialSize,
+                            {:type => "min-number-value", :value => initial_size, :message => _("Must be greater than or equal to %d" % [initial_size])}],
+          :initialValue => initial_size,
         }
       ]
     }
