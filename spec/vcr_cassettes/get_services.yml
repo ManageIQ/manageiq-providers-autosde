@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://9.151.190.206/site-manager/api/v1/engine/services/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/services
     body:
       encoding: US-ASCII
       string: ''

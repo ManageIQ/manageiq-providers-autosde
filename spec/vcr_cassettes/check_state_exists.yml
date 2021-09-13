@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://9.151.190.206/site-manager/api/v1/engine/token-auth/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/token-auth
     body:
       encoding: UTF-8
       string: '{"username":"<username>","password":"<password>"}'
@@ -41,7 +41,7 @@ http_interactions:
   recorded_at: Sun, 28 Jun 2020 11:20:35 GMT
 - request:
     method: get
-    uri: https://9.151.190.206/site-manager/api/v1/engine/volumes/
+    uri: https://9.151.190.206/site-manager/api/v1/engine/volumes
     body:
       encoding: US-ASCII
       string: ''
