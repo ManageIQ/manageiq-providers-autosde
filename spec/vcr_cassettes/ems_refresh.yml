@@ -41,7 +41,7 @@ http_interactions:
   recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
 - request:
     method: get
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/system-types/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/system-types
     body:
       encoding: US-ASCII
       string: ''
@@ -125,7 +125,7 @@ http_interactions:
 
 - request:
     method: get
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems
     body:
       encoding: US-ASCII
       string: ''
@@ -166,7 +166,7 @@ http_interactions:
   recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
 - request:
     method: get
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-resources/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-resources
     body:
       encoding: US-ASCII
       string: ''
@@ -248,7 +248,7 @@ http_interactions:
   recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
 - request:
     method: get
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/services/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/services
     body:
       encoding: US-ASCII
       string: ''
@@ -289,7 +289,7 @@ http_interactions:
   recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
 - request:
     method: get
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/volumes/
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/volumes
     body:
       encoding: US-ASCII
       string: ''
