@@ -1,8 +1,13 @@
 class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   supports :create
-  supports :safe_delete
+  supports :delete do
+    unsupported_reason_add(:delete, _("the volume is not connected to an active provider")) unless ext_management_system
+  end
+  supports :safe_delete do
+    unsupported_reason_add(:safe_delete, _("the volume is not connected to an active provider")) unless ext_management_system
+  end
   supports :update do
-    unsupported_reason_add(:update, _("The Volume is not connected to an active Provider")) unless ext_management_system
+    unsupported_reason_add(:update, _("the volume is not connected to an active provider")) unless ext_management_system
   end
 
   def self.raw_create_volume(ext_management_system, options = {})
@@ -17,22 +22,12 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     EmsRefresh.queue_refresh(ext_management_system)
   end
 
-  # has to be overriden and return a specifically-formatted hash.
-  def self.validate_create_volume(ext_management_system)
-    # check that the ems isn't nil and return a correctly formatted hash.
-    validate_volume(ext_management_system)
-  end
-
   # ================= delete  ================
 
   def raw_delete_volume
     ems = ext_management_system
     ems.autosde_client.VolumeApi.volumes_pk_delete(ems_ref)
     EmsRefresh.queue_refresh(ems)
-  end
-
-  def validate_delete_volume
-    {:available => true, :message => nil}
   end
 
   # ================= edit  ================
@@ -47,10 +42,6 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   end
 
   # ================ safe-delete ================
-  def validate_safe_delete_volume
-    {:available => true, :message => nil}
-  end
-
   def raw_safe_delete_volume
     ext_management_system.autosde_client.VolumeApi.volumes_safe_delete(ems_ref)
 
