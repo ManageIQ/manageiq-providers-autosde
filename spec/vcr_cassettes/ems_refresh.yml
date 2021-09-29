@@ -328,4 +328,44 @@ http_interactions:
       string: '[{"compliant":true,"component_state":"CREATED","historical_service":2,"name":"vol1_eran","service":"2dbdcbf3-3870-4b88-83f7-45d6e70b3db3","size":17,"storage_resource":"2745562f-b478-41f9-b31f-d9ef33bb2d25","uuid":"3706e734-6bc2-48c1-abd9-bb0189ad2a97"},{"compliant":true,"component_state":"CREATED","historical_service":3,"name":"vdisk0","service":"b4f5115c-85b5-4990-bae9-72c7d2fb5020","size":10,"storage_resource":"f9eee971-95a3-4626-81a5-fbae257e1971","uuid":"4d0f7d12-8a54-4bf8-bd53-74a2df225282"},{"compliant":true,"component_state":"CREATED","historical_service":4,"name":"tan-llama","service":"9164c7c9-fd24-4faa-9805-fc7f39eca6da","size":13,"storage_resource":"0c4c1baa-3760-40c9-9815-3c14a29a83f4","uuid":"2b96b84d-16df-4d3a-b5ba-28f3499756ee"},{"compliant":true,"component_state":"CREATED","historical_service":4,"name":"cyber-oxpecker","service":"9164c7c9-fd24-4faa-9805-fc7f39eca6da","size":10,"storage_resource":"0c4c1baa-3760-40c9-9815-3c14a29a83f4","uuid":"1f1a63d2-d93b-4664-b353-a8f80f2ad63f"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"new-volume-name-new","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":6,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"b216407d-9e15-4859-8013-aa083e6d7dfc"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"bla22","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":1,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"9ba21058-5917-4eae-9d1f-57d0513a3dc6"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"bibi","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":1,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"7a2b2461-ff6f-42d5-9967-2711ffddfd3b"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"bla-ccc","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":1,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"1a01f370-ba52-4747-b89d-004302dd51b4"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"testbbb","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":2,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"8117d88a-9b1b-49e3-a776-5b352d63d23b"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"liran123","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":8,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"070138e6-e2ba-4efc-9c47-5f765837fb3b"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"test456","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":3,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"9849ea4f-b6f9-4f0e-86a1-695035529113"},{"compliant":true,"component_state":"CREATED","historical_service":6,"name":"red-herring","service":"b24bb9a7-d47e-4de6-b832-830bd004b613","size":12,"storage_resource":"0cd7a247-e57c-4f62-9518-574436be540a","uuid":"4de07e78-3623-478a-9ae9-69ded757a5d3"},{"compliant":true,"component_state":"CREATED","historical_service":8,"name":"volume-bk-05-07-14-45","service":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","size":10,"storage_resource":"87877f6e-cc33-46bc-9919-7ec5de875891","uuid":"c97e2f4d-94d4-442c-ad21-d5f70d9fac4e"},{"compliant":true,"component_state":"CREATED","historical_service":8,"name":"boris_vol_1","service":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","size":10,"storage_resource":"87877f6e-cc33-46bc-9919-7ec5de875891","uuid":"0603b19b-05e7-46bc-b471-5e9315ff4e53"},{"compliant":true,"component_state":"CREATED","historical_service":8,"name":"volume-bk-05-07-14-44","service":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","size":10,"storage_resource":"87877f6e-cc33-46bc-9919-7ec5de875891","uuid":"e9c764a1-a127-4f31-b870-2ea7409c8dd0"},{"compliant":true,"component_state":"CREATED","historical_service":8,"name":"volume-bk-25-11-1","service":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","size":10,"storage_resource":"87877f6e-cc33-46bc-9919-7ec5de875891","uuid":"7da729ed-4c31-4e53-bb70-0dbb45234946"},{"compliant":true,"component_state":"CREATED","historical_service":8,"name":"volume-bk-08-12","service":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","size":10,"storage_resource":"87877f6e-cc33-46bc-9919-7ec5de875891","uuid":"435707a7-8335-4ced-888e-06a2e7d42415"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"il1910_2","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"03f350c4-515a-478f-aa90-f9ed79b182f5"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"v1","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"79c11b99-a2cb-43f4-840b-8b028b2980dc"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"v3","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"7507511a-e5e3-4b43-8380-22c6096fcbca"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"v4","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"326cc976-8200-4c85-932c-848a0e94cb63"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"vol_1_11","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"d01f4e59-4218-426a-83f2-c5a2eac7b027"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"vol22_11","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"fc0059e9-49c4-4dc5-a905-bb0d87bc0d2c"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"v11_1","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"4826bcec-4cba-4729-9cee-43a6c321365a"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"vvvvv","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"e628ce0f-6515-4c1f-8cf2-108c851db2bd"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"v11_1_2","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"a00fa497-2002-461a-9289-0326d8b5c581"}]'
     http_version:
   recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-hosts-wwpn-candidates
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.2/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 2c8d17b4802c9766cf8bde0a1d36294a21a57da7
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Jul 2021 11:55:39 GMT
+      Server:
+      - WSGIServer/0.2 CPython/3.7.3
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"wwpn":"2100000E1EE89D90","system_uuid":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2"},
+      {"wwpn":"2100000E1EE89D91","system_uuid":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2"}]'
+    http_version: null
+  recorded_at: Sat, 31 Jul 2021 11:50:22 GMT
 recorded_with: VCR 5.1.0

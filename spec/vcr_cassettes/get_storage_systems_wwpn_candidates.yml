@@ -1,0 +1,79 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth
+    body:
+      encoding: UTF-8
+      string: '{"password":"<password>","username":"autosde"}'
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.39/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Aug 2021 15:44:02 GMT
+      Server:
+      - WSGIServer/0.2 CPython/3.7.3
+      Content-Type:
+      - application/json
+      Allow:
+      - POST, OPTIONS
+      Vary:
+      - Accept
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"token":"2c8d17b4802c9766cf8bde0a1d36294a21a57da7"}'
+    http_version: null
+  recorded_at: Wed, 04 Aug 2021 15:38:46 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-hosts-wwpn-candidates
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.39/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 2c8d17b4802c9766cf8bde0a1d36294a21a57da7
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Aug 2021 15:44:03 GMT
+      Server:
+      - WSGIServer/0.2 CPython/3.7.3
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"wwpn":"2100000E1EE89D90","system_uuid":"de05369b-7093-4b97-883d-398b5417699e"},{"wwpn":"2100000E1EE89D91","system_uuid":"de05369b-7093-4b97-883d-398b5417699e"}]'
+    http_version: null
+  recorded_at: Wed, 04 Aug 2021 15:38:47 GMT
+recorded_with: VCR 5.1.0
