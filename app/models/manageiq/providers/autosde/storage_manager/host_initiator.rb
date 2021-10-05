@@ -2,8 +2,11 @@ class ManageIQ::Providers::Autosde::StorageManager::HostInitiator < ::HostInitia
   supports :create
 
   def self.raw_create_host_initiator(ext_management_system, options = {})
+    wwpns = Array(options['custom_wwpn'])
+    wwpns += Array(options['wwpn']).map { |item| item["value"] }
+
     # wwpn values send to autosde should be format as colon separated string (e.g. WWPN1:WWPN2:WWPN3)
-    wwpn_values = options['wwpn'].join(":") if options['wwpn']
+    wwpn_values = wwpns.join(":")
 
     host_initiator_to_create = ext_management_system.autosde_client.StorageHostCreate(
       :name           => options['name'],
