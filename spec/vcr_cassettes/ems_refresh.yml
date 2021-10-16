@@ -77,7 +77,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"component_state":"PENDING_CREATION","name":"svc","short_version":"1","uuid":"c708e81d-7d41-4cb9-9846-06268fdc3557","version":"1.1"},{"component_state":"PENDING_CREATION","name":"xiv","short_version":"1","uuid":"61f063b0-17e2-4087-9571-435731821f78","version":"1.1"}]'
+      string: '[{"component_state":"PENDING_CREATION","name":"FlashSystems/SVC","short_version":"1","uuid":"c708e81d-7d41-4cb9-9846-06268fdc3557","version":"1.1"},{"component_state":"PENDING_CREATION","name":"xiv","short_version":"1","uuid":"61f063b0-17e2-4087-9571-435731821f78","version":"1.1"}]'
     http_version:
   recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
 - request:
@@ -161,7 +161,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"component_state":"PENDING_CREATION","management_ip":"9.151.159.178","name":"svc-178","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"svc","short_version":"1","uuid":"c708e81d-7d41-4cb9-9846-06268fdc3557","version":"1.1"},"uuid":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2"}]'
+      string: '[{"component_state":"PENDING_CREATION","management_ip":"9.151.159.178","name":"svc-178","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"FlashSystems/SVC","short_version":"1","uuid":"c708e81d-7d41-4cb9-9846-06268fdc3557","version":"1.1"},"uuid":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2"}]'
     http_version:
   recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
 - request:
