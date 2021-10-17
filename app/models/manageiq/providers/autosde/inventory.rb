@@ -9,4 +9,13 @@ class ManageIQ::Providers::Autosde::Inventory < ManageIQ::Providers::Inventory
   def self.default_manager_name
     "PhysicalInfraManager"
   end
+
+  def self.parser_classes_for(ems, target)
+    case target
+    when InventoryRefresh::TargetCollection
+      [ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager]
+    else
+      super
+    end
+  end
 end
