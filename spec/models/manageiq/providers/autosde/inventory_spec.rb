@@ -17,7 +17,7 @@ describe ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager do
     # expected that refresh will bring all components
     expect(ems.physical_storages).to_not(be_empty)
     expect(ems.physical_storage_families).to_not(be_empty)
-    expect(ems.physical_storages.first.physical_storage_family).to(eq(ems.physical_storage_families.find_by(:name=>'svc')))
+    expect(ems.physical_storages.first.physical_storage_family).to(eq(ems.physical_storage_families.find_by(:name=>'FlashSystems/SVC')))
 
     expect(ems.storage_resources).to_not(be_empty)
     expect(ems.storage_resources.first.physical_storage).to(eq(ems.physical_storages.first))
