@@ -15,6 +15,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     physical_storages
     storage_resources
     host_initiators
+    host_initiator_groups
     san_addresses
     storage_services
     cloud_volumes
@@ -82,13 +83,22 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   end
 
   def volume_mappings
-    collector.volume_mappings.each do |volume_mapping_hash|
+    collector.host_volume_mappings.each do |volume_mapping_hash|
       cloud_volume = volume_mapping_hash.delete(:volume_uuid)
       host_initiator = volume_mapping_hash.delete(:host_initiator_uuid)
       persister.volume_mappings.build(
         **volume_mapping_hash,
         :cloud_volume   => persister.cloud_volumes.lazy_find(cloud_volume),
         :host_initiator => persister.host_initiators.lazy_find(host_initiator)
+      )
+    end
+    collector.cluster_volume_mappings.each do |volume_mapping_hash|
+      cloud_volume = volume_mapping_hash.delete(:volume_uuid)
+      host_initiator_group = volume_mapping_hash.delete(:host_initiator_group_uuid)
+      persister.volume_mappings.build(
+        **volume_mapping_hash,
+        :cloud_volume         => persister.cloud_volumes.lazy_find(cloud_volume),
+        :host_initiator_group => persister.host_initiator_groups.lazy_find(host_initiator_group)
       )
     end
   end
@@ -117,6 +127,16 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :candidate        => candidate.wwpn,
         :ems_ref          => candidate.wwpn,
         :physical_storage => persister.physical_storages.lazy_find(candidate.system_uuid)
+      )
+    end
+  end
+
+  def host_initiator_groups
+    collector.host_initiator_groups.each do |group|
+      persister.host_initiator_groups.build(
+        # add more
+        :name    => group.name,
+        :ems_ref => group.uuid
       )
     end
   end

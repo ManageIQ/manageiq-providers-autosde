@@ -30,13 +30,26 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     @storage_hosts ||= @manager.autosde_client.StorageHostApi.storage_hosts_get
   end
 
-  def volume_mappings
-    @volume_mappings ||= @manager.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_get.map do |mapping|
+  def host_volume_mappings
+    @host_volume_mappings ||= @manager.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_get.map do
+    |mapping|
       {
         :lun                 => mapping.lun,
         :host_initiator_uuid => mapping.host,
         :volume_uuid         => mapping.volume,
-        :ems_ref             => mapping.uuid
+        :ems_ref             => mapping.uuid,
+      }
+    end
+  end
+
+  def cluster_volume_mappings
+    @cluster_volume_mappings ||= @manager.autosde_client.HostClusterVolumeMappingApi.host_clusters_mapping_get
+                                         .map do |mapping|
+      {
+        :lun                       => mapping.lun,
+        :host_initiator_group_uuid => mapping.cluster,
+        :volume_uuid               => mapping.volume,
+        :ems_ref                   => mapping.uuid,
       }
     end
   end
@@ -77,7 +90,12 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   end
 
   def wwpn_candidates
-    @wwpn_candidates ||= @manager.autosde_client.StorageHostWWPNCandidatesApi
-                                 .storage_hosts_wwpn_candidates_get
+    @wwpn_candidates ||= @manager.autosde_client.StorageHostWWPNCandidatesApi.storage_hosts_wwpn_candidates_get
+  end
+
+  def host_initiator_groups
+    @host_initiator_groups ||= @manager.autosde_client.HostClusterApi.host_clusters_get
+  rescue
+    @host_initiator_groups ||= @manager.autosde_client.HostClusterMembershipApi.host_clusters_get
   end
 end

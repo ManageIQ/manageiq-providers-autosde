@@ -5,10 +5,10 @@ http_interactions:
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth
     body:
       encoding: UTF-8
-      string: '{"password":"<password>","username":"<username>"}'
+      string: '{"password":"<password>","username":"autosde"}'
     headers:
       User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
+      - OpenAPI-Generator/1.0.2/ruby
       Content-Type:
       - application/json
       Accept:
@@ -21,9 +21,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 07 Jan 2021 09:35:15 GMT
+      - Mon, 25 Oct 2021 09:51:27 GMT
       Server:
-      - gunicorn/19.9.0
+      - WSGIServer/0.2 CPython/3.7.3
       Content-Type:
       - application/json
       Allow:
@@ -32,13 +32,17 @@ http_interactions:
       - Accept
       X-Frame-Options:
       - SAMEORIGIN
-      Transfer-Encoding:
-      - chunked
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
     body:
-      encoding: UTF-8
-      string: '{"token":"b7eb9b69b518d2dae9656660f1789f199921c65f"}'
-    http_version:
-  recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
+      encoding: ASCII-8BIT
+      string: '{"token":"fdf68692f2a4c981b946a651363d96cddd711999"}'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:27 GMT
 - request:
     method: get
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/system-types
@@ -47,13 +51,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
+      - OpenAPI-Generator/1.0.2/ruby
       Content-Type:
       - application/json
       Accept:
       - "*/*"
       Authorization:
-      - Bearer b7eb9b69b518d2dae9656660f1789f199921c65f
+      - Bearer fdf68692f2a4c981b946a651363d96cddd711999
       Expect:
       - ''
   response:
@@ -62,9 +66,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 07 Jan 2021 09:35:15 GMT
+      - Mon, 25 Oct 2021 09:51:27 GMT
       Server:
-      - gunicorn/19.9.0
+      - WSGIServer/0.2 CPython/3.7.3
       Content-Type:
       - application/json
       Vary:
@@ -73,56 +77,17 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
-      Transfer-Encoding:
-      - chunked
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
     body:
-      encoding: UTF-8
-      string: '[{"component_state":"PENDING_CREATION","name":"FlashSystems/SVC","short_version":"1","uuid":"c708e81d-7d41-4cb9-9846-06268fdc3557","version":"1.1"},{"component_state":"PENDING_CREATION","name":"xiv","short_version":"1","uuid":"61f063b0-17e2-4087-9571-435731821f78","version":"1.1"}]'
-    http_version:
-  recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
-- request:
-    method: get
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-hosts-mapping
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-        - OpenAPI-Generator/1.0.0/ruby
-      Content-Type:
-        - application/json
-      Accept:
-        - "*/*"
-      Authorization:
-        - Bearer b7eb9b69b518d2dae9656660f1789f199921c65f
-      Expect:
-        - ''
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-        - Thu, 07 Jan 2021 09:35:15 GMT
-      Server:
-        - gunicorn/19.9.0
-      Content-Type:
-        - application/json
-      Vary:
-        - Accept
-      Allow:
-        - GET, POST, HEAD, OPTIONS
-      X-Frame-Options:
-        - SAMEORIGIN
-      Transfer-Encoding:
-        - chunked
-    body:
-      encoding: UTF-8
-      string: '[{"component_state": "PENDING_CREATION", "host": "3e3025b3-5ec6-4fa8-9bcd-7d854c875b4e", "lun": 0, "volume": "3706e734-6bc2-48c1-abd9-bb0189ad2a97", "uuid": "504e06cb-7172-487b-b874-49a226513ccf"}]'
-    http_version:
-  recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
-
-
+      encoding: ASCII-8BIT
+      string: '[{"component_state":"PENDING_CREATION","name":"FlashSystems/SVC","short_version":"11","uuid":"053446df-ed2b-4822-b9c5-386e85198519","version":"1.2"},{"component_state":"PENDING_CREATION","name":"xiv","short_version":"11","uuid":"123456","version":"1.11"}]'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:28 GMT
 - request:
     method: get
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems
@@ -131,13 +96,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
+      - OpenAPI-Generator/1.0.2/ruby
       Content-Type:
       - application/json
       Accept:
       - "*/*"
       Authorization:
-      - Bearer b7eb9b69b518d2dae9656660f1789f199921c65f
+      - Bearer fdf68692f2a4c981b946a651363d96cddd711999
       Expect:
       - ''
   response:
@@ -146,9 +111,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 07 Jan 2021 09:35:15 GMT
+      - Mon, 25 Oct 2021 09:51:28 GMT
       Server:
-      - gunicorn/19.9.0
+      - WSGIServer/0.2 CPython/3.7.3
       Content-Type:
       - application/json
       Vary:
@@ -157,13 +122,17 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
-      Transfer-Encoding:
-      - chunked
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
     body:
-      encoding: UTF-8
-      string: '[{"component_state":"PENDING_CREATION","management_ip":"9.151.159.178","name":"svc-178","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"FlashSystems/SVC","short_version":"1","uuid":"c708e81d-7d41-4cb9-9846-06268fdc3557","version":"1.1"},"uuid":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2"}]'
-    http_version:
-  recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
+      encoding: ASCII-8BIT
+      string: '[{"auto_add_pools":true,"component_state":"PENDING_CREATION","management_ip":"9.151.159.178","name":"9.151.159.178","status":"ONLINE","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"FlashSystems/SVC","short_version":"11","uuid":"053446df-ed2b-4822-b9c5-386e85198519","version":"1.2"},"uuid":"980f3ceb-c599-49c4-9db3-fdc793cb8666"}]'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:28 GMT
 - request:
     method: get
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-resources
@@ -172,13 +141,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
+      - OpenAPI-Generator/1.0.2/ruby
       Content-Type:
       - application/json
       Accept:
       - "*/*"
       Authorization:
-      - Bearer b7eb9b69b518d2dae9656660f1789f199921c65f
+      - Bearer fdf68692f2a4c981b946a651363d96cddd711999
       Expect:
       - ''
   response:
@@ -187,9 +156,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 07 Jan 2021 09:35:15 GMT
+      - Mon, 25 Oct 2021 09:51:29 GMT
       Server:
-      - gunicorn/19.9.0
+      - WSGIServer/0.2 CPython/3.7.3
       Content-Type:
       - application/json
       Vary:
@@ -198,13 +167,17 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
-      Transfer-Encoding:
-      - chunked
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
     body:
-      encoding: UTF-8
-      string: '[{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":589484261376,"logical_total":600221679616,"name":"svc-178:felixnu_test_pool","pool_name":"felixnu_test_pool","protocol":"fc","storage_system":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2","uuid":"f9eee971-95a3-4626-81a5-fbae257e1971","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":591631745024,"logical_total":601295421440,"name":"svc-178:demo_test_pool","pool_name":"demo_test_pool","protocol":"fc","storage_system":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2","uuid":"0c4c1baa-3760-40c9-9815-3c14a29a83f4","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":593779228672,"logical_total":601295421440,"name":"svc-178:liranl_test_pool","pool_name":"liranl_test_pool","protocol":"fc","storage_system":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2","uuid":"68d7003c-6c50-4436-aaab-2d2281938fa7","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":600221679616,"logical_total":601295421440,"name":"svc-178:gregoryb_test_pool","pool_name":"gregoryb_test_pool","protocol":"fc","storage_system":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2","uuid":"0cd7a247-e57c-4f62-9518-574436be540a","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":601295421440,"logical_total":601295421440,"name":"svc-178:erezt_test_pool","pool_name":"erezt_test_pool","protocol":"fc","storage_system":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2","uuid":"e825ca4e-6d60-46cd-a06f-d67def08abff","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":585189294080,"logical_total":600221679616,"name":"svc-178:borisko_test_pool","pool_name":"borisko_test_pool","protocol":"fc","storage_system":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2","uuid":"87877f6e-cc33-46bc-9919-7ec5de875891","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":590558003200,"logical_total":600221679616,"name":"svc-178:ilyak_test_pool","pool_name":"ilyak_test_pool","protocol":"fc","storage_system":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2","uuid":"08024d17-a89f-4284-a71f-4a24fbbc08f5","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":600221679616,"logical_total":601295421440,"name":"svc-178:erantz_test_pool","pool_name":"erantz_test_pool","protocol":"fc","storage_system":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2","uuid":"2745562f-b478-41f9-b31f-d9ef33bb2d25","abstract_capability_values":{},"replication_target_resource":null}]'
-    http_version:
-  recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
+      encoding: ASCII-8BIT
+      string: '[{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":601295421440,"logical_total":0,"name":"9.151.159.178:ilyak_test_pool","pool_name":"ilyak_test_pool","protocol":"fc","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"e6833c27-374b-4a4a-8d76-455cfe5f4270","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":600221679616,"logical_total":0,"name":"9.151.159.178:liranl_test_pool","pool_name":"liranl_test_pool","protocol":"fc","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"990449ba-614e-4b10-82d7-e1b41280309d","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":601295421440,"logical_total":0,"name":"9.151.159.178:demo_test_pool","pool_name":"demo_test_pool","protocol":"fc","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"ef48e37b-5b49-4af7-a284-ea40d470b402","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":601295421440,"logical_total":0,"name":"9.151.159.178:lohit_test_pool","pool_name":"lohit_test_pool","protocol":"fc","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"1cf5bc7a-3809-401d-92bd-cab7806616c8","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":598074195968,"logical_total":0,"name":"9.151.159.178:felixnu_test_pool","pool_name":"felixnu_test_pool","protocol":"fc","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"d40d2c7c-99d9-4971-98b2-2c9f1b8199c0","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":585189294080,"logical_total":600221679616,"name":"9.151.159.178:borisko_test_pool","pool_name":"borisko_test_pool","protocol":"fc","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"0a10636f-c204-4ae1-a370-f0ee850b80af","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":600221679616,"logical_total":0,"name":"9.151.159.178:erezt_test_pool","pool_name":"erezt_test_pool","protocol":"fc","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"2d685f09-7a11-427d-8bb3-539f3286496b","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":595926712320,"logical_total":0,"name":"9.151.159.178:gregoryb_test_pool","pool_name":"gregoryb_test_pool","protocol":"fc","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"b35f4df5-d59c-4b59-8ccd-7ddcf2901c00","abstract_capability_values":{},"replication_target_resource":null}]'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:29 GMT
 - request:
     method: get
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-hosts
@@ -213,13 +186,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
+      - OpenAPI-Generator/1.0.2/ruby
       Content-Type:
       - application/json
       Accept:
       - "*/*"
       Authorization:
-      - Bearer b7eb9b69b518d2dae9656660f1789f199921c65f
+      - Bearer fdf68692f2a4c981b946a651363d96cddd711999
       Expect:
       - ''
   response:
@@ -228,9 +201,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 07 Jan 2021 09:35:15 GMT
+      - Mon, 25 Oct 2021 09:51:30 GMT
       Server:
-      - gunicorn/19.9.0
+      - WSGIServer/0.2 CPython/3.7.3
       Content-Type:
       - application/json
       Vary:
@@ -239,13 +212,62 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
-      Transfer-Encoding:
-      - chunked
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
     body:
-      encoding: UTF-8
-      string: '[{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":"iqnliran123","port_type":"ISCSI","secondary_ip":null,"uuid":"3e3025b3-5ec6-4fa8-9bcd-7d854c875b4e","wwpn":null}],"component_state":"PENDING_CREATION","description":null,"io_groups":null,"name":"my_host","storage_system":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2","uuid":"edeedd08-5a1f-40d3-970c-26dccad4aa70","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":"iqn-dummy1","port_type":"ISCSI","secondary_ip":null,"uuid":"f7520568-4280-476c-81a3-979e1854ec92","wwpn":null}],"component_state":"PENDING_CREATION","description":null,"io_groups":null,"name":"host-dummy","storage_system":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2","uuid":"45ca36ce-9b48-4513-ab9f-d372cf391fe8","volumes":[]}]'
-    http_version:
-  recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
+      encoding: ASCII-8BIT
+      string: '[{"addresses":[{"chap_name":"","chap_secret":"","component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"e46a8acc-bae8-41b5-b29f-b5246d246116","wwpn":"2121212121212188"},{"chap_name":"","chap_secret":"","component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"1fafa153-366b-4a99-a4a0-6d8f527302f2","wwpn":"2121212121212155"},{"chap_name":"","chap_secret":"","component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"a71135df-9a3c-49e1-95aa-7d04b94de9b8","wwpn":"2121212121212120"}],"component_state":"CREATED","description":null,"host_cluster_name":"bk-cluster1","io_groups":null,"name":"bk-host1-renamed","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"f80e97cf-97fc-4a40-9ec8-1f37454654fc","volumes":[{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol0-edit","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":10,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"ac287c2d-1776-48a3-a5c9-06327f4a57c4"},{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol1","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":1,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"ae332deb-aa1f-48ff-bc43-56c46ad48b46"},{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol2","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":1,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"6e4b03c9-6da8-4e71-a44e-bedc08ed19d1"}]},{"addresses":[{"chap_name":"","chap_secret":"","component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"c4b442d3-8278-4983-973a-1b11e59b7043","wwpn":"2121212121212121"}],"component_state":"CREATED","description":null,"host_cluster_name":"bk-cluster2","io_groups":null,"name":"bk-host2","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"10e8d254-05d9-40dd-9da0-80d65cd0c284","volumes":[{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol1","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":1,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"ae332deb-aa1f-48ff-bc43-56c46ad48b46"}]},{"addresses":[{"chap_name":"","chap_secret":"","component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"a1191249-16bd-4fdc-81a0-5d840a208f2d","wwpn":"2121212121212130"}],"component_state":"CREATED","description":null,"host_cluster_name":"bk-cluster4","io_groups":null,"name":"bk-host3","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"00bad681-1dd8-4ed5-87b7-818ac9876bcf","volumes":[{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol4","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":2,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"61767350-2f96-4e5c-b444-b74f2b2f5ed7"}]},{"addresses":[{"chap_name":"","chap_secret":"","component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"c9f3203f-b2c9-4a37-81ec-065f831b11a0","wwpn":"2121212121212111"},{"chap_name":"","chap_secret":"","component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"2f0256cc-242b-4347-aa1a-eb2759f98eda","wwpn":"2121212121212110"}],"component_state":"CREATED","description":null,"host_cluster_name":"","io_groups":null,"name":"bk-host4","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"cbc4dd7d-0808-4755-aec7-c04e75779769","volumes":[]},{"addresses":[{"chap_name":"","chap_secret":"","component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"1876ab53-1d01-4e45-b41b-14cfebb37e38","wwpn":"2121212121212101"},{"chap_name":"","chap_secret":"","component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"f57500eb-3e70-4019-bda0-16365189dd82","wwpn":"2121212121212100"}],"component_state":"CREATED","description":null,"host_cluster_name":"","io_groups":null,"name":"bk-host-02-09-renamed","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"0fc91024-3769-4b9a-8cbf-8a94911fef7f","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":"cli-iqn1","port_type":"ISCSI","secondary_ip":null,"uuid":"d9c30b6c-526d-4f79-9cdf-20e3babded5f","wwpn":null}],"component_state":"CREATED","description":null,"host_cluster_name":"","io_groups":null,"name":"cli-host1","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"d77adf98-fbf1-44a5-a41b-6234bcc131ba","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":"cli-iqn12","port_type":"ISCSI","secondary_ip":null,"uuid":"f2fe8a15-7ce3-44be-8036-bc1c39a23606","wwpn":null}],"component_state":"CREATED","description":null,"host_cluster_name":"","io_groups":null,"name":"cli-wwpn1","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"298e8058-6bfd-4abe-88c4-cb2d6fe32ef3","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":"cli-iqn3","port_type":"ISCSI","secondary_ip":null,"uuid":"623d32ce-26a7-41bf-aa7c-53b09c45ad83","wwpn":null}],"component_state":"CREATED","description":null,"host_cluster_name":"","io_groups":null,"name":"cli-wwpn2","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"37e7d6e5-babc-4e89-8bd0-13f3442a42f8","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":"gui-iqn123","port_type":"ISCSI","secondary_ip":null,"uuid":"75355fd9-7714-42e6-9340-c6cdb8ffce6f","wwpn":null}],"component_state":"CREATED","description":null,"host_cluster_name":"","io_groups":null,"name":"gui-host1","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"a6cd6e05-7e46-4db5-b85d-0f5040bdb6c6","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"5b35cab7-2253-43b3-ad5a-626e387ad2ee","wwpn":"2121212121212177"}],"component_state":"CREATED","description":null,"host_cluster_name":"bk-cluster1","io_groups":null,"name":"fake-host","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"0a460ad9-e6e7-486a-a34e-7a5d946c9d00","volumes":[{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol0-edit","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":10,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"ac287c2d-1776-48a3-a5c9-06327f4a57c4"},{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol1","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":1,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"ae332deb-aa1f-48ff-bc43-56c46ad48b46"}]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"d2caff58-991c-451f-a52e-b44818832ec7","wwpn":"2121212121212175"}],"component_state":"CREATED","description":null,"host_cluster_name":"","io_groups":null,"name":"liran_2209_4","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"fefb881e-aff5-49c9-ab69-c82f2dfb7bb6","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"13736870-940a-41b3-8e73-0d54635fe771","wwpn":"2121212121212178"},{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"e7e8f6bb-899a-4c70-8b8f-0c647142d0a8","wwpn":"2121212121212176"}],"component_state":"CREATED","description":null,"host_cluster_name":"","io_groups":null,"name":"liran_2209_5","status":"offline","storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"abcd77b0-1202-43b4-bbc1-33e73146f10c","volumes":[]}]'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:30 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/host-clusters
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.2/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer fdf68692f2a4c981b946a651363d96cddd711999
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 25 Oct 2021 09:51:31 GMT
+      Server:
+      - WSGIServer/0.2 CPython/3.7.3
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"component_state":"CREATED","name":"bk-cluster1","owner_id":"","owner_name":"","protocol":"scsi","status":null,"storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"856146bb-4fe3-4d8f-b442-49a2dd80dd96","volumes":[]},{"component_state":"CREATED","name":"bk-cluster2","owner_id":"","owner_name":"","protocol":"scsi","status":null,"storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"af87e40a-b4e3-44a5-95a5-b0c78c0c8ce4","volumes":[]},{"component_state":"CREATED","name":"bk-cluster3","owner_id":"","owner_name":"","protocol":"","status":null,"storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"b4633403-4961-4fa2-8ba5-4ba3808c728b","volumes":[]},{"component_state":"CREATED","name":"bk-cluster4","owner_id":null,"owner_name":null,"protocol":null,"status":null,"storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"db5b9911-4f03-43ad-9e13-8ab0de09226c","volumes":[18]},{"component_state":"CREATED","name":"bk-cluster5","owner_id":"","owner_name":"","protocol":"","status":null,"storage_system":"980f3ceb-c599-49c4-9db3-fdc793cb8666","uuid":"af5ff73b-3b2e-46e4-ac37-cc59bf3ca1e1","volumes":[]}]'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:31 GMT
 - request:
     method: get
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/services
@@ -254,13 +276,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
+      - OpenAPI-Generator/1.0.2/ruby
       Content-Type:
       - application/json
       Accept:
       - "*/*"
       Authorization:
-      - Bearer b7eb9b69b518d2dae9656660f1789f199921c65f
+      - Bearer fdf68692f2a4c981b946a651363d96cddd711999
       Expect:
       - ''
   response:
@@ -269,9 +291,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 07 Jan 2021 09:35:15 GMT
+      - Mon, 25 Oct 2021 09:51:32 GMT
       Server:
-      - gunicorn/19.9.0
+      - WSGIServer/0.2 CPython/3.7.3
       Content-Type:
       - application/json
       Vary:
@@ -280,13 +302,17 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
-      Transfer-Encoding:
-      - chunked
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
     body:
-      encoding: UTF-8
-      string: '[{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc-178:erantz_test_pool","profile":"80b21e7c-570a-4355-9b30-06bd38bb60f2","project":"7756291c-a5b7-4335-baf3-1d2da39713de","provisioning_strategy":null,"resource_service":true,"uuid":"2dbdcbf3-3870-4b88-83f7-45d6e70b3db3","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc-178:felixnu_test_pool","profile":"80b21e7c-570a-4355-9b30-06bd38bb60f2","project":"7756291c-a5b7-4335-baf3-1d2da39713de","provisioning_strategy":null,"resource_service":true,"uuid":"b4f5115c-85b5-4990-bae9-72c7d2fb5020","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc-178:demo_test_pool","profile":"80b21e7c-570a-4355-9b30-06bd38bb60f2","project":"7756291c-a5b7-4335-baf3-1d2da39713de","provisioning_strategy":null,"resource_service":true,"uuid":"9164c7c9-fd24-4faa-9805-fc7f39eca6da","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc-178:liranl_test_pool","profile":"80b21e7c-570a-4355-9b30-06bd38bb60f2","project":"7756291c-a5b7-4335-baf3-1d2da39713de","provisioning_strategy":null,"resource_service":true,"uuid":"811e10ef-7dac-4a2e-b169-adead84b002d","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc-178:gregoryb_test_pool","profile":"80b21e7c-570a-4355-9b30-06bd38bb60f2","project":"7756291c-a5b7-4335-baf3-1d2da39713de","provisioning_strategy":null,"resource_service":true,"uuid":"b24bb9a7-d47e-4de6-b832-830bd004b613","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc-178:erezt_test_pool","profile":"80b21e7c-570a-4355-9b30-06bd38bb60f2","project":"7756291c-a5b7-4335-baf3-1d2da39713de","provisioning_strategy":null,"resource_service":true,"uuid":"1546768a-db04-494e-b4e5-04e3d404f3a5","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc-178:borisko_test_pool","profile":"80b21e7c-570a-4355-9b30-06bd38bb60f2","project":"7756291c-a5b7-4335-baf3-1d2da39713de","provisioning_strategy":null,"resource_service":true,"uuid":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"svc-178:ilyak_test_pool","profile":"80b21e7c-570a-4355-9b30-06bd38bb60f2","project":"7756291c-a5b7-4335-baf3-1d2da39713de","provisioning_strategy":null,"resource_service":true,"uuid":"3921ec61-02ad-495d-b48f-a4fe649866c1","version":1}]'
-    http_version:
-  recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
+      encoding: ASCII-8BIT
+      string: '[{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"9.151.159.178:borisko_test_pool","profile":"f9926ea3-91d0-4cb8-98fb-7fe9dd56624b","project":"b0307441-6dd8-4a2d-8ed3-530bacfaf529","provisioning_strategy":null,"resource_service":true,"uuid":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"9.151.159.178:erezt_test_pool","profile":"f9926ea3-91d0-4cb8-98fb-7fe9dd56624b","project":"b0307441-6dd8-4a2d-8ed3-530bacfaf529","provisioning_strategy":null,"resource_service":true,"uuid":"f39f0d98-9fca-4cf7-8fd1-6de648ea45c1","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"9.151.159.178:felixnu_test_pool","profile":"f9926ea3-91d0-4cb8-98fb-7fe9dd56624b","project":"b0307441-6dd8-4a2d-8ed3-530bacfaf529","provisioning_strategy":null,"resource_service":true,"uuid":"0fb97e55-393b-47e8-8de1-161befec98dc","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"9.151.159.178:gregoryb_test_pool","profile":"f9926ea3-91d0-4cb8-98fb-7fe9dd56624b","project":"b0307441-6dd8-4a2d-8ed3-530bacfaf529","provisioning_strategy":null,"resource_service":true,"uuid":"93cf92eb-a64c-497e-bd1c-9502aac25179","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"9.151.159.178:ilyak_test_pool","profile":"f9926ea3-91d0-4cb8-98fb-7fe9dd56624b","project":"b0307441-6dd8-4a2d-8ed3-530bacfaf529","provisioning_strategy":null,"resource_service":true,"uuid":"faee8ec7-4935-4bf9-94ee-0a84cec9a7d7","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"9.151.159.178:liranl_test_pool","profile":"f9926ea3-91d0-4cb8-98fb-7fe9dd56624b","project":"b0307441-6dd8-4a2d-8ed3-530bacfaf529","provisioning_strategy":null,"resource_service":true,"uuid":"f3302a38-cbc4-4d45-8494-836bde00ff38","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service","name":"9.151.159.178:demo_test_pool","profile":"f9926ea3-91d0-4cb8-98fb-7fe9dd56624b","project":"b0307441-6dd8-4a2d-8ed3-530bacfaf529","provisioning_strategy":null,"resource_service":true,"uuid":"2db996ef-6f5d-46b6-b3f5-e31b3f29b9d7","version":1}]'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:32 GMT
 - request:
     method: get
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/volumes
@@ -295,13 +321,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
+      - OpenAPI-Generator/1.0.2/ruby
       Content-Type:
       - application/json
       Accept:
       - "*/*"
       Authorization:
-      - Bearer b7eb9b69b518d2dae9656660f1789f199921c65f
+      - Bearer fdf68692f2a4c981b946a651363d96cddd711999
       Expect:
       - ''
   response:
@@ -310,9 +336,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 07 Jan 2021 09:35:16 GMT
+      - Mon, 25 Oct 2021 09:51:33 GMT
       Server:
-      - gunicorn/19.9.0
+      - WSGIServer/0.2 CPython/3.7.3
       Content-Type:
       - application/json
       Vary:
@@ -321,13 +347,107 @@ http_interactions:
       - GET, POST, HEAD, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
-      Transfer-Encoding:
-      - chunked
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
     body:
-      encoding: UTF-8
-      string: '[{"compliant":true,"component_state":"CREATED","historical_service":2,"name":"vol1_eran","service":"2dbdcbf3-3870-4b88-83f7-45d6e70b3db3","size":17,"storage_resource":"2745562f-b478-41f9-b31f-d9ef33bb2d25","uuid":"3706e734-6bc2-48c1-abd9-bb0189ad2a97"},{"compliant":true,"component_state":"CREATED","historical_service":3,"name":"vdisk0","service":"b4f5115c-85b5-4990-bae9-72c7d2fb5020","size":10,"storage_resource":"f9eee971-95a3-4626-81a5-fbae257e1971","uuid":"4d0f7d12-8a54-4bf8-bd53-74a2df225282"},{"compliant":true,"component_state":"CREATED","historical_service":4,"name":"tan-llama","service":"9164c7c9-fd24-4faa-9805-fc7f39eca6da","size":13,"storage_resource":"0c4c1baa-3760-40c9-9815-3c14a29a83f4","uuid":"2b96b84d-16df-4d3a-b5ba-28f3499756ee"},{"compliant":true,"component_state":"CREATED","historical_service":4,"name":"cyber-oxpecker","service":"9164c7c9-fd24-4faa-9805-fc7f39eca6da","size":10,"storage_resource":"0c4c1baa-3760-40c9-9815-3c14a29a83f4","uuid":"1f1a63d2-d93b-4664-b353-a8f80f2ad63f"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"new-volume-name-new","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":6,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"b216407d-9e15-4859-8013-aa083e6d7dfc"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"bla22","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":1,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"9ba21058-5917-4eae-9d1f-57d0513a3dc6"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"bibi","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":1,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"7a2b2461-ff6f-42d5-9967-2711ffddfd3b"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"bla-ccc","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":1,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"1a01f370-ba52-4747-b89d-004302dd51b4"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"testbbb","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":2,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"8117d88a-9b1b-49e3-a776-5b352d63d23b"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"liran123","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":8,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"070138e6-e2ba-4efc-9c47-5f765837fb3b"},{"compliant":true,"component_state":"CREATED","historical_service":5,"name":"test456","service":"811e10ef-7dac-4a2e-b169-adead84b002d","size":3,"storage_resource":"68d7003c-6c50-4436-aaab-2d2281938fa7","uuid":"9849ea4f-b6f9-4f0e-86a1-695035529113"},{"compliant":true,"component_state":"CREATED","historical_service":6,"name":"red-herring","service":"b24bb9a7-d47e-4de6-b832-830bd004b613","size":12,"storage_resource":"0cd7a247-e57c-4f62-9518-574436be540a","uuid":"4de07e78-3623-478a-9ae9-69ded757a5d3"},{"compliant":true,"component_state":"CREATED","historical_service":8,"name":"volume-bk-05-07-14-45","service":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","size":10,"storage_resource":"87877f6e-cc33-46bc-9919-7ec5de875891","uuid":"c97e2f4d-94d4-442c-ad21-d5f70d9fac4e"},{"compliant":true,"component_state":"CREATED","historical_service":8,"name":"boris_vol_1","service":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","size":10,"storage_resource":"87877f6e-cc33-46bc-9919-7ec5de875891","uuid":"0603b19b-05e7-46bc-b471-5e9315ff4e53"},{"compliant":true,"component_state":"CREATED","historical_service":8,"name":"volume-bk-05-07-14-44","service":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","size":10,"storage_resource":"87877f6e-cc33-46bc-9919-7ec5de875891","uuid":"e9c764a1-a127-4f31-b870-2ea7409c8dd0"},{"compliant":true,"component_state":"CREATED","historical_service":8,"name":"volume-bk-25-11-1","service":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","size":10,"storage_resource":"87877f6e-cc33-46bc-9919-7ec5de875891","uuid":"7da729ed-4c31-4e53-bb70-0dbb45234946"},{"compliant":true,"component_state":"CREATED","historical_service":8,"name":"volume-bk-08-12","service":"da2a9c0b-4d16-4e10-a8d3-a687aeb5327f","size":10,"storage_resource":"87877f6e-cc33-46bc-9919-7ec5de875891","uuid":"435707a7-8335-4ced-888e-06a2e7d42415"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"il1910_2","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"03f350c4-515a-478f-aa90-f9ed79b182f5"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"v1","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"79c11b99-a2cb-43f4-840b-8b028b2980dc"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"v3","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"7507511a-e5e3-4b43-8380-22c6096fcbca"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"v4","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"326cc976-8200-4c85-932c-848a0e94cb63"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"vol_1_11","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"d01f4e59-4218-426a-83f2-c5a2eac7b027"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"vol22_11","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"fc0059e9-49c4-4dc5-a905-bb0d87bc0d2c"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"v11_1","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"4826bcec-4cba-4729-9cee-43a6c321365a"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"vvvvv","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"e628ce0f-6515-4c1f-8cf2-108c851db2bd"},{"compliant":true,"component_state":"CREATED","historical_service":9,"name":"v11_1_2","service":"3921ec61-02ad-495d-b48f-a4fe649866c1","size":1,"storage_resource":"08024d17-a89f-4284-a71f-4a24fbbc08f5","uuid":"a00fa497-2002-461a-9289-0326d8b5c581"}]'
-    http_version:
-  recorded_at: Thu, 07 Jan 2021 09:35:16 GMT
+      encoding: ASCII-8BIT
+      string: '[{"compliant":true,"component_state":"CREATED","historical_service":14,"name":"asdf","service":"93cf92eb-a64c-497e-bd1c-9502aac25179","size":1,"status":"online","storage_resource":"b35f4df5-d59c-4b59-8ccd-7ddcf2901c00","unmapped_since":null,"uuid":"5172e7ba-c22e-405d-9380-0b83c6873657"},{"compliant":true,"component_state":"CREATED","historical_service":14,"name":"crabby","service":"93cf92eb-a64c-497e-bd1c-9502aac25179","size":1,"status":"online","storage_resource":"b35f4df5-d59c-4b59-8ccd-7ddcf2901c00","unmapped_since":null,"uuid":"fcf48b27-7861-432c-91e9-4c44b76861f0"},{"compliant":true,"component_state":"CREATED","historical_service":14,"name":"greg0","service":"93cf92eb-a64c-497e-bd1c-9502aac25179","size":2,"status":"online","storage_resource":"b35f4df5-d59c-4b59-8ccd-7ddcf2901c00","unmapped_since":null,"uuid":"4b7ee039-4910-4f18-be96-e98c3f4d70a8"},{"compliant":true,"component_state":"CREATED","historical_service":14,"name":"greg1","service":"93cf92eb-a64c-497e-bd1c-9502aac25179","size":2,"status":"online","storage_resource":"b35f4df5-d59c-4b59-8ccd-7ddcf2901c00","unmapped_since":null,"uuid":"1e243a2a-cdb2-4a9b-958d-a1f14747e7a4"},{"compliant":true,"component_state":"CREATED","historical_service":14,"name":"greg2","service":"93cf92eb-a64c-497e-bd1c-9502aac25179","size":2,"status":"online","storage_resource":"b35f4df5-d59c-4b59-8ccd-7ddcf2901c00","unmapped_since":null,"uuid":"23dac0a5-7f67-4e07-9356-e1d2ba19bc2e"},{"compliant":true,"component_state":"PENDING_DELETION","historical_service":16,"name":"liran-vol0","service":"f3302a38-cbc4-4d45-8494-836bde00ff38","size":4,"status":"online","storage_resource":"990449ba-614e-4b10-82d7-e1b41280309d","unmapped_since":null,"uuid":"5790e94d-fb80-48db-a25f-5c87f6f570af"},{"compliant":true,"component_state":"PENDING_DELETION","historical_service":13,"name":"felix1122","service":"0fb97e55-393b-47e8-8de1-161befec98dc","size":10,"status":"online","storage_resource":"d40d2c7c-99d9-4971-98b2-2c9f1b8199c0","unmapped_since":null,"uuid":"89acac26-dbae-4aa6-9e7c-c07c0d42d88f"},{"compliant":true,"component_state":"PENDING_DELETION","historical_service":13,"name":"felixtest22","service":"0fb97e55-393b-47e8-8de1-161befec98dc","size":11,"status":"online","storage_resource":"d40d2c7c-99d9-4971-98b2-2c9f1b8199c0","unmapped_since":null,"uuid":"acd8be30-fb7f-4cac-916c-9c228a0a9f3d"},{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol0-edit","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":10,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"ac287c2d-1776-48a3-a5c9-06327f4a57c4"},{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol1","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":1,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"ae332deb-aa1f-48ff-bc43-56c46ad48b46"},{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol2","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":1,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"6e4b03c9-6da8-4e71-a44e-bedc08ed19d1"},{"compliant":true,"component_state":"PENDING_DELETION","historical_service":11,"name":"bk-vol4","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":2,"status":"online","storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"61767350-2f96-4e5c-b444-b74f2b2f5ed7"},{"compliant":true,"component_state":"CREATED","historical_service":11,"name":"bk-for-report","service":"774c1fd8-43e6-4bb2-8466-d5d1c1d992d6","size":1,"status":null,"storage_resource":"0a10636f-c204-4ae1-a370-f0ee850b80af","unmapped_since":null,"uuid":"1fa35995-2fc7-4730-842d-7bbbc10e0d7b"}]'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:33 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-hosts-mapping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.2/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer fdf68692f2a4c981b946a651363d96cddd711999
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 25 Oct 2021 09:51:34 GMT
+      Server:
+      - WSGIServer/0.2 CPython/3.7.3
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"component_state":"CREATED","host":"10e8d254-05d9-40dd-9da0-80d65cd0c284","lun":100,"uuid":"4c9dac0d-d972-4020-8f14-40df08c9968c","volume":"ae332deb-aa1f-48ff-bc43-56c46ad48b46"},{"component_state":"CREATED","host":"00bad681-1dd8-4ed5-87b7-818ac9876bcf","lun":0,"uuid":"9523ccf8-6037-4a08-807b-7de6fd18603a","volume":"61767350-2f96-4e5c-b444-b74f2b2f5ed7"},{"component_state":"CREATED","host":"f80e97cf-97fc-4a40-9ec8-1f37454654fc","lun":0,"uuid":"bf75aef0-d16b-4159-b3f7-d3e61cbb3251","volume":"ac287c2d-1776-48a3-a5c9-06327f4a57c4"},{"component_state":"CREATED","host":"f80e97cf-97fc-4a40-9ec8-1f37454654fc","lun":0,"uuid":"496b7faa-8942-4ffc-9347-d3df0d551bf7","volume":"ae332deb-aa1f-48ff-bc43-56c46ad48b46"},{"component_state":"CREATED","host":"f80e97cf-97fc-4a40-9ec8-1f37454654fc","lun":0,"uuid":"ec9d1109-eb71-4bcd-aba9-bbd3a181f322","volume":"6e4b03c9-6da8-4e71-a44e-bedc08ed19d1"},{"component_state":"CREATED","host":"0a460ad9-e6e7-486a-a34e-7a5d946c9d00","lun":0,"uuid":"c40bcd2b-7158-4381-8e35-1ada327d8fda","volume":"ac287c2d-1776-48a3-a5c9-06327f4a57c4"},{"component_state":"CREATED","host":"0a460ad9-e6e7-486a-a34e-7a5d946c9d00","lun":0,"uuid":"16e47d60-7072-4c7c-ad43-3924ec4fe50d","volume":"ae332deb-aa1f-48ff-bc43-56c46ad48b46"}]'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:34 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/host-clusters-mapping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.2/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer fdf68692f2a4c981b946a651363d96cddd711999
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 25 Oct 2021 09:51:46 GMT
+      Server:
+      - WSGIServer/0.2 CPython/3.7.3
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"cluster":"db5b9911-4f03-43ad-9e13-8ab0de09226c","component_state":"CREATED","lun":0,"uuid":"3a0700b4-3f8d-4f29-8330-af16cbc9f34b","volume":"61767350-2f96-4e5c-b444-b74f2b2f5ed7"}]'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:46 GMT
 - request:
     method: get
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-hosts-wwpn-candidates
@@ -342,7 +462,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer 2c8d17b4802c9766cf8bde0a1d36294a21a57da7
+      - Bearer fdf68692f2a4c981b946a651363d96cddd711999
       Expect:
       - ''
   response:
@@ -351,7 +471,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 31 Jul 2021 11:55:39 GMT
+      - Mon, 25 Oct 2021 09:51:49 GMT
       Server:
       - WSGIServer/0.2 CPython/3.7.3
       Content-Type:
@@ -359,13 +479,19 @@ http_interactions:
       Vary:
       - Accept
       Allow:
-      - GET, POST, HEAD, OPTIONS
+      - GET, HEAD, OPTIONS
       X-Frame-Options:
       - SAMEORIGIN
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE
     body:
       encoding: ASCII-8BIT
       string: '[{"wwpn":"2100000E1EE89D90","system_uuid":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2"},
       {"wwpn":"2100000E1EE89D91","system_uuid":"a785c49a-2f3c-4e6d-8ace-879dfa1719a2"}]'
     http_version: null
-  recorded_at: Sat, 31 Jul 2021 11:50:22 GMT
+  recorded_at: Mon, 25 Oct 2021 09:51:49 GMT
 recorded_with: VCR 5.1.0
