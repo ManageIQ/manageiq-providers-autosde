@@ -10,12 +10,7 @@ class ManageIQ::Providers::Autosde::Inventory < ManageIQ::Providers::Inventory
     "PhysicalInfraManager"
   end
 
-  def self.parser_classes_for(ems, target)
-    case target
-    when InventoryRefresh::TargetCollection
-      [ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager]
-    else
-      super
-    end
+  def self.parser_class_for(_ems, _target = nil, _manager_name = nil)
+    ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager
   end
 end
