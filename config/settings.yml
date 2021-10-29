@@ -21,3 +21,4 @@
 :ems_refresh:
   :autosde:
     :refresh_interval: 15.minutes
+    :allow_targeted_refresh: true
