@@ -1,6 +1,6 @@
 # ManageIQ::Providers::Autosde
 
-[![Build Status](https://travis-ci.com/ManageIQ/manageiq-providers-autosde.svg?branch=master)](https://travis-ci.com/ManageIQ/manageiq-providers-autosde)
+[![Build Status](https://travis-ci.com/ManageIQ/manageiq-providers-autosde.svg?branch=master)](https://travis-ci.com/github/ManageIQ/manageiq-providers-autosde)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ed875a9a7610a4bbe31a/maintainability)](https://codeclimate.com/github/ManageIQ/manageiq-providers-autosde/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ed875a9a7610a4bbe31a/test_coverage)](https://codeclimate.com/github/ManageIQ/manageiq-providers-autosde/test_coverage)
 [![Security](https://hakiri.io/github/ManageIQ/manageiq-providers-autosde/master.svg)](https://hakiri.io/github/ManageIQ/manageiq-providers-autosde/master)
