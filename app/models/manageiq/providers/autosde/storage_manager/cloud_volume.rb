@@ -38,13 +38,13 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :size => options["size_GB"]
     )
     ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details)
-    EmsRefresh.queue_refresh(ems)
+    cloud_vol = ext_management_system.cloud_volumes.where(:ems_ref=>ems_ref).first
+    EmsRefresh.refresh(cloud_vol)
   end
 
   # ================ safe-delete ================
   def raw_safe_delete_volume
     ext_management_system.autosde_client.VolumeApi.volumes_safe_delete(ems_ref)
-
     EmsRefresh.queue_refresh(ext_management_system)
   end
 

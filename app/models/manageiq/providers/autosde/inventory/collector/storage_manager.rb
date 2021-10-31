@@ -4,7 +4,9 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   attr_accessor :manager
 
   def physical_storages
-    @physical_storages ||= @manager.autosde_client.StorageSystemApi.storage_systems_get.map do |system|
+    @physical_storages ||= @manager.autosde_client.StorageSystemApi.storage_systems_get.map
+
+    @physical_storages.map do |system|
       {
         :name             => system.name,
         :ems_ref          => system.uuid,
@@ -15,7 +17,9 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   end
 
   def storage_resources
-    @storage_resources ||= @manager.autosde_client.StorageResourceApi.storage_resources_get.map do |resource|
+    @storage_resources ||= @manager.autosde_client.StorageResourceApi.storage_resources_get.map
+
+    @storage_resources.map do |resource|
       {
         :name                => resource.name,
         :ems_ref             => resource.uuid,
@@ -31,7 +35,9 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   end
 
   def host_volume_mappings
-    @host_volume_mappings ||= @manager.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_get.map do |mapping|
+    @host_volume_mappings ||= @manager.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_get.map
+
+    @host_volume_mappings.map do |mapping|
       {
         :lun                 => mapping.lun,
         :host_initiator_uuid => mapping.host,
@@ -42,8 +48,9 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   end
 
   def cluster_volume_mappings
-    @cluster_volume_mappings ||= @manager.autosde_client.HostClusterVolumeMappingApi.host_clusters_mapping_get
-                                         .map do |mapping|
+    @cluster_volume_mappings ||= @manager.autosde_client.HostClusterVolumeMappingApi.host_clusters_mapping_get.map
+
+    @cluster_volume_mappings.map do |mapping|
       {
         :lun                       => mapping.lun,
         :host_initiator_group_uuid => mapping.cluster,
@@ -54,7 +61,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   end
 
   def cloud_volumes
-    @cloud_volumes ||= @manager.autosde_client.VolumeApi.volumes_get.map do |volume|
+    # Get all of the cloud volumes if specific cloud volumes were not set (e.g. with targeted refresh)
+    @cloud_volumes ||= @manager.autosde_client.VolumeApi.volumes_get.map
+
+    @cloud_volumes.map do |volume|
       {
         :name                  => volume.name,
         :size                  => volume.size * 1024 * 1024 * 1024,
@@ -68,7 +78,9 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   end
 
   def storage_services
-    @storage_services ||= @manager.autosde_client.ServiceApi.services_get.map do |service|
+    @storage_services ||= @manager.autosde_client.ServiceApi.services_get.map
+
+    @storage_services.map do |service|
       {
         :name        => service.name,
         :description => service.description,
@@ -79,7 +91,9 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   end
 
   def physical_storage_families
-    @physical_storage_families ||= @manager.autosde_client.SystemTypeApi.system_types_get.map do |system_type|
+    @physical_storage_families ||= @manager.autosde_client.SystemTypeApi.system_types_get.map
+
+    @physical_storage_families.map do |system_type|
       {
         :name    => system_type.name,
         :ems_ref => system_type.uuid,

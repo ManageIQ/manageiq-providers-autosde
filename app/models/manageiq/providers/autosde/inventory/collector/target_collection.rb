@@ -8,11 +8,23 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   def physical_storages
     return [] if references(:physical_storages).blank?
 
+    @physical_storages ||= begin
+      references(:physical_storages).map do |ems_ref|
+        @manager.autosde_client.StorageSystemApi.storage_systems_get.map{|s| s if s.uuid==ems_ref}.compact.first
+      end
+    end
+
     super
   end
 
   def storage_resources
     return [] if references(:storage_resources).blank?
+
+    @storage_resources ||= begin
+      references(:storage_resources).map do |ems_ref|
+        @manager.autosde_client.StorageResourceApi.storage_resources_get.map{|s| s if s.uuid==ems_ref}.compact.first
+      end
+    end
 
     super
   end
@@ -23,7 +35,13 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     super
   end
 
-  def volume_mappings
+  def host_volume_mappings
+    return [] if references(:volume_mappings).blank?
+
+    super
+  end
+
+  def cluster_volume_mappings
     return [] if references(:volume_mappings).blank?
 
     super
@@ -32,11 +50,24 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   def cloud_volumes
     return [] if references(:cloud_volumes).blank?
 
+    # Retrieve only the targeted volumes
+    @cloud_volumes ||= begin
+      references(:cloud_volumes).map do |ems_ref|
+        @manager.autosde_client.VolumeApi.volumes_get.map{|v| v if v.uuid==ems_ref}.compact.first
+      end
+    end
+
     super
   end
 
   def storage_services
     return [] if references(:storage_services).blank?
+
+    @storage_services ||= begin
+      references(:storage_services).map do |ems_ref|
+        @manager.autosde_client.ServiceApi.services_get.map{|s| s if s.uuid==ems_ref}.compact.first
+      end
+    end
 
     super
   end
@@ -44,11 +75,23 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   def physical_storage_families
     return [] if references(:physical_storage_families).blank?
 
+    @physical_storage_families ||= begin
+      references(:physical_storage_families).map do |ems_ref|
+        @manager.autosde_client.SystemTypeApi.system_types_get.map{|s| s if s.uuid==ems_ref}.compact.first
+      end
+    end
+
     super
   end
 
   def wwpn_candidates
     return [] if references(:wwpn_candidates).blank?
+
+    super
+  end
+
+  def host_initiator_groups
+    return [] if references(:host_initiator_groups).blank?
 
     super
   end
@@ -63,22 +106,19 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     # This gives us some flexibility in how we request a resource be refreshed.
     target.targets.each do |target|
       case target
-      when PhysicalStorageFamily
-        add_target(:physical_storage_families, target.ems_ref)
       when PhysicalStorage
         add_target(:physical_storages, target.ems_ref)
-      when StorageResource
-        add_target(:storage_resources, target.ems_ref)
-      when HostInitiator
-        add_target(:storage_hosts, target.ems_ref) # TODO [liran] - storage_hosts need to be renamed to host_initiators
-      when StorageService
-        add_target(:storage_services, target.ems_ref)
+        add_target(:physical_storage_families, PhysicalStorageFamily.find(id=target.physical_storage_family_id).ems_ref)
       when CloudVolume
+        storage_resource = StorageResource.find(id=target.storage_resource_id)
+        storage_service = StorageService.find(id=target.storage_service_id)
+        physical_storage = PhysicalStorage.find(id=storage_resource.physical_storage_id)
+        physical_storage_family = PhysicalStorageFamily.find(id=physical_storage.physical_storage_family_id)
         add_target(:cloud_volumes, target.ems_ref)
-      when VolumeMapping
-        add_target(:volume_mappings, target.ems_ref)
-      when WwpnCandidate
-        add_target(:wwpn_candidates, target.ems_ref)
+        add_target(:storage_resources, storage_resource.ems_ref)
+        add_target(:storage_services, storage_service.ems_ref)
+        add_target(:physical_storages, physical_storage.ems_ref)
+        add_target(:physical_storage_families, physical_storage_family.ems_ref)
       end
     end
   end

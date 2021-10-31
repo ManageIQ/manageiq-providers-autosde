@@ -21,7 +21,8 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
       :management_ip => options['management_ip'] || ""
     )
     ext_management_system.autosde_client.StorageSystemApi.storage_systems_pk_put(ems_ref, update_details)
-    EmsRefresh.queue_refresh(ext_management_system)
+    ph_storage = ext_management_system.physical_storages.where(:ems_ref=>ems_ref).first
+    EmsRefresh.refresh(ph_storage)
   end
 
   # @param [ManageIQ::Providers::Autosde] _ext_management_system
