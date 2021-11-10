@@ -37,14 +37,14 @@ describe ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager do
 
     # mapping for host_initiator_group / cluster
     expect(ems.host_initiator_groups.count).to(eq(5))
-    cluster_mapping = ems.volume_mappings.where.not(:host_initiator_group => nil).first
+    cluster_mapping = ManageIQ::Providers::Autosde::StorageManager::VolumeMapping.to_clusters.first
     host_initiator_group_ref = cluster_mapping.host_initiator_group.ems_ref
     host_initiator_group = ems.host_initiator_groups.find_by(:ems_ref => host_initiator_group_ref)
     expect(cluster_mapping.host_initiator_group).to have_attributes(
       :name => host_initiator_group.name
     )
     # mappings for host_initiator
-    host_mapping = ems.volume_mappings.where.not(:host_initiator => nil).first
+    host_mapping = ManageIQ::Providers::Autosde::StorageManager::VolumeMapping.to_hosts.first
     host_mapping_ref = host_mapping.host_initiator.ems_ref
     host_initiator = ems.host_initiators.find_by(:ems_ref => host_mapping_ref)
     expect(host_mapping.host_initiator).to have_attributes(:name => host_initiator.name)

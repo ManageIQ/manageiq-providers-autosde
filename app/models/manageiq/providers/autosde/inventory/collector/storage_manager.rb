@@ -31,8 +31,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   end
 
   def host_volume_mappings
-    @host_volume_mappings ||= @manager.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_get.map do
-    |mapping|
+    @host_volume_mappings ||= @manager.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_get.map do |mapping|
       {
         :lun                 => mapping.lun,
         :host_initiator_uuid => mapping.host,
@@ -95,7 +94,5 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
 
   def host_initiator_groups
     @host_initiator_groups ||= @manager.autosde_client.HostClusterApi.host_clusters_get
-  rescue
-    @host_initiator_groups ||= @manager.autosde_client.HostClusterMembershipApi.host_clusters_get
   end
 end

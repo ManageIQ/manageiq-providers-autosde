@@ -89,7 +89,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       persister.volume_mappings.build(
         **volume_mapping_hash,
         :cloud_volume   => persister.cloud_volumes.lazy_find(cloud_volume),
-        :host_initiator => persister.host_initiators.lazy_find(host_initiator)
+        :host_initiator => persister.host_initiators.lazy_find(host_initiator),
+        :type           => "ManageIQ::Providers::Autosde::StorageManager::HostVolumeMapping"
       )
     end
     collector.cluster_volume_mappings.each do |volume_mapping_hash|
@@ -98,7 +99,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       persister.volume_mappings.build(
         **volume_mapping_hash,
         :cloud_volume         => persister.cloud_volumes.lazy_find(cloud_volume),
-        :host_initiator_group => persister.host_initiator_groups.lazy_find(host_initiator_group)
+        :host_initiator_group => persister.host_initiator_groups.lazy_find(host_initiator_group),
+        :type                 => "ManageIQ::Providers::Autosde::StorageManager::ClusterVolumeMapping"
       )
     end
   end
