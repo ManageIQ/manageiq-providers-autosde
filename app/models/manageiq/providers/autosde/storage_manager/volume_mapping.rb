@@ -5,6 +5,9 @@ class ManageIQ::Providers::Autosde::StorageManager::VolumeMapping < ::VolumeMapp
   scope :to_clusters,  -> { where("type LIKE ?", "%Cluster%") }
   scope :to_hosts,     -> { where("type LIKE ?", "%Host%") }
 
+  scope :to_clusters,  -> { where("type LIKE ?", "%Cluster%") }
+  scope :to_hosts,     -> { where("type LIKE ?", "%Host%") }
+
   supports :create
 
   supports :delete do
