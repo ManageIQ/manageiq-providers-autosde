@@ -71,6 +71,12 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
         :ems_id => ->(persister) { persister.manager.id }
       )
     end
+    # host-initiator-groups (cluster)
+    add_collection(storage, :host_initiator_groups) do |builder|
+      builder.add_default_values(
+        :ems_id => ->(persister) { persister.manager.id }
+      )
+    end
   end
 
   def strategy

@@ -6,7 +6,7 @@ describe ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager do
   end
 
   let(:first_wwpn) { "2100000E1EE89D90" }
-  let(:ems_ref) { "a785c49a-2f3c-4e6d-8ace-879dfa1719a2" }
+  let(:wwpn_ems_ref) { "a785c49a-2f3c-4e6d-8ace-879dfa1719a2" }
 
   it "gets inventory from the appliance" do
     VCR.use_cassette("ems_refresh") do
@@ -32,7 +32,21 @@ describe ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager do
     first_candidate = ems.wwpn_candidates.find_by(:ems_ref => first_wwpn)
     expect(first_candidate).to(have_attributes(
                                  :candidate        => first_wwpn,
-                                 :physical_storage => ems.physical_storages.find_by(:ems_ref => ems_ref)
+                                 :physical_storage => ems.physical_storages.find_by(:ems_ref => wwpn_ems_ref)
                                ))
+
+    # mapping for host_initiator_group / cluster
+    expect(ems.host_initiator_groups.count).to(eq(5))
+    cluster_mapping = ManageIQ::Providers::Autosde::StorageManager::VolumeMapping.to_clusters.first
+    host_initiator_group_ref = cluster_mapping.host_initiator_group.ems_ref
+    host_initiator_group = ems.host_initiator_groups.find_by(:ems_ref => host_initiator_group_ref)
+    expect(cluster_mapping.host_initiator_group).to have_attributes(
+      :name => host_initiator_group.name
+    )
+    # mappings for host_initiator
+    host_mapping = ManageIQ::Providers::Autosde::StorageManager::VolumeMapping.to_hosts.first
+    host_mapping_ref = host_mapping.host_initiator.ems_ref
+    host_initiator = ems.host_initiators.find_by(:ems_ref => host_mapping_ref)
+    expect(host_mapping.host_initiator).to have_attributes(:name => host_initiator.name)
   end
 end
