@@ -8,10 +8,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   def physical_storages
     return [] if references(:physical_storages).blank?
 
-    @physical_storages ||= begin
-      references(:physical_storages).map do |ems_ref|
-        @manager.autosde_client.StorageSystemApi.storage_systems_get.map{|s| s if s.uuid==ems_ref}.compact.first
-      end
+    @physical_storages ||= references(:physical_storages).map do |ems_ref|
+      @manager.autosde_client.StorageSystemApi.storage_systems_get.map { |s| s if s.uuid == ems_ref }.compact.first
     end
 
     super
@@ -20,10 +18,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   def storage_resources
     return [] if references(:storage_resources).blank?
 
-    @storage_resources ||= begin
-      references(:storage_resources).map do |ems_ref|
-        @manager.autosde_client.StorageResourceApi.storage_resources_get.map{|s| s if s.uuid==ems_ref}.compact.first
-      end
+    @storage_resources ||= references(:storage_resources).map do |ems_ref|
+      @manager.autosde_client.StorageResourceApi.storage_resources_get.map { |s| s if s.uuid == ems_ref }.compact.first
     end
 
     super
@@ -51,10 +47,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     return [] if references(:cloud_volumes).blank?
 
     # Retrieve only the targeted volumes
-    @cloud_volumes ||= begin
-      references(:cloud_volumes).map do |ems_ref|
-        @manager.autosde_client.VolumeApi.volumes_get.map{|v| v if v.uuid==ems_ref}.compact.first
-      end
+    @cloud_volumes ||= references(:cloud_volumes).map do |ems_ref|
+      @manager.autosde_client.VolumeApi.volumes_get.map { |v| v if v.uuid == ems_ref }.compact.first
     end
 
     super
@@ -63,10 +57,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   def storage_services
     return [] if references(:storage_services).blank?
 
-    @storage_services ||= begin
-      references(:storage_services).map do |ems_ref|
-        @manager.autosde_client.ServiceApi.services_get.map{|s| s if s.uuid==ems_ref}.compact.first
-      end
+    @storage_services ||= references(:storage_services).map do |ems_ref|
+      @manager.autosde_client.ServiceApi.services_get.map { |s| s if s.uuid == ems_ref }.compact.first
     end
 
     super
@@ -75,10 +67,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   def physical_storage_families
     return [] if references(:physical_storage_families).blank?
 
-    @physical_storage_families ||= begin
-      references(:physical_storage_families).map do |ems_ref|
-        @manager.autosde_client.SystemTypeApi.system_types_get.map{|s| s if s.uuid==ems_ref}.compact.first
-      end
+    @physical_storage_families ||= references(:physical_storage_families).map do |ems_ref|
+      @manager.autosde_client.SystemTypeApi.system_types_get.map { |s| s if s.uuid == ems_ref }.compact.first
     end
 
     super
@@ -108,12 +98,12 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
       case target
       when PhysicalStorage
         add_target(:physical_storages, target.ems_ref)
-        add_target(:physical_storage_families, PhysicalStorageFamily.find(id=target.physical_storage_family_id).ems_ref)
+        add_target(:physical_storage_families, PhysicalStorageFamily.find(target.physical_storage_family_id).ems_ref)
       when CloudVolume
-        storage_resource = StorageResource.find(id=target.storage_resource_id)
-        storage_service = StorageService.find(id=target.storage_service_id)
-        physical_storage = PhysicalStorage.find(id=storage_resource.physical_storage_id)
-        physical_storage_family = PhysicalStorageFamily.find(id=physical_storage.physical_storage_family_id)
+        storage_resource = StorageResource.find(target.storage_resource_id)
+        storage_service = StorageService.find(target.storage_service_id)
+        physical_storage = PhysicalStorage.find(storage_resource.physical_storage_id)
+        physical_storage_family = PhysicalStorageFamily.find(physical_storage.physical_storage_family_id)
         add_target(:cloud_volumes, target.ems_ref)
         add_target(:storage_resources, storage_resource.ems_ref)
         add_target(:storage_services, storage_service.ems_ref)
