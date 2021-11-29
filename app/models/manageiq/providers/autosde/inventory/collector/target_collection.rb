@@ -11,8 +11,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     @physical_storages ||= references(:physical_storages).map do |ems_ref|
       @manager.autosde_client.StorageSystemApi.storage_systems_get.map { |s| s if s.uuid == ems_ref }.compact.first
     end
-
-    super
   end
 
   def storage_resources
@@ -21,26 +19,18 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     @storage_resources ||= references(:storage_resources).map do |ems_ref|
       @manager.autosde_client.StorageResourceApi.storage_resources_get.map { |s| s if s.uuid == ems_ref }.compact.first
     end
-
-    super
   end
 
   def storage_hosts
     return [] if references(:storage_hosts).blank?
-
-    super
   end
 
   def host_volume_mappings
     return [] if references(:volume_mappings).blank?
-
-    super
   end
 
   def cluster_volume_mappings
     return [] if references(:volume_mappings).blank?
-
-    super
   end
 
   def cloud_volumes
@@ -50,8 +40,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     @cloud_volumes ||= references(:cloud_volumes).map do |ems_ref|
       @manager.autosde_client.VolumeApi.volumes_get.map { |v| v if v.uuid == ems_ref }.compact.first
     end
-
-    super
   end
 
   def storage_services
@@ -60,8 +48,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     @storage_services ||= references(:storage_services).map do |ems_ref|
       @manager.autosde_client.ServiceApi.services_get.map { |s| s if s.uuid == ems_ref }.compact.first
     end
-
-    super
   end
 
   def physical_storage_families
@@ -70,20 +56,14 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     @physical_storage_families ||= references(:physical_storage_families).map do |ems_ref|
       @manager.autosde_client.SystemTypeApi.system_types_get.map { |s| s if s.uuid == ems_ref }.compact.first
     end
-
-    super
   end
 
   def wwpn_candidates
     return [] if references(:wwpn_candidates).blank?
-
-    super
   end
 
   def host_initiator_groups
     return [] if references(:host_initiator_groups).blank?
-
-    super
   end
 
   private
@@ -104,6 +84,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
         storage_service = StorageService.find(target.storage_service_id)
         physical_storage = PhysicalStorage.find(storage_resource.physical_storage_id)
         physical_storage_family = PhysicalStorageFamily.find(physical_storage.physical_storage_family_id)
+
         add_target(:cloud_volumes, target.ems_ref)
         add_target(:storage_resources, storage_resource.ems_ref)
         add_target(:storage_services, storage_service.ems_ref)
