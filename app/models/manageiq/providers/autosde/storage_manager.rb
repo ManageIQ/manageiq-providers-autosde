@@ -44,6 +44,11 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   # Physical disks
   has_many :physical_disks, :through => :physical_storages
 
+  has_many :host_volume_mappings, :foreign_key => :ems_id, :inverse_of => :ext_management_system,
+           :class_name => "ManageIQ::Providers::Autosde::StorageManager::HostVolumeMapping"
+  has_many :cluster_volume_mappings, :foreign_key => :ems_id, :inverse_of => :ext_management_system,
+           :class_name => "ManageIQ::Providers::Autosde::StorageManager::ClusterVolumeMapping"
+
   virtual_total :total_physical_servers,  :physical_servers
   virtual_total :total_physical_storages, :physical_storages
 
