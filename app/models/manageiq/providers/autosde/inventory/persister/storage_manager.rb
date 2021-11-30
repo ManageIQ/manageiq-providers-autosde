@@ -38,14 +38,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
 
   # san addresses
   def add_san_addresses
-    add_collection(storage, :san_addresses) do |builder|
-      builder.add_default_values(
-        :ems_id => ->(persister) { persister.manager.id }
-      )
-      builder.add_properties(
-        :parent_inventory_collections => [:host_initiators]
-      )
-    end
+    add_collection(storage, :san_addresses)
   end
 
   # host initiators
@@ -60,74 +53,36 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
 
   # wwpn candidates
   def add_wwpn_candidates
-    add_collection(storage, :wwpn_candidates) do |builder|
-      builder.add_default_values(
-        :ems_id => ->(persister) { persister.manager.id }
-      )
-    end
+    add_collection(storage, :wwpn_candidates)
   end
 
   # host-initiator-groups (cluster)
   def add_host_initiator_groups
-    add_collection(storage, :host_initiator_groups) do |builder|
-      builder.add_default_values(
-        :ems_id => ->(persister) { persister.manager.id }
-      )
-    end
+    add_collection(storage, :host_initiator_groups)
   end
 
   # physical storages
   def add_physical_storages
-    add_collection(storage, :physical_storages) do |builder|
-      builder.add_default_values(:ems_id => ->(persister) { persister.manager.id })
-      builder.add_properties(
-        :model_class => ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage
-      )
-    end
+    add_collection(storage, :physical_storages)
   end
 
   # physical storage families
   def add_physical_storage_families
-    add_collection(storage, :physical_storage_families) do |builder|
-      builder.add_default_values(
-        :ems_id => ->(persister) { persister.manager.id }
-      )
-    end
+    add_collection(storage, :physical_storage_families)
   end
 
   # storage resources
   def add_storage_resources
-    add_collection(storage, :storage_resources) do |builder|
-      builder.add_default_values(
-        :ems_id => ->(persister) { persister.manager.id }
-      )
-      builder.add_properties(
-        :parent_inventory_collections => [:physical_storages]
-      ) unless targeted?
-    end
+    add_collection(storage, :storage_resources)
   end
 
   # storage services
   def add_storage_services
-    add_collection(storage, :storage_services) do |builder|
-      builder.add_default_values(
-        :ems_id => ->(persister) { persister.manager.id }
-      )
-    end
+    add_collection(storage, :storage_services)
   end
 
   # cloud volumes
   def add_cloud_volumes
-    add_collection(storage, :cloud_volumes) do |builder|
-      builder.add_default_values(
-        :ems_id      => ->(persister) { persister.manager.id },
-        :status      => "Available",
-        :volume_type => "ISCSI/FC",
-        :bootable    => "false"
-      )
-      builder.add_properties(
-        :model_class => ManageIQ::Providers::Autosde::StorageManager::CloudVolume
-      )
-    end
+    add_collection(storage, :cloud_volumes)
   end
 end

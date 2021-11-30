@@ -128,6 +128,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :name             => volume.name,
         :size             => volume.size * 1024 * 1024 * 1024,
         :ems_ref          => volume.uuid,
+        :volume_type      => "ISCSI/FC",
+        :bootable         => false,
         :storage_resource => persister.storage_resources.lazy_find(volume.storage_resource),
         :storage_service  => persister.storage_services.lazy_find(volume.service),
         :status           => volume.component_state,
