@@ -8,49 +8,51 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   def physical_storages
     return [] if references(:physical_storages).blank?
 
-    super
+    @physical_storages ||= @manager.autosde_client.StorageSystemApi.storage_systems_get.select { |s| references(:physical_storages).include?(s.uuid) }
   end
 
   def storage_resources
     return [] if references(:storage_resources).blank?
 
-    super
+    @storage_resources ||= @manager.autosde_client.StorageResourceApi.storage_resources_get.select { |s| references(:storage_resources).include?(s.uuid) }
   end
 
   def storage_hosts
     return [] if references(:storage_hosts).blank?
-
-    super
   end
 
-  def volume_mappings
+  def host_volume_mappings
     return [] if references(:volume_mappings).blank?
+  end
 
-    super
+  def cluster_volume_mappings
+    return [] if references(:volume_mappings).blank?
   end
 
   def cloud_volumes
     return [] if references(:cloud_volumes).blank?
 
-    super
+    @cloud_volumes ||= @manager.autosde_client.VolumeApi.volumes_get.select { |s| references(:cloud_volumes).include?(s.uuid) }
   end
 
   def storage_services
     return [] if references(:storage_services).blank?
 
-    super
+    @storage_services ||= @manager.autosde_client.ServiceApi.services_get.select { |s| references(:storage_services).include?(s.uuid) }
   end
 
   def physical_storage_families
     return [] if references(:physical_storage_families).blank?
 
-    super
+    @physical_storage_families ||= @manager.autosde_client.SystemTypeApi.system_types_get.select { |s| references(:physical_storage_families).include?(s.uuid) }
   end
 
   def wwpn_candidates
     return [] if references(:wwpn_candidates).blank?
+  end
 
-    super
+  def host_initiator_groups
+    return [] if references(:host_initiator_groups).blank?
   end
 
   private
@@ -63,22 +65,20 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     # This gives us some flexibility in how we request a resource be refreshed.
     target.targets.each do |target|
       case target
-      when PhysicalStorageFamily
-        add_target(:physical_storage_families, target.ems_ref)
       when PhysicalStorage
         add_target(:physical_storages, target.ems_ref)
-      when StorageResource
-        add_target(:storage_resources, target.ems_ref)
-      when HostInitiator
-        add_target(:storage_hosts, target.ems_ref) # TODO [liran] - storage_hosts need to be renamed to host_initiators
-      when StorageService
-        add_target(:storage_services, target.ems_ref)
+        add_target(:physical_storage_families, PhysicalStorageFamily.find(target.physical_storage_family_id).ems_ref)
       when CloudVolume
+        storage_resource = StorageResource.find(target.storage_resource_id)
+        storage_service = StorageService.find(target.storage_service_id)
+        physical_storage = PhysicalStorage.find(storage_resource.physical_storage_id)
+        physical_storage_family = PhysicalStorageFamily.find(physical_storage.physical_storage_family_id)
+
         add_target(:cloud_volumes, target.ems_ref)
-      when VolumeMapping
-        add_target(:volume_mappings, target.ems_ref)
-      when WwpnCandidate
-        add_target(:wwpn_candidates, target.ems_ref)
+        add_target(:storage_resources, storage_resource.ems_ref)
+        add_target(:storage_services, storage_service.ems_ref)
+        add_target(:physical_storages, physical_storage.ems_ref)
+        add_target(:physical_storage_families, physical_storage_family.ems_ref)
       end
     end
   end

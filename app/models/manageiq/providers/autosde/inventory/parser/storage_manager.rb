@@ -24,26 +24,34 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   end
 
   def physical_storage_families
-    collector.physical_storage_families.each do |physical_storage_family_hash|
-      persister.physical_storage_families.build(**physical_storage_family_hash)
+    collector.physical_storage_families.each do |storage_family|
+      persister.physical_storage_families.build(
+        :name    => storage_family.name,
+        :ems_ref => storage_family.uuid,
+        :version => storage_family.version
+      )
     end
   end
 
   def physical_storages
-    collector.physical_storages.each do |physical_storage_hash|
-      system_type_uuid = physical_storage_hash.delete(:system_type_uuid)
+    collector.physical_storages.each do |storage|
       persister.physical_storages.build(
-        :physical_storage_family => persister.physical_storage_families.lazy_find(system_type_uuid),
-        **physical_storage_hash
+        :name                    => storage.name,
+        :ems_ref                 => storage.uuid,
+        :physical_storage_family => persister.physical_storage_families.lazy_find(storage.system_type.uuid),
+        :health_state            => storage.status
       )
     end
   end
 
   def storage_resources
-    collector.storage_resources.each do |storage_resource_hash|
-      physical_storage_ems_ref = storage_resource_hash.delete(:storage_system_uuid)
+    collector.storage_resources.each do |resource|
       persister.storage_resources.build(
-        **storage_resource_hash, :physical_storage => persister.physical_storages.lazy_find(physical_storage_ems_ref)
+        :name             => resource.name,
+        :ems_ref          => resource.uuid,
+        :logical_free     => resource.logical_free,
+        :logical_total    => resource.logical_total,
+        :physical_storage => persister.physical_storages.lazy_find(resource.storage_system)
       )
     end
   end
@@ -83,42 +91,47 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   end
 
   def volume_mappings
-    collector.host_volume_mappings.each do |volume_mapping_hash|
-      cloud_volume = volume_mapping_hash.delete(:volume_uuid)
-      host_initiator = volume_mapping_hash.delete(:host_initiator_uuid)
+    collector.host_volume_mappings.each do |mapping|
       persister.volume_mappings.build(
-        **volume_mapping_hash,
-        :cloud_volume   => persister.cloud_volumes.lazy_find(cloud_volume),
-        :host_initiator => persister.host_initiators.lazy_find(host_initiator),
+        :lun            => mapping.lun,
+        :host_initiator => persister.host_initiators.lazy_find(mapping.host),
+        :cloud_volume   => persister.cloud_volumes.lazy_find(mapping.volume),
+        :ems_ref        => mapping.uuid,
         :type           => "ManageIQ::Providers::Autosde::StorageManager::HostVolumeMapping"
       )
     end
-    collector.cluster_volume_mappings.each do |volume_mapping_hash|
-      cloud_volume = volume_mapping_hash.delete(:volume_uuid)
-      host_initiator_group = volume_mapping_hash.delete(:host_initiator_group_uuid)
+    collector.cluster_volume_mappings.each do |mapping|
       persister.volume_mappings.build(
-        **volume_mapping_hash,
-        :cloud_volume         => persister.cloud_volumes.lazy_find(cloud_volume),
-        :host_initiator_group => persister.host_initiator_groups.lazy_find(host_initiator_group),
+        :lun                  => mapping.lun,
+        :host_initiator_group => persister.host_initiator_groups.lazy_find(mapping.cluster),
+        :cloud_volume         => persister.cloud_volumes.lazy_find(mapping.volume),
+        :ems_ref              => mapping.uuid,
         :type                 => "ManageIQ::Providers::Autosde::StorageManager::ClusterVolumeMapping"
       )
     end
   end
 
   def storage_services
-    collector.storage_services.each do |storage_service_hash|
-      persister.storage_services.build(**storage_service_hash)
+    collector.storage_services.each do |service|
+      persister.storage_services.build(
+        :name        => service.name,
+        :description => service.description,
+        :version     => service.version,
+        :ems_ref     => service.uuid
+      )
     end
   end
 
   def cloud_volumes
-    collector.cloud_volumes.each do |cloud_volume_hash|
-      storage_resource_uuid = cloud_volume_hash.delete(:storage_resource_uuid)
-      storage_service_uuid = cloud_volume_hash.delete(:storage_service_uuid)
+    collector.cloud_volumes.each do |volume|
       persister.cloud_volumes.build(
-        **cloud_volume_hash,
-        :storage_resource => persister.storage_resources.lazy_find(storage_resource_uuid),
-        :storage_service  => persister.storage_services.lazy_find(storage_service_uuid)
+        :name             => volume.name,
+        :size             => volume.size * 1024 * 1024 * 1024,
+        :ems_ref          => volume.uuid,
+        :storage_resource => persister.storage_resources.lazy_find(volume.storage_resource),
+        :storage_service  => persister.storage_services.lazy_find(volume.service),
+        :status           => volume.component_state,
+        :health_state     => volume.status
       )
     end
   end
