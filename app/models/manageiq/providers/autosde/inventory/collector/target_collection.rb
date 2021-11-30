@@ -8,17 +8,13 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   def physical_storages
     return [] if references(:physical_storages).blank?
 
-    @physical_storages ||= references(:physical_storages).map do |ems_ref|
-      @manager.autosde_client.StorageSystemApi.storage_systems_get.map { |s| s if s.uuid == ems_ref }.compact.first
-    end
+    @physical_storages ||= @manager.autosde_client.StorageSystemApi.storage_systems_get.select { |s| references(:physical_storages).include?(s.uuid) }
   end
 
   def storage_resources
     return [] if references(:storage_resources).blank?
 
-    @storage_resources ||= references(:storage_resources).map do |ems_ref|
-      @manager.autosde_client.StorageResourceApi.storage_resources_get.map { |s| s if s.uuid == ems_ref }.compact.first
-    end
+    @storage_resources ||= @manager.autosde_client.StorageResourceApi.storage_resources_get.select { |s| references(:storage_resources).include?(s.uuid) }
   end
 
   def storage_hosts
@@ -36,26 +32,19 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   def cloud_volumes
     return [] if references(:cloud_volumes).blank?
 
-    # Retrieve only the targeted volumes
-    @cloud_volumes ||= references(:cloud_volumes).map do |ems_ref|
-      @manager.autosde_client.VolumeApi.volumes_get.map { |v| v if v.uuid == ems_ref }.compact.first
-    end
+    @cloud_volumes ||= @manager.autosde_client.VolumeApi.volumes_get.select { |s| references(:cloud_volumes).include?(s.uuid) }
   end
 
   def storage_services
     return [] if references(:storage_services).blank?
 
-    @storage_services ||= references(:storage_services).map do |ems_ref|
-      @manager.autosde_client.ServiceApi.services_get.map { |s| s if s.uuid == ems_ref }.compact.first
-    end
+    @storage_services ||= @manager.autosde_client.ServiceApi.services_get.select { |s| references(:storage_services).include?(s.uuid) }
   end
 
   def physical_storage_families
     return [] if references(:physical_storage_families).blank?
 
-    @physical_storage_families ||= references(:physical_storage_families).map do |ems_ref|
-      @manager.autosde_client.SystemTypeApi.system_types_get.map { |s| s if s.uuid == ems_ref }.compact.first
-    end
+    @physical_storage_families ||= @manager.autosde_client.SystemTypeApi.system_types_get.select { |s| references(:physical_storage_families).include?(s.uuid) }
   end
 
   def wwpn_candidates

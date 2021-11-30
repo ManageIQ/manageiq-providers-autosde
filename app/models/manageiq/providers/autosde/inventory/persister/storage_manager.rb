@@ -6,16 +6,16 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
   attr_reader  :collections
 
   def initialize_inventory_collections
-    collect_san_addresses
-    collect_host_initiators
-    collect_volume_mappings
-    collect_wwpn_candidates
-    collect_host_initiator_groups
-    collect_physical_storages
-    collect_physical_storage_families
-    collect_storage_resources
-    collect_storage_services
-    collect_cloud_volumes
+    add_san_addresses
+    add_host_initiators
+    add_volume_mappings
+    add_wwpn_candidates
+    add_host_initiator_groups
+    add_physical_storages
+    add_physical_storage_families
+    add_storage_resources
+    add_storage_services
+    add_cloud_volumes
   end
 
   def strategy
@@ -37,7 +37,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
   protected
 
   # san addresses
-  def collect_san_addresses
+  def add_san_addresses
     add_collection(storage, :san_addresses) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }
@@ -49,17 +49,17 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
   end
 
   # host initiators
-  def collect_host_initiators
+  def add_host_initiators
     add_collection(storage, :host_initiators)
   end
 
   # volume mappings
-  def collect_volume_mappings
+  def add_volume_mappings
     add_collection(storage, :volume_mappings)
   end
 
   # wwpn candidates
-  def collect_wwpn_candidates
+  def add_wwpn_candidates
     add_collection(storage, :wwpn_candidates) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }
@@ -68,7 +68,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
   end
 
   # host-initiator-groups (cluster)
-  def collect_host_initiator_groups
+  def add_host_initiator_groups
     add_collection(storage, :host_initiator_groups) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }
@@ -77,7 +77,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
   end
 
   # physical storages
-  def collect_physical_storages
+  def add_physical_storages
     add_collection(storage, :physical_storages) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.manager.id })
       builder.add_properties(
@@ -87,7 +87,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
   end
 
   # physical storage families
-  def collect_physical_storage_families
+  def add_physical_storage_families
     add_collection(storage, :physical_storage_families) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }
@@ -96,7 +96,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
   end
 
   # storage resources
-  def collect_storage_resources
+  def add_storage_resources
     add_collection(storage, :storage_resources) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }
@@ -108,7 +108,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
   end
 
   # storage services
-  def collect_storage_services
+  def add_storage_services
     add_collection(storage, :storage_services) do |builder|
       builder.add_default_values(
         :ems_id => ->(persister) { persister.manager.id }
@@ -117,7 +117,7 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
   end
 
   # cloud volumes
-  def collect_cloud_volumes
+  def add_cloud_volumes
     add_collection(storage, :cloud_volumes) do |builder|
       builder.add_default_values(
         :ems_id      => ->(persister) { persister.manager.id },
