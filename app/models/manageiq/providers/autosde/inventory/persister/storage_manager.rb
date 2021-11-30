@@ -18,22 +18,6 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     add_cloud_volumes
   end
 
-  def strategy
-    nil
-  end
-
-  def parent
-    manager.presence
-  end
-
-  def shared_options
-    {
-      :strategy => strategy,
-      :targeted => targeted?,
-      :parent   => parent
-    }
-  end
-
   protected
 
   # san addresses
