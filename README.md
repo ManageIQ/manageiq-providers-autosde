@@ -26,3 +26,6 @@ The gem is available as open source under the terms of the [Apache License 2.0](
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+
+
