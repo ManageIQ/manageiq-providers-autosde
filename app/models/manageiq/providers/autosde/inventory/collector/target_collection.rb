@@ -67,18 +67,13 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
       case target
       when PhysicalStorage
         add_target(:physical_storages, target.ems_ref)
-        add_target(:physical_storage_families, PhysicalStorageFamily.find(target.physical_storage_family_id).ems_ref)
+        add_target(:physical_storage_families, target.physical_storage_family.ems_ref)
       when CloudVolume
-        storage_resource = StorageResource.find(target.storage_resource_id)
-        storage_service = StorageService.find(target.storage_service_id)
-        physical_storage = PhysicalStorage.find(storage_resource.physical_storage_id)
-        physical_storage_family = PhysicalStorageFamily.find(physical_storage.physical_storage_family_id)
-
         add_target(:cloud_volumes, target.ems_ref)
-        add_target(:storage_resources, storage_resource.ems_ref)
-        add_target(:storage_services, storage_service.ems_ref)
-        add_target(:physical_storages, physical_storage.ems_ref)
-        add_target(:physical_storage_families, physical_storage_family.ems_ref)
+        add_target(:storage_resources, target.storage_resource.ems_ref)
+        add_target(:storage_services, target.storage_service.ems_ref)
+        add_target(:physical_storages, storage_resource.physical_storage.ems_ref)
+        add_target(:physical_storage_families, physical_storage.physical_storage_family.ems_ref)
       end
     end
   end
