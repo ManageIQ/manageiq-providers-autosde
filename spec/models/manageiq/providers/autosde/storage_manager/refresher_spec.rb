@@ -32,20 +32,53 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
 
     context "targeted refresh" do
       before { VCR.use_cassette("ems_refresh") { described_class.refresh([ems]) } }
+      let(:system_type_api) { double("SystemTypeApi") }
+      let(:storage_system_api) { double("StorageSystemApi") }
 
       it "with no targets" do
         assert_inventory_not_changed { run_targeted_refresh }
       end
 
+      it "with an existing physical_storage target" do
+        expect(storage_system_api)
+          .to receive(:storage_systems_get)
+          .and_return(
+            [
+              AutosdeOpenapiClient::StorageSystem.new(
+                :auto_add_pools  => true,
+                :component_state => "PENDING_CREATION",
+                :management_ip   => "9.151.159.178",
+                :name            => "9.151.159.178",
+                :status          => "ONLINE",
+                :storage_family  => "ontap_7mode",
+                :system_type     => AutosdeOpenapiClient::SystemType.new(
+                  :component_state => "PENDING_CREATION",
+                  :name            => "FlashSystems/SVC",
+                  :short_version   => "11",
+                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
+                  :version         => "1.2"
+                ),
+                :uuid            => "980f3ceb-c599-49c4-9db3-fdc793cb8666"
+              )
+            ]
+          )
+
+        assert_inventory_not_changed { run_targeted_refresh(ems.physical_storages.first) }
+      end
+
       def run_targeted_refresh(targets = [])
-        target = InventoryRefresh::TargetCollection.new
-        targets.each do |t|
-          target.add_target(t)
-        end
+        target = InventoryRefresh::TargetCollection.new(:manager => ems, :targets => Array(targets))
 
         persister = ManageIQ::Providers::Autosde::Inventory::Persister::TargetCollection.new(ems)
         collector = ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection.new(ems, target)
         parser    = ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager.new
+
+        # Allow for tests to mock API calls
+        autosde_client_stub = double("AutosdeClient")
+        allow(autosde_client_stub).to receive(:SystemTypeApi).and_return(system_type_api)
+        allow(autosde_client_stub).to receive(:StorageSystemApi).and_return(storage_system_api)
+
+        allow(ems).to receive(:autosde_client).and_return(autosde_client_stub)
 
         parser.collector = collector
         parser.persister = persister
