@@ -1,12 +1,11 @@
 describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
+  include Spec::Support::EmsRefreshHelper
+
   let(:ems) do
     FactoryBot.create(:autosde_storage_manager,
                       :with_autosde_credentials,
                       :hostname => Rails.application.secrets.autosde[:appliance_host])
   end
-
-  let(:first_wwpn) { "2100000E1EE89D90" }
-  let(:wwpn_ems_ref) { "a785c49a-2f3c-4e6d-8ace-879dfa1719a2" }
 
   describe "#refresh" do
     context "full refresh" do
@@ -28,6 +27,31 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           assert_specific_host_volume_mapping
           assert_specific_cluster_volume_mapping
         end
+      end
+    end
+
+    context "targeted refresh" do
+      before { VCR.use_cassette("ems_refresh") { described_class.refresh([ems]) } }
+
+      it "with no targets" do
+        assert_inventory_not_changed { run_targeted_refresh }
+      end
+
+      def run_targeted_refresh(targets = [])
+        target = InventoryRefresh::TargetCollection.new
+        targets.each do |t|
+          target.add_target(t)
+        end
+
+        persister = ManageIQ::Providers::Autosde::Inventory::Persister::TargetCollection.new(ems)
+        collector = ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection.new(ems, target)
+        parser    = ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager.new
+
+        parser.collector = collector
+        parser.persister = persister
+        parser.parse
+
+        InventoryRefresh::SaveInventory.save_inventory(ems, persister.inventory_collections)
       end
     end
 
