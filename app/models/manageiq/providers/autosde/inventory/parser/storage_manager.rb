@@ -151,9 +151,9 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def host_initiator_groups
     collector.host_initiator_groups.each do |group|
       persister.host_initiator_groups.build(
-        # add more
-        :name    => group.name,
-        :ems_ref => group.uuid
+        :name             => group.name,
+        :ems_ref          => group.uuid,
+        :physical_storage => persister.physical_storages.lazy_find(group.storage_system)
       )
     end
   end

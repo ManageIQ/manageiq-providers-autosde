@@ -145,7 +145,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         :ems_ref          => "856146bb-4fe3-4d8f-b442-49a2dd80dd96",
         :uid_ems          => nil,
         :type             => "ManageIQ::Providers::Autosde::StorageManager::HostInitiatorGroup",
-        :physical_storage => nil
+        :physical_storage => ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666")
       )
     end
 

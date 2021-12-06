@@ -23,7 +23,7 @@ class ManageIQ::Providers::Autosde::StorageManager::VolumeMapping < ::VolumeMapp
     # this method has 2 flow:
     # 1 - for host_initiator
     # 2 - for host_initiator_group
-    # The options dict contains a field named mapping_objects. The supported values for this field are 'host' and cluster'
+    # The options dict contains a field named mapping_object. The supported values for this field are 'host' and cluster'
 
     volume_ref = CloudVolume.find(options['cloud_volume_id']).ems_ref
     case options['mapping_object']
