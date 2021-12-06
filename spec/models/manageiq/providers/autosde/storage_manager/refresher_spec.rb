@@ -41,7 +41,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         assert_inventory_not_changed { run_targeted_refresh }
       end
 
-      it "with an existing PhysicalStorage object target" do
+      it "with a PhysicalStorage object target" do
         expect(storage_system_api)
           .to receive(:storage_systems_get)
           .and_return(
@@ -68,7 +68,46 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         assert_inventory_not_changed { run_targeted_refresh(ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666")) }
       end
 
-      it "with an existing CloudVolume object target" do
+      it "with a new physical storage" do
+        expect(storage_system_api)
+          .to receive(:storage_systems_get)
+          .and_return(
+            [
+              AutosdeOpenapiClient::StorageSystem.new(
+                :auto_add_pools  => true,
+                :component_state => "PENDING_CREATION",
+                :management_ip   => "1.2.3.4",
+                :name            => "1.2.3.4",
+                :status          => "ONLINE",
+                :storage_family  => "ontap_7mode",
+                :system_type     => AutosdeOpenapiClient::SystemType.new(
+                  :component_state => "PENDING_CREATION",
+                  :name            => "FlashSystems/SVC",
+                  :short_version   => "11",
+                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
+                  :version         => "1.2"
+                ),
+                :uuid            => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
+              )
+            ]
+          )
+
+        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :physical_storages, :manager_ref => {:ems_ref => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"}))
+
+        ems.reload
+
+        expect(ems.physical_storages.count).to eq(2)
+        expect(ems.physical_storages.find_by(:ems_ref => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb")).to have_attributes(
+          :ems_ref                 => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb",
+          :uid_ems                 => nil,
+          :name                    => "1.2.3.4",
+          :type                    => "ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage",
+          :health_state            => "ONLINE",
+          :physical_storage_family => ems.physical_storage_families.find_by(:name => "FlashSystems/SVC")
+        )
+      end
+
+      it "with a CloudVolume object target" do
         expect(volume_api)
           .to receive(:volumes_get)
           .and_return(
