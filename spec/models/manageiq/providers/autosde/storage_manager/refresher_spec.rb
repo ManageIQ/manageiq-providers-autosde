@@ -129,6 +129,45 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         assert_inventory_not_changed { run_targeted_refresh(ems.cloud_volumes.find_by(:ems_ref => "ac287c2d-1776-48a3-a5c9-06327f4a57c4")) }
       end
 
+      it "with a new cloud volume" do
+        expect(volume_api)
+          .to receive(:volumes_get)
+          .and_return(
+            [
+              AutosdeOpenapiClient::VolumeResponse.new(
+                :compliant          => true,
+                :component_state    => "PENDING_CREATION",
+                :historical_service => nil,
+                :name               => "new-volume",
+                :service            => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
+                :size               => 10,
+                :status             => "online",
+                :storage_resource   => "0a10636f-c204-4ae1-a370-f0ee850b80af",
+                :uuid               => "6a02fc1f-04f4-476d-a5ac-6bcf042809e8"
+              )
+            ]
+          )
+
+        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :cloud_volumes, :manager_ref => {:ems_ref => "6a02fc1f-04f4-476d-a5ac-6bcf042809e8"}))
+
+        ems.reload
+
+        expect(ems.cloud_volumes.count).to eq(14)
+        expect(ems.cloud_volumes.find_by(:ems_ref => "6a02fc1f-04f4-476d-a5ac-6bcf042809e8")).to have_attributes(
+          :type             => "ManageIQ::Providers::Autosde::StorageManager::CloudVolume",
+          :ems_ref          => "6a02fc1f-04f4-476d-a5ac-6bcf042809e8",
+          :size             => 10.gigabyte,
+          :name             => "new-volume",
+          :status           => "PENDING_CREATION",
+          :description      => nil,
+          :volume_type      => "ISCSI/FC",
+          :bootable         => false,
+          :health_state     => "online",
+          :storage_resource => ems.storage_resources.find_by(:ems_ref => "0a10636f-c204-4ae1-a370-f0ee850b80af"),
+          :storage_service  => ems.storage_services.find_by(:ems_ref => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6")
+        )
+      end
+
       def run_targeted_refresh(targets = [])
         target = InventoryRefresh::TargetCollection.new(:manager => ems, :targets => Array(targets))
 
