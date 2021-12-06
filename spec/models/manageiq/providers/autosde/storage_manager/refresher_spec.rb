@@ -32,14 +32,16 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
 
     context "targeted refresh" do
       before { VCR.use_cassette("ems_refresh") { described_class.refresh([ems]) } }
-      let(:system_type_api) { double("SystemTypeApi") }
+
+      let(:system_type_api)    { double("SystemTypeApi") }
       let(:storage_system_api) { double("StorageSystemApi") }
+      let(:volume_api)         { double("VolumeApi") }
 
       it "with no targets" do
         assert_inventory_not_changed { run_targeted_refresh }
       end
 
-      it "with an existing physical_storage target" do
+      it "with an existing PhysicalStorage object target" do
         expect(storage_system_api)
           .to receive(:storage_systems_get)
           .and_return(
@@ -63,7 +65,29 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
             ]
           )
 
-        assert_inventory_not_changed { run_targeted_refresh(ems.physical_storages.first) }
+        assert_inventory_not_changed { run_targeted_refresh(ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666")) }
+      end
+
+      it "with an existing CloudVolume object target" do
+        expect(volume_api)
+          .to receive(:volumes_get)
+          .and_return(
+            [
+              AutosdeOpenapiClient::VolumeResponse.new(
+                :compliant          => true,
+                :component_state    => "PENDING_DELETION",
+                :historical_service => nil,
+                :name               => "bk-vol0-edit",
+                :service            => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
+                :size               => 10,
+                :status             => "online",
+                :storage_resource   => "0a10636f-c204-4ae1-a370-f0ee850b80af",
+                :uuid               => "ac287c2d-1776-48a3-a5c9-06327f4a57c4"
+              )
+            ]
+          )
+
+        assert_inventory_not_changed { run_targeted_refresh(ems.cloud_volumes.find_by(:ems_ref => "ac287c2d-1776-48a3-a5c9-06327f4a57c4")) }
       end
 
       def run_targeted_refresh(targets = [])
@@ -77,6 +101,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         autosde_client_stub = double("AutosdeClient")
         allow(autosde_client_stub).to receive(:SystemTypeApi).and_return(system_type_api)
         allow(autosde_client_stub).to receive(:StorageSystemApi).and_return(storage_system_api)
+        allow(autosde_client_stub).to receive(:VolumeApi).and_return(volume_api)
 
         allow(ems).to receive(:autosde_client).and_return(autosde_client_stub)
 
