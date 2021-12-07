@@ -1,8 +1,9 @@
 class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager
-  def initialize(_manager, _target)
+  def initialize(_manager, target)
     super
 
     parse_targets!
+    target.manager_refs_by_association_reset
   end
 
   def physical_storages
