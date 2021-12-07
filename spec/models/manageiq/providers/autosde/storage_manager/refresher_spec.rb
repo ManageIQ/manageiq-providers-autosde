@@ -1,12 +1,11 @@
 describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
+  include Spec::Support::EmsRefreshHelper
+
   let(:ems) do
     FactoryBot.create(:autosde_storage_manager,
                       :with_autosde_credentials,
                       :hostname => Rails.application.secrets.autosde[:appliance_host])
   end
-
-  let(:first_wwpn) { "2100000E1EE89D90" }
-  let(:wwpn_ems_ref) { "a785c49a-2f3c-4e6d-8ace-879dfa1719a2" }
 
   describe "#refresh" do
     context "full refresh" do
@@ -28,6 +27,167 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           assert_specific_host_volume_mapping
           assert_specific_cluster_volume_mapping
         end
+      end
+    end
+
+    context "targeted refresh" do
+      before { VCR.use_cassette("ems_refresh") { described_class.refresh([ems]) } }
+
+      let(:system_type_api)    { double("SystemTypeApi") }
+      let(:storage_system_api) { double("StorageSystemApi") }
+      let(:volume_api)         { double("VolumeApi") }
+
+      it "with no targets" do
+        assert_inventory_not_changed { run_targeted_refresh }
+      end
+
+      it "with a PhysicalStorage object target" do
+        expect(storage_system_api)
+          .to receive(:storage_systems_get)
+          .and_return(
+            [
+              AutosdeOpenapiClient::StorageSystem.new(
+                :auto_add_pools  => true,
+                :component_state => "PENDING_CREATION",
+                :management_ip   => "9.151.159.178",
+                :name            => "9.151.159.178",
+                :status          => "ONLINE",
+                :storage_family  => "ontap_7mode",
+                :system_type     => AutosdeOpenapiClient::SystemType.new(
+                  :component_state => "PENDING_CREATION",
+                  :name            => "FlashSystems/SVC",
+                  :short_version   => "11",
+                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
+                  :version         => "1.2"
+                ),
+                :uuid            => "980f3ceb-c599-49c4-9db3-fdc793cb8666"
+              )
+            ]
+          )
+
+        assert_inventory_not_changed { run_targeted_refresh(ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666")) }
+      end
+
+      it "with a new physical storage" do
+        expect(storage_system_api)
+          .to receive(:storage_systems_get)
+          .and_return(
+            [
+              AutosdeOpenapiClient::StorageSystem.new(
+                :auto_add_pools  => true,
+                :component_state => "PENDING_CREATION",
+                :management_ip   => "1.2.3.4",
+                :name            => "1.2.3.4",
+                :status          => "ONLINE",
+                :storage_family  => "ontap_7mode",
+                :system_type     => AutosdeOpenapiClient::SystemType.new(
+                  :component_state => "PENDING_CREATION",
+                  :name            => "FlashSystems/SVC",
+                  :short_version   => "11",
+                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
+                  :version         => "1.2"
+                ),
+                :uuid            => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
+              )
+            ]
+          )
+
+        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :physical_storages, :manager_ref => {:ems_ref => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"}))
+
+        ems.reload
+
+        expect(ems.physical_storages.count).to eq(2)
+        expect(ems.physical_storages.find_by(:ems_ref => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb")).to have_attributes(
+          :ems_ref                 => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb",
+          :uid_ems                 => nil,
+          :name                    => "1.2.3.4",
+          :type                    => "ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage",
+          :health_state            => "ONLINE",
+          :physical_storage_family => ems.physical_storage_families.find_by(:name => "FlashSystems/SVC")
+        )
+      end
+
+      it "with a CloudVolume object target" do
+        expect(volume_api)
+          .to receive(:volumes_get)
+          .and_return(
+            [
+              AutosdeOpenapiClient::VolumeResponse.new(
+                :compliant          => true,
+                :component_state    => "PENDING_DELETION",
+                :historical_service => nil,
+                :name               => "bk-vol0-edit",
+                :service            => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
+                :size               => 10,
+                :status             => "online",
+                :storage_resource   => "0a10636f-c204-4ae1-a370-f0ee850b80af",
+                :uuid               => "ac287c2d-1776-48a3-a5c9-06327f4a57c4"
+              )
+            ]
+          )
+
+        assert_inventory_not_changed { run_targeted_refresh(ems.cloud_volumes.find_by(:ems_ref => "ac287c2d-1776-48a3-a5c9-06327f4a57c4")) }
+      end
+
+      it "with a new cloud volume" do
+        expect(volume_api)
+          .to receive(:volumes_get)
+          .and_return(
+            [
+              AutosdeOpenapiClient::VolumeResponse.new(
+                :compliant          => true,
+                :component_state    => "PENDING_CREATION",
+                :historical_service => nil,
+                :name               => "new-volume",
+                :service            => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
+                :size               => 10,
+                :status             => "online",
+                :storage_resource   => "0a10636f-c204-4ae1-a370-f0ee850b80af",
+                :uuid               => "6a02fc1f-04f4-476d-a5ac-6bcf042809e8"
+              )
+            ]
+          )
+
+        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :cloud_volumes, :manager_ref => {:ems_ref => "6a02fc1f-04f4-476d-a5ac-6bcf042809e8"}))
+
+        ems.reload
+
+        expect(ems.cloud_volumes.count).to eq(14)
+        expect(ems.cloud_volumes.find_by(:ems_ref => "6a02fc1f-04f4-476d-a5ac-6bcf042809e8")).to have_attributes(
+          :type             => "ManageIQ::Providers::Autosde::StorageManager::CloudVolume",
+          :ems_ref          => "6a02fc1f-04f4-476d-a5ac-6bcf042809e8",
+          :size             => 10.gigabyte,
+          :name             => "new-volume",
+          :status           => "PENDING_CREATION",
+          :description      => nil,
+          :volume_type      => "ISCSI/FC",
+          :bootable         => false,
+          :health_state     => "online",
+          :storage_resource => ems.storage_resources.find_by(:ems_ref => "0a10636f-c204-4ae1-a370-f0ee850b80af"),
+          :storage_service  => ems.storage_services.find_by(:ems_ref => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6")
+        )
+      end
+
+      def run_targeted_refresh(targets = [])
+        target = InventoryRefresh::TargetCollection.new(:manager => ems, :targets => Array(targets))
+
+        persister = ManageIQ::Providers::Autosde::Inventory::Persister::TargetCollection.new(ems)
+        collector = ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection.new(ems, target)
+        parser    = ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager.new
+
+        # Allow for tests to mock API calls
+        autosde_client_stub = double("AutosdeClient")
+        allow(autosde_client_stub).to receive(:SystemTypeApi).and_return(system_type_api)
+        allow(autosde_client_stub).to receive(:StorageSystemApi).and_return(storage_system_api)
+        allow(autosde_client_stub).to receive(:VolumeApi).and_return(volume_api)
+
+        allow(ems).to receive(:autosde_client).and_return(autosde_client_stub)
+
+        parser.collector = collector
+        parser.persister = persister
+        parser.parse
+
+        InventoryRefresh::SaveInventory.save_inventory(ems, persister.inventory_collections)
       end
     end
 
