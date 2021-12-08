@@ -10,6 +10,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   require_nested :RefreshWorker
   require_nested :VolumeMapping
 
+  supports :create
   supports :storage_services
   supports :ems_storage_new
   supports :volume_resizing
@@ -135,10 +136,6 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     unless console_supported?
       unsupported_reason_add(:console, N_("Console not supported"))
     end
-  end
-
-  def self.supported_for_create?
-    true
   end
 
   def console_supported?
