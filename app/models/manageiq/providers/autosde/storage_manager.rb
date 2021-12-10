@@ -12,7 +12,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   supports :create
   supports :storage_services
-  supports :ems_storage_new
+  supports :update
   supports :volume_resizing
   supports :cloud_volume_create
   supports :cloud_volume
