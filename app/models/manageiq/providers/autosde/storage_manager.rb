@@ -138,6 +138,10 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     end
   end
 
+  def self.supported_for_create?
+    true
+  end
+
   def console_supported?
     false
   end
