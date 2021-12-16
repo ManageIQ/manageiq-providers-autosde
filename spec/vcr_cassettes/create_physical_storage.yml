@@ -1,0 +1,83 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth
+    body:
+      encoding: UTF-8
+      string: '{"password":"<password>","username":"<username>"}'
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.1.2/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 15 Dec 2021 11:49:55 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Allow:
+      - POST, OPTIONS
+      Vary:
+      - Accept
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"token":"249f19445db50ae084bbe59fc9716c4b9dd4c93e"}'
+    http_version: null
+  recorded_at: Wed, 15 Dec 2021 11:49:55 GMT
+- request:
+    method: post
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems
+    body:
+      encoding: UTF-8
+      string: '{"auto_add_pools":true,"auto_setup":true,"management_ip":"9.151.159.178","name":"svc-178","password":"<password>","storage_family":"ontap_7mode","system_type":"FlashSystems/SVC","user":"<user>"}'
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.1.2/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 249f19445db50ae084bbe59fc9716c4b9dd4c93e
+      Expect:
+      - ''
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Date:
+      - Wed, 15 Dec 2021 11:49:55 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"auto_add_pools":true,"component_state":"CREATED","management_ip":"9.151.159.178","name":"svc-178","status":null,"storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"FlashSystems/SVC","short_version":"1","uuid":"bba8eb17-0e7f-4c02-90a3-5216ea05e306","version":"1.1"},"uuid":"9f25f501-d876-404f-8e7c-8a1c886b8edb"}'
+    http_version: null
+  recorded_at: Wed, 15 Dec 2021 11:49:55 GMT
+recorded_with: VCR 5.1.0
