@@ -9,22 +9,17 @@ describe ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage do
   end
 
   let(:create_ph_storage_hash) do
-    {
-      "name"                       => "svc-178",
-      "password"                   => "<password>",
-      "user"                       => "<user>",
-      # "physical_storage_family_id" => PhysicalStorageFamily.first.id,
-      "physical_storage_family_id" => 123,
-      "management_ip"              => "9.151.159.178",
-    }
+    autosde_provider_json_path = File.join(ManageIQ::Providers::Autosde::Engine.root, 'spec', 'fixtures', 'json', 'physical_storage.json')
+    autosde_provider_json_file = File.read(autosde_provider_json_path)
+    JSON.parse(autosde_provider_json_file)
   end
 
   it "compare end2end create physical storage hash" do
-    end2end_json_path = Rails.root.join("spec", "fixtures", "end2end", "physical_storage.json").to_s
-    end2end_json_file = File.read(end2end_json_path)
-    end2end_create_ph_storage_hash = JSON.parse(end2end_json_file)
+    ui_classic_json_path = File.join(ManageIQ::UI::Classic::Engine.root, 'spec', 'javascripts', 'fixtures', 'json', 'physical_storage.json')
+    ui_classic_json_file = File.read(ui_classic_json_path)
+    ui_classic_create_ph_storage_hash = JSON.parse(ui_classic_json_file)
 
-    expect(end2end_create_ph_storage_hash).to eq(create_ph_storage_hash)
+    expect(create_ph_storage_hash).to eq(ui_classic_create_ph_storage_hash)
   end
 
   it "create physical storage" do
