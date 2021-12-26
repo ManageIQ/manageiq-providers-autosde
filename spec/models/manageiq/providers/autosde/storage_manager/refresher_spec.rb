@@ -107,6 +107,16 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         )
       end
 
+      it "deleting a physical storage" do
+        expect(storage_system_api).to receive(:storage_systems_get).and_return([])
+
+        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :physical_storages, :manager_ref => {:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666"}))
+
+        ems.reload
+
+        expect(ems.physical_storages.count).to eq(0)
+      end
+
       it "with a CloudVolume object target" do
         expect(volume_api)
           .to receive(:volumes_get)
@@ -168,10 +178,21 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         )
       end
 
+      it "deleting a cloud volume" do
+        expect(volume_api).to receive(:volumes_get).and_return([])
+
+        cloud_volume = ems.cloud_volumes.find_by(:ems_ref => "ac287c2d-1776-48a3-a5c9-06327f4a57c4")
+        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :cloud_volumes, :manager_ref => {:ems_ref => cloud_volume.ems_ref}))
+
+        ems.reload
+
+        expect(ems.cloud_volumes.count).to eq(12)
+      end
+
       def run_targeted_refresh(targets = [])
         target = InventoryRefresh::TargetCollection.new(:manager => ems, :targets => Array(targets))
 
-        persister = ManageIQ::Providers::Autosde::Inventory::Persister::TargetCollection.new(ems)
+        persister = ManageIQ::Providers::Autosde::Inventory::Persister::TargetCollection.new(ems, target)
         collector = ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection.new(ems, target)
         parser    = ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager.new
 

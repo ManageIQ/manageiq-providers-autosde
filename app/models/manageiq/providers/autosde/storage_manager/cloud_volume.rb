@@ -18,8 +18,16 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :size    => options["size"],
       :count   => options["count"]
     )
-    ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create)
-    EmsRefresh.queue_refresh(ext_management_system)
+
+    new_volume = ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create)
+
+    EmsRefresh.queue_refresh(
+      InventoryRefresh::Target.new(
+        :manager     => ext_management_system,
+        :association => :cloud_volumes,
+        :manager_ref => {:ems_ref => new_volume.uuid}
+      )
+    )
   end
 
   # ================= delete  ================
@@ -27,7 +35,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   def raw_delete_volume
     ems = ext_management_system
     ems.autosde_client.VolumeApi.volumes_pk_delete(ems_ref)
-    EmsRefresh.queue_refresh(ems)
+    queue_refresh
   end
 
   # ================= edit  ================
@@ -38,13 +46,13 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :size => options["size_GB"]
     )
     ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details)
-    EmsRefresh.queue_refresh(self)
+    queue_refresh
   end
 
   # ================ safe-delete ================
   def raw_safe_delete_volume
     ext_management_system.autosde_client.VolumeApi.volumes_safe_delete(ems_ref)
-    EmsRefresh.queue_refresh(ext_management_system)
+    queue_refresh
   end
 
   def params_for_update
