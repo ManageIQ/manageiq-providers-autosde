@@ -2,12 +2,6 @@ class ManageIQ::Providers::Autosde::StorageManager::VolumeMapping < ::VolumeMapp
   HOST_MAPPING_OBJECT = 'host'.freeze
   HOST_GROUP_MAPPING_OBJECT = 'host_group'.freeze
 
-  scope :to_clusters,  -> { where("type LIKE ?", "%Cluster%") }
-  scope :to_hosts,     -> { where("type LIKE ?", "%Host%") }
-
-  scope :to_clusters,  -> { where("type LIKE ?", "%Cluster%") }
-  scope :to_hosts,     -> { where("type LIKE ?", "%Host%") }
-
   supports :create
 
   supports :delete do
