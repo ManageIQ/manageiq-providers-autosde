@@ -8,6 +8,8 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   require_nested :PhysicalStorage
   require_nested :Refresher
   require_nested :RefreshWorker
+  require_nested :StorageResource
+  require_nested :StorageService
   require_nested :VolumeMapping
 
   supports :create

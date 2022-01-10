@@ -261,7 +261,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         :logical_free     => 601_295_421_440,
         :logical_total    => 0,
         :physical_storage => ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666"),
-        :type             => nil
+        :type             => "ManageIQ::Providers::Autosde::StorageManager::StorageResource"
       )
     end
 
@@ -272,7 +272,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         :description => "auto_created_service",
         :ems_ref     => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
         :uid_ems     => nil,
-        :type        => nil
+        :type        => "ManageIQ::Providers::Autosde::StorageManager::StorageService"
       )
     end
 
