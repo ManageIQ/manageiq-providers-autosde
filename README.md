@@ -1,6 +1,6 @@
 # ManageIQ::Providers::Autosde
 
-[![Build Status](https://travis-ci.com/ManageIQ/manageiq-providers-autosde.svg?branch=master)](https://travis-ci.com/github/ManageIQ/manageiq-providers-autosde)
+[![CI](https://github.com/ManageIQ/manageiq-providers-autosde/actions/workflows/ci.yaml/badge.svg)](https://github.com/ManageIQ/manageiq-providers-autosde/actions/workflows/ci.yaml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ed875a9a7610a4bbe31a/maintainability)](https://codeclimate.com/github/ManageIQ/manageiq-providers-autosde/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ed875a9a7610a4bbe31a/test_coverage)](https://codeclimate.com/github/ManageIQ/manageiq-providers-autosde/test_coverage)
 
