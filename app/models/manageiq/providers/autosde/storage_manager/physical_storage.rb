@@ -10,7 +10,7 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
   def raw_delete_physical_storage
     ems = ext_management_system
     ems.autosde_client.StorageSystemApi.storage_systems_pk_delete(ems_ref)
-    EmsRefresh.queue_refresh(ems)
+    EmsRefresh.queue_refresh(self)
   end
 
   def raw_update_physical_storage(options = {})
@@ -38,9 +38,15 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
     )
 
     begin
-      _ext_management_system.autosde_client.StorageSystemApi.storage_systems_post(sys_to_create)
+      new_storage = _ext_management_system.autosde_client.StorageSystemApi.storage_systems_post(sys_to_create)
     ensure
-      EmsRefresh.queue_refresh(_ext_management_system)
+      EmsRefresh.queue_refresh(
+        InventoryRefresh::Target.new(
+          :manager     => _ext_management_system,
+          :association => :physical_storages,
+          :manager_ref => {:ems_ref => new_storage.uuid}
+        )
+      )
     end
   end
 end
