@@ -24,24 +24,23 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
     EmsRefresh.queue_refresh(self)
   end
 
-  # @param [ManageIQ::Providers::Autosde] _ext_management_system
-  def self.raw_create_physical_storage(_ext_management_system, _options = {})
-    sys_to_create = _ext_management_system.autosde_client.StorageSystemCreate(
-      :password       => _options['password'],
-      :user           => _options['user'],
-      :system_type    => PhysicalStorageFamily.find(_options['physical_storage_family_id']).name,
+  def self.raw_create_physical_storage(ext_management_system, options = {})
+    sys_to_create = ext_management_system.autosde_client.StorageSystemCreate(
+      :password       => options['password'],
+      :user           => options['user'],
+      :system_type    => PhysicalStorageFamily.find(options['physical_storage_family_id']).name,
       :auto_add_pools => true,
       :auto_setup     => true,
-      :management_ip  => _options['management_ip'],
+      :management_ip  => options['management_ip'],
       :storage_family => "ontap_7mode"
     )
 
     begin
-      new_storage = _ext_management_system.autosde_client.StorageSystemApi.storage_systems_post(sys_to_create)
+      new_storage = ext_management_system.autosde_client.StorageSystemApi.storage_systems_post(sys_to_create)
     ensure
       EmsRefresh.queue_refresh(
         InventoryRefresh::Target.new(
-          :manager     => _ext_management_system,
+          :manager     => ext_management_system,
           :association => :physical_storages,
           :manager_ref => {:ems_ref => new_storage.uuid}
         )
