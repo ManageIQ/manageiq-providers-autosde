@@ -258,7 +258,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       expect(storage_resource).to have_attributes(
         :name             => "9.151.159.178:ilyak_test_pool",
         :ems_ref          => "e6833c27-374b-4a4a-8d76-455cfe5f4270",
-        :logical_free     => 601_295_421_440,
+        :logical_free     => 560,
         :logical_total    => 0,
         :physical_storage => ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666"),
         :type             => "ManageIQ::Providers::Autosde::StorageManager::StorageResource"
