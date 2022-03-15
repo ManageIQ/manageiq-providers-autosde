@@ -49,8 +49,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       persister.storage_resources.build(
         :name             => resource.name,
         :ems_ref          => resource.uuid,
-        :logical_free     => resource.logical_free,
-        :logical_total    => resource.logical_total,
+        :logical_free     => resource.logical_free / (1024 * 1024 * 1024),
+        :logical_total    => resource.logical_total / (1024 * 1024 * 1024),
         :physical_storage => persister.physical_storages.lazy_find(resource.storage_system)
       )
     end
