@@ -55,7 +55,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                 :storage_family  => "ontap_7mode",
                 :system_type     => AutosdeOpenapiClient::SystemType.new(
                   :component_state => "PENDING_CREATION",
-                  :name            => "FlashSystems/SVC",
+                  :name            => "IBM_FlashSystems",
                   :short_version   => "11",
                   :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
                   :version         => "1.2"
@@ -82,7 +82,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                 :storage_family  => "ontap_7mode",
                 :system_type     => AutosdeOpenapiClient::SystemType.new(
                   :component_state => "PENDING_CREATION",
-                  :name            => "FlashSystems/SVC",
+                  :name            => "IBM_FlashSystems",
                   :short_version   => "11",
                   :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
                   :version         => "1.2"
@@ -103,7 +103,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           :name                    => "1.2.3.4",
           :type                    => "ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage",
           :health_state            => "ONLINE",
-          :physical_storage_family => ems.physical_storage_families.find_by(:name => "FlashSystems/SVC")
+          :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
         )
       end
 
@@ -240,14 +240,14 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         :canister_slots          => nil,
         :physical_chassis_id     => nil,
         :total_space             => nil,
-        :physical_storage_family => ems.physical_storage_families.find_by(:name => "FlashSystems/SVC")
+        :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
       )
     end
 
     def assert_specific_physical_storage_family
-      flash_systems = ems.physical_storage_families.find_by(:name => "FlashSystems/SVC")
+      flash_systems = ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
       expect(flash_systems).to have_attributes(
-        :name    => "FlashSystems/SVC",
+        :name    => "IBM_FlashSystems",
         :version => "1.2",
         :ems_ref => "053446df-ed2b-4822-b9c5-386e85198519"
       )

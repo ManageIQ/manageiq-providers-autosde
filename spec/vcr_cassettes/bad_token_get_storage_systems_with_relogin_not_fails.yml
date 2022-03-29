@@ -114,7 +114,7 @@ http_interactions:
       - SAMEORIGIN
     body:
       encoding: UTF-8
-      string: '[{"component_state":"PENDING_CREATION","management_ip":"9.151.159.178","name":"9.151.159.178","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"FlashSystems/SVC","short_version":"1","uuid":"3b320bde-b0f7-46c0-bd9d-a01fe426ed74","version":"1.1"},"uuid":"2caa4c24-b3f3-4897-9115-62dfdb95125f"}]'
+      string: '[{"component_state":"PENDING_CREATION","management_ip":"9.151.159.178","name":"9.151.159.178","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"IBM_FlashSystems","short_version":"1","uuid":"3b320bde-b0f7-46c0-bd9d-a01fe426ed74","version":"1.1"},"uuid":"2caa4c24-b3f3-4897-9115-62dfdb95125f"}]'
     http_version: 
   recorded_at: Sat, 18 Jul 2020 14:45:18 GMT
 - request:
