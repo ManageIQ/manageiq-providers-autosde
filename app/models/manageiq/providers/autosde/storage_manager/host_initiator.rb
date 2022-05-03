@@ -22,9 +22,10 @@ class ManageIQ::Providers::Autosde::StorageManager::HostInitiator < ::HostInitia
     ext_management_system.autosde_client.StorageHostApi.storage_hosts_post(host_initiator_to_create)
     EmsRefresh.queue_refresh(ext_management_system)
   end
+
   def raw_delete_host_initiator
     ems = ext_management_system
     ems.autosde_client.StorageHostApi.storage_hosts_pk_delete(ems_ref)
-    EmsRefresh.queue_refresh(self)
+    EmsRefresh.queue_refresh(ems)
   end
 end
