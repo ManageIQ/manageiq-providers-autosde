@@ -13,6 +13,26 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
     EmsRefresh.queue_refresh(self)
   end
 
+  def self.raw_validate_physical_storage(ext_management_system, options = {})
+    header_params = options[:header_params] || {}
+    header_params['Accept'] = ext_management_system.autosde_client.select_header_accept(['*/*'])
+    header_params['Content-Type'] = ext_management_system.autosde_client.select_header_content_type(['application/json'])
+
+    request_opts = {
+      :header_params => header_params,
+      :body => options.merge(
+        :system_type => PhysicalStorageFamily.find(options['physical_storage_family_id']).name,
+      ),
+      :auth_names => ['bearerAuth'],
+    }
+
+    data, status_code, headers = ext_management_system.autosde_client.call_api(:POST, 'validate-system', request_opts)
+    if ext_management_system.autosde_client.config.debugging
+      ext_management_system.autosde_client.config.logger.debug "API called: StorageSystemValidation#storage_systems_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+    end
+    return data, status_code, headers
+  end
+
   def raw_update_physical_storage(options = {})
     update_details = ext_management_system.autosde_client.StorageSystemUpdate(
       :name          => options['name'],
