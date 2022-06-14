@@ -13,6 +13,16 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
     EmsRefresh.queue_refresh(self)
   end
 
+  def self.raw_validate_physical_storage(ext_management_system, options = {})
+    validation_object = ext_management_system.autosde_client.StorageSystemCreate(
+      :management_ip => options['management_ip'],
+      :user          => options['user'],
+      :password      => options['password'],
+      :system_type   => PhysicalStorageFamily.find(options['physical_storage_family_id']).name
+    )
+    ext_management_system.autosde_client.ValidateSystemApi.validate_system_post(validation_object)
+  end
+
   def raw_update_physical_storage(options = {})
     update_details = ext_management_system.autosde_client.StorageSystemUpdate(
       :name          => options['name'],
