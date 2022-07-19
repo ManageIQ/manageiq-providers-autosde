@@ -3,6 +3,9 @@
     :blacklisted_event_names: []
     :event_handling:
       :event_groups:
+        :general:
+          :critical:
+            - autosde_critical_alert
         :power:
           :critical:
             - AUTOSDE_instance_power_on
@@ -15,6 +18,9 @@
     :user:
 :workers:
   :worker_base:
+    :event_catcher:
+      :event_catcher_autosde:
+        :poll: 15.seconds
     :queue_worker_base:
       :ems_refresh_worker:
         :ems_refresh_worker_autosde: {}

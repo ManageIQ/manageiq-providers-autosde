@@ -11,6 +11,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   require_nested :StorageResource
   require_nested :StorageService
   require_nested :VolumeMapping
+  require_nested :EventCatcher
 
   supports :create
   supports :storage_services
