@@ -13,6 +13,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   require_nested :VolumeMapping
   require_nested :EventCatcher
 
+  supports :authentication_status
   supports :create
   supports :storage_services
   supports :update
@@ -82,10 +83,6 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   def self.description
     @description ||= "StorageManager".freeze
-  end
-
-  def validate_authentication_status
-    {:available => true, :message => nil}
   end
 
   def count_health_state(state)
