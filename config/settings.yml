@@ -3,11 +3,9 @@
     :blacklisted_event_names: []
     :event_handling:
       :event_groups:
-        :general:
-          :critical:
-            - autosde_critical_alert
         :power:
           :critical:
+            - autosde_critical_alert
             - AUTOSDE_instance_power_on
             - AUTOSDE_instance_power_off
 :http_proxy:
