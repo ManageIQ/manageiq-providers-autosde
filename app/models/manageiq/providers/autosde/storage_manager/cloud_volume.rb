@@ -40,8 +40,8 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def raw_update_volume(options = {})
     update_details = ext_management_system.autosde_client.VolumeUpdate(
-      :name => options["name"],
-      :size => options["size_GB"]
+      :name => options[:name],
+      :size => options[:size_GB]
     )
     ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details)
     queue_refresh
