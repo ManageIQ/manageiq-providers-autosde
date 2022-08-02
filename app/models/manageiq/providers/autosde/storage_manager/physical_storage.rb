@@ -40,8 +40,6 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
       :password       => options['password'],
       :user           => options['user'],
       :system_type    => PhysicalStorageFamily.find(options['physical_storage_family_id']).name,
-      :auto_add_pools => true,
-      :auto_setup     => true,
       :management_ip  => options['management_ip'],
       :storage_family => "ontap_7mode"
     )

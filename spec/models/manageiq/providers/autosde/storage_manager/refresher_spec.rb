@@ -47,7 +47,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           .and_return(
             [
               AutosdeOpenapiClient::StorageSystem.new(
-                :auto_add_pools  => true,
                 :component_state => "PENDING_CREATION",
                 :management_ip   => "9.151.159.178",
                 :name            => "9.151.159.178",
@@ -74,7 +73,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           .and_return(
             [
               AutosdeOpenapiClient::StorageSystem.new(
-                :auto_add_pools  => true,
                 :component_state => "PENDING_CREATION",
                 :management_ip   => "1.2.3.4",
                 :name            => "1.2.3.4",
