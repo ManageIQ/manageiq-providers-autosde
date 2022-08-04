@@ -294,6 +294,6 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   end
 
   def self.catalog_types
-    {"generic" => N_("Autosde")}
+    {"autosde" => N_("Autosde")}
   end
 end
