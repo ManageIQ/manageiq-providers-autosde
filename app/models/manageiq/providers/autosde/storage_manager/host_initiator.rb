@@ -27,7 +27,12 @@ class ManageIQ::Providers::Autosde::StorageManager::HostInitiator < ::HostInitia
 
   def raw_delete_host_initiator
     ems = ext_management_system
-    ems.autosde_client.StorageHostApi.storage_hosts_pk_delete(ems_ref)
-    EmsRefresh.queue_refresh(ems)
+    task_id = ems.autosde_client.StorageHostApi.storage_hosts_pk_delete(ems_ref)
+    status = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.wait_for_success(ems, task_id.task_id, 2, 4)
+    if status == "SUCCESS"
+      EmsRefresh.queue_refresh(ems)
+    else
+      ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.raise_non_success_exception(done_status)
+    end
   end
 end

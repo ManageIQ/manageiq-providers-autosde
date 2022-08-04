@@ -1,4 +1,7 @@
+
 class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
+
+
   supports :create
   supports :update do
     unsupported_reason_add(:update, _("the volume is not connected to an active provider")) unless ext_management_system
@@ -18,7 +21,6 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     )
 
     new_volume = ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create)
-
     EmsRefresh.queue_refresh(
       InventoryRefresh::Target.new(
         :manager     => ext_management_system,
@@ -32,8 +34,13 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def raw_delete_volume
     ems = ext_management_system
-    ems.autosde_client.VolumeApi.volumes_pk_delete(ems_ref)
-    queue_refresh
+    task_id = ems.autosde_client.VolumeApi.volumes_pk_delete(ems_ref)
+    status = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.wait_for_success(ems, task_id.task_id, 100, 5)
+    if status == "SUCCESS"
+      queue_refresh
+    else
+      ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.raise_non_success_exception(done_status)
+    end
   end
 
   # ================= edit  ================
@@ -43,8 +50,14 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :name => options[:name],
       :size => options[:size_GB]
     )
-    ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details)
-    queue_refresh
+    ems = ext_management_system
+    task_id = ems.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details)
+    status = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.wait_for_success(ems, task_id.task_id, 100, 5)
+    if status == "SUCCESS"
+      queue_refresh
+    else
+      ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.raise_non_success_exception(done_status)
+    end
   end
 
   # ================ safe-delete ================

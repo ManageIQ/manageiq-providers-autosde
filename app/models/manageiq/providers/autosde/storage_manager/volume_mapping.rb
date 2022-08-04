@@ -9,8 +9,14 @@ class ManageIQ::Providers::Autosde::StorageManager::VolumeMapping < ::VolumeMapp
   end
 
   def raw_delete_volume_mapping
-    ext_management_system.autosde_client.StorageHostsMappingApi.storage_hosts_mapping_pk_delete(ems_ref)
-    EmsRefresh.queue_refresh(ext_management_system)
+    ems = ext_management_system
+    task_id = ems.autosde_client.StorageHostsMappingApi.storage_hosts_mapping_pk_delete(ems_ref)
+    status = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.wait_for_success(ems, task_id.task_id, 2, 4)
+    if status == "SUCCESS"
+      EmsRefresh.queue_refresh(ext_management_system)
+    else
+      ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.raise_non_success_exception(done_status)
+    end
   end
 
   def self.raw_create_volume_mapping(ext_management_system, options = {})
