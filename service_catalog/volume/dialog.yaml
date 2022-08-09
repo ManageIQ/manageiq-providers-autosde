@@ -1,0 +1,247 @@
+---
+description: Order Storage Volume
+buttons: submit,cancel
+label: AutoSDE Dialog
+system: false
+dialog_tabs:
+  - description:
+    display:
+    label: Volume
+    display_method:
+    display_method_options:
+    position: 0
+    dialog_groups:
+      - description:
+        display:
+        label: New Volume Properties
+        display_method:
+        display_method_options:
+        position: 0
+        dialog_fields:
+          - name: name
+            description: ''
+            data_type:
+            notes:
+            notes_display:
+            display: edit
+            display_method:
+            display_method_options: {}
+            required: true
+            required_method:
+            required_method_options: {}
+            default_value: Volume_Name
+            values:
+            values_method:
+            values_method_options: {}
+            options:
+              protected: false
+              show_past_days: false
+              force_multi_value: false
+            label: Name
+            position: 0
+            validator_type: f
+            validator_rule:
+            reconfigurable: false
+            dynamic: false
+            show_refresh_button: false
+            load_values_on_init: true
+            read_only: false
+            auto_refresh: false
+            trigger_auto_refresh: false
+            visible: true
+            validator_message:
+            type: DialogFieldTextBox
+            resource_action:
+              action:
+              resource_type: DialogField
+              ae_namespace:
+              ae_class:
+              ae_instance:
+              ae_message:
+              ae_attributes: {}
+            dialog_field_responders: []
+          - name: ems
+            description: ''
+            data_type: string
+            notes:
+            notes_display:
+            display: edit
+            display_method:
+            display_method_options: {}
+            required: true
+            required_method:
+            required_method_options: {}
+            default_value: ''
+            values_method:
+            values_method_options: {}
+            options:
+              sort_by: description
+              sort_order: ascending
+              force_multi_value: false
+              show_past_days: false
+              protected: false
+            label: Storage manager
+            position: 1
+            validator_type:
+            validator_rule:
+            reconfigurable: false
+            dynamic: true
+            show_refresh_button: true
+            load_values_on_init: true
+            read_only: false
+            auto_refresh: false
+            trigger_auto_refresh: false
+            visible: true
+            validator_message:
+            type: DialogFieldDropDownList
+            resource_action:
+              action:
+              resource_type: DialogField
+              ae_namespace: Storage/Autosde/GetMethods
+              ae_class: GetEms
+              ae_instance: GetEms
+              ae_message:
+              ae_attributes: {}
+            dialog_field_responders:
+              - pool
+            values:
+          - name: pool
+            description: ''
+            data_type: string
+            notes:
+            notes_display:
+            display: edit
+            display_method:
+            display_method_options: {}
+            required: true
+            required_method:
+            required_method_options: {}
+            default_value: ''
+            values_method:
+            values_method_options: {}
+            options:
+              sort_by: description
+              sort_order: ascending
+              force_multi_value: false
+              show_past_days: false
+              protected: false
+            label: Service pool
+            position: 2
+            validator_type:
+            validator_rule:
+            reconfigurable: false
+            dynamic: true
+            show_refresh_button: false
+            load_values_on_init: true
+            read_only: false
+            auto_refresh: false
+            trigger_auto_refresh: false
+            visible: true
+            validator_message:
+            type: DialogFieldDropDownList
+            resource_action:
+              action:
+              resource_type: DialogField
+              ae_namespace: Storage/Autosde/GetMethods
+              ae_class: GetPools
+              ae_instance: GetPools
+              ae_message:
+              ae_attributes: {}
+            dialog_field_responders: []
+            values:
+          - name: size
+            description: ''
+            data_type: string
+            notes:
+            notes_display:
+            display: edit
+            display_method:
+            display_method_options: {}
+            required: true
+            required_method:
+            required_method_options: {}
+            default_value: ''
+            values:
+              - -
+                - "<Choose>"
+              - - '250'
+                - '250'
+              - - '500'
+                - '500'
+              - - '750'
+                - '750'
+              - - custom
+                - Custom
+            values_method:
+            values_method_options: {}
+            options:
+              sort_by: description
+              sort_order: ascending
+              force_multi_value: false
+              show_past_days: false
+              protected: false
+            label: Size (GB)
+            position: 3
+            validator_type:
+            validator_rule:
+            reconfigurable: false
+            dynamic: false
+            show_refresh_button: false
+            load_values_on_init: true
+            read_only: false
+            auto_refresh: false
+            trigger_auto_refresh: false
+            visible: true
+            validator_message:
+            type: DialogFieldDropDownList
+            resource_action:
+              action:
+              resource_type: DialogField
+              ae_namespace:
+              ae_class:
+              ae_instance:
+              ae_message:
+              ae_attributes: {}
+            dialog_field_responders:
+              - Custom
+          - name: Custom
+            description: ''
+            data_type: integer
+            notes:
+            notes_display:
+            display: edit
+            display_method:
+            display_method_options: {}
+            required: false
+            required_method:
+            required_method_options: {}
+            default_value:
+            values_method:
+            values_method_options: {}
+            options:
+              protected: false
+              show_past_days: false
+              force_multi_value: false
+            label: Custom Size (GB)
+            position: 4
+            validator_type: f
+            validator_rule:
+            reconfigurable: false
+            dynamic: true
+            show_refresh_button: false
+            load_values_on_init: true
+            read_only: false
+            auto_refresh: false
+            trigger_auto_refresh: false
+            visible: true
+            validator_message:
+            type: DialogFieldTextBox
+            resource_action:
+              action:
+              resource_type: DialogField
+              ae_namespace: Storage/Autosde/GetMethods
+              ae_class: DisplayFields
+              ae_instance: DisplayCustomField
+              ae_message:
+              ae_attributes: {}
+            dialog_field_responders: []
