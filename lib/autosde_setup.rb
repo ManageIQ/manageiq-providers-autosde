@@ -6,7 +6,7 @@ class AutosdeSetup
     catalog_id = ServiceTemplateCatalog.find_or_create_by(:name => catalog_name).id
 
     # DIALOG
-    vol_dialog = YAML.load_file( File.join(__dir__,"plugins/manageiq-providers-autosde/content/miq/dialogs/volume.yaml"))
+    vol_dialog = YAML.load_file("plugins/manageiq-providers-autosde/content/miq/dialogs/volume.yaml")
     catalog_name = vol_dialog["label"]
     exist_dialog = Dialog.find_by(:label => catalog_name)
     if exist_dialog
