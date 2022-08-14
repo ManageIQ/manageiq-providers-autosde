@@ -17,6 +17,8 @@ class AutosdeSetup
     # ITEM
     vol_item_prop = {:name => "Volume", :prov_type => "autosde", :display => "true", :service_template_catalog_id => catalog_id,
                       :config_info => {:provision => {:fqname => "/Storage/AutoSde/ServiceVolumeRequestApproval/Default", :dialog_id => vol_dialog_id}}}
-    ServiceTemplate.create_catalog_item(vol_item_prop, nil) unless !ServiceTemplate.find_by(:name => vol_item_prop[:name]).nil?
+    if ServiceTemplate.find_by(:name => vol_item_prop[:name]).nil
+      ServiceTemplate.create_catalog_item(vol_item_prop, nil)
+    end
   end
 end
