@@ -45,7 +45,6 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
     )
 
     begin
-      AutosdeSetup.service_catalog_components
       new_storage = ext_management_system.autosde_client.StorageSystemApi.storage_systems_post(sys_to_create)
     ensure
       EmsRefresh.queue_refresh(
