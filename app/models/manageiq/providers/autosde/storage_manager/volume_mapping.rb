@@ -9,7 +9,7 @@ class ManageIQ::Providers::Autosde::StorageManager::VolumeMapping < ::VolumeMapp
   end
 
   def raw_delete_volume_mapping
-    ext_management_system.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_pk_delete(ems_ref)
+    ext_management_system.autosde_client.StorageHostsMappingApi.storage_hosts_mapping_pk_delete(ems_ref)
     EmsRefresh.queue_refresh(ext_management_system)
   end
 
@@ -22,11 +22,11 @@ class ManageIQ::Providers::Autosde::StorageManager::VolumeMapping < ::VolumeMapp
     volume_ref = CloudVolume.find(options['cloud_volume_id']).ems_ref
     case options['mapping_object']
     when HOST_MAPPING_OBJECT
-      host_volume_mapping_to_create = ext_management_system.autosde_client.StorageHostVolumeMappingCreate(
+      host_volume_mapping_to_create = ext_management_system.autosde_client.StorageHostsMappingCreate(
         :host   => HostInitiator.find(options['host_initiator_id']).ems_ref,
         :volume => volume_ref
       )
-      ext_management_system.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_post(host_volume_mapping_to_create)
+      ext_management_system.autosde_client.StorageHostsMappingApi.storage_hosts_mapping_post(host_volume_mapping_to_create)
     when HOST_GROUP_MAPPING_OBJECT
       cluster_volume_mapping_to_create = ext_management_system.autosde_client.HostClusterVolumeMappingCreate(
         :cluster => HostInitiatorGroup.find(options['host_initiator_group_id']).ems_ref,
