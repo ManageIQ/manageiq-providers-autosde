@@ -85,7 +85,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
       end
     end
     VCR.use_cassette("get_service_resource_attachment") do
-      service_resource_map = client.ServiceResourceAttachmentApi.service_resource_attchment_get
+      service_resource_map = client.ServiceResourceAttachmentApi.service_resource_attachment_get
       expect(service_resource_map).to be_an_instance_of(Array)
     end
     volumes = nil
