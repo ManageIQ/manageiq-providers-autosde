@@ -71,23 +71,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
     service = services.first
 
-    # retrieve attachment
-    # @type [Array<AutosdeOpenapiClient::ServiceResourceAttachment>]
-    # override to get uuid, not object
-    class AutosdeOpenapiClient::ServiceResourceAttachment
-      def self.openapi_types
-        {
-          :compliant        => :Boolean,
-          :service          => :String,
-          :storage_resource => :String,
-          :uuid             => :String
-        }
-      end
-    end
-    VCR.use_cassette("get_service_resource_attachment") do
-      service_resource_map = client.ServiceResourceAttachmentApi.service_resource_attchment_get
-      expect(service_resource_map).to be_an_instance_of(Array)
-    end
     volumes = nil
     # get existing volumes
     # @type [Array<AutosdeOpenapiClient::Volume>]
