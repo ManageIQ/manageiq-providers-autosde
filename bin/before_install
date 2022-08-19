@@ -18,3 +18,14 @@ elif [ ! -d "$spec_manageiq" ]; then
   echo "== Cloning manageiq sample app =="
   git clone https://github.com/ManageIQ/manageiq.git --branch oparin --depth 1 "$spec_manageiq"
 fi
+
+if [ -n "$CI" ]; then
+  # Gemfile.lock.release only applies to non-master branches and PRs to non-master branches
+  if [[ "$GITHUB_REPOSITORY_OWNER" = "ManageIQ" && "$GITHUB_BASE_REF" != "master" && "$GITHUB_REF_NAME" != "master" && "$GITHUB_REF_NAME" != "dependabot/"* ]]; then
+    echo "== Setup Gemfile.lock.release =="
+    cp -f "$spec_manageiq/Gemfile.lock.release" "$gem_root/Gemfile.lock"
+
+    $spec_manageiq/bin/ci/patch_plugin_gemfile_lock
+    echo
+  fi
+fi
