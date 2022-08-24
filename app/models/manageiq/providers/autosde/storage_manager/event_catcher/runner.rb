@@ -34,7 +34,7 @@ class ManageIQ::Providers::Autosde::StorageManager::EventCatcher::Runner < Manag
   def event_to_hash(event, ems_id)
     {
       :event_type               => event.event_type,
-      :source                   => "AUTOSDE",
+      :source                   => PhysicalStorage.find_by(:ems_ref=>event.storage_system).name,
       :ems_ref                  => event.event_id,
       :physical_storage_ems_ref => event.storage_system,
       :timestamp                => event.created_at,
