@@ -1,6 +1,6 @@
 class ManageIQ::Providers::Autosde::StorageManager::EventCatcher::Runner < ManageIQ::Providers::BaseManager::EventCatcher::Runner
   def event_monitor_handle
-    @event_monitor_handle ||= self.class.parent::Stream.new(@ems)
+    @event_monitor_handle ||= self.class.module_parent::Stream.new(@ems)
   end
 
   def reset_event_monitor_handle
