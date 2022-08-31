@@ -9,14 +9,8 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
   supports :validate
 
   def raw_delete_physical_storage
-    ems = ext_management_system
-    task_id = ems.autosde_client.StorageSystemApi.storage_systems_pk_delete(ems_ref)
-    status = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.wait_for_success(ems, task_id.task_id, 2, 4)
-    if status == "SUCCESS"
-      EmsRefresh.queue_refresh(self)
-    else
-      ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.raise_non_success_exception(done_status)
-    end
+    task_id = ext_management_system.autosde_client.StorageSystemApi.storage_systems_pk_delete(ems_ref).task_id
+    ext_management_system.class::AutosdeClient.enqueue_refresh(self.class.name, id, ext_management_system.id, task_id)
   end
 
   def self.raw_validate_physical_storage(ext_management_system, options = {})
@@ -36,14 +30,9 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
       :user          => options['user'] || "",
       :management_ip => options['management_ip'] || ""
     )
-    ems = ext_management_system
-    task_id = ems.autosde_client.StorageSystemApi.storage_systems_pk_put(ems_ref, update_details)
-    status = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.wait_for_success(ems, task_id.task_id, 100, 5)
-    if status == "SUCCESS"
-      EmsRefresh.queue_refresh(self)
-    else
-      ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.raise_non_success_exception(done_status)
-    end
+    task_id =
+      ext_management_system.autosde_client.StorageSystemApi.storage_systems_pk_put(ems_ref, update_details).task_id
+    ext_management_system.class::AutosdeClient.enqueue_refresh(self.class.name, id, ext_management_system.id, task_id)
   end
 
   def self.raw_create_physical_storage(ext_management_system, options = {})

@@ -97,23 +97,14 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < AutosdeOpena
     end
   end
 
-  private_class_method def self.wait_for_success(ems, task_id, time_to_sleep = 1, wait_time = 60)
-    task_status = nil
-    start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-    while task_status != "SUCCESS" and task_status != "FAILURE" and Process.clock_gettime(Process::CLOCK_MONOTONIC) < start_time + wait_time
-      sleep(time_to_sleep)
-      task_status = ems.autosde_client.JobApi.jobs_pk_get(task_id).status
-    end
-    task_status
-  end
-
-  private_class_method def self.raise_non_success_exception(status)
-    if status == "FAILURE"
-      raise _("The Job failed")
-    elsif status == "PENDING" or status == "STARTED"
-      raise _("Timeout")
-    else
-      raise _("An unknown exception has occurred (Job status: '%{status_name}'") % {:status_name => status}
+  private_class_method def self.enqueue_refresh(target_class, target_id, ems_id, task_id)
+    ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow.create_job(
+      :target_class   => target_class,
+      :target_id      => target_id,
+      :ems_id         => ems_id,
+      :native_task_id => task_id
+    ).tap do |job|
+      job.signal(:start)
     end
   end
 end
