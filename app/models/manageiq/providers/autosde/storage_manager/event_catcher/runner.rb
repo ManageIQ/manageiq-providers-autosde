@@ -41,7 +41,7 @@ class ManageIQ::Providers::Autosde::StorageManager::EventCatcher::Runner < Manag
       :source                   => "AUTOSDE",
       :ems_ref                  => event.event_id,
       :physical_storage_ems_ref => event.storage_system,
-      :timestamp                => event.created_at,
+      :timestamp                => event.last_timestamp,
       :full_data                => event.to_hash,
       :ems_id                   => ems_id,
       :message                  => event.description
