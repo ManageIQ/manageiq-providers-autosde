@@ -9,8 +9,9 @@ class ManageIQ::Providers::Autosde::StorageManager::VolumeMapping < ::VolumeMapp
   end
 
   def raw_delete_volume_mapping
-    ext_management_system.autosde_client.StorageHostsMappingApi.storage_hosts_mapping_pk_delete(ems_ref)
-    EmsRefresh.queue_refresh(ext_management_system)
+    task_id =
+      ext_management_system.autosde_client.StorageHostsMappingApi.storage_hosts_mapping_pk_delete(ems_ref).task_id
+    ext_management_system.class::AutosdeClient.enqueue_refresh(self.class.name, nil, ext_management_system.id, task_id)
   end
 
   def self.raw_create_volume_mapping(ext_management_system, options = {})

@@ -9,9 +9,8 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
   supports :validate
 
   def raw_delete_physical_storage
-    ems = ext_management_system
-    ems.autosde_client.StorageSystemApi.storage_systems_pk_delete(ems_ref)
-    EmsRefresh.queue_refresh(self)
+    task_id = ext_management_system.autosde_client.StorageSystemApi.storage_systems_pk_delete(ems_ref).task_id
+    ext_management_system.class::AutosdeClient.enqueue_refresh(self.class.name, id, ext_management_system.id, task_id)
   end
 
   def self.raw_validate_physical_storage(ext_management_system, options = {})
@@ -31,8 +30,9 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
       :user          => options['user'] || "",
       :management_ip => options['management_ip'] || ""
     )
-    ext_management_system.autosde_client.StorageSystemApi.storage_systems_pk_put(ems_ref, update_details)
-    EmsRefresh.queue_refresh(self)
+    task_id =
+      ext_management_system.autosde_client.StorageSystemApi.storage_systems_pk_put(ems_ref, update_details).task_id
+    ext_management_system.class::AutosdeClient.enqueue_refresh(self.class.name, id, ext_management_system.id, task_id)
   end
 
   def self.raw_create_physical_storage(ext_management_system, options = {})

@@ -31,9 +31,8 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   # ================= delete  ================
 
   def raw_delete_volume
-    ems = ext_management_system
-    ems.autosde_client.VolumeApi.volumes_pk_delete(ems_ref)
-    queue_refresh
+    task_id = ext_management_system.autosde_client.VolumeApi.volumes_pk_delete(ems_ref).task_id
+    ext_management_system.class::AutosdeClient.enqueue_refresh(self.class.name, id, ext_management_system.id, task_id)
   end
 
   # ================= edit  ================
@@ -43,8 +42,8 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :name => options[:name],
       :size => options[:size_GB]
     )
-    ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details)
-    queue_refresh
+    task_id = ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details).task_id
+    ext_management_system.class::AutosdeClient.enqueue_refresh(self.class.name, id, ext_management_system.id, task_id)
   end
 
   # ================ safe-delete ================
