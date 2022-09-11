@@ -25,8 +25,19 @@ class ManageIQ::Providers::Autosde::StorageManager::EventCatcher::Runner < Manag
 
   def queue_event(event)
     _log.info("#{log_prefix} Caught event AutoSDE [#{event.event_id}]")
+    add_notification_type(event)
     event_hash = event_to_hash(event, @cfg[:ems_id])
     EmsEvent.add_queue('add', @cfg[:ems_id], event_hash)
+  end
+
+  def add_notification_type(event)
+    NotificationType.create_with(
+      :name       => event.event_type,
+      :level      => "warning",
+      :audience   => "global",
+      :expires_in => 7.days,
+      :message    => "%{event_type} in event %{uuid}, error code: %{error_code}. %{description}"
+    ).find_or_create_by(:name => event.event_type)
   end
 
   private
