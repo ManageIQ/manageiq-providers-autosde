@@ -1,4 +1,6 @@
 class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::PhysicalStorage
+  include ManipulationHelper
+
   supports :create
   supports :update do
     unsupported_reason_add(:update, _("The Physical Storage is not connected to an active Manager")) if ext_management_system.nil?
@@ -12,6 +14,20 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
     task_id = ext_management_system.autosde_client.StorageSystemApi.storage_systems_pk_delete(ems_ref).task_id
     ext_management_system.class::AutosdeClient.enqueue_refresh(self.class.name, id, ext_management_system.id, task_id)
   end
+
+  def event_where_clause(assoc = :ems_events, storage_systems = nil)
+    case assoc.to_sym
+    when :ems_events, :event_streams
+      if storage_systems and storage_systems != ['']
+        return manipulate_storage_systems(assoc, storage_systems)
+      end
+      return ["#{events_table_name(assoc)}.physical_storage_id = ?", id]
+    when :policy_events
+      return ["target_id = ? and target_class = ? ", id, self.class.base_class.name]
+    end
+  end
+
+
 
   def self.raw_validate_physical_storage(ext_management_system, options = {})
     validation_object = ext_management_system.autosde_client.StorageSystemCreate(

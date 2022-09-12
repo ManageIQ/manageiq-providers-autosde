@@ -22,12 +22,12 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   supports :cloud_volume
   supports :catalog
 
-
   supports :add_storage
   supports :add_host_initiator
   supports :add_volume_mapping
 
   include ManageIQ::Providers::StorageManager::BlockMixin
+  include ManipulationHelper
 
   # Asset details
   has_many :physical_server_details,  :through => :physical_servers,  :source => :asset_detail
@@ -113,6 +113,16 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
       count += physical_storages.count
     end
   end
+
+  def event_where_clause(assoc = :ems_events, storage_systems = nil)
+    if storage_systems and storage_systems != ['']
+      return manipulate_storage_systems(assoc, storage_systems)
+    end
+
+    ["#{events_table_name(assoc)}.ems_id = ?", id]
+  end
+
+
 
   def assign_resources_info
     {
