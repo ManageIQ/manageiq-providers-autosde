@@ -18,16 +18,15 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
   def event_where_clause(assoc = :ems_events, storage_systems = nil)
     case assoc.to_sym
     when :ems_events, :event_streams
-      if storage_systems and storage_systems != ['']
+      if storage_systems && storage_systems != ['']
         return manipulate_storage_systems(assoc, storage_systems)
       end
-      return ["#{events_table_name(assoc)}.physical_storage_id = ?", id]
+
+      ["#{events_table_name(assoc)}.physical_storage_id = ?", id]
     when :policy_events
-      return ["target_id = ? and target_class = ? ", id, self.class.base_class.name]
+      ["target_id = ? and target_class = ? ", id, self.class.base_class.name]
     end
   end
-
-
 
   def self.raw_validate_physical_storage(ext_management_system, options = {})
     validation_object = ext_management_system.autosde_client.StorageSystemCreate(
