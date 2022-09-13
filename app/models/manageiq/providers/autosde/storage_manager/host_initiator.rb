@@ -20,13 +20,29 @@ class ManageIQ::Providers::Autosde::StorageManager::HostInitiator < ::HostInitia
       :chap_name      => options['chap_name'] || "",
       :chap_secret    => options['chap_secret'] || ""
     )
+    task_id = ext_management_system.autosde_client.StorageHostApi.storage_hosts_post(host_initiator_to_create).task_id
 
-    ext_management_system.autosde_client.StorageHostApi.storage_hosts_post(host_initiator_to_create)
-    EmsRefresh.queue_refresh(ext_management_system)
+    options = {
+      :target_class   => nil,
+      :target_id      => nil,
+      :ems_id         => ext_management_system.id,
+      :native_task_id => task_id,
+      :interval       => 10.seconds,
+      :target_option  => "ems"
+    }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
   end
 
   def raw_delete_host_initiator
     task_id = ext_management_system.autosde_client.StorageHostApi.storage_hosts_pk_delete(ems_ref).task_id
-    ext_management_system.class::AutosdeClient.enqueue_refresh(self.class.name, nil, ext_management_system.id, task_id)
+    options = {
+      :target_class   => nil,
+      :target_id      => nil,
+      :ems_id         => ext_management_system.id,
+      :native_task_id => task_id,
+      :interval       => 1.minute,
+      :target_option  => "ems"
+    }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
   end
 end

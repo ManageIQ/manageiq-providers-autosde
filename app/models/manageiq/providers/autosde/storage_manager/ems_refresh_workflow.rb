@@ -6,13 +6,16 @@ class ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow < ManageI
   alias start run_native_op
 
   def poll_native_task
-    case autosde_client.JobApi.jobs_pk_get(options[:native_task_id]).status
+    native_object = autosde_client.JobApi.jobs_pk_get(options[:native_task_id])
+    case native_object.status
     when "FAILURE"
       signal(:abort, "Task failed")
     when "SUCCESS"
+      options[:native_object_id] = native_object.object_id
+      save!
       queue_signal(:refresh)
     else
-      queue_signal(:poll_native_task, :deliver_on => Time.now.utc + 1.minute)
+      queue_signal(:poll_native_task, :deliver_on => Time.now.utc + options[:interval])
     end
   rescue => err
     _log.log_backtrace(err)
@@ -20,10 +23,19 @@ class ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow < ManageI
   end
 
   def refresh
-    if options[:id] == nil
+    case options[:target_option]
+    when "new"
+      target = InventoryRefresh::Target.new(
+        :manager     => ext_management_system,
+        :association => options[:target_class],
+        :manager_ref => {:ems_ref => options[:native_object_id]}
+      )
+    when "ems"
       target = ext_management_system
-    else
+    when "existing"
       target = target_entity
+    else
+      signal(:abort, "error, no valid option")
     end
     task_ids = EmsRefresh.queue_refresh_task(target)
     if task_ids.blank?
