@@ -116,7 +116,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
   def event_where_clause(assoc = :ems_events, storage_systems = nil)
     if storage_systems && storage_systems != ['']
-      return manipulate_storage_systems(assoc, storage_systems)
+      return storage_system_where_clause(assoc, storage_systems)
     end
 
     ["#{events_table_name(assoc)}.ems_id = ?", id]
