@@ -184,6 +184,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
     host       = options[:host] || address
     port       = options[:port] || self.port
     self.class.raw_connect(username, password, host, port).login
+    EmsRefresh.queue_refresh(ext_management_system)
   end
 
   def self.validate_authentication_args(params)
