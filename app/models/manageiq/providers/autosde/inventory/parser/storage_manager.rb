@@ -120,7 +120,21 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :version     => service.version,
         :ems_ref     => service.uuid
       )
+
+      require 'byebug'
+      byebug
+
+      service.capability_values.each do |value|
+        storage_service_capabilities(service.uuid, value)
+      end
     end
+  end
+
+  def storage_service_capabilities(service_uuid, capability_id)
+    persister.storage_service_capabilities.build(
+      :service_uuid  => service_uuid,
+      :capability_id => capability_id
+    )
   end
 
   def cloud_volumes
