@@ -47,7 +47,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     @storage_capabilities ||= @manager.autosde_client.AbstractCapabilityApi.abstract_capabilities_get
   end
 
-  # def storage_capability_values
-  #   @host_initiator_groups ||= @manager.autosde_client.ServiceAbstractCapabilityValueApi.service_abstract_capability_values_get
-  # end
+  def storage_capability_values
+    @host_initiator_groups ||= @manager.autosde_client.ServiceAbstractCapabilityValueApi.service_abstract_capability_values_get
+  end
 end
