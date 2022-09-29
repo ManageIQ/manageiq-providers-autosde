@@ -117,6 +117,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
 
   def storage_services
     collector.storage_services.each do |service|
+      require 'byebug'
+      byebug
       persister.storage_services.build(
         :name        => service.name,
         :description => service.description,
@@ -189,8 +191,6 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
 
   def storage_capability_values
     collector.storage_capability_values.each do |capability_value|
-      require 'byebug'
-      byebug
       persister.storage_capability_values.build(
         :name               => capability_value.abstract_capability,
         :value              => capability_value.value,
