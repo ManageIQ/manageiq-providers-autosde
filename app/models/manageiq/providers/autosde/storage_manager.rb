@@ -22,10 +22,11 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   supports :cloud_volume
   supports :catalog
 
-
   supports :add_storage
   supports :add_host_initiator
   supports :add_volume_mapping
+  supports :storage_capabilities
+  supports :storage_capability_values
 
   include ManageIQ::Providers::StorageManager::BlockMixin
 
