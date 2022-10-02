@@ -18,7 +18,6 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     host_initiator_groups
     san_addresses
     storage_services
-    # storage_service_capabilities
     cloud_volumes
     volume_mappings
     wwpn_candidates
@@ -117,32 +116,14 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
 
   def storage_services
     collector.storage_services.each do |service|
-      require 'byebug'
-      byebug
       persister.storage_services.build(
         :name        => service.name,
         :description => service.description,
         :version     => service.version,
         :ems_ref     => service.uuid
       )
-
-      # require 'byebug'
-      # byebug
-      #
-      # if service.capability_values # TODO
-      #   service.capability_values.each do |capability_value|
-      #     storage_service_capabilities(service.uuid, capability_value.uuid)
-      #   end
-      # end
     end
   end
-
-  # def storage_service_capabilities(service_uuid, capability_id) # TODO
-  #   persister.storage_service_capabilities.build(
-  #     :service_uuid  => service_uuid,
-  #     :capability_id => capability_id
-  #   )
-  # end
 
   def cloud_volumes
     collector.cloud_volumes.each do |volume|
@@ -192,10 +173,9 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def storage_capability_values
     collector.storage_capability_values.each do |capability_value|
       persister.storage_capability_values.build(
-        :name               => capability_value.abstract_capability,
-        :value              => capability_value.value,
-        :ems_ref            => capability_value.uuid,
-        :storage_capability => persister.storage_capabilities.lazy_find(capability_value.abstract_capability)
+        :value                  => capability_value.value,
+        :ems_ref                => capability_value.uuid,
+        :storage_capability     => persister.storage_capabilities.lazy_find(capability_value.abstract_capability)
       )
     end
   end
