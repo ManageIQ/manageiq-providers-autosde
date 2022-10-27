@@ -14,11 +14,22 @@ describe ManageIQ::Providers::Autosde::StorageManager do
     expect(ManageIQ::Providers::StorageManager.all[0].autosde_client).to be_instance_of ManageIQ::Providers::Autosde::StorageManager::AutosdeClient
   end
 
-  it "can get storage systems " do
+  it "can get storage systems -autosde gem v1" do
     # use special trait: with_autosde_credentials, to supply real credentials when first run
     ems = FactoryBot.create(:autosde_storage_manager, :with_autosde_credentials, :hostname => Rails.application.secrets.autosde[:appliance_host])
 
-    VCR.use_cassette("get_storage_systems_from_storage_manager") do
+    VCR.use_cassette("get_storage_systems_from_storage_manager_v1") do
+      systems = ems.autosde_client.StorageSystemApi.storage_systems_get
+      expect(systems).to be_an_instance_of(Array)
+      expect(systems.first.management_ip).to be_truthy
+    end
+  end
+
+  it "can get storage systems -autosde gem v2" do
+    # use special trait: with_autosde_credentials, to supply real credentials when first run
+    ems = FactoryBot.create(:autosde_storage_manager, :with_autosde_credentials, :hostname => Rails.application.secrets.autosde[:appliance_host])
+
+    VCR.use_cassette("get_storage_systems_from_storage_manager_v2") do
       systems = ems.autosde_client.StorageSystemApi.storage_systems_get
       expect(systems).to be_an_instance_of(Array)
       expect(systems.first.management_ip).to be_truthy

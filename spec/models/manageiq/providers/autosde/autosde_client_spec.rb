@@ -26,7 +26,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     end
   end
 
-  it "gets a list of storage systems" do
+  it "gets a list of storage systems -autosde gem v1" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
       :host     => Rails.application.secrets.autosde[:appliance_host],
       # :scheme => 'http',
@@ -36,7 +36,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
     temp = {}
 
-    VCR.use_cassette('get_storage_systems_autosde_client') do
+    VCR.use_cassette('get_storage_systems_autosde_client_v1') do
       temp[:systems] = client.StorageSystemApi.storage_systems_get
     end
 
@@ -44,7 +44,25 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     expect(systems).to be_an_instance_of(Array)
   end
 
-  it "does not fail when token is bad (ie expired) and re-login" do
+  it "gets a list of storage systems -autosde gem v2" do
+    client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
+      :host     => Rails.application.secrets.autosde[:appliance_host],
+      # :scheme => 'http',
+      :username => Rails.application.secrets.autosde[:site_manager_user],
+      :password => Rails.application.secrets.autosde[:site_manager_password]
+    )
+
+    temp = {}
+
+    VCR.use_cassette('get_storage_systems_autosde_client_v2') do
+      temp[:systems] = client.StorageSystemApi.storage_systems_get
+    end
+
+    systems = temp[:systems]
+    expect(systems).to be_an_instance_of(Array)
+  end
+
+  it "does not fail when token is bad (ie expired) and re-login -autosde gem v1" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
       :host     => Rails.application.secrets.autosde[:appliance_host],
       #:scheme => 'http',
@@ -54,7 +72,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
     temp = {}
 
-    VCR.use_cassette("bad_token_get_storage_systems_with_relogin_not_fails") do
+    VCR.use_cassette("bad_token_get_storage_systems_with_relogin_not_fails_v1") do
       # set bad token
       client.token = "__bad-token__"
       temp[:systems] = client.StorageSystemApi.storage_systems_get
@@ -63,6 +81,26 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     systems = temp[:systems]
     expect(systems).to be_an_instance_of(Array)
   end
+
+  it "does not fail when token is bad (ie expired) and re-login -autosde gem v2" do
+      client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
+        :host     => Rails.application.secrets.autosde[:appliance_host],
+        #:scheme => 'http',
+        :username => Rails.application.secrets.autosde[:site_manager_user],
+        :password => Rails.application.secrets.autosde[:site_manager_password]
+      )
+
+      temp = {}
+
+      VCR.use_cassette("bad_token_get_storage_systems_with_relogin_not_fails_v2") do
+        # set bad token
+        client.token = "__bad-token__"
+        temp[:systems] = client.StorageSystemApi.storage_systems_get
+      end
+
+      systems = temp[:systems]
+      expect(systems).to be_an_instance_of(Array)
+    end
 
   it "proves clients stuffs  are different" do
     client1 = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
