@@ -11,14 +11,18 @@ class ManageIQ::Providers::Autosde::StorageManager::HostInitiator < ::HostInitia
     iqns = Array(options['iqn'])
     iqn_values = iqns.join(":")
 
+    host_cluster_name = options.dig('host_initiator_group', 'label')
+    host_cluster_name = '' if host_cluster_name == '<None>'
+
     host_initiator_to_create = ext_management_system.autosde_client.StorageHostCreate(
-      :name           => options['name'],
-      :port_type      => options['port_type'],
-      :storage_system => PhysicalStorage.find(options['physical_storage_id']).ems_ref,
-      :iqn            => iqn_values || "",
-      :wwpn           => wwpn_values || "",
-      :chap_name      => options['chap_name'] || "",
-      :chap_secret    => options['chap_secret'] || ""
+      :name              => options['name'],
+      :port_type         => options['port_type'],
+      :storage_system    => PhysicalStorage.find(options['physical_storage_id']).ems_ref,
+      :host_cluster_name => host_cluster_name,
+      :iqn               => iqn_values || "",
+      :wwpn              => wwpn_values || "",
+      :chap_name         => options['chap_name'] || "",
+      :chap_secret       => options['chap_secret'] || ""
     )
     task_id = ext_management_system.autosde_client.StorageHostApi.storage_hosts_post(host_initiator_to_create).task_id
 
