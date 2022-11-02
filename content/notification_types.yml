@@ -1,0 +1,6 @@
+---
+- :name: autosde_critical_alert
+  :message: '%{event_type} in event %{uuid}, error code: %{error_code}. %{description}'
+  :expires_in: 7.days
+  :level: :warning
+  :audience: global

@@ -16,7 +16,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   end
 
   def host_volume_mappings
-    @host_volume_mappings ||= @manager.autosde_client.StorageHostVolumeMappingApi.storage_hosts_mapping_get
+    @host_volume_mappings ||= @manager.autosde_client.StorageHostsMappingApi.storage_hosts_mapping_get
   end
 
   def cluster_volume_mappings

@@ -31,13 +31,17 @@ class ManageIQ::Providers::Autosde::StorageManager::EventCatcher::Runner < Manag
 
   private
 
+  def parse_event_type(event)
+    event.fixed == 'yes' ? "#{event.event_type}_fixed" : event.event_type
+  end
+
   def event_to_hash(event, ems_id)
     {
-      :event_type               => event.event_type,
+      :event_type               => parse_event_type(event),
       :source                   => "AUTOSDE",
       :ems_ref                  => event.event_id,
       :physical_storage_ems_ref => event.storage_system,
-      :timestamp                => event.created_at,
+      :timestamp                => event.last_timestamp,
       :full_data                => event.to_hash,
       :ems_id                   => ems_id,
       :message                  => event.description

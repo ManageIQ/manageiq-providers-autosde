@@ -6,6 +6,7 @@
         :power:
           :critical:
             - autosde_critical_alert
+            - autosde_critical_alert_fixed
             - AUTOSDE_instance_power_on
             - AUTOSDE_instance_power_off
 :http_proxy:

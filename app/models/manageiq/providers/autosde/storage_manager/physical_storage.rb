@@ -9,9 +9,16 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
   supports :validate
 
   def raw_delete_physical_storage
-    ems = ext_management_system
-    ems.autosde_client.StorageSystemApi.storage_systems_pk_delete(ems_ref)
-    EmsRefresh.queue_refresh(self)
+    task_id = ext_management_system.autosde_client.StorageSystemApi.storage_systems_pk_delete(ems_ref).task_id
+    options = {
+      :target_id      => id,
+      :target_class   => self.class.name,
+      :ems_id         => ext_management_system.id,
+      :native_task_id => task_id,
+      :interval       => 1.minute,
+      :target_option  => "existing"
+    }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
   end
 
   def self.raw_validate_physical_storage(ext_management_system, options = {})
@@ -31,8 +38,17 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
       :user          => options['user'] || "",
       :management_ip => options['management_ip'] || ""
     )
-    ext_management_system.autosde_client.StorageSystemApi.storage_systems_pk_put(ems_ref, update_details)
-    EmsRefresh.queue_refresh(self)
+    task_id = ext_management_system.autosde_client.StorageSystemApi.storage_systems_pk_put(ems_ref, update_details).task_id
+
+    options = {
+      :target_class   => self.class.name,
+      :target_id      => id,
+      :ems_id         => ext_management_system.id,
+      :native_task_id => task_id,
+      :interval       => 10.seconds,
+      :target_option  => "existing"
+    }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
   end
 
   def self.raw_create_physical_storage(ext_management_system, options = {})
@@ -45,15 +61,17 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
     )
 
     begin
-      new_storage = ext_management_system.autosde_client.StorageSystemApi.storage_systems_post(sys_to_create)
+      task_id = ext_management_system.autosde_client.StorageSystemApi.storage_systems_post(sys_to_create).task_id
     ensure
-      EmsRefresh.queue_refresh(
-        InventoryRefresh::Target.new(
-          :manager     => ext_management_system,
-          :association => :physical_storages,
-          :manager_ref => {:ems_ref => new_storage.uuid}
-        )
-      )
+      options = {
+        :target_class   => :physical_storages,
+        :target_id      => nil,
+        :ems_id         => ext_management_system.id,
+        :native_task_id => task_id,
+        :interval       => 10.seconds,
+        :target_option  => "new"
+      }
+      ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
     end
   end
 end

@@ -16,24 +16,32 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :size    => options["size"],
       :count   => options["count"]
     )
+    task_id = ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create).task_id
 
-    new_volume = ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create)
-
-    EmsRefresh.queue_refresh(
-      InventoryRefresh::Target.new(
-        :manager     => ext_management_system,
-        :association => :cloud_volumes,
-        :manager_ref => {:ems_ref => new_volume.uuid}
-      )
-    )
+    options = {
+      :target_class   => :cloud_volumes,
+      :target_id      => nil,
+      :ems_id         => ext_management_system.id,
+      :native_task_id => task_id,
+      :interval       => 10.seconds,
+      :target_option  => "new"
+    }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
   end
 
   # ================= delete  ================
 
   def raw_delete_volume
-    ems = ext_management_system
-    ems.autosde_client.VolumeApi.volumes_pk_delete(ems_ref)
-    queue_refresh
+    task_id = ext_management_system.autosde_client.VolumeApi.volumes_pk_delete(ems_ref).task_id
+    options = {
+      :target_class   => self.class.name,
+      :target_id      => id,
+      :ems_id         => ext_management_system.id,
+      :native_task_id => task_id,
+      :interval       => 1.minute,
+      :target_option  => "existing"
+    }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
   end
 
   # ================= edit  ================
@@ -43,8 +51,17 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :name => options[:name],
       :size => options[:size_GB]
     )
-    ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details)
-    queue_refresh
+    task_id = ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details).task_id
+
+    options = {
+      :target_class   => self.class.name,
+      :target_id      => id,
+      :ems_id         => ext_management_system.id,
+      :native_task_id => task_id,
+      :interval       => 10.seconds,
+      :target_option  => "existing"
+    }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
   end
 
   # ================ safe-delete ================
