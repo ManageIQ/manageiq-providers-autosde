@@ -454,7 +454,7 @@ http_interactions:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"count":0,"next":null,"previous":null,"results":[]}'
+      string: '{"count":1,"next":null,"previous":null,"results":[{"cluster": "0ef132ee-ae4c-4c2b-ae07-f52e1b99f7cc","component_state": "CREATED","lun": 1,"uuid": "b25fd48e-bbc6-4b0b-b48c-75a915356bf3","volume": "77b2dcdf-5d74-4094-8b61-624701740562"}]}'
     http_version: null
   recorded_at: Mon, 31 Oct 2022 12:32:40 GMT
 - request:
