@@ -5,10 +5,10 @@ http_interactions:
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth
     body:
       encoding: UTF-8
-      string: '{"password":"<password>","username":"<username>"}'
+      string: '{"password":"change_me","username":"autosde"}'
     headers:
       User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
+      - OpenAPI-Generator/2.0.0/ruby
       Content-Type:
       - application/json
       Accept:
@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 19 Jul 2020 10:44:09 GMT
+      - Sun, 30 Oct 2022 13:59:29 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -29,14 +29,18 @@ http_interactions:
       Allow:
       - POST, OPTIONS
       Vary:
-      - Accept
+      - Accept,Cookie
       X-Frame-Options:
-      - SAMEORIGIN
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
-      string: '{"token":"6d57f8b19351e9067b676cabb5e9580b21df2214"}'
-    http_version: 
-  recorded_at: Sun, 19 Jul 2020 10:41:24 GMT
-recorded_with: VCR 5.0.0
+      encoding: ASCII-8BIT
+      string: '{"token":"890685f1faaedc0650078338e01e2c15f9d5addb"}'
+    http_version: null
+  recorded_at: Sun, 30 Oct 2022 13:59:29 GMT
+recorded_with: VCR 5.1.0

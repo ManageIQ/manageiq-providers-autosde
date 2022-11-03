@@ -7,7 +7,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
       :password => Rails.application.secrets.autosde[:site_manager_password]
     )
 
-    VCR.use_cassette("correct_login_spec") do
+    VCR.use_cassette("correct_login_spec",:record => :once) do
       client.login
       expect(client.token.size).to be > 10
     end
@@ -21,7 +21,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
       :password => Rails.application.secrets.autosde[:site_manager_password]
     )
 
-    VCR.use_cassette("incorrect_login_spec") do
+    VCR.use_cassette("incorrect_login_spec",:record => :once) do
       expect { client.login }.to raise_error(RuntimeError, /Authentication error/)
     end
   end
@@ -54,7 +54,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
     temp = {}
 
-    VCR.use_cassette('get_storage_systems_autosde_client_v2') do
+    VCR.use_cassette('get_storage_systems_autosde_client_v2',:record => :once) do
       temp[:systems] = client.StorageSystemApi.storage_systems_get
     end
 
@@ -92,7 +92,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
       temp = {}
 
-      VCR.use_cassette("bad_token_get_storage_systems_with_relogin_not_fails_v2") do
+      VCR.use_cassette("bad_token_get_storage_systems_with_relogin_not_fails_v2",:record => :once) do
         # set bad token
         client.token = "__bad-token__"
         temp[:systems] = client.StorageSystemApi.storage_systems_get

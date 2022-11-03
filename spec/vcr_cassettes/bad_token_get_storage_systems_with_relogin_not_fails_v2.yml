@@ -1,0 +1,138 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer __bad-token__
+      Expect:
+      - ''
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 30 Oct 2022 14:05:21 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Www-Authenticate:
+      - Basic realm="api"
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"detail":"Invalid token."}'
+    http_version: null
+  recorded_at: Sun, 30 Oct 2022 14:05:21 GMT
+- request:
+    method: post
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth
+    body:
+      encoding: UTF-8
+      string: '{"password":"change_me","username":"autosde"}'
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 30 Oct 2022 14:05:22 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Allow:
+      - POST, OPTIONS
+      Vary:
+      - Accept,Cookie
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"token":"890685f1faaedc0650078338e01e2c15f9d5addb"}'
+    http_version: null
+  recorded_at: Sun, 30 Oct 2022 14:05:22 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 890685f1faaedc0650078338e01e2c15f9d5addb
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 30 Oct 2022 14:05:22 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":1,"next":null,"previous":null,"results":[{"auto_refresh":true,"component_state":"CREATED","enabled_capability_values":[],"management_ip":"129.39.244.176","name":"storwize-svc-sim","status":"ONLINE","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"IBM_FlashSystems","short_version":"1","uuid":"3f705618-0105-4353-855f-3fe3c29830e5","version":"1.1","service_abstract_capability_value":[]},"uuid":"dba29261-fc9f-4c0c-916d-d63ee105a1cc"}]}'
+    http_version: null
+  recorded_at: Sun, 30 Oct 2022 14:05:22 GMT
+recorded_with: VCR 5.1.0

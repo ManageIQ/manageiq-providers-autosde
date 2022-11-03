@@ -5,23 +5,23 @@ http_interactions:
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth
     body:
       encoding: UTF-8
-      string: '{"username":"<username>","password":"<password>"}'
+      string: '{"password":"change_me","username":"wrong_user"}'
     headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
       User-Agent:
-      - Ruby
+      - OpenAPI-Generator/2.0.0/ruby
       Content-Type:
       - application/json
+      Accept:
+      - "*/*"
+      Expect:
+      - ''
   response:
     status:
       code: 400
       message: Bad Request
     headers:
       Date:
-      - Sun, 28 Jun 2020 11:34:31 GMT
+      - Sun, 30 Oct 2022 13:59:28 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -29,154 +29,20 @@ http_interactions:
       Allow:
       - POST, OPTIONS
       Vary:
-      - Accept
+      - Accept,Cookie
       X-Frame-Options:
-      - SAMEORIGIN
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
       Connection:
       - close
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: '{"detail":{"non_field_errors":["Unable to log in with provided credentials."]}}'
-    http_version: 
-  recorded_at: Sun, 28 Jun 2020 11:34:31 GMT
-- request:
-    method: post
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/auth-token-2
-    body:
-      encoding: UTF-8
-      string: '{"password":"<password>","username":"<username>"}'
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
-      Content-Type:
-      - application/json
-      Accept:
-      - "*/*"
-      Expect:
-      - ''
-  response:
-    status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Fri, 17 Jul 2020 10:51:34 GMT
-      Server:
-      - gunicorn/19.9.0
-      Content-Type:
-      - text/html; charset=UTF-8
-      X-Frame-Options:
-      - SAMEORIGIN
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: UTF-8
-      string: "<h1>Not Found</h1><p>The requested resource was not found on this server.</p>"
-    http_version: 
-  recorded_at: Fri, 17 Jul 2020 10:48:47 GMT
-- request:
-    method: post
-    uri: http://9.151.190.208:9000/site-manager/api/v1/engine/auth-token-2
-    body:
-      encoding: UTF-8
-      string: '{"password":"<password>","username":"<username>"}'
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
-      Content-Type:
-      - application/json
-      Accept:
-      - "*/*"
-      Expect:
-      - ''
-  response:
-    status:
-      code: 400
-      message: Bad Request
-    headers:
-      Date:
-      - Fri, 17 Jul 2020 12:33:40 GMT
-      Server:
-      - WSGIServer/0.2 CPython/3.7.3
-      Content-Type:
-      - application/json
-      Allow:
-      - POST, OPTIONS
-      Vary:
-      - Accept
-      X-Frame-Options:
-      - SAMEORIGIN
-    body:
-      encoding: UTF-8
-      string: '{"detail":{"non_field_errors":["Unable to log in with provided credentials."]}}'
-    http_version: 
-  recorded_at: Fri, 17 Jul 2020 12:33:43 GMT
-- request:
-    method: post
-    uri: http://9.151.190.208:9000/site-manager/api/v1/engine/token-auth
-    body:
-      encoding: UTF-8
-      string: '{"password":"<password>","username":"<username>"}'
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
-      Content-Type:
-      - application/json
-      Accept:
-      - "*/*"
-      Expect:
-      - ''
-  response:
-    status:
-      code: 0
-      message: 
-    headers: {}
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Sat, 18 Jul 2020 11:13:40 GMT
-- request:
-    method: post
-    uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth
-    body:
-      encoding: UTF-8
-      string: '{"password":"<password>","username":"<username>"}'
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/1.0.0/ruby
-      Content-Type:
-      - application/json
-      Accept:
-      - "*/*"
-      Expect:
-      - ''
-  response:
-    status:
-      code: 400
-      message: Bad Request
-    headers:
-      Date:
-      - Sun, 19 Jul 2020 10:50:09 GMT
-      Server:
-      - gunicorn/19.9.0
-      Content-Type:
-      - application/json
-      Allow:
-      - POST, OPTIONS
-      Vary:
-      - Accept
-      X-Frame-Options:
-      - SAMEORIGIN
-      Connection:
-      - close
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: UTF-8
-      string: '{"detail":{"non_field_errors":["Unable to log in with provided credentials."]}}'
-    http_version: 
-  recorded_at: Sun, 19 Jul 2020 10:47:23 GMT
-recorded_with: VCR 5.0.0
+    http_version: null
+  recorded_at: Sun, 30 Oct 2022 13:59:28 GMT
+recorded_with: VCR 5.1.0

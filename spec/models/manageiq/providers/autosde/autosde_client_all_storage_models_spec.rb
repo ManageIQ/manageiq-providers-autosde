@@ -115,21 +115,21 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     # retrieve storage system
     storage_systems = nil
     #  @type [Array<AutosdeOpenapiClient::StorageSystem>]
-    VCR.use_cassette("get_storage_system_v2") do
+    VCR.use_cassette("get_storage_system_v2",:record => :once) do
       storage_systems = client.StorageSystemApi.storage_systems_get
       expect(storage_systems).to be_an_instance_of(Array)
     end
 
     # retrieve storage resource (pools)
     #  @type [Array<AutosdeOpenapiClient::StorageResource>]
-    VCR.use_cassette("get_storage_resources_v2") do
+    VCR.use_cassette("get_storage_resources_v2",:record => :once) do
       storage_resources = client.StorageResourceApi.storage_resources_get
       expect(storage_resources).to be_an_instance_of(Array)
     end
 
     services = nil
     # retrieve service
-    VCR.use_cassette("get_services_v2") do
+    VCR.use_cassette("get_services_v2",:record => :once) do
       # @type [Array<AutosdeOpenapiClient::Service>]
       services = client.ServiceApi.services_get
       expect(services).to be_an_instance_of(Array)
@@ -140,7 +140,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
     volumes = nil
     # get existing volumes
     # @type [Array<AutosdeOpenapiClient::Volume>]
-    VCR.use_cassette("get_volumes_v2") do
+    VCR.use_cassette("get_volumes_v2",:record => :once) do
       volumes = client.VolumeApi.volumes_get
     end
     volumes_count = volumes.count
@@ -158,19 +158,19 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
 
     # replace by uuid, see explanation at top
     # vol_to_create.service = service.uuid
-    VCR.use_cassette("create_new_volume") do
+    VCR.use_cassette("create_new_volume",:record => :once) do
       client.VolumeApi.volumes_post(vol_to_create)
     end
     # sleep 10
     # after create volume: again get all volumes
-    VCR.use_cassette("get_volumes_after_creation_v2") do
+    VCR.use_cassette("get_volumes_after_creation_v2",:record => :once) do
       volumes = client.VolumeApi.volumes_get
       expect(volumes.count).to eq(volumes_count + 1)
     end
   end
 
   it "check component state exists" do
-    VCR.use_cassette("check_state_exists_v2") do
+    VCR.use_cassette("check_state_exists_v2",:record => :once) do
       volumes = client.VolumeApi.volumes_get
       volume = volumes.first
       expect(volume).to have_attributes(:component_state => a_string_starting_with("CREATED"))

@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/volumes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 890685f1faaedc0650078338e01e2c15f9d5addb
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 30 Oct 2022 14:33:12 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":2,"next":null,"previous":null,"results":[{"compliant":true,"component_state":"CREATED","historical_service":37,"name":"etrst","service":"6ec9710f-d57d-418e-94bd-8d01f5f7731b","size":2,"status":"online","storage_resource":"1725ac27-f2b0-47b3-9c7a-e569b4351627","unmapped_since":null,"uuid":"1902bbf9-509d-4690-baf6-7eaf513c63bf"},{"compliant":true,"component_state":"CREATED","historical_service":37,"name":"vol_test_bk_2022-10-30","service":"6ec9710f-d57d-418e-94bd-8d01f5f7731b","size":10,"status":"online","storage_resource":"1725ac27-f2b0-47b3-9c7a-e569b4351627","unmapped_since":null,"uuid":"fb388d24-b2ec-4736-baaa-a09b545e63e0"}]}'
+    http_version: null
+  recorded_at: Sun, 30 Oct 2022 14:33:12 GMT
+recorded_with: VCR 5.1.0

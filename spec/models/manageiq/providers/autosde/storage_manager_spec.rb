@@ -29,7 +29,7 @@ describe ManageIQ::Providers::Autosde::StorageManager do
     # use special trait: with_autosde_credentials, to supply real credentials when first run
     ems = FactoryBot.create(:autosde_storage_manager, :with_autosde_credentials, :hostname => Rails.application.secrets.autosde[:appliance_host])
 
-    VCR.use_cassette("get_storage_systems_from_storage_manager_v2") do
+    VCR.use_cassette("get_storage_systems_from_storage_manager_v2", :record => :once) do
       systems = ems.autosde_client.StorageSystemApi.storage_systems_get
       expect(systems).to be_an_instance_of(Array)
       expect(systems.first.management_ip).to be_truthy
