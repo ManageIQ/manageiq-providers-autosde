@@ -1,11 +1,11 @@
 ---
 http_interactions:
 - request:
-    method: post
+    method: get
     uri: https://autosde-appliance-host/site-manager/api/v1/engine/volumes
     body:
-      encoding: UTF-8
-      string: '{"compliant":false,"count":1,"name":"vol_test_bk_2022-10-30 14_28_00","service":"6ec9710f-d57d-418e-94bd-8d01f5f7731b","size":10}'
+      encoding: US-ASCII
+      string: ''
     headers:
       User-Agent:
       - OpenAPI-Generator/2.0.0/ruby
@@ -19,11 +19,11 @@ http_interactions:
       - ''
   response:
     status:
-      code: 202
-      message: Accepted
+      code: 200
+      message: OK
     headers:
       Date:
-      - Sun, 30 Oct 2022 14:29:25 GMT
+      - Sun, 30 Oct 2022 14:19:07 GMT
       Server:
       - gunicorn/19.9.0
       Content-Type:
@@ -42,7 +42,7 @@ http_interactions:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"info":"CREATE request was successfully queued.","task_id":"eca75f34-50eb-4884-b323-b6f85b25a90d"}'
+      string: '{"count":1,"next":null,"previous":null,"results":[{"compliant":true,"component_state":"CREATED","historical_service":37,"name":"etrst","service":"6ec9710f-d57d-418e-94bd-8d01f5f7731b","size":2,"status":"online","storage_resource":"1725ac27-f2b0-47b3-9c7a-e569b4351627","unmapped_since":null,"uuid":"c4807944-4145-4137-be56-2bc01f387ba2"}]}'
     http_version: null
-  recorded_at: Sun, 30 Oct 2022 14:29:25 GMT
+  recorded_at: Sun, 30 Oct 2022 14:19:07 GMT
 recorded_with: VCR 5.1.0

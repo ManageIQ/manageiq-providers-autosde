@@ -7,13 +7,14 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                       :hostname => Rails.application.secrets.autosde[:appliance_host])
   end
 
-  describe "#refresh" do
+  describe "#refresh - autosde gem v2" do
     context "full refresh" do
       it "Performs a full refresh" do
         2.times do
-          VCR.use_cassette("ems_refresh_v1") { described_class.refresh([ems]) }
+          VCR.use_cassette("ems_refresh_v2", :record => :once) { described_class.refresh([ems]) }
 
           ems.reload
+
           assert_ems
           assert_specific_physical_storage
           assert_specific_physical_storage_family
@@ -30,7 +31,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
     end
 
     context "targeted refresh" do
-      before { VCR.use_cassette("ems_refresh_v1") { described_class.refresh([ems]) } }
+      before { VCR.use_cassette("ems_refresh_v2", :record => :once) { described_class.refresh([ems]) } }
 
       let(:system_type_api)    { double("SystemTypeApi") }
       let(:storage_system_api) { double("StorageSystemApi") }
@@ -47,23 +48,22 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
             [
               AutosdeOpenapiClient::StorageSystem.new(
                 :component_state => "PENDING_CREATION",
-                :management_ip   => "9.151.159.178",
-                :name            => "9.151.159.178",
+                :management_ip   => "129.39.244.30",
+                :name            => "Barmetall9_SVC",
                 :status          => "ONLINE",
                 :storage_family  => "ontap_7mode",
                 :system_type     => AutosdeOpenapiClient::SystemType.new(
                   :component_state => "PENDING_CREATION",
                   :name            => "IBM_FlashSystems",
                   :short_version   => "11",
-                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
-                  :version         => "1.2"
+                  :uuid            => "397352fb-f6a0-4a5d-90f8-6addf4c81076",
+                  :version         => "1.1"
                 ),
-                :uuid            => "980f3ceb-c599-49c4-9db3-fdc793cb8666"
+                :uuid            => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf"
               )
             ]
           ))
-
-        assert_inventory_not_changed { run_targeted_refresh(ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666")) }
+        assert_inventory_not_changed { run_targeted_refresh(ems.physical_storages.find_by(:ems_ref => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf")) }
       end
 
       it "with a new physical storage" do
@@ -73,8 +73,8 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
             [
               AutosdeOpenapiClient::StorageSystem.new(
                 :component_state => "PENDING_CREATION",
-                :management_ip   => "1.2.3.4",
-                :name            => "1.2.3.4",
+                :management_ip   => "129.39.244.30",
+                :name            => "129.39.244.30",
                 :status          => "ONLINE",
                 :storage_family  => "ontap_7mode",
                 :system_type     => AutosdeOpenapiClient::SystemType.new(
@@ -82,7 +82,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                   :name            => "IBM_FlashSystems",
                   :short_version   => "11",
                   :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
-                  :version         => "1.2"
+                  :version         => "1.1"
                 ),
                 :uuid            => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
               )
@@ -94,10 +94,10 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         ems.reload
 
         expect(ems.physical_storages.count).to(eq(2))
-        expect(ems.physical_storages.find_by(:ems_ref => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb")).to(have_attributes(
-                                                                                                       :ems_ref                 => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb",
+        expect(ems.physical_storages.find_by(:ems_ref => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf")).to(have_attributes(
+                                                                                                       :ems_ref                 => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf",
                                                                                                        :uid_ems                 => nil,
-                                                                                                       :name                    => "1.2.3.4",
+                                                                                                       :name                    => "Barmetall9_SVC",
                                                                                                        :type                    => "ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage",
                                                                                                        :health_state            => "ONLINE",
                                                                                                        :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
@@ -107,7 +107,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       it "deleting a physical storage" do
         expect(storage_system_api).to(receive(:storage_systems_get).and_return([]))
 
-        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :physical_storages, :manager_ref => {:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666"}))
+        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :physical_storages, :manager_ref => {:ems_ref => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf"}))
 
         ems.reload
 
@@ -121,19 +121,18 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
             [
               AutosdeOpenapiClient::VolumeResponse.new(
                 :compliant          => true,
-                :component_state    => "PENDING_DELETION",
+                :component_state    => "CREATED",
                 :historical_service => nil,
-                :name               => "bk-vol0-edit",
-                :service            => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
-                :size               => 10,
+                :name               => "dup_volume_10",
+                :service            => "d7cd0d98-1467-4384-a24d-c0d003ea1701",
+                :size               => 1,
                 :status             => "online",
-                :storage_resource   => "0a10636f-c204-4ae1-a370-f0ee850b80af",
-                :uuid               => "ac287c2d-1776-48a3-a5c9-06327f4a57c4"
+                :storage_resource   => "0be07c17-9775-422a-a03c-8fa158c5f297",
+                :uuid               => "77b2dcdf-5d74-4094-8b61-624701740562"
               )
             ]
           ))
-
-        assert_inventory_not_changed { run_targeted_refresh(ems.cloud_volumes.find_by(:ems_ref => "ac287c2d-1776-48a3-a5c9-06327f4a57c4")) }
+        assert_inventory_not_changed { run_targeted_refresh(ems.cloud_volumes.find_by(:ems_ref => "77b2dcdf-5d74-4094-8b61-624701740562")) }
       end
 
       it "with a new cloud volume" do
@@ -159,7 +158,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
 
         ems.reload
 
-        expect(ems.cloud_volumes.count).to(eq(14))
+        expect(ems.cloud_volumes.count).to(eq(29))
         expect(ems.cloud_volumes.find_by(:ems_ref => "6a02fc1f-04f4-476d-a5ac-6bcf042809e8")).to(have_attributes(
                                                                                                    :type             => "ManageIQ::Providers::Autosde::StorageManager::CloudVolume",
                                                                                                    :ems_ref          => "6a02fc1f-04f4-476d-a5ac-6bcf042809e8",
@@ -178,12 +177,12 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       it "deleting a cloud volume" do
         expect(volume_api).to(receive(:volumes_get).and_return([]))
 
-        cloud_volume = ems.cloud_volumes.find_by(:ems_ref => "ac287c2d-1776-48a3-a5c9-06327f4a57c4")
+        cloud_volume = ems.cloud_volumes.find_by(:ems_ref => "c82a379e-6697-461b-b605-340d2c3075ed")
         run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :cloud_volumes, :manager_ref => {:ems_ref => cloud_volume.ems_ref}))
 
         ems.reload
 
-        expect(ems.cloud_volumes.count).to(eq(12))
+        expect(ems.cloud_volumes.count).to(eq(27))
       end
 
       def run_targeted_refresh(targets = [])
@@ -211,23 +210,23 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
 
     def assert_ems
       expect(ems.physical_storages.count).to(eq(1))
-      expect(ems.physical_storage_families.count).to(eq(2))
+      expect(ems.physical_storage_families.count).to(eq(1))
       expect(ems.storage_resources.count).to(eq(8))
-      expect(ems.storage_services.count).to(eq(7))
-      expect(ems.cloud_volumes.count).to(eq(13))
-      expect(ems.wwpn_candidates.count).to(eq(2))
-      expect(ems.host_initiators.count).to(eq(12))
-      expect(ems.host_initiator_groups.count).to(eq(5))
-      expect(ems.volume_mappings.count).to(eq(8))
+      expect(ems.storage_services.count).to(eq(9))
+      expect(ems.cloud_volumes.count).to(eq(28))
+      expect(ems.wwpn_candidates.count).to(eq(1))
+      expect(ems.host_initiators.count).to(eq(7))
+      expect(ems.host_initiator_groups.count).to(eq(2))
+      expect(ems.volume_mappings.count).to(eq(3))
       expect(ems.cluster_volume_mappings.count).to(eq(1))
-      expect(ems.host_volume_mappings.count).to(eq(7))
+      expect(ems.host_volume_mappings.count).to(eq(2))
     end
 
     def assert_specific_physical_storage
-      physical_storage = ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666")
+      physical_storage = ems.physical_storages.find_by(:ems_ref => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf")
       expect(physical_storage).to(have_attributes(
-                                    :ems_ref                 => "980f3ceb-c599-49c4-9db3-fdc793cb8666",
-                                    :name                    => "9.151.159.178",
+                                    :ems_ref                 => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf",
+                                    :name                    => "Barmetall9_SVC",
                                     :type                    => "ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage",
                                     :access_state            => nil,
                                     :health_state            => "ONLINE",
@@ -245,97 +244,97 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       flash_systems = ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
       expect(flash_systems).to(have_attributes(
                                  :name    => "IBM_FlashSystems",
-                                 :version => "1.2",
-                                 :ems_ref => "053446df-ed2b-4822-b9c5-386e85198519"
+                                 :version => "1.1",
+                                 :ems_ref => "397352fb-f6a0-4a5d-90f8-6addf4c81076"
                                ))
     end
 
     def assert_specific_storage_resource
-      storage_resource = ems.storage_resources.find_by(:ems_ref => "e6833c27-374b-4a4a-8d76-455cfe5f4270")
+      storage_resource = ems.storage_resources.find_by(:ems_ref => "2423882a-c95b-4416-ac45-d379802eb451")
       expect(storage_resource).to(have_attributes(
-                                    :name             => "9.151.159.178:ilyak_test_pool",
-                                    :ems_ref          => "e6833c27-374b-4a4a-8d76-455cfe5f4270",
-                                    :logical_free     => 601_295_421_440,
-                                    :logical_total    => 0,
-                                    :physical_storage => ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666"),
+                                    :name             => "Barmetall9_SVC:Pool3",
+                                    :ems_ref          => "2423882a-c95b-4416-ac45-d379802eb451",
+                                    :logical_free     => 515_396_075_520,
+                                    :logical_total    => 515_396_075_520,
+                                    :physical_storage => ems.physical_storages.find_by(:ems_ref => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf"),
                                     :type             => "ManageIQ::Providers::Autosde::StorageManager::StorageResource"
                                   ))
     end
 
     def assert_specific_storage_service
-      storage_service = ems.storage_services.find_by(:ems_ref => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6")
+      storage_service = ems.storage_services.find_by(:ems_ref => "2d6f8233-b7ff-4c8c-aa43-ea9c9e2f7142")
       expect(storage_service).to(have_attributes(
-                                   :name        => "9.151.159.178:borisko_test_pool",
-                                   :description => "auto_created_service",
-                                   :ems_ref     => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
+                                   :name        => "TEST_SERVICE-129.39.244.172-1120",
+                                   :description => "test service",
+                                   :ems_ref     => "2d6f8233-b7ff-4c8c-aa43-ea9c9e2f7142",
                                    :uid_ems     => nil,
                                    :type        => "ManageIQ::Providers::Autosde::StorageManager::StorageService"
                                  ))
     end
 
     def assert_specific_cloud_volume
-      cloud_volume = ems.cloud_volumes.find_by(:ems_ref => "ac287c2d-1776-48a3-a5c9-06327f4a57c4")
+      cloud_volume = ems.cloud_volumes.find_by(:ems_ref => "c82a379e-6697-461b-b605-340d2c3075ed")
       expect(cloud_volume).to(have_attributes(
                                 :type             => "ManageIQ::Providers::Autosde::StorageManager::CloudVolume",
-                                :ems_ref          => "ac287c2d-1776-48a3-a5c9-06327f4a57c4",
-                                :size             => 10.gigabyte,
-                                :name             => "bk-vol0-edit",
-                                :status           => "PENDING_DELETION",
+                                :ems_ref          => "c82a379e-6697-461b-b605-340d2c3075ed",
+                                :size             => 1_073_741_824,
+                                :name             => "tony_test_4",
+                                :status           => "CREATED",
                                 :description      => nil,
                                 :volume_type      => "ISCSI/FC",
                                 :bootable         => false,
                                 :health_state     => "online",
-                                :storage_resource => ems.storage_resources.find_by(:ems_ref => "0a10636f-c204-4ae1-a370-f0ee850b80af"),
-                                :storage_service  => ems.storage_services.find_by(:ems_ref => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6")
+                                :storage_resource => ems.storage_resources.find_by(:ems_ref => "0be07c17-9775-422a-a03c-8fa158c5f297"),
+                                :storage_service  => ems.storage_services.find_by(:ems_ref => "d7cd0d98-1467-4384-a24d-c0d003ea1701")
                               ))
-      expect(cloud_volume.host_initiators.count).to(eq(2))
-      expect(cloud_volume.host_initiators.pluck(:ems_ref)).to(match_array(%w[f80e97cf-97fc-4a40-9ec8-1f37454654fc 0a460ad9-e6e7-486a-a34e-7a5d946c9d00]))
+      expect(cloud_volume.host_initiators.count).to(eq(0))
+      expect(cloud_volume.host_initiators.pluck(:ems_ref)).to(match_array(%w[]))
     end
 
     def assert_specific_wwpn_candidate
-      wwpn_candidate = ems.wwpn_candidates.find_by(:ems_ref => "2100000E1EE89D90")
+      wwpn_candidate = ems.wwpn_candidates.find_by(:ems_ref => "5001738063CC0193")
       expect(wwpn_candidate).to(have_attributes(
-                                  :candidate        => "2100000E1EE89D90",
-                                  :ems_ref          => "2100000E1EE89D90",
-                                  :physical_storage => nil
+                                  :candidate        => "5001738063CC0193",
+                                  :ems_ref          => "5001738063CC0193",
+                                  :physical_storage => ems.physical_storages.find_by(:ems_ref => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf")
                                 ))
     end
 
     def assert_specific_host_initiator
-      host_initiator = ems.host_initiators.find_by(:ems_ref => "f80e97cf-97fc-4a40-9ec8-1f37454654fc")
+      host_initiator = ems.host_initiators.find_by(:ems_ref => "b7f4b12e-17b7-41bf-b7d0-2c7444599b15")
       expect(host_initiator).to(have_attributes(
-                                  :name                 => "bk-host1-renamed",
-                                  :ems_ref              => "f80e97cf-97fc-4a40-9ec8-1f37454654fc",
+                                  :name                 => "TEST_HOST-172.29.0.5-2856",
+                                  :ems_ref              => "b7f4b12e-17b7-41bf-b7d0-2c7444599b15",
                                   :uid_ems              => nil,
-                                  :physical_storage     => ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666"),
+                                  :physical_storage     => ems.physical_storages.find_by(:ems_ref => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf"),
                                   :type                 => "ManageIQ::Providers::Autosde::StorageManager::HostInitiator",
                                   :status               => "offline",
-                                  :host_cluster_name    => "bk-cluster1",
+                                  :host_cluster_name    => "",
                                   :host_initiator_group => nil
                                 ))
     end
 
     def assert_specific_host_initiator_group
-      host_initiator_group = ems.host_initiator_groups.find_by(:ems_ref => "856146bb-4fe3-4d8f-b442-49a2dd80dd96")
+      host_initiator_group = ems.host_initiator_groups.find_by(:ems_ref => "0ef132ee-ae4c-4c2b-ae07-f52e1b99f7cc")
       expect(host_initiator_group).to(have_attributes(
-                                        :name             => "bk-cluster1",
+                                        :name             => "test_host",
                                         :status           => nil,
-                                        :ems_ref          => "856146bb-4fe3-4d8f-b442-49a2dd80dd96",
+                                        :ems_ref          => "0ef132ee-ae4c-4c2b-ae07-f52e1b99f7cc",
                                         :uid_ems          => nil,
                                         :type             => "ManageIQ::Providers::Autosde::StorageManager::HostInitiatorGroup",
-                                        :physical_storage => ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666")
+                                        :physical_storage => ems.physical_storages.find_by(:ems_ref => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf")
                                       ))
     end
 
     def assert_specific_host_volume_mapping
-      host_volume_mapping = ems.host_volume_mappings.find_by(:ems_ref => "4c9dac0d-d972-4020-8f14-40df08c9968c")
+      host_volume_mapping = ems.host_volume_mappings.find_by(:ems_ref => "bff501aa-1eb5-49a4-ba8c-6d1a4b570d14")
       expect(host_volume_mapping).to(have_attributes(
-                                       :ems_ref              => "4c9dac0d-d972-4020-8f14-40df08c9968c",
+                                       :ems_ref              => "bff501aa-1eb5-49a4-ba8c-6d1a4b570d14",
                                        :uid_ems              => nil,
-                                       :lun                  => 100,
+                                       :lun                  => 0,
                                        :type                 => "ManageIQ::Providers::Autosde::StorageManager::HostVolumeMapping",
-                                       :cloud_volume         => ems.cloud_volumes.find_by(:ems_ref => "ae332deb-aa1f-48ff-bc43-56c46ad48b46"),
-                                       :host_initiator       => ems.host_initiators.find_by(:ems_ref => "10e8d254-05d9-40dd-9da0-80d65cd0c284"),
+                                       :cloud_volume         => ems.cloud_volumes.find_by(:ems_ref => "b419d4d3-d1b2-44c7-b6af-a39642fa4039"),
+                                       :host_initiator       => ems.host_initiators.find_by(:ems_ref => "d253ffd7-b6ae-4a0e-9f18-8df1707bee83"),
                                        :host_initiator_group => nil
                                      ))
     end
@@ -343,12 +342,12 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
     def assert_specific_cluster_volume_mapping
       cluster_volume_mapping = ems.cluster_volume_mappings.first
       expect(cluster_volume_mapping).to(have_attributes(
-                                          :ems_ref              => "3a0700b4-3f8d-4f29-8330-af16cbc9f34b",
+                                          :ems_ref              => "b25fd48e-bbc6-4b0b-b48c-75a915356bf3",
                                           :uid_ems              => nil,
-                                          :lun                  => 0,
+                                          :lun                  => 1,
                                           :type                 => "ManageIQ::Providers::Autosde::StorageManager::ClusterVolumeMapping",
                                           :host_initiator       => nil,
-                                          :host_initiator_group => ems.host_initiator_groups.find_by(:ems_ref => "db5b9911-4f03-43ad-9e13-8ab0de09226c")
+                                          :host_initiator_group => ems.host_initiator_groups.find_by(:ems_ref => "0ef132ee-ae4c-4c2b-ae07-f52e1b99f7cc")
                                         ))
     end
   end

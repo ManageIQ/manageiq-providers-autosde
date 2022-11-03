@@ -1,0 +1,91 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth
+    body:
+      encoding: UTF-8
+      string: '{"password":"<password>","username":"<username>"}'
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 30 Oct 2022 14:08:57 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Allow:
+      - POST, OPTIONS
+      Vary:
+      - Accept,Cookie
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"token":"890685f1faaedc0650078338e01e2c15f9d5addb"}'
+    http_version: null
+  recorded_at: Sun, 30 Oct 2022 14:08:57 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/volumes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 890685f1faaedc0650078338e01e2c15f9d5addb
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 30 Oct 2022 14:08:57 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":1,"next":null,"previous":null,"results":[{"compliant":true,"component_state":"CREATED","historical_service":37,"name":"etrst","service":"6ec9710f-d57d-418e-94bd-8d01f5f7731b","size":2,"status":"online","storage_resource":"1725ac27-f2b0-47b3-9c7a-e569b4351627","unmapped_since":null,"uuid":"c4807944-4145-4137-be56-2bc01f387ba2"}]}'
+    http_version: null
+  recorded_at: Sun, 30 Oct 2022 14:08:57 GMT
+recorded_with: VCR 5.1.0

@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/services
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 890685f1faaedc0650078338e01e2c15f9d5addb
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 30 Oct 2022 14:27:06 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":9,"next":null,"previous":null,"results":[{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"storwize-svc-sim:openstack3","profile":"d0d89369-3ad4-49a0-981d-f99299c72535","project":"aa2d14c0-3ce0-4146-ac32-495f587ee4b8","provisioning_strategy":"9ae4d599-5ec2-4b39-ac95-4a5f28f477e0","resource_service":true,"uuid":"6ec9710f-d57d-418e-94bd-8d01f5f7731b","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"test
+        service","name":"TEST_SERVICE-129.39.244.172-9981","profile":"d0d89369-3ad4-49a0-981d-f99299c72535","project":"aa2d14c0-3ce0-4146-ac32-495f587ee4b8","provisioning_strategy":"9ae4d599-5ec2-4b39-ac95-4a5f28f477e0","resource_service":false,"uuid":"9053f86a-b822-47a8-b539-a50d9be6ae82","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"storwize-svc-sim:boris_pool","profile":"d0d89369-3ad4-49a0-981d-f99299c72535","project":"aa2d14c0-3ce0-4146-ac32-495f587ee4b8","provisioning_strategy":"9ae4d599-5ec2-4b39-ac95-4a5f28f477e0","resource_service":true,"uuid":"ce6ceca8-efd3-45d5-ad3b-7fd51605f080","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"storwize-svc-sim:test_pool","profile":"d0d89369-3ad4-49a0-981d-f99299c72535","project":"aa2d14c0-3ce0-4146-ac32-495f587ee4b8","provisioning_strategy":"9ae4d599-5ec2-4b39-ac95-4a5f28f477e0","resource_service":true,"uuid":"fa1f65a2-c84b-4f71-aadc-06093b28ddd0","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"storwize-svc-sim:openstack2","profile":"d0d89369-3ad4-49a0-981d-f99299c72535","project":"aa2d14c0-3ce0-4146-ac32-495f587ee4b8","provisioning_strategy":"9ae4d599-5ec2-4b39-ac95-4a5f28f477e0","resource_service":true,"uuid":"be70a137-0cc0-444e-8de5-a8970020f6a6","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"storwize-svc-sim:hyperswap1","profile":"d0d89369-3ad4-49a0-981d-f99299c72535","project":"aa2d14c0-3ce0-4146-ac32-495f587ee4b8","provisioning_strategy":"9ae4d599-5ec2-4b39-ac95-4a5f28f477e0","resource_service":true,"uuid":"46da792c-635a-442e-a8c7-c4619334e721","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"storwize-svc-sim:hyperswap2","profile":"d0d89369-3ad4-49a0-981d-f99299c72535","project":"aa2d14c0-3ce0-4146-ac32-495f587ee4b8","provisioning_strategy":"9ae4d599-5ec2-4b39-ac95-4a5f28f477e0","resource_service":true,"uuid":"8b978273-19cc-42e3-8a02-c5df6e53f4ea","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"storwize-svc-sim:dr_pool1","profile":"d0d89369-3ad4-49a0-981d-f99299c72535","project":"aa2d14c0-3ce0-4146-ac32-495f587ee4b8","provisioning_strategy":"9ae4d599-5ec2-4b39-ac95-4a5f28f477e0","resource_service":true,"uuid":"119d0f16-87ec-49a9-b4f1-f21958b647a3","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"storwize-svc-sim:dr_pool2","profile":"d0d89369-3ad4-49a0-981d-f99299c72535","project":"aa2d14c0-3ce0-4146-ac32-495f587ee4b8","provisioning_strategy":"9ae4d599-5ec2-4b39-ac95-4a5f28f477e0","resource_service":true,"uuid":"f5828fbe-21bf-4719-b1b0-03205bfe795a","version":1}]}'
+    http_version: null
+  recorded_at: Sun, 30 Oct 2022 14:27:05 GMT
+recorded_with: VCR 5.1.0

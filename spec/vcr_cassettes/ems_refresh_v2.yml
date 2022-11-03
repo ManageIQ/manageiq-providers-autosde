@@ -1,0 +1,505 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/token-auth
+    body:
+      encoding: UTF-8
+      string: '{"password":"<password>","username":"<username>"}'
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:39 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Allow:
+      - POST, OPTIONS
+      Vary:
+      - Accept,Cookie
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"token":"9eb68c4775efb26751144a883082f6d464dd6749"}'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:39 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/system-types
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:39 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":1,"next":null,"previous":null,"results":[{"component_state":"PENDING_CREATION","name":"IBM_FlashSystems","short_version":"1","uuid":"397352fb-f6a0-4a5d-90f8-6addf4c81076","version":"1.1","service_abstract_capability_value":[]}]}'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:39 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-systems
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:39 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":1,"next":null,"previous":null,"results":[{"auto_refresh":true,"component_state":"CREATED","enabled_capability_values":[],"management_ip":"129.39.244.30","name":"Barmetall9_SVC","status":"ONLINE","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"IBM_FlashSystems","short_version":"1","uuid":"397352fb-f6a0-4a5d-90f8-6addf4c81076","version":"1.1","service_abstract_capability_value":[]},"uuid":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf"}]}'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:39 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-resources
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:39 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":8,"next":null,"previous":null,"results":[{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"Barmetall9_SVC:Pool3","pool_name":"Pool3","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"2423882a-c95b-4416-ac45-d379802eb451","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"Barmetall9_SVC:Pool4","pool_name":"Pool4","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"c1c75b48-6bfb-49c5-9246-46f590469905","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":514322333696,"logical_total":515396075520,"name":"Barmetall9_SVC:Pool5","pool_name":"Pool5","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"ce04c588-1cd8-40ce-8f67-06d51fb3548e","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":502662168576,"logical_total":515949723648,"name":"Barmetall9_SVC:test_pool","pool_name":"test_pool","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"0be07c17-9775-422a-a03c-8fa158c5f297","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":506806140928,"logical_total":514322333696,"name":"Barmetall9_SVC:tony_pool","pool_name":"tony_pool","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"38828f47-4ea6-4d9b-8188-d7a13101f78a","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":514322333696,"logical_total":514322333696,"name":"Barmetall9_SVC:Pool0","pool_name":"Pool0","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"e9afbed2-697d-4c98-a900-80e6a7e356d1","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"Barmetall9_SVC:Pool1","pool_name":"Pool1","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"adf19962-6bee-4a54-88bb-e569d0fb39a2","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"Barmetall9_SVC:Pool2","pool_name":"Pool2","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"b18d8272-7e4f-4045-b702-a16dae5e31c1","abstract_capability_values":{},"replication_target_resource":null}]}'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:39 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-hosts
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:40 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":7,"next":null,"previous":null,"results":[{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"4bfbfece-f42a-4ebf-9f02-49ab79625025","wwpn":"5001738063CC0183"}],"component_state":"CREATED","description":null,"host_cluster":null,"host_cluster_name":"","io_groups":null,"name":"test_auto","status":"offline","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"fbed1550-9b51-4558-ae88-3701ecf80a64","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"1427e31d-4083-4ffc-97f0-5482c6e65350","wwpn":"836B4C478660240D"}],"component_state":"CREATED","description":null,"host_cluster":null,"host_cluster_name":"","io_groups":null,"name":"TEST_HOST-172.29.0.5-2856","status":"offline","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"b7f4b12e-17b7-41bf-b7d0-2c7444599b15","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"a4807d78-081c-4411-8e1a-b5bec70e3416","wwpn":"1F07CD6062D754B4"}],"component_state":"CREATED","description":null,"host_cluster":null,"host_cluster_name":"","io_groups":null,"name":"TEST_HOST-192.168.0.5-8748","status":"offline","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"7f6f53ad-2fc1-49d7-9b9c-9132c14635aa","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"0281fd90-2fd4-4ce9-83f5-74ed7b642cae","wwpn":"A44707A1BB10C64A"}],"component_state":"CREATED","description":null,"host_cluster":null,"host_cluster_name":"new_hostcluster","io_groups":null,"name":"TEST_HOST-172.18.0.5-4229","status":"offline","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"b644862b-254b-4d6a-af7d-e8741a3e6394","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"f016d478-2c3a-4c8e-b130-b54877398d71","wwpn":"250EACDE7720E1D6"}],"component_state":"CREATED","description":null,"host_cluster":null,"host_cluster_name":"","io_groups":null,"name":"TEST_HOST-129.39.244.86-1975","status":"offline","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"643a6ccd-3328-436c-b503-22ef387ffb20","volumes":[]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"466d0ac1-dd5c-4fa8-93f7-c6df0828a9f0","wwpn":"1234567890123456"}],"component_state":"CREATED","description":null,"host_cluster":null,"host_cluster_name":"","io_groups":null,"name":"my_host","status":"offline","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"0f688874-a397-4ca1-a07b-89384754b9a3","volumes":[{"compliant":true,"component_state":"CREATED","historical_service":35,"name":"tony_test_1","service":"2820836b-4749-4ff7-8ba3-312c127a2439","size":2,"status":"online","storage_resource":"38828f47-4ea6-4d9b-8188-d7a13101f78a","unmapped_since":null,"uuid":"e19a6437-cc74-4e02-8c54-2c1c1adfcbec"}]},{"addresses":[{"chap_name":null,"chap_secret":null,"component_state":"PENDING_CREATION","iqn":null,"port_type":"FC","secondary_ip":null,"uuid":"d004a8f3-3f5b-45dc-9bfe-65736664fd75","wwpn":"254EC403AECB8033"}],"component_state":"CREATED","description":null,"host_cluster":null,"host_cluster_name":"","io_groups":null,"name":"TEST_HOST-django-7252","status":"offline","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"d253ffd7-b6ae-4a0e-9f18-8df1707bee83","volumes":[{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"TEST_VOLUME-django-7252","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"b419d4d3-d1b2-44c7-b6af-a39642fa4039"}]}]}'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:39 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/host-clusters
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:40 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":2,"next":null,"previous":null,"results":[{"component_state":"CREATED","name":"test_host","owner_id":null,"owner_name":null,"protocol":null,"status":null,"storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"0ef132ee-ae4c-4c2b-ae07-f52e1b99f7cc","volumes":[]},{"component_state":"CREATED","name":"new_hostcluster","owner_id":"","owner_name":"","protocol":"scsi","status":"offline","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"12765aff-1f9f-4f33-afd7-b79b505366a1","volumes":[]}]}'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:39 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/services
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:40 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":9,"next":null,"previous":null,"results":[{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"Barmetall9_SVC:Pool1","profile":"67bab681-cf30-4487-9ed1-cfa65ee4fd3d","project":"008a8cdc-6b67-4620-97a2-d36faa4fa74f","provisioning_strategy":"7d7a3cee-dca9-4016-a998-6c5e754741a0","resource_service":true,"uuid":"95117565-c104-4598-bc61-d438f7e94890","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"test
+        service","name":"TEST_SERVICE-129.39.244.172-1120","profile":"67bab681-cf30-4487-9ed1-cfa65ee4fd3d","project":"008a8cdc-6b67-4620-97a2-d36faa4fa74f","provisioning_strategy":"7d7a3cee-dca9-4016-a998-6c5e754741a0","resource_service":false,"uuid":"2d6f8233-b7ff-4c8c-aa43-ea9c9e2f7142","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"Barmetall9_SVC:test_pool","profile":"67bab681-cf30-4487-9ed1-cfa65ee4fd3d","project":"008a8cdc-6b67-4620-97a2-d36faa4fa74f","provisioning_strategy":"7d7a3cee-dca9-4016-a998-6c5e754741a0","resource_service":true,"uuid":"d7cd0d98-1467-4384-a24d-c0d003ea1701","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"Barmetall9_SVC:tony_pool","profile":"67bab681-cf30-4487-9ed1-cfa65ee4fd3d","project":"008a8cdc-6b67-4620-97a2-d36faa4fa74f","provisioning_strategy":"7d7a3cee-dca9-4016-a998-6c5e754741a0","resource_service":true,"uuid":"2820836b-4749-4ff7-8ba3-312c127a2439","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"Barmetall9_SVC:Pool0","profile":"67bab681-cf30-4487-9ed1-cfa65ee4fd3d","project":"008a8cdc-6b67-4620-97a2-d36faa4fa74f","provisioning_strategy":"7d7a3cee-dca9-4016-a998-6c5e754741a0","resource_service":true,"uuid":"850b3d87-ac18-414e-918e-bfbb8beb7e3c","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"Barmetall9_SVC:Pool2","profile":"67bab681-cf30-4487-9ed1-cfa65ee4fd3d","project":"008a8cdc-6b67-4620-97a2-d36faa4fa74f","provisioning_strategy":"7d7a3cee-dca9-4016-a998-6c5e754741a0","resource_service":true,"uuid":"aebbdbac-2cde-424c-9427-a965a0d9b285","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"Barmetall9_SVC:Pool3","profile":"67bab681-cf30-4487-9ed1-cfa65ee4fd3d","project":"008a8cdc-6b67-4620-97a2-d36faa4fa74f","provisioning_strategy":"7d7a3cee-dca9-4016-a998-6c5e754741a0","resource_service":true,"uuid":"eb05c100-bb16-4295-a607-ed533e778166","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"Barmetall9_SVC:Pool4","profile":"67bab681-cf30-4487-9ed1-cfa65ee4fd3d","project":"008a8cdc-6b67-4620-97a2-d36faa4fa74f","provisioning_strategy":"7d7a3cee-dca9-4016-a998-6c5e754741a0","resource_service":true,"uuid":"8da4f3dd-a644-4ccd-baf5-7b9ccf68ce2f","version":1},{"capability_values":[],"component_state":"PENDING_CREATION","description":"auto_created_service
+        for capability:None","name":"Barmetall9_SVC:Pool5","profile":"67bab681-cf30-4487-9ed1-cfa65ee4fd3d","project":"008a8cdc-6b67-4620-97a2-d36faa4fa74f","provisioning_strategy":"7d7a3cee-dca9-4016-a998-6c5e754741a0","resource_service":true,"uuid":"9e8cfe56-4b9a-4c1a-bc37-71fd8ab034b8","version":1}]}'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:39 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/volumes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:40 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":28,"next":null,"previous":null,"results":[{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"tony_test_4","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"c82a379e-6697-461b-b605-340d2c3075ed"},{"compliant":true,"component_state":"CREATED","historical_service":35,"name":"tony_test_1","service":"2820836b-4749-4ff7-8ba3-312c127a2439","size":2,"status":"online","storage_resource":"38828f47-4ea6-4d9b-8188-d7a13101f78a","unmapped_since":null,"uuid":"e19a6437-cc74-4e02-8c54-2c1c1adfcbec"},{"compliant":true,"component_state":"CREATED","historical_service":35,"name":"tony_test_2","service":"2820836b-4749-4ff7-8ba3-312c127a2439","size":1,"status":"online","storage_resource":"38828f47-4ea6-4d9b-8188-d7a13101f78a","unmapped_since":null,"uuid":"711609e7-ce7b-4804-8901-4c16648f817a"},{"compliant":true,"component_state":"CREATED","historical_service":35,"name":"tony_test_3","service":"2820836b-4749-4ff7-8ba3-312c127a2439","size":1,"status":"online","storage_resource":"38828f47-4ea6-4d9b-8188-d7a13101f78a","unmapped_since":null,"uuid":"e9fb779a-5bac-4a25-bb97-fe114462a0a7"},{"compliant":true,"component_state":"CREATED","historical_service":35,"name":"test-vol25","service":"2820836b-4749-4ff7-8ba3-312c127a2439","size":1,"status":"online","storage_resource":"38828f47-4ea6-4d9b-8188-d7a13101f78a","unmapped_since":null,"uuid":"3011da39-9a59-423f-ab71-6cdf3a10dce1"},{"compliant":true,"component_state":"CREATED","historical_service":35,"name":"liran-test152","service":"2820836b-4749-4ff7-8ba3-312c127a2439","size":1,"status":"online","storage_resource":"38828f47-4ea6-4d9b-8188-d7a13101f78a","unmapped_since":null,"uuid":"87dbb34d-c475-4a28-93d0-96b0088ff8d1"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"TEST_VOLUME-django-7252","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"b419d4d3-d1b2-44c7-b6af-a39642fa4039"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"dup_volume_2","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"3ca524b4-ada9-41a1-b417-2b8609c44e53"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"dup_volume_3","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"29b4b72a-e8a5-465d-8f42-80c6249e1a0e"},{"compliant":true,"component_state":"CREATED","historical_service":35,"name":"VOL_UPDATE_TEST","service":"2820836b-4749-4ff7-8ba3-312c127a2439","size":1,"status":"online","storage_resource":"38828f47-4ea6-4d9b-8188-d7a13101f78a","unmapped_since":null,"uuid":"ecb4454e-f07d-4c8f-850e-f96611bdba08"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"bk-tf-manual-1","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"37f1fb4f-0d40-4ca0-8852-2d00b11ce169"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"TEST_VOLUME-192.168.32.5-0974_UPDATED","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"8945f9f8-e009-484e-a643-1aa035a95241"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"adrian_for_snap","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"8b5ad0e2-d028-434a-99b4-62ea75a36733"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"TEST_VOLUME-129.39.244.84-8644","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"da135fa4-25dd-4ae1-99f6-445252455db9"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"NEW_VOL_NAME","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"d1fd4f21-d642-477a-8bf3-754c61a2d60b"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"TEST_UPDATE_VOL","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"1eeff0b8-7b2d-40f4-946c-f8ac14eb2a51"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"TEST_UPDATE_VOL-747","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"40c33242-ef9c-408f-9404-8baddac1542e"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"tony_test5","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"652f6909-97e5-43a0-b3c8-80487de847a6"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"test-vol400","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"bbacb0f2-a51b-409c-909a-bd72b1bf6297"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"TEST_VOLUME-192.168.32.5-5936","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"80f5006e-7fa5-4271-a48b-527b0b2532de"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"snapshot-3b88c463-9da1-4d01-9fb9-5a40714fe072","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"f0501be4-a2f4-4e4f-a94e-a1b69e28b532"},{"compliant":true,"component_state":"CREATED","historical_service":41,"name":"oferofer","service":"9e8cfe56-4b9a-4c1a-bc37-71fd8ab034b8","size":1,"status":"online","storage_resource":"ce04c588-1cd8-40ce-8f67-06d51fb3548e","unmapped_since":null,"uuid":"67b69447-cb25-4eef-bc8c-6b3e38bd947d"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"dup_volume_5","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"2eb7de37-777e-4a5a-9ccb-a7a9e1b30fdb"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"TEST_VOLUME-172.30.0.5-6934","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"7ed2f04d-813f-4d9f-b211-7ae1fed9b1b9"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"dup_volume_10","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"77b2dcdf-5d74-4094-8b61-624701740562"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"TEST_VOLUME-172.30.0.5-4914","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"92d89d5f-59c6-426b-bf6e-a13b17d4465a"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"TEST_VOLUME-192.168.32.5-1088","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"f2093286-bf44-4cab-b6f6-0ffb59804d0f"},{"compliant":true,"component_state":"CREATED","historical_service":34,"name":"dup_volume","service":"d7cd0d98-1467-4384-a24d-c0d003ea1701","size":1,"status":"online","storage_resource":"0be07c17-9775-422a-a03c-8fa158c5f297","unmapped_since":null,"uuid":"94ae604b-fdf2-466c-b221-013a140a750c"}]}'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:40 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-hosts-mapping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:40 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":2,"next":null,"previous":null,"results":[{"component_state":"CREATED","host":"d253ffd7-b6ae-4a0e-9f18-8df1707bee83","lun":0,"uuid":"bff501aa-1eb5-49a4-ba8c-6d1a4b570d14","volume":"b419d4d3-d1b2-44c7-b6af-a39642fa4039"},{"component_state":"CREATED","host":"0f688874-a397-4ca1-a07b-89384754b9a3","lun":0,"uuid":"5ffee5af-3167-447c-9787-54b5e6e2c8f5","volume":"e19a6437-cc74-4e02-8c54-2c1c1adfcbec"}]}'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:40 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/host-clusters-mapping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:40 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":1,"next":null,"previous":null,"results":[{"cluster": "0ef132ee-ae4c-4c2b-ae07-f52e1b99f7cc","component_state": "CREATED","lun": 1,"uuid": "b25fd48e-bbc6-4b0b-b48c-75a915356bf3","volume": "77b2dcdf-5d74-4094-8b61-624701740562"}]}'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:40 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/storage-hosts-wwpn-candidates
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Oct 2022 12:32:40 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"wwpn":"5001738063CC0193","system_uuid":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf"}]'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:40 GMT
+recorded_with: VCR 5.1.0
