@@ -65,7 +65,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   it "does not fail when token is bad (ie expired) and re-login -autosde gem v1" do
     client = ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
       :host     => Rails.application.secrets.autosde[:appliance_host],
-      #:scheme => 'http',
       :username => Rails.application.secrets.autosde[:site_manager_user],
       :password => Rails.application.secrets.autosde[:site_manager_password]
     )
