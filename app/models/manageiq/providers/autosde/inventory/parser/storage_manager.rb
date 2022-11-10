@@ -126,7 +126,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def cloud_volumes
     collector.cloud_volumes.each do |volume|
       persister.cloud_volumes.build(
-        :name             => volume.name,
+        :name             => volume.volume_name,
         :size             => volume.size * 1024 * 1024 * 1024,
         :ems_ref          => volume.uuid,
         :volume_type      => "ISCSI/FC",
