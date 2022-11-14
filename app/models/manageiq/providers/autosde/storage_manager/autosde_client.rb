@@ -70,8 +70,12 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < AutosdeOpena
     data = self.AuthenticationApi.token_auth_post(auth_request, opts)
     @token = data.token
   rescue AutosdeOpenapiClient::ApiError => e
-    error_data = JSON.parse(e.response_body)
-    raise AUTH_ERRR_MSG + error_data.dig("detail", "non_field_errors")&.first
+    error_data = if e.response_body
+                   JSON.parse(e.response_body).dig("detail", "non_field_errors")&.first
+                 else
+                   e
+                 end
+    raise "#{AUTH_ERRR_MSG}: #{error_data}"
   rescue => e
     raise AUTH_ERRR_MSG + e.to_s
   end
