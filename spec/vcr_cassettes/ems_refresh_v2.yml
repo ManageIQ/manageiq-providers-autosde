@@ -175,7 +175,7 @@ http_interactions:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"count":8,"next":null,"previous":null,"results":[{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"Barmetall9_SVC:Pool3","pool_name":"Pool3","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"2423882a-c95b-4416-ac45-d379802eb451","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"Barmetall9_SVC:Pool4","pool_name":"Pool4","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"c1c75b48-6bfb-49c5-9246-46f590469905","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":514322333696,"logical_total":515396075520,"name":"Barmetall9_SVC:Pool5","pool_name":"Pool5","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"ce04c588-1cd8-40ce-8f67-06d51fb3548e","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":502662168576,"logical_total":515949723648,"name":"Barmetall9_SVC:test_pool","pool_name":"test_pool","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"0be07c17-9775-422a-a03c-8fa158c5f297","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":506806140928,"logical_total":514322333696,"name":"Barmetall9_SVC:tony_pool","pool_name":"tony_pool","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"38828f47-4ea6-4d9b-8188-d7a13101f78a","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":514322333696,"logical_total":514322333696,"name":"Barmetall9_SVC:Pool0","pool_name":"Pool0","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"e9afbed2-697d-4c98-a900-80e6a7e356d1","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"Barmetall9_SVC:Pool1","pool_name":"Pool1","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"adf19962-6bee-4a54-88bb-e569d0fb39a2","abstract_capability_values":{},"replication_target_resource":null},{"advanced_attributes_map":"{}","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"Barmetall9_SVC:Pool2","pool_name":"Pool2","protocol":"fc","storage_system":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf","uuid":"b18d8272-7e4f-4045-b702-a16dae5e31c1","abstract_capability_values":{},"replication_target_resource":null}]}'
+      string: '{"count":9,"next":null,"previous":null,"results":[{"advanced_attributes_map":"{}","capability_values_json":"[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"45e0cf41-1842-45e8-b83b-17de54be406d\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"2fddfc81-2561-40d8-bd84-cec6ec26d551\"}]","component_state":"PENDING_CREATION","logical_free":513248591872,"logical_total":515396075520,"name":"test_or_30:Pool5","pool_name":"Pool5","protocol":"fc","storage_system":"9b1cedc0-b476-47f1-8f25-7a7da2b7d91c","uuid":"ecd03d66-1c83-466c-9b86-ff63483cd0da","replication_target_resource":null},{"advanced_attributes_map":"{}","capability_values_json":"[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"45e0cf41-1842-45e8-b83b-17de54be406d\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"2fddfc81-2561-40d8-bd84-cec6ec26d551\"}]","component_state":"PENDING_CREATION","logical_free":508232204288,"logical_total":515949723648,"name":"test_or_30:updateOr2","pool_name":"updateOr2","protocol":"fc","storage_system":"9b1cedc0-b476-47f1-8f25-7a7da2b7d91c","uuid":"dd3aa3ed-b898-47a4-a272-de3244f1372a","replication_target_resource":null},{"advanced_attributes_map":"{}","capability_values_json":"[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"45e0cf41-1842-45e8-b83b-17de54be406d\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"2fddfc81-2561-40d8-bd84-cec6ec26d551\"}]","component_state":"PENDING_CREATION","logical_free":507879882752,"logical_total":514322333696,"name":"test_or_30:tony_pool","pool_name":"tony_pool","protocol":"fc","storage_system":"9b1cedc0-b476-47f1-8f25-7a7da2b7d91c","uuid":"4cc7fa4e-fa05-47fb-8269-869942e11f86","replication_target_resource":null},{"advanced_attributes_map":"{}","capability_values_json":"[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"45e0cf41-1842-45e8-b83b-17de54be406d\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"2fddfc81-2561-40d8-bd84-cec6ec26d551\"}]","component_state":"PENDING_CREATION","logical_free":472446402560,"logical_total":515396075520,"name":"test_or_30:test_pool","pool_name":"test_pool","protocol":"fc","storage_system":"9b1cedc0-b476-47f1-8f25-7a7da2b7d91c","uuid":"41e4e6fb-d670-4db9-8325-464c138dee6f","replication_target_resource":null},{"advanced_attributes_map":"{}","capability_values_json":"[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"45e0cf41-1842-45e8-b83b-17de54be406d\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"2fddfc81-2561-40d8-bd84-cec6ec26d551\"}]","component_state":"PENDING_CREATION","logical_free":507879882752,"logical_total":514322333696,"name":"test_or_30:Pool0","pool_name":"Pool0","protocol":"fc","storage_system":"9b1cedc0-b476-47f1-8f25-7a7da2b7d91c","uuid":"4d2eaeaf-0207-4418-bac3-bdae9a4115cc","replication_target_resource":null},{"advanced_attributes_map":"{}","capability_values_json":"[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"45e0cf41-1842-45e8-b83b-17de54be406d\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"2fddfc81-2561-40d8-bd84-cec6ec26d551\"}]","component_state":"PENDING_CREATION","logical_free":514322333696,"logical_total":515396075520,"name":"test_or_30:Pool1","pool_name":"Pool1","protocol":"fc","storage_system":"9b1cedc0-b476-47f1-8f25-7a7da2b7d91c","uuid":"03516eb2-d2d9-40c7-921c-6dcf9a835775","replication_target_resource":null},{"advanced_attributes_map":"{}","capability_values_json":"[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"45e0cf41-1842-45e8-b83b-17de54be406d\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"2fddfc81-2561-40d8-bd84-cec6ec26d551\"}]","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"test_or_30:Pool2","pool_name":"Pool2","protocol":"fc","storage_system":"9b1cedc0-b476-47f1-8f25-7a7da2b7d91c","uuid":"9dbda310-d848-439b-a337-39236b225057","replication_target_resource":null},{"advanced_attributes_map":"{}","capability_values_json":"[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"45e0cf41-1842-45e8-b83b-17de54be406d\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"2fddfc81-2561-40d8-bd84-cec6ec26d551\"}]","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"test_or_30:Pool3","pool_name":"Pool3","protocol":"fc","storage_system":"9b1cedc0-b476-47f1-8f25-7a7da2b7d91c","uuid":"53cca325-a529-4a97-a756-e86c3342ce9e","replication_target_resource":null},{"advanced_attributes_map":"{}","capability_values_json":"[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"45e0cf41-1842-45e8-b83b-17de54be406d\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"2fddfc81-2561-40d8-bd84-cec6ec26d551\"}]","component_state":"PENDING_CREATION","logical_free":515396075520,"logical_total":515396075520,"name":"test_or_30:Pool4","pool_name":"Pool4","protocol":"fc","storage_system":"9b1cedc0-b476-47f1-8f25-7a7da2b7d91c","uuid":"38575e25-8bc6-4e2a-b2c4-bcb2e6c7683f","replication_target_resource":null}]}'
     http_version: null
   recorded_at: Mon, 31 Oct 2022 12:32:39 GMT
 - request:
@@ -500,6 +500,54 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '[{"wwpn":"5001738063CC0193","system_uuid":"78ef7ca4-2ce9-4983-aa49-76dbeedcbedf"}]'
+    http_version: null
+  recorded_at: Mon, 31 Oct 2022 12:32:40 GMT
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/service-abstract-capability-values
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+        - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+        - application/json
+      Accept:
+        - "*/*"
+      Authorization:
+        - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+      Expect:
+        - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+        - Mon, 31 Oct 2022 12:32:40 GMT
+      Server:
+        - gunicorn/19.9.0
+      Content-Type:
+        - application/json
+      Vary:
+        - Accept,Cookie
+      Allow:
+        - GET, HEAD, OPTIONS
+      X-Frame-Options:
+        - DENY
+      X-Content-Type-Options:
+        - nosniff
+      Referrer-Policy:
+        - same-origin
+      Transfer-Encoding:
+        - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":4,"next":null,"previous":null,"results":[{"abstract_capability":"compression","uuid":"4ce9130a-2070-4b04-b047-ec934a56a331","value":"True"},
+      {"abstract_capability":"compression","uuid":"e9653d16-c805-479f-bae8-91031f07eed6","value":"False"},
+      {"abstract_capability":"thin_provision","uuid":"6c6386eb-564b-4a56-973e-5ccdc90a7e78","value":"True"},
+      {"abstract_capability":"thin_provision","uuid":"3effabe1-d853-442d-b4a1-b39a15268f22","value":"False"}]}'
     http_version: null
   recorded_at: Mon, 31 Oct 2022 12:32:40 GMT
 recorded_with: VCR 5.1.0

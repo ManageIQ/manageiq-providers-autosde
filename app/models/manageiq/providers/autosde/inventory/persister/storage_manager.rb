@@ -16,5 +16,6 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     add_collection(storage, :storage_resources)
     add_collection(storage, :storage_services)
     add_collection(storage, :cloud_volumes)
+    add_collection(storage, :ext_management_system)
   end
 end

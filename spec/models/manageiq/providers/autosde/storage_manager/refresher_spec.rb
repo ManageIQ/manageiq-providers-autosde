@@ -212,7 +212,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
     def assert_ems
       expect(ems.physical_storages.count).to(eq(1))
       expect(ems.physical_storage_families.count).to(eq(2))
-      expect(ems.storage_resources.count).to(eq(8))
+      expect(ems.storage_resources.count).to(eq(9))
       expect(ems.storage_services.count).to(eq(7))
       expect(ems.cloud_volumes.count).to(eq(13))
       expect(ems.wwpn_candidates.count).to(eq(2))
@@ -251,15 +251,15 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
     end
 
     def assert_specific_storage_resource
-      storage_resource = ems.storage_resources.find_by(:ems_ref => "e6833c27-374b-4a4a-8d76-455cfe5f4270")
+      storage_resource = ems.storage_resources.find_by(:ems_ref => "41e4e6fb-d670-4db9-8325-464c138dee6f")
       expect(storage_resource).to(have_attributes(
-                                    :name             => "9.151.159.178:ilyak_test_pool",
-                                    :ems_ref          => "e6833c27-374b-4a4a-8d76-455cfe5f4270",
-                                    :logical_free     => 601_295_421_440,
-                                    :logical_total    => 0,
-                                    :physical_storage => ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666"),
+                                    :name             => "test_or_30:test_pool",
+                                    :ems_ref          => "41e4e6fb-d670-4db9-8325-464c138dee6f",
+                                    :logical_free     => 472_446_402_560,
+                                    :logical_total    => 515_396_075_520,
+                                    :physical_storage => ems.physical_storages.find_by(:ems_ref => "9b1cedc0-b476-47f1-8f25-7a7da2b7d91c"),
                                     :type             => "ManageIQ::Providers::Autosde::StorageManager::StorageResource",
-                                    :capabilities     => [{"name" => "compression", "uuid" => "29ac2ba7-1e55-411e-9828-472c935bb882", "value" => "True"}, {"name" => "thin_provision", "uuid" => "63a2dfbe-bb1b-408c-8e94-36c9d7791df2", "value" => "True"}]
+                                    :capabilities     => [{"name" => "compression", "uuid" => "45e0cf41-1842-45e8-b83b-17de54be406d", "value" => "True"}, {"name" => "thin_provision", "uuid" => "2fddfc81-2561-40d8-bd84-cec6ec26d551", "value" => "True"}]
                                   ))
     end
 
