@@ -18,7 +18,7 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
       :interval       => 1.minute,
       :target_option  => "existing"
     }
-    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
   end
 
   def self.raw_validate_physical_storage(ext_management_system, options = {})
@@ -48,7 +48,7 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
       :interval       => 10.seconds,
       :target_option  => "existing"
     }
-    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
   end
 
   def self.raw_create_physical_storage(ext_management_system, options = {})
@@ -71,7 +71,7 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
         :interval       => 10.seconds,
         :target_option  => "new"
       }
-      ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
+      ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
     end
   end
 end
