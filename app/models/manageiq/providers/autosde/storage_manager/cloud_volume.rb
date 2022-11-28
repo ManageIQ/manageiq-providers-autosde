@@ -26,7 +26,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :interval       => 10.seconds,
       :target_option  => "new"
     }
-    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
   end
 
   # ================= delete  ================
@@ -41,7 +41,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :interval       => 1.minute,
       :target_option  => "existing"
     }
-    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
   end
 
   # ================= edit  ================
@@ -61,7 +61,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :interval       => 10.seconds,
       :target_option  => "existing"
     }
-    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap { |job| job.signal(:start) }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
   end
 
   # ================ safe-delete ================
