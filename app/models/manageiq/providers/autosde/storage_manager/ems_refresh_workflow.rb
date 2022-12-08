@@ -13,13 +13,44 @@ class ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow < ManageI
     when "SUCCESS"
       options[:native_object_id] = native_object.object_id
       save!
-      queue_signal(:refresh)
+      if options[:target_option] == 'new' && options[:target_class] == :physical_storages
+        options[:target_option] = "ems"
+        save!
+        queue_signal(:poll_refresh_task, :deliver_on => Time.now.utc + options[:interval])
+      else
+        queue_signal(:refresh)
+      end
     else
       queue_signal(:poll_native_task, :deliver_on => Time.now.utc + options[:interval])
     end
   rescue => err
     _log.log_backtrace(err)
     signal(:abort, err.message, "error")
+  end
+
+  def poll_refresh_task
+    opts = {
+      :query_params => {
+        :object_id => options[:native_object_id]
+      }
+    }
+    tasks = autosde_client.JobApi.jobs_get(opts)
+    raise _('No refresh task found') if tasks.count < 1
+
+    task = tasks.detect { |t| t.task_name.match?("update_system") }
+    raise _('No refresh task found') if task.nil?
+
+    case task.status
+    when "FAILURE"
+      signal(:abort, "Refresh failed")
+    when "SUCCESS"
+      queue_signal(:refresh)
+    else
+      queue_signal(:poll_refresh_task, :deliver_on => Time.now.utc + options[:interval])
+    end
+  rescue => err
+    _log.log_backtrace(err)
+    signal(:abort, err.message, opts)
   end
 
   def refresh
@@ -47,6 +78,24 @@ class ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow < ManageI
 
       queue_signal(:poll_refresh)
     end
+  end
+
+  def load_transitions
+    self.state ||= 'initialize'
+
+    {
+      :initializing      => {'initialize'       => 'waiting_to_start'},
+      :start             => {'waiting_to_start' => 'running'},
+      :poll_native_task  => {'running'          => 'running'},
+      :poll_refresh_task => {'running'          => 'running'},
+      :refresh           => {'running'          => 'refreshing'},
+      :poll_refresh      => {'refreshing'       => 'refreshing'},
+      :post_refresh      => {'refreshing'       => 'post_refreshing'},
+      :finish            => {'*'                => 'finished'},
+      :abort_job         => {'*'                => 'aborting'},
+      :cancel            => {'*'                => 'canceling'},
+      :error             => {'*'                => '*'}
+    }
   end
 
   def autosde_client
