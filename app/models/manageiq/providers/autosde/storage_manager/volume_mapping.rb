@@ -16,7 +16,7 @@ class ManageIQ::Providers::Autosde::StorageManager::VolumeMapping < ::VolumeMapp
       :target_id      => nil,
       :ems_id         => ext_management_system.id,
       :native_task_id => task_id,
-      :interval       => 1.minute,
+      :interval       => 20.seconds,
       :target_option  => "ems"
     }
     ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
