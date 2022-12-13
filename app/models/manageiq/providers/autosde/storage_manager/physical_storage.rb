@@ -15,7 +15,7 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
       :target_class   => self.class.name,
       :ems_id         => ext_management_system.id,
       :native_task_id => task_id,
-      :interval       => 30.seconds,
+      :interval       => 20.seconds,
       :target_option  => "existing"
     }
     ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)

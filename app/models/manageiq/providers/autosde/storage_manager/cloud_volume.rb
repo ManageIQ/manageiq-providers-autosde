@@ -38,7 +38,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :target_id      => id,
       :ems_id         => ext_management_system.id,
       :native_task_id => task_id,
-      :interval       => 1.minute,
+      :interval       => 20.seconds,
       :target_option  => "existing"
     }
     ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
