@@ -48,7 +48,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       physical_storage = persister.physical_storages.build(
         :name                    => storage.name,
         :ems_ref                 => storage.uuid,
-        :physical_storage_family => persister.physical_storage_families.lazy_find(storage.system_type.uuid),
+        :physical_storage_family => persister.physical_storage_families.lazy_find(storage.system_type),
         :health_state            => storage.status
       )
       persister.physical_storage_details.build(:resource => physical_storage, :model => storage.system_type.name)
