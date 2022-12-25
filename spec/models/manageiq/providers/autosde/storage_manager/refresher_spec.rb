@@ -53,18 +53,11 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                 :name            => "9.151.159.178",
                 :status          => "ONLINE",
                 :storage_family  => "ontap_7mode",
-                :system_type     => AutosdeOpenapiClient::SystemType.new(
-                  :component_state => "PENDING_CREATION",
-                  :name            => "IBM_FlashSystems",
-                  :short_version   => "11",
-                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
-                  :version         => "1.2"
-                ),
+                :system_type     => "053446df-ed2b-4822-b9c5-386e85198519",
                 :uuid            => "980f3ceb-c599-49c4-9db3-fdc793cb8666"
               )
             ]
           ))
-
         assert_inventory_not_changed { run_targeted_refresh(ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666")) }
       end
 
@@ -79,13 +72,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                 :name            => "1.2.3.4",
                 :status          => "ONLINE",
                 :storage_family  => "ontap_7mode",
-                :system_type     => AutosdeOpenapiClient::SystemType.new(
-                  :component_state => "PENDING_CREATION",
-                  :name            => "IBM_FlashSystems",
-                  :short_version   => "11",
-                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
-                  :version         => "1.2"
-                ),
+                :system_type     => "053446df-ed2b-4822-b9c5-386e85198519",
                 :uuid            => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
               )
             ]
@@ -238,6 +225,8 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
 
     def assert_specific_physical_storage
       physical_storage = ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666")
+      require 'byebug'
+      byebug
       expect(physical_storage).to(have_attributes(
                                     :ems_ref                 => "980f3ceb-c599-49c4-9db3-fdc793cb8666",
                                     :name                    => "9.151.159.178",

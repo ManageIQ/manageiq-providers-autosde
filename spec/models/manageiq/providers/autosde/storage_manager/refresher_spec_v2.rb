@@ -48,19 +48,13 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           .to(receive(:storage_systems_get)
           .and_return(
             [
-              AutosdeOpenapiClient::StorageSystem.new(
+              AutosdeOpenapiClient::StorageSystemResponse.new(
                 :component_state => "PENDING_CREATION",
                 :management_ip   => "129.39.244.30",
                 :name            => "Barmetall9_SVC",
                 :status          => "ONLINE",
                 :storage_family  => "ontap_7mode",
-                :system_type     => AutosdeOpenapiClient::SystemType.new(
-                  :component_state => "PENDING_CREATION",
-                  :name            => "IBM_FlashSystems",
-                  :short_version   => "11",
-                  :uuid            => "397352fb-f6a0-4a5d-90f8-6addf4c81076",
-                  :version         => "1.1"
-                ),
+                :system_type     => "397352fb-f6a0-4a5d-90f8-6addf4c81076",
                 :uuid            => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf"
               )
             ]
@@ -73,19 +67,13 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           .to(receive(:storage_systems_get)
           .and_return(
             [
-              AutosdeOpenapiClient::StorageSystem.new(
+              AutosdeOpenapiClient::StorageSystemResponse.new(
                 :component_state => "PENDING_CREATION",
                 :management_ip   => "129.39.244.30",
                 :name            => "129.39.244.30",
                 :status          => "ONLINE",
                 :storage_family  => "ontap_7mode",
-                :system_type     => AutosdeOpenapiClient::SystemType.new(
-                  :component_state => "PENDING_CREATION",
-                  :name            => "IBM_FlashSystems",
-                  :short_version   => "11",
-                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
-                  :version         => "1.1"
-                ),
+                :system_type     => "053446df-ed2b-4822-b9c5-386e85198519",
                 :uuid            => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
               )
             ]

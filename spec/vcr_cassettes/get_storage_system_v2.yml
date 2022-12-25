@@ -85,7 +85,7 @@ http_interactions:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"count":1,"next":null,"previous":null,"results":[{"auto_refresh":true,"component_state":"CREATED","enabled_capability_values":[],"management_ip":"129.39.244.176","name":"storwize-svc-sim","status":"ONLINE","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"IBM_FlashSystems","short_version":"1","uuid":"3f705618-0105-4353-855f-3fe3c29830e5","version":"1.1","service_abstract_capability_value":[]},"uuid":"dba29261-fc9f-4c0c-916d-d63ee105a1cc"}]}'
+      string: '{"count":1,"next":null,"previous":null,"results":[{"auto_refresh":true,"component_state":"CREATED","enabled_capability_values":[],"management_ip":"129.39.244.176","name":"storwize-svc-sim","status":"ONLINE","storage_array":null,"storage_family":"ontap_7mode","system_type":"3f705618-0105-4353-855f-3fe3c29830e5","uuid":"dba29261-fc9f-4c0c-916d-d63ee105a1cc"}]}'
     http_version: null
   recorded_at: Sun, 30 Oct 2022 14:12:24 GMT
 recorded_with: VCR 5.1.0

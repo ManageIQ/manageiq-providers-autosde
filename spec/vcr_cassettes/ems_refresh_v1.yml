@@ -131,7 +131,7 @@ http_interactions:
       - GET, POST, OPTIONS, PUT, DELETE
     body:
       encoding: ASCII-8BIT
-      string: '[{"component_state":"PENDING_CREATION","management_ip":"9.151.159.178","name":"9.151.159.178","status":"ONLINE","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"IBM_FlashSystems","short_version":"11","uuid":"053446df-ed2b-4822-b9c5-386e85198519","version":"1.2"},"uuid":"980f3ceb-c599-49c4-9db3-fdc793cb8666"}]'
+      string: '[{"component_state":"PENDING_CREATION","management_ip":"9.151.159.178","name":"9.151.159.178","status":"ONLINE","storage_array":null,"storage_family":"ontap_7mode","system_type":"053446df-ed2b-4822-b9c5-386e85198519","uuid":"980f3ceb-c599-49c4-9db3-fdc793cb8666"}]'
     http_version: null
   recorded_at: Mon, 25 Oct 2021 09:51:28 GMT
 - request:
