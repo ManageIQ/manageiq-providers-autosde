@@ -47,7 +47,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           .to(receive(:storage_systems_get)
           .and_return(
             [
-              AutosdeOpenapiClient::StorageSystem.new(
+              AutosdeOpenapiClient::StorageSystemResponse.new(
                 :component_state => "PENDING_CREATION",
                 :management_ip   => "9.151.159.178",
                 :name            => "9.151.159.178",
@@ -66,7 +66,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           .to(receive(:storage_systems_get)
           .and_return(
             [
-              AutosdeOpenapiClient::StorageSystem.new(
+              AutosdeOpenapiClient::StorageSystemResponse.new(
                 :component_state => "PENDING_CREATION",
                 :management_ip   => "1.2.3.4",
                 :name            => "1.2.3.4",
@@ -225,8 +225,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
 
     def assert_specific_physical_storage
       physical_storage = ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666")
-      require 'byebug'
-      byebug
       expect(physical_storage).to(have_attributes(
                                     :ems_ref                 => "980f3ceb-c599-49c4-9db3-fdc793cb8666",
                                     :name                    => "9.151.159.178",
