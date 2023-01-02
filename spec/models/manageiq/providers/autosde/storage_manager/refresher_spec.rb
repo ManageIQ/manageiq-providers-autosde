@@ -258,7 +258,8 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                     :logical_free     => 601_295_421_440,
                                     :logical_total    => 0,
                                     :physical_storage => ems.physical_storages.find_by(:ems_ref => "980f3ceb-c599-49c4-9db3-fdc793cb8666"),
-                                    :type             => "ManageIQ::Providers::Autosde::StorageManager::StorageResource"
+                                    :type             => "ManageIQ::Providers::Autosde::StorageManager::StorageResource",
+                                    :capabilities     => [{"name" => "compression", "uuid" => "29ac2ba7-1e55-411e-9828-472c935bb882", "value" => "True"}, {"name" => "thin_provision", "uuid" => "63a2dfbe-bb1b-408c-8e94-36c9d7791df2", "value" => "True"}]
                                   ))
     end
 
