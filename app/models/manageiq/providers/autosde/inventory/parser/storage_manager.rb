@@ -34,9 +34,10 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def physical_storage_families
     collector.physical_storage_families.each do |storage_family|
       persister.physical_storage_families.build(
-        :name    => storage_family.name,
-        :ems_ref => storage_family.uuid,
-        :version => storage_family.version
+        :name         => storage_family.name,
+        :ems_ref      => storage_family.uuid,
+        :version      => storage_family.version,
+        :capabilities => storage_family.capability_values_json
       )
     end
   end

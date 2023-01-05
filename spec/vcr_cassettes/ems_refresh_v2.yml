@@ -85,7 +85,7 @@ http_interactions:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"count":1,"next":null,"previous":null,"results":[{"component_state":"PENDING_CREATION","name":"IBM_FlashSystems","short_version":"1","uuid":"397352fb-f6a0-4a5d-90f8-6addf4c81076","version":"1.1","service_abstract_capability_value":[]}]}'
+      string: '{"count":1,"next":null,"previous":null,"results":[{"component_state":"PENDING_CREATION","name":"IBM_FlashSystems","short_version":"1","uuid":"397352fb-f6a0-4a5d-90f8-6addf4c81076","version":"1.1","service_abstract_capability_value":[], "capability_values_json": "[{\"abstract_capability__name\": \"compression\", \"uuid\": \"65bf355d-3931-40b2-b67a-d4291fc5860b\", \"value\": \"True\"}, {\"abstract_capability__name\": \"compression\", \"uuid\": \"84d102cc-c98f-4bc0-9348-430ba04e90e4\", \"value\": \"False\"}, {\"abstract_capability__name\": \"thin_provision\", \"uuid\": \"92865732-1175-47ef-8b41-b77356784b63\", \"value\": \"True\"}, {\"abstract_capability__name\": \"thin_provision\", \"uuid\": \"a8a2bd22-bda9-4ad7-ba6f-11c8b4ee739c\", \"value\": \"False\"}]"}]}'
     http_version: null
   recorded_at: Mon, 31 Oct 2022 12:32:39 GMT
 - request:
