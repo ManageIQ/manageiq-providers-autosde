@@ -51,7 +51,8 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :ems_ref          => resource.uuid,
         :logical_free     => resource.logical_free,
         :logical_total    => resource.logical_total,
-        :physical_storage => persister.physical_storages.lazy_find(resource.storage_system)
+        :physical_storage => persister.physical_storages.lazy_find(resource.storage_system),
+        :capabilities     => parse_capabilities(resource.capability_values_json)
       )
     end
   end
@@ -156,6 +157,14 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :ems_ref          => group.uuid,
         :physical_storage => persister.physical_storages.lazy_find(group.storage_system)
       )
+    end
+  end
+
+  # This method changes capability name field from 'abstract_capability' to 'name'
+  def parse_capabilities(capabilities)
+    caps = JSON.parse(capabilities)
+    caps.each do |capability|
+      capability['name'] = capability.delete('abstract_capability')
     end
   end
 end
