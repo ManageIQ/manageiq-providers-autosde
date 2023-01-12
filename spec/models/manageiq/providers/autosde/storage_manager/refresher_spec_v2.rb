@@ -31,7 +31,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
     end
 
     context "targeted refresh" do
-      before { VCR.use_cassette("ems_refresh_v2", :record => :once) { described_class.refresh([ems]) } }
+      before { VCR.use_cassette("ems_refresh_v2") { described_class.refresh([ems]) } }
 
       let(:system_type_api)    { double("SystemTypeApi") }
       let(:storage_system_api) { double("StorageSystemApi") }
