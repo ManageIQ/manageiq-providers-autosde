@@ -10,12 +10,21 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def self.raw_create_volume(ext_management_system, options = {})
     # @type [StorageService]
-    vol_to_create = ext_management_system.autosde_client.VolumeCreate(
-      :service => ext_management_system.storage_services.find(options["storage_service_id"]).ems_ref,
+    creation_hash = {
+      :service => "",
       :name    => options["name"],
       :size    => options["size"],
       :count   => options["count"]
-    )
+    }
+
+    if options['mode'] == 'Basic'
+      creation_hash[:service] = ext_management_system.storage_services.find(options["storage_service_id"]).ems_ref
+    else
+      creation_hash[:service_name] = options["new_service_name"]
+      creation_hash[:resources] = ext_management_system.storage_resources.find(options["storage_resource_id"].to_a).pluck(:ems_ref)
+    end
+
+    vol_to_create = ext_management_system.autosde_client.VolumeCreate(creation_hash)
     task_id = ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create).task_id
 
     options = {
@@ -100,21 +109,12 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   end
 
   def self.params_for_create(provider)
-    services = provider.storage_services.map { |service| {:value => service.id.to_s, :label => service.name} }
+    capabilities = provider.capabilities.map do |capability|
+      {:label => "#{capability['abstract_capability']}: #{capability['value']}", :value => capability['uuid']}
+    end
 
     {
       :fields => [
-        {
-          :component    => "select",
-          :name         => "storage_service_id",
-          :id           => "storage_service_id",
-          :label        => _("Storage Pool"),
-          :isRequired   => true,
-          :validate     => [{:type => "required"}],
-          :options      => services,
-          :includeEmpty => true,
-          :isDisabled   => false
-        },
         {
           :component  => "text-field",
           :id         => "size",
@@ -134,6 +134,25 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
           :validate     => [{:type => "required"},
                             {:type => "pattern", :pattern => '^[-+]?[0-9]\\d*$', :message => _("Must be an integer")},
                             {:type => "min-number-value", :value => 1, :message => _('Must be greater than or equal to 1')}],
+        },
+        {
+          :component  => "radio",
+          :name       => "mode",
+          :id         => "mode",
+          :label      => _("Mode"),
+          :options    => [{:label => 'Basic', :value => 'Basic'}, {:label => 'Advanced', :value => 'Advanced'}],
+          :isRequired => true,
+          :validate   => [{:type => "required"}]
+        },
+        {
+          :component  => "select",
+          :name       => "required_capabilities",
+          :id         => "required_capabilities",
+          :label      => _("Required Capabilities (filters by exact match)"),
+          :options    => capabilities,
+          :isRequired => true,
+          :isMulti    => true,
+          :validate   => [{:type => "required"}]
         }
       ]
     }
