@@ -9,7 +9,7 @@ class ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow < ManageI
     native_object = autosde_client.JobApi.jobs_pk_get(options[:native_task_id])
     case native_object.status
     when "FAILURE"
-      signal(:abort, "Task failed")
+      raise "#{options[:target_class]} task failed: #{JSON.parse(native_object.result)["exc_message"][0]}"
     when "SUCCESS"
       options[:native_object_id] = native_object.object_id
       save!
