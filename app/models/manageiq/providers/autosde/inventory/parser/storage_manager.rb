@@ -37,7 +37,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :name         => storage_family.name,
         :ems_ref      => storage_family.uuid,
         :version      => storage_family.version,
-        :capabilities => storage_family.capability_values_json
+        :capabilities => parse_capabilities(storage_family.capability_values_json, 'abstract_capability__name')
       )
     end
   end
@@ -61,7 +61,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :logical_free     => resource.logical_free,
         :logical_total    => resource.logical_total,
         :physical_storage => persister.physical_storages.lazy_find(resource.storage_system),
-        :capabilities     => parse_capabilities(resource.capability_values_json)
+        :capabilities     => parse_capabilities(resource.capability_values_json, 'abstract_capability')
       )
     end
   end
@@ -129,7 +129,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :description  => service.description,
         :version      => service.version,
         :ems_ref      => service.uuid,
-        :capabilities => parse_capabilities(service.capability_values_json)
+        :capabilities => parse_capabilities(service.capability_values_json, 'abstract_capability')
       )
     end
   end
@@ -171,10 +171,10 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   end
 
   # This method changes capability name field from 'abstract_capability' to 'name'
-  def parse_capabilities(capabilities)
+  def parse_capabilities(capabilities, field_name)
     caps = JSON.parse(capabilities)
     caps.each do |capability|
-      capability['name'] = capability.delete('abstract_capability')
+      capability['name'] = capability.delete(field_name)
     end
   end
 end
