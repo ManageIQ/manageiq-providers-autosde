@@ -242,8 +242,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
 
     def assert_specific_physical_storage_family
       flash_systems = ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
-      require 'byebug'
-      byebug
       expect(flash_systems).to(have_attributes(
                                  :name    => "IBM_FlashSystems",
                                  :version => "1.1",
