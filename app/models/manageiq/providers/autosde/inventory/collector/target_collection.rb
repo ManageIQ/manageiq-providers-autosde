@@ -57,7 +57,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   end
 
   def capability_values
-    []
+    @manager.capabilities || []
   end
 
   private

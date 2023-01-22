@@ -16,6 +16,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   supports :authentication_status
   supports :create
   supports :storage_services
+  supports :storage_service_create
   supports :update
   supports :volume_resizing
   supports :cloud_volume_create
