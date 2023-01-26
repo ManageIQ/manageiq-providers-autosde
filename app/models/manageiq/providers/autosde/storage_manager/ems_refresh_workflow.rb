@@ -11,7 +11,7 @@ class ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow < ManageI
     when "FAILURE"
       raise "#{options[:target_class]} task failed: #{JSON.parse(native_object.result)["exc_message"][0]}"
     when "SUCCESS"
-      options[:native_object_id] = native_object.object_id
+      options[:native_objects_ids] = native_object.objects_ids
       save!
       if options[:target_option] == 'new' && options[:target_class] == :physical_storages
         options[:target_option] = "ems"
@@ -31,7 +31,7 @@ class ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow < ManageI
   def poll_refresh_task
     opts = {
       :query_params => {
-        :object_id => options[:native_object_id]
+        :object_id => options[:native_objects_ids][0]
       }
     }
     tasks = autosde_client.JobApi.jobs_get(opts)
@@ -56,19 +56,21 @@ class ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow < ManageI
   def refresh
     case options[:target_option]
     when "new"
-      target = InventoryRefresh::Target.new(
-        :manager     => ext_management_system,
-        :association => options[:target_class],
-        :manager_ref => {:ems_ref => options[:native_object_id]}
+      targets = options[:native_objects_ids].to_a.map do |ems_ref|
+        InventoryRefresh::Target.new(
+          :manager     => ext_management_system,
+          :association => options[:target_class],
+          :manager_ref => {:ems_ref => ems_ref}
       )
+      end
     when "ems"
-      target = ext_management_system
+      targets = ext_management_system
     when "existing"
-      target = target_entity
+      targets = target_entity
     else
       signal(:abort, "error, no valid option")
     end
-    task_ids = EmsRefresh.queue_refresh_task(target)
+    task_ids = EmsRefresh.queue_refresh_task(targets)
     if task_ids.blank?
       process_error("Failed to queue refresh", "error")
       queue_signal(:error)
