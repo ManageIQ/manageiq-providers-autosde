@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/service-resource-attachment
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+        - OpenAPI-Generator/1.0.2/ruby
+      Content-Type:
+        - application/json
+      Accept:
+        - "*/*"
+      Authorization:
+        - Bearer fdf68692f2a4c981b946a651363d96cddd711999
+      Expect:
+        - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+        - Mon, 25 Oct 2021 09:51:49 GMT
+      Server:
+        - WSGIServer/0.2 CPython/3.7.3
+      Content-Type:
+        - application/json
+      Vary:
+        - Accept
+      Allow:
+        - GET, HEAD, OPTIONS
+      X-Frame-Options:
+        - SAMEORIGIN
+      Access-Control-Allow-Origin:
+        - "*"
+      Access-Control-Allow-Headers:
+        - "*"
+      Access-Control-Allow-Methods:
+        - GET, POST, OPTIONS, PUT, DELETE
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"compliant":true,"service":"5189b322-c4ce-47ea-b267-381e8c4baab5","storage_resource":"f60e8f31-1d22-48fe-a79c-319b6c3613aa","uuid":"f0ecb715-19a1-4e74-b6f5-5c428a9c741d"},{"compliant":true,"service":"38abdf9c-92a7-438f-84e2-e1a069cc7b73","storage_resource":"2ffb219c-5f92-43d8-8917-356c4557edcb","uuid":"fa02ceb2-e729-4fe1-bcb6-4b03168fb169"},{"compliant":true,"service":"66d60892-6430-4681-883a-61ed0db50db6","storage_resource":"9fc3ed70-ea07-4db7-8118-6fb46301d90d","uuid":"8fb873a4-fd17-4cbc-99f4-875eba1c95ae"},{"compliant":true,"service":"5a3bb3d2-caf4-4b3f-915d-edfa0e7269ed","storage_resource":"d923a880-96cf-47d1-ab8e-ceb872c2e4bb","uuid":"158c03ac-fb62-46b2-9170-c6f0ebb91549"},{"compliant":true,"service":"3f692948-52c8-411d-ab8a-2777f025ba98","storage_resource":"34fd30ba-d1f8-41b9-9fa1-e6c41950a133","uuid":"bb6ea1ef-33a8-4651-85c5-cc155c7351c0"},{"compliant":true,"service":"6cf7190a-15f0-4f62-9d64-31f275de5722","storage_resource":"d7e04c01-3944-499f-86f5-d5406bf76182","uuid":"b6af6083-e39c-4f8a-b1ea-134637bc1ada"},{"compliant":true,"service":"468a4250-aa52-4d2a-a86c-9a557ebd6307","storage_resource":"b30612fe-a0da-43f5-9b3a-e27a4504a5c3","uuid":"fe5862a3-fc3b-4816-8be8-5bfbd74478d6"},{"compliant":true,"service":"61de684a-203e-4505-b6be-47f848ea0069","storage_resource":"1db314a1-cd66-4289-8586-abb58684c870","uuid":"4b1387d9-fac7-453d-9844-21df4b43824b"},{"compliant":true,"service":"0b344f0d-0066-4a66-92b5-53995cc26d2f","storage_resource":"46175ca2-0695-4ae5-baab-00ed5b9155e4","uuid":"0715cd74-ea55-479f-8bb0-92f1e6e852de"}]'
+    http_version: null
+  recorded_at: Mon, 25 Oct 2021 09:51:49 GMT
+recorded_with: VCR 5.0.0

@@ -46,4 +46,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
   def capability_values
     @capability_values ||= @manager.autosde_client.ServiceAbstractCapabilityValueApi.service_abstract_capability_values_get
   end
+
+  def storage_service_resource_attachments
+    @storage_service_resource_attachments ||= @manager.autosde_client.ServiceResourceAttachmentApi.service_resource_attachment_get
+  end
 end

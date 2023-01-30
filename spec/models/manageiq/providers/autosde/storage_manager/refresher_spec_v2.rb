@@ -26,6 +26,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           assert_specific_host_initiator_group
           assert_specific_host_volume_mapping
           assert_specific_cluster_volume_mapping
+          assert_specific_storage_service_resource_attachment
         end
       end
     end
@@ -220,6 +221,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       expect(ems.volume_mappings.count).to(eq(3))
       expect(ems.cluster_volume_mappings.count).to(eq(1))
       expect(ems.host_volume_mappings.count).to(eq(2))
+      expect(ems.storage_service_resource_attachments.count).to(eq(9))
     end
 
     def assert_specific_physical_storage
@@ -349,6 +351,16 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                           :host_initiator       => nil,
                                           :host_initiator_group => ems.host_initiator_groups.find_by(:ems_ref => "0ef132ee-ae4c-4c2b-ae07-f52e1b99f7cc")
                                         ))
+    end
+
+    def assert_specific_storage_service_resource_attachment
+      attachment = ems.storage_service_resource_attachments.find_by(:ems_ref => "f0ecb715-19a1-4e74-b6f5-5c428a9c741d")
+      expect(attachment).to(have_attributes(
+                              :storage_resource_id => ems.storage_resources.find_by(:ems_ref => "f60e8f31-1d22-48fe-a79c-319b6c3613aa"),
+                              :storage_service_id  => ems.storage_services.find_by(:ems_ref => "5189b322-c4ce-47ea-b267-381e8c4baab5"),
+                              :ems_ref             => "f0ecb715-19a1-4e74-b6f5-5c428a9c741d",
+                              :type                => "ManageIQ::Providers::Autosde::StorageManager::StorageServiceResourceAttachment"
+                            ))
     end
   end
 end
