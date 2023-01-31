@@ -244,9 +244,10 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
     def assert_specific_physical_storage_family
       flash_systems = ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
       expect(flash_systems).to(have_attributes(
-                                 :name    => "IBM_FlashSystems",
-                                 :version => "1.2",
-                                 :ems_ref => "053446df-ed2b-4822-b9c5-386e85198519"
+                                 :name         => "IBM_FlashSystems",
+                                 :version      => "1.2",
+                                 :ems_ref      => "053446df-ed2b-4822-b9c5-386e85198519",
+                                 :capabilities => [{"name" => "compression", "uuid" => "65bf355d-3931-40b2-b67a-d4291fc5860b", "value" => "True"}, {"name" => "compression", "uuid" => "84d102cc-c98f-4bc0-9348-430ba04e90e4", "value" => "False"}, {"name" => "thin_provision", "uuid" => "92865732-1175-47ef-8b41-b77356784b63", "value" => "True"}, {"name" => "thin_provision", "uuid" => "a8a2bd22-bda9-4ad7-ba6f-11c8b4ee739c", "value" => "False"}]
                                ))
     end
 

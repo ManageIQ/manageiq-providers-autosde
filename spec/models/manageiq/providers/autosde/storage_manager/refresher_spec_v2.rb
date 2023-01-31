@@ -31,7 +31,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
     end
 
     context "targeted refresh" do
-      before { VCR.use_cassette("ems_refresh_v2", :record => :once) { described_class.refresh([ems]) } }
+      before { VCR.use_cassette("ems_refresh_v2") { described_class.refresh([ems]) } }
 
       let(:system_type_api)    { double("SystemTypeApi") }
       let(:storage_system_api) { double("StorageSystemApi") }
@@ -243,9 +243,10 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
     def assert_specific_physical_storage_family
       flash_systems = ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
       expect(flash_systems).to(have_attributes(
-                                 :name    => "IBM_FlashSystems",
-                                 :version => "1.1",
-                                 :ems_ref => "397352fb-f6a0-4a5d-90f8-6addf4c81076"
+                                 :name         => "IBM_FlashSystems",
+                                 :version      => "1.1",
+                                 :ems_ref      => "397352fb-f6a0-4a5d-90f8-6addf4c81076",
+                                 :capabilities => "[{\"abstract_capability__name\": \"compression\", \"uuid\": \"65bf355d-3931-40b2-b67a-d4291fc5860b\", \"value\": \"True\"}, {\"abstract_capability__name\": \"compression\", \"uuid\": \"84d102cc-c98f-4bc0-9348-430ba04e90e4\", \"value\": \"False\"}, {\"abstract_capability__name\": \"thin_provision\", \"uuid\": \"92865732-1175-47ef-8b41-b77356784b63\", \"value\": \"True\"}, {\"abstract_capability__name\": \"thin_provision\", \"uuid\": \"a8a2bd22-bda9-4ad7-ba6f-11c8b4ee739c\", \"value\": \"False\"}]"
                                ))
     end
 
