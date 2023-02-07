@@ -298,7 +298,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   end
 
   def self.post_refresh_ems(ems_id, _)
-    events = EmsEvent.where("ems_id = ? AND (physical_storage_id IS NULL OR physical_storage_name IS NULL) LIMIT NULL", ems_id)
+    events = EmsEvent.where("ems_id = ? AND (physical_storage_id IS NULL OR physical_storage_name IS NULL)", ems_id)
 
     events.each do |e|
       physical_storage_uuid = e.full_data[:storage_system]
