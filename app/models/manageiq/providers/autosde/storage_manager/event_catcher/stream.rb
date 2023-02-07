@@ -17,12 +17,6 @@ class ManageIQ::Providers::Autosde::StorageManager::EventCatcher::Stream
   end
 
   def poll_events(&block)
-    physical_storages = []
-    while physical_storages.empty?
-      physical_storages = PhysicalStorage.where(:ems_id => @ems.id)
-      sleep(poll_sleep)
-    end
-
     loop do
       events = @autosde_client.events_get
 
