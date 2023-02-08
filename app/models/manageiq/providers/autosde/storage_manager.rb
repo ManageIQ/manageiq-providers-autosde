@@ -302,10 +302,10 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
 
     events.each do |e|
       physical_storage_uuid = e.full_data[:storage_system]
-      physical_storage = PhysicalStorage.where(:ems_ref => physical_storage_uuid).to_a
+      physical_storage = PhysicalStorage.find_by(:ems_id => ems_id, :ems_ref => physical_storage_uuid)
 
-      e.physical_storage_name = physical_storage[0].name
-      e.physical_storage_id = physical_storage[0].id
+      e.physical_storage_name = physical_storage.name
+      e.physical_storage_id = physical_storage.id
       e.save
     end
   end
