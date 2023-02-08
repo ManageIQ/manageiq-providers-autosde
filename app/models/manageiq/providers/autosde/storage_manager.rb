@@ -296,4 +296,17 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   def self.catalog_types
     {"autosde" => N_("Autosde")}
   end
+
+  def self.post_refresh_ems(ems_id, _)
+    events = EmsEvent.where("ems_id = ? AND (physical_storage_id IS NULL OR physical_storage_name IS NULL)", ems_id)
+
+    events.each do |e|
+      physical_storage_uuid = e.full_data[:storage_system]
+      physical_storage = PhysicalStorage.find_by(:ems_id => ems_id, :ems_ref => physical_storage_uuid)
+
+      e.physical_storage_name = physical_storage.name
+      e.physical_storage_id = physical_storage.id
+      e.save
+    end
+  end
 end
