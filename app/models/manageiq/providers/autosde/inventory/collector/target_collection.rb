@@ -60,6 +60,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     []
   end
 
+  def storage_service_resource_attachments
+    []
+  end
+
   private
 
   def parse_targets!

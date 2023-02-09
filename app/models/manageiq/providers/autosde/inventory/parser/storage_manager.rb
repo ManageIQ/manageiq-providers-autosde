@@ -22,6 +22,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     cloud_volumes
     volume_mappings
     wwpn_candidates
+    storage_service_resource_attachments
   end
 
   def ext_management_system
@@ -166,6 +167,16 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :name             => group.name,
         :ems_ref          => group.uuid,
         :physical_storage => persister.physical_storages.lazy_find(group.storage_system)
+      )
+    end
+  end
+
+  def storage_service_resource_attachments
+    collector.storage_service_resource_attachments.each do |attachment|
+      persister.storage_service_resource_attachments.build(
+        :ems_ref          => attachment.uuid,
+        :storage_resource => persister.storage_resources.lazy_find(attachment.storage_resource),
+        :storage_service  => persister.storage_services.lazy_find(attachment.service)
       )
     end
   end
