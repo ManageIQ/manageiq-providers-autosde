@@ -57,7 +57,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   end
 
   def capability_values
-    []
+    @manager.capabilities || []
   end
 
   def storage_service_resource_attachments
