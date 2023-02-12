@@ -249,7 +249,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                  :name         => "IBM_FlashSystems",
                                  :version      => "1.2",
                                  :ems_ref      => "053446df-ed2b-4822-b9c5-386e85198519",
-                                 :capabilities => [{"name" => "compression", "uuid" => "65bf355d-3931-40b2-b67a-d4291fc5860b", "value" => "True"}, {"name" => "compression", "uuid" => "84d102cc-c98f-4bc0-9348-430ba04e90e4", "value" => "False"}, {"name" => "thin_provision", "uuid" => "92865732-1175-47ef-8b41-b77356784b63", "value" => "True"}, {"name" => "thin_provision", "uuid" => "a8a2bd22-bda9-4ad7-ba6f-11c8b4ee739c", "value" => "False"}]
+                                 :capabilities => {"compression"=>["True", "False"], "thin_provision"=>["True", "False"]}
                                ))
     end
 
@@ -262,7 +262,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                     :logical_total    => 515_396_075_520,
                                     :physical_storage => ems.physical_storages.find_by(:ems_ref => "9b1cedc0-b476-47f1-8f25-7a7da2b7d91c"),
                                     :type             => "ManageIQ::Providers::Autosde::StorageManager::StorageResource",
-                                    :capabilities     => [{"name" => "compression", "uuid" => "45e0cf41-1842-45e8-b83b-17de54be406d", "value" => "True"}, {"name" => "thin_provision", "uuid" => "2fddfc81-2561-40d8-bd84-cec6ec26d551", "value" => "True"}]
+                                    :capabilities     => {"compression"=>["True"], "thin_provision"=>["True"]}
                                   ))
     end
 

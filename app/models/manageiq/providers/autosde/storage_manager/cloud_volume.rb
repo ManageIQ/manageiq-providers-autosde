@@ -110,8 +110,10 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   end
 
   def self.params_for_create(provider)
-    capabilities = provider.capabilities.map do |capability|
-      {:label => "#{capability['abstract_capability']}: #{capability['value']}", :value => capability['uuid']}
+    capabilities = provider.capabilities.flat_map do |name, values|
+      values.map do |c|
+        {:label => "#{name}: #{c['value']}", :value => c['uuid']}
+      end
     end
 
     {

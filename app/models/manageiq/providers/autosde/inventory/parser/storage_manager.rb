@@ -28,7 +28,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def ext_management_system
     persister.ext_management_system.build(
       :guid         => persister.manager.guid,
-      :capabilities => collector.capability_values
+      :capabilities => parse_ems_capabilities(collector.capability_values)
     )
   end
 
@@ -38,7 +38,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :name         => storage_family.name,
         :ems_ref      => storage_family.uuid,
         :version      => storage_family.version,
-        :capabilities => parse_capabilities(storage_family.capability_values_json, 'abstract_capability__name')
+        :capabilities => parse_possible_capabilities(storage_family.capability_values_json, 'abstract_capability__name')
       )
     end
   end
@@ -62,7 +62,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :logical_free     => resource.logical_free,
         :logical_total    => resource.logical_total,
         :physical_storage => persister.physical_storages.lazy_find(resource.storage_system),
-        :capabilities     => parse_capabilities(resource.capability_values_json, 'abstract_capability')
+        :capabilities     => parse_possible_capabilities(resource.capability_values_json, 'abstract_capability')
       )
     end
   end
@@ -130,7 +130,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :description  => service.description,
         :version      => service.version,
         :ems_ref      => service.uuid,
-        :capabilities => parse_capabilities(service.capability_values_json, 'abstract_capability')
+        :capabilities => parse_service_capabilities(service.capability_values_json, 'abstract_capability')
       )
     end
   end
@@ -181,11 +181,30 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     end
   end
 
-  # This method changes capability name field from 'abstract_capability' to 'name'
-  def parse_capabilities(capabilities, field_name)
-    caps = JSON.parse(capabilities)
-    caps.each do |capability|
-      capability['name'] = capability.delete(field_name)
+  def parse_ems_capabilities(capabilities)
+    return capabilities unless capabilities.is_a?(Array)
+
+    capabilities.each_with_object(Hash.new { |k, v| k[v] = []}) do |capability, result|
+      result[capability.abstract_capability] << {"uuid" => capability.uuid, "value" => capability.value}
     end
   end
+
+  def parse_possible_capabilities(capabilities, field_name)
+    caps_hash = {}
+    JSON.parse(capabilities).each do |capability|
+      name = capability[field_name]
+      (caps_hash[name] ||= []) << capability["value"]
+    end
+    caps_hash
+  end
+
+  def parse_service_capabilities(capabilities, field_name)
+    caps_hash = {}
+    JSON.parse(capabilities).each do |capability|
+      name = capability[field_name]
+      caps_hash[name] = capability["value"]
+    end
+    caps_hash
+  end
+
 end
