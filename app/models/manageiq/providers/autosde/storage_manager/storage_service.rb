@@ -1,6 +1,8 @@
 class ManageIQ::Providers::Autosde::StorageManager::StorageService < ::StorageService
   supports :create
-  supports :delete
+  supports :delete do
+    unsupported_reason_add(:delete, _("Cannot delete a Storage Service which has volumes")) if cloud_volumes.present?
+  end
 
   def self.raw_create_storage_service(ext_management_system, options = {})
     creation_hash = {
@@ -28,6 +30,8 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageService < ::StorageSe
   end
 
   def raw_delete_storage_service
+    raise "Deleting Storage Service #{name} failed because it has volumes" if cloud_volumes.present?
+
     task_id = ext_management_system.autosde_client.ServiceApi.services_pk_delete(ems_ref).task_id
     options = {
       :target_id      => id,
