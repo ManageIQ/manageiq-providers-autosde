@@ -123,7 +123,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
               AutosdeOpenapiClient::VolumeResponse.new(
                 :compliant          => true,
                 :component_state    => "PENDING_DELETION",
-                :historical_service => nil,
                 :volume_name        => "bk-vol0-edit",
                 :service            => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
                 :size               => 10,
@@ -145,7 +144,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
               AutosdeOpenapiClient::VolumeResponse.new(
                 :compliant          => true,
                 :component_state    => "PENDING_CREATION",
-                :historical_service => nil,
                 :volume_name        => "new-volume",
                 :service            => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
                 :size               => 10,
