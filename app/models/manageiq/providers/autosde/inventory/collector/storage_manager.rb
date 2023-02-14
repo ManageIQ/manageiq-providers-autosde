@@ -27,6 +27,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     @cloud_volumes ||= @manager.autosde_client.VolumeApi.volumes_get
   end
 
+  def cloud_volume_snapshots
+    @cloud_volume_snapshots ||= @manager.autosde_client.SnapshotApi.snapshots_get
+  end
+  
   def storage_services
     @storage_services ||= @manager.autosde_client.ServiceApi.services_get
   end
