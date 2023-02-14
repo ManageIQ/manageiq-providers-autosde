@@ -22,6 +22,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     else
       creation_hash[:service_name] = options["new_service_name"]
       creation_hash[:resources] = ext_management_system.storage_resources.find(options["storage_resource_id"].to_a.pluck("value")).pluck(:ems_ref)
+      creation_hash[:service_capabilities] = options['required_capabilities'].map { |capability| capability["value"] }
     end
 
     vol_to_create = ext_management_system.autosde_client.VolumeCreate(creation_hash)
