@@ -137,13 +137,14 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
                             {:type => "min-number-value", :value => 1, :message => _('Must be greater than or equal to 1')}],
         },
         {
-          :component  => "radio",
-          :name       => "mode",
-          :id         => "mode",
-          :label      => _("Mode"),
-          :options    => [{:label => 'Basic', :value => 'Basic'}, {:label => 'Advanced', :value => 'Advanced'}],
-          :isRequired => true,
-          :validate   => [{:type => "required"}]
+          :component    => "radio",
+          :name         => "mode",
+          :id           => "mode",
+          :label        => _("Mode"),
+          :initialValue => 'Basic',
+          :options      => [{:label => 'Basic', :value => 'Basic',}, {:label => 'Advanced', :value => 'Advanced'}],
+          :isRequired   => true,
+          :validate     => [{:type => "required"}]
         },
         {
           :component  => "select",
