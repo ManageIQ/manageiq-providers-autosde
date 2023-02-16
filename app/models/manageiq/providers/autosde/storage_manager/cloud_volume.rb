@@ -1,9 +1,9 @@
 class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   supports :create
+  supports :clone
   supports :update do
     unsupported_reason_add(:update, _("the volume is not connected to an active provider")) unless ext_management_system
   end
-
   # cloud volume delete functionality is not supported for now
   supports_not :delete
   supports_not :safe_delete
@@ -78,6 +78,13 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   def raw_safe_delete_volume
     ext_management_system.autosde_client.VolumeApi.volumes_safe_delete(ems_ref)
     queue_refresh
+  end
+
+  def raw_clone_volume(options)
+    options[:volume_i_ds] = [ems_ref]
+  rescue => e
+    _log.error("volume=[#{name}], error: #{e}")
+    raise MiqException::MiqVolumeCloneError, e.to_s, e.backtrace
   end
 
   def params_for_update
@@ -157,6 +164,23 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
           :isRequired => true,
           :isMulti    => true,
           :validate   => [{:type => "required"}]
+        }
+      ]
+    }
+  end
+
+  def params_for_clone
+    {
+      :fields => [
+        {
+          :component  => "text-field",
+          :id         => "new_volume_name",
+          :name       => "new_volume_name",
+          :label      => _("New volume name"),
+          :isRequired => true,
+          # :validate   => [{:type => "required"},
+          #                 {:type => "pattern", :pattern => '^[-+]?[0-9]\\d*$', :message => _("Must be an integer")},
+          #                 {:type => "min-number-value", :value => 1, :message => _('Must be greater than or equal to 1')}],
         }
       ]
     }
