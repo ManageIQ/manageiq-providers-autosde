@@ -19,16 +19,20 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
     if options['mode'] == 'Basic'
       creation_hash[:service] = ext_management_system.storage_services.find(options["storage_service_id"]).ems_ref
+      target_class = :cloud_volumes
+      target_option = "new"
     else
       creation_hash[:service_name] = options["new_service_name"]
       creation_hash[:resources] = ext_management_system.storage_resources.find(options["storage_resource_id"].to_a.pluck("value")).pluck(:ems_ref)
       creation_hash[:service_capabilities] = options['required_capabilities'].map { |capability| capability["value"] }
+      target_class = nil
+      target_option = "ems"
     end
 
     vol_to_create = ext_management_system.autosde_client.VolumeCreate(creation_hash)
     task_id = ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create).task_id
 
-    create_refresh_task(nil, task_id, :cloud_volumes, ext_management_system, "new")
+    create_refresh_task(nil, task_id, target_class, ext_management_system, target_option)
   end
 
   # ================= delete  ================
@@ -140,7 +144,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
           :component    => "radio",
           :name         => "mode",
           :id           => "mode",
-          :label        => _("Mode"),
+          :label        => _("Mode: Create volume(s) using an existing storage service or create a new service as well"),
           :initialValue => 'Basic',
           :options      => [{:label => 'Basic', :value => 'Basic',}, {:label => 'Advanced', :value => 'Advanced'}],
           :isRequired   => true,

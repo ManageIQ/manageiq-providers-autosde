@@ -7,6 +7,7 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageService < ::StorageSe
       :name                  => options['name'],
       :description           => options['description'].nil? ? "none" : options['description'],
       :capability_value_list => options['required_capabilities'].map { |capability| capability["value"] },
+      :resources             => ext_management_system.storage_resources.find(options["storage_resource_id"].to_a.pluck("value")).pluck(:ems_ref),
       # currently only one default optional value is added in the backend for each of these,
       # but in the future we might add them as miq models with more optional values:
       :project               => "",
