@@ -46,7 +46,7 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :size => options[:size_GB]
     )
     task_id = ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details).task_id
-    create_refresh_task(task_id,"existing")
+    create_refresh_task(task_id, "existing")
   end
 
   # ================ safe-delete ================
@@ -163,12 +163,11 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     {
       :fields => [
         {
-          :component  => "text-field",
-          :id         => "name",
-          :name       => "name",
-          :label      => _("New volume name"),
-          :isRequired => true,
-          # :validate   => []
+          :component   => "text-field",
+          :id          => "name",
+          :name        => "name",
+          :label       => _("New volume name"),
+          :isRequired  => false,
         }
       ]
     }
