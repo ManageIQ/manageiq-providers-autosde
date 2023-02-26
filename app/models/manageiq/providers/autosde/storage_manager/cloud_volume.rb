@@ -57,8 +57,8 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def raw_clone_volume(options)
     opts = ext_management_system.autosde_client.VolumeClone(
-      :'name'   => options["name"],
-      :'volume' => self.ems_ref
+      :name   => options["name"],
+      :volume => ems_ref
     )
     task_id = ext_management_system.autosde_client.VolumeCloneApi.volume_clone_post(opts)
 
@@ -163,11 +163,11 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     {
       :fields => [
         {
-          :component   => "text-field",
-          :id          => "name",
-          :name        => "name",
-          :label       => _("New volume name"),
-          :isRequired  => false,
+           :component   => "text-field",
+           :id          => "name",
+           :name        => "name",
+           :label       => _("New volume name"),
+           :isRequired  => false,
         }
       ]
     }
