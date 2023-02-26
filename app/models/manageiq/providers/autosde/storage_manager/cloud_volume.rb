@@ -163,11 +163,11 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     {
       :fields => [
         {
-           :component   => "text-field",
-           :id          => "name",
-           :name        => "name",
-           :label       => _("New volume name"),
-           :isRequired  => false,
+          :component  => "text-field",
+          :id         => "name",
+          :name       => "name",
+          :label      => _("New volume name"),
+          :isRequired => false,
         }
       ]
     }
