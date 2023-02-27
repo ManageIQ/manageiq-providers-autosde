@@ -1,9 +1,9 @@
 class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   supports :create
+  supports :clone
   supports :update do
     unsupported_reason_add(:update, _("the volume is not connected to an active provider")) unless ext_management_system
   end
-
   # cloud volume delete functionality is not supported for now
   supports_not :delete
   supports_not :safe_delete
@@ -28,30 +28,14 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     vol_to_create = ext_management_system.autosde_client.VolumeCreate(creation_hash)
     task_id = ext_management_system.autosde_client.VolumeApi.volumes_post(vol_to_create).task_id
 
-    options = {
-      :target_class   => :cloud_volumes,
-      :target_id      => nil,
-      :ems_id         => ext_management_system.id,
-      :native_task_id => task_id,
-      :interval       => 10.seconds,
-      :target_option  => "new"
-    }
-    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
+    create_refresh_task(task_id, "new")
   end
 
   # ================= delete  ================
 
   def raw_delete_volume
     task_id = ext_management_system.autosde_client.VolumeApi.volumes_pk_delete(ems_ref).task_id
-    options = {
-      :target_class   => self.class.name,
-      :target_id      => id,
-      :ems_id         => ext_management_system.id,
-      :native_task_id => task_id,
-      :interval       => 20.seconds,
-      :target_option  => "existing"
-    }
-    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
+    create_refresh_task(task_id, "existing")
   end
 
   # ================= edit  ================
@@ -62,22 +46,35 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
       :size => options[:size_GB]
     )
     task_id = ext_management_system.autosde_client.VolumeApi.volumes_pk_put(ems_ref, update_details).task_id
-
-    options = {
-      :target_class   => self.class.name,
-      :target_id      => id,
-      :ems_id         => ext_management_system.id,
-      :native_task_id => task_id,
-      :interval       => 10.seconds,
-      :target_option  => "existing"
-    }
-    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
+    create_refresh_task(task_id, "existing")
   end
 
   # ================ safe-delete ================
   def raw_safe_delete_volume
     ext_management_system.autosde_client.VolumeApi.volumes_safe_delete(ems_ref)
     queue_refresh
+  end
+
+  def raw_clone_volume(options)
+    opts = ext_management_system.autosde_client.VolumeClone(
+      :name   => options["name"],
+      :volume => ems_ref
+    )
+    task_id = ext_management_system.autosde_client.VolumeCloneApi.volume_clone_post(opts)
+
+    create_refresh_task(task_id, "existing")
+  end
+
+  def create_refresh_task(task_id, target_option)
+    options = {
+      :target_class   => self.class.name,
+      :target_id      => id,
+      :ems_id         => ext_management_system.id,
+      :native_task_id => task_id,
+      :interval       => 10.seconds,
+      :target_option  => target_option
+    }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
   end
 
   def params_for_update
@@ -157,6 +154,20 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
           :isRequired => true,
           :isMulti    => true,
           :validate   => [{:type => "required"}]
+        }
+      ]
+    }
+  end
+
+  def params_for_clone
+    {
+      :fields => [
+        {
+          :component  => "text-field",
+          :id         => "name",
+          :name       => "name",
+          :label      => _("New volume name"),
+          :isRequired => false,
         }
       ]
     }
