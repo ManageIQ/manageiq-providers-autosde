@@ -109,9 +109,20 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
 
   def self.params_for_create(provider)
     capabilities = provider.capabilities.flat_map do |name, values|
-      values.map do |c|
-        {:label => "#{name}: #{c['value']}", :value => c['uuid']}
-      end
+      [
+        {
+          :component    => "radio",
+          :id           => name,
+          :name         => name,
+          :label        => _(name.capitalize),
+          :initialValue => "-1",
+          :options      => [
+            {:label => "N/A", :value => "-1"},
+            {:label => values[0]['value'], :value => values[0]['uuid']},
+            {:label => values[1]['value'], :value => values[1]['uuid']}
+          ]
+        }
+      ]
     end
 
     {
@@ -147,14 +158,11 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
           :validate     => [{:type => "required"}]
         },
         {
-          :component  => "select",
-          :name       => "required_capabilities",
-          :id         => "required_capabilities",
-          :label      => _("Required Capabilities (filters by exact match)"),
-          :options    => capabilities,
-          :isRequired => true,
-          :isMulti    => true,
-          :validate   => [{:type => "required"}]
+          :component => "sub-form",
+          :name      => "required_capabilities",
+          :id        => "required_capabilities",
+          :title     => _("Required Capabilities"),
+          :fields    => capabilities
         }
       ]
     }
