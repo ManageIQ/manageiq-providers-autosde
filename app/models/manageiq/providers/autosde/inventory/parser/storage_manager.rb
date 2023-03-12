@@ -158,12 +158,12 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     collector.cloud_volume_snapshots.each do |snapshot|
       cloud_volume = persister.cloud_volumes.find(snapshot.volume)
       persister.cloud_volume_snapshots.build(
-        :name             => snapshot.name,
-        :size             => cloud_volume.size,
-        :cloud_volume     => cloud_volume,
-        :ems_ref          => snapshot.uuid,
-        :description      => snapshot.description,
-        :status           => snapshot.component_state
+        :name         => snapshot.name,
+        :size         => cloud_volume.size,
+        :cloud_volume => cloud_volume,
+        :ems_ref      => snapshot.uuid,
+        :description  => snapshot.description,
+        :status       => snapshot.component_state
       )
     end
   end
