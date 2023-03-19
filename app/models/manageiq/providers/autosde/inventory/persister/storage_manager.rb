@@ -18,5 +18,16 @@ class ManageIQ::Providers::Autosde::Inventory::Persister::StorageManager < Manag
     add_collection(storage, :cloud_volumes)
     add_collection(storage, :ext_management_system)
     add_collection(storage, :storage_service_resource_attachments)
+    add_physical_storage_details
+  end
+
+  def add_physical_storage_details
+    add_collection(storage, :physical_storage_details) do |builder|
+      builder.add_properties(
+        :model_class                  => ::AssetDetail,
+        :manager_ref                  => %i[resource],
+        :parent_inventory_collections => %i[physical_storages]
+      )
+    end
   end
 end
