@@ -37,6 +37,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       let(:system_type_api)    { double("SystemTypeApi") }
       let(:storage_system_api) { double("StorageSystemApi") }
       let(:volume_api)         { double("VolumeApi") }
+      let(:service_api)        { double("ServiceApi") }
 
       it "with no targets" do
         assert_inventory_not_changed { run_targeted_refresh }
@@ -186,6 +187,17 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         expect(ems.cloud_volumes.count).to(eq(27))
       end
 
+      it "deleting a storage service" do
+        expect(service_api).to(receive(:services_get).and_return([]))
+
+        storage_service = ems.storage_services.find_by(:ems_ref => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6")
+        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :storage_services, :manager_ref => {:ems_ref => storage_service.ems_ref}))
+
+        ems.reload
+
+        expect(ems.storage_services.count).to(eq(8))
+      end
+
       def run_targeted_refresh(targets = [])
         target = InventoryRefresh::TargetCollection.new(:manager => ems, :targets => Array(targets))
 
@@ -198,6 +210,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         allow(autosde_client_stub).to(receive(:SystemTypeApi).and_return(system_type_api))
         allow(autosde_client_stub).to(receive(:StorageSystemApi).and_return(storage_system_api))
         allow(autosde_client_stub).to(receive(:VolumeApi).and_return(volume_api))
+        allow(autosde_client_stub).to(receive(:ServiceApi).and_return(service_api))
 
         allow(ems).to(receive(:autosde_client).and_return(autosde_client_stub))
 

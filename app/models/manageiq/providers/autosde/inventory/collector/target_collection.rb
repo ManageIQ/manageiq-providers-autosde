@@ -78,6 +78,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
         add_target!(:physical_storages, target.ems_ref)
       when CloudVolume
         add_target!(:cloud_volumes, target.ems_ref)
+      when StorageService
+        add_target!(:storage_services, target.ems_ref)
       end
     end
   end
