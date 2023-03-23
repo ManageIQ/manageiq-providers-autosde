@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://autosde-appliance-host/site-manager/api/v1/engine/snapshots
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      Authorization:
+      - Bearer c02cd8466a168eb5d5ce2febf6f8df77b01ae60c
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 23 Mar 2022 14:19:07 GMT
+      Server:
+      - gunicorn/19.9.0
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept,Cookie
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - same-origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"count":1,"next":null,"previous":null,"results":[{"component_state":"CREATED","description":"Snapshot of volume by name vik_1","name":"snapshot-5d46cdbc-ade3-4a46-b232-bd1b220e62bc","name_in_storage":"snapshot-5d46cdbc-ade3-4a46-b232-bd1b220e62bc","uuid":"73c1df37-ed05-45cd-8551-a838557fbbdc","volume":"5172e7ba-c22e-405d-9380-0b83c6873657"}]}'
+    http_version: null
+  recorded_at: Thu, 23 Mar 2022 14:19:07 GMT
+recorded_with: VCR 5.1.0

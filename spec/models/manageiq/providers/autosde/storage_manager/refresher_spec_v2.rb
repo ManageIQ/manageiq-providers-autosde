@@ -27,6 +27,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           assert_specific_host_volume_mapping
           assert_specific_cluster_volume_mapping
           assert_specific_storage_service_resource_attachment
+          assert_specific_cloud_volume_snapshot
         end
       end
     end
@@ -238,6 +239,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       expect(ems.cluster_volume_mappings.count).to(eq(1))
       expect(ems.host_volume_mappings.count).to(eq(2))
       expect(ems.storage_service_resource_attachments.count).to(eq(9))
+      expect(ems.cloud_volume_snapshots.count).to(eq(1))
     end
 
     def assert_specific_physical_storage
@@ -379,6 +381,15 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                               :ems_ref             => "f0ecb715-19a1-4e74-b6f5-5c428a9c741d",
                               :type                => "ManageIQ::Providers::Autosde::StorageManager::StorageServiceResourceAttachment"
                             ))
+    end
+    def assert_specific_cloud_volume_snapshot
+      cloud_volume_snapshot = ems.cloud_volume_snapshots.find_by(:ems_ref => "73c1df37-ed05-45cd-8551-a838557fbbdc")
+      expect(cloud_volume_snapshot).to(have_attributes(
+                                         :cloud_volume => ems.cloud_volumes.find_by(:ems_ref => "5172e7ba-c22e-405d-9380-0b83c6873657"),
+                                         :name         => "snapshot-5d46cdbc-ade3-4a46-b232-bd1b220e62bc",
+                                         :ems_ref      => "73c1df37-ed05-45cd-8551-a838557fbbdc",
+                                         :type         => "ManageIQ::Providers::Autosde::StorageManager::CloudVolumeSnapshot"
+                                       ))
     end
   end
 end

@@ -37,7 +37,7 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
   end
 
   def cloud_volume_snapshots
-    return [] if references(:cloud_volumes).blank?
+    return [] if references(:cloud_volume_snapshots).blank?
 
     @cloud_volume_snapshots ||= @manager.autosde_client.SnapshotApi.snapshots_get.select { |s| references(:cloud_volume_snapshots).include?(s.uuid) }
   end
