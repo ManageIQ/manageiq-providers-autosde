@@ -48,7 +48,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   it "creates volume on storage system -autosde gem v1" do
     # retrieve storage system
     storage_systems = nil
-    #  @type [Array<AutosdeOpenapiClient::StorageSystem>]
+    #  @type [Array<AutosdeOpenapiClient::StorageSystemResponse>]
     VCR.use_cassette("get_storage_system_v1") do
       storage_systems = client.StorageSystemApi.storage_systems_get
       expect(storage_systems).to(be_an_instance_of(Array))
@@ -114,7 +114,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   it "creates volume on storage system -autosde gem v2" do
     # retrieve storage system
     storage_systems = nil
-    #  @type [Array<AutosdeOpenapiClient::StorageSystem>]
+    #  @type [Array<AutosdeOpenapiClient::StorageSystemResponse>]
     VCR.use_cassette("get_storage_system_v2", :record => :once) do
       storage_systems = client.StorageSystemApi.storage_systems_get
       expect(storage_systems).to(be_an_instance_of(Array))

@@ -47,20 +47,21 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           .to(receive(:storage_systems_get)
           .and_return(
             [
-              AutosdeOpenapiClient::StorageSystem.new(
-                :component_state => "PENDING_CREATION",
-                :management_ip   => "9.151.159.178",
-                :name            => "9.151.159.178",
-                :status          => "ONLINE",
-                :storage_family  => "ontap_7mode",
-                :system_type     => AutosdeOpenapiClient::SystemType.new(
-                  :component_state => "PENDING_CREATION",
-                  :name            => "IBM_FlashSystems",
-                  :short_version   => "11",
-                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
-                  :version         => "1.2"
+              AutosdeOpenapiClient::StorageSystemResponse.new(
+                :component_state          => "PENDING_CREATION",
+                :management_ip            => "9.151.159.178",
+                :name                     => "9.151.159.178",
+                :status                   => "ONLINE",
+                :storage_family           => "ontap_7mode",
+                :system_type              => AutosdeOpenapiClient::SystemType.new(
+                  :component_state          => "PENDING_CREATION",
+                  :name                     => "IBM_FlashSystems",
+                  :short_version            => "11",
+                  :uuid                     => "053446df-ed2b-4822-b9c5-386e85198519",
+                  :version                  => "1.2"
                 ),
-                :uuid            => "980f3ceb-c599-49c4-9db3-fdc793cb8666"
+                :capability_values_json   => "[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"699f2dee-7cd9-4ac0-ab20-41aea6c74475\"}, {\"abstract_capability\": \"compression\", \"value\": \"False\", \"uuid\": \"3f44f8ae-9854-4dbf-b375-8b41766f7b2e\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"ea84a958-f4bc-4d8d-9a68-07312ec25c87\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"False\", \"uuid\": \"18b861c0-e205-4dd9-b207-c155e5d7cf91\"}]",
+                :uuid                     => "980f3ceb-c599-49c4-9db3-fdc793cb8666"
               )
             ]
           ))
@@ -73,20 +74,21 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           .to(receive(:storage_systems_get)
           .and_return(
             [
-              AutosdeOpenapiClient::StorageSystem.new(
-                :component_state => "PENDING_CREATION",
-                :management_ip   => "1.2.3.4",
-                :name            => "1.2.3.4",
-                :status          => "ONLINE",
-                :storage_family  => "ontap_7mode",
-                :system_type     => AutosdeOpenapiClient::SystemType.new(
-                  :component_state => "PENDING_CREATION",
-                  :name            => "IBM_FlashSystems",
-                  :short_version   => "11",
-                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
-                  :version         => "1.2"
+              AutosdeOpenapiClient::StorageSystemResponse.new(
+                :component_state          => "PENDING_CREATION",
+                :management_ip            => "1.2.3.4",
+                :name                     => "1.2.3.4",
+                :status                   => "ONLINE",
+                :storage_family           => "ontap_7mode",
+                :system_type              => AutosdeOpenapiClient::SystemType.new(
+                  :component_state          => "PENDING_CREATION",
+                  :name                     => "IBM_FlashSystems",
+                  :short_version            => "11",
+                  :uuid                     => "053446df-ed2b-4822-b9c5-386e85198519",
+                  :version                  => "1.2"
                 ),
-                :uuid            => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
+                :capability_values_json   => "[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"699f2dee-7cd9-4ac0-ab20-41aea6c74475\"}, {\"abstract_capability\": \"compression\", \"value\": \"False\", \"uuid\": \"3f44f8ae-9854-4dbf-b375-8b41766f7b2e\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"ea84a958-f4bc-4d8d-9a68-07312ec25c87\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"False\", \"uuid\": \"18b861c0-e205-4dd9-b207-c155e5d7cf91\"}]",
+                :uuid                     => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
               )
             ]
           ))
@@ -102,7 +104,8 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                                                                                        :name                    => "1.2.3.4",
                                                                                                        :type                    => "ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage",
                                                                                                        :health_state            => "ONLINE",
-                                                                                                       :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
+                                                                                                       :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems"),
+                                                                                                       :capabilities            => {"compression"=>["True", "False"], "thin_provision"=>["True", "False"]},
                                                                                                      ))
       end
 

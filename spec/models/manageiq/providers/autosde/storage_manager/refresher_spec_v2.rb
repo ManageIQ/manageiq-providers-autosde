@@ -61,6 +61,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                   :uuid            => "397352fb-f6a0-4a5d-90f8-6addf4c81076",
                   :version         => "1.1"
                 ),
+                :capabilities    => {"compression": ["True", "False"], "thin_provision": ["True", "False"]},
                 :uuid            => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf"
               )
             ]
@@ -86,6 +87,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                   :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
                   :version         => "1.1"
                 ),
+                :capabilities    => {"compression": ["True", "False"], "thin_provision": ["True", "False"]},
                 :uuid            => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
               )
             ]
@@ -102,6 +104,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                                                                                        :name                    => "Barmetall9_SVC",
                                                                                                        :type                    => "ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage",
                                                                                                        :health_state            => "ONLINE",
+                                                                                                       :capabilities            => {"compression": ["True", "False"], "thin_provision": ["True", "False"]},
                                                                                                        :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
                                                                                                      ))
       end
@@ -251,6 +254,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                     :canister_slots          => nil,
                                     :physical_chassis_id     => nil,
                                     :total_space             => nil,
+                                    :capabilities            => {"compression": ["True", "False"], "thin_provision": ["True", "False"]},
                                     :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
                                   ))
     end

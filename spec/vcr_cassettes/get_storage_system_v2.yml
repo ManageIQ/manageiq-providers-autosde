@@ -85,7 +85,7 @@ http_interactions:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"count":1,"next":null,"previous":null,"results":[{"auto_refresh":true,"component_state":"CREATED","enabled_capability_values":[],"management_ip":"129.39.244.176","name":"storwize-svc-sim","status":"ONLINE","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"IBM_FlashSystems","short_version":"1","uuid":"3f705618-0105-4353-855f-3fe3c29830e5","version":"1.1","service_abstract_capability_value":[]},"uuid":"dba29261-fc9f-4c0c-916d-d63ee105a1cc"}]}'
+      string: '{"count":1,"next":null,"previous":null,"results":[{"auto_refresh":true,"component_state":"CREATED","enabled_capability_values":[],"management_ip":"129.39.244.176","name":"storwize-svc-sim","status":"ONLINE","storage_array":null,"storage_family":"ontap_7mode","system_type":{"component_state":"PENDING_CREATION","name":"IBM_FlashSystems","short_version":"1","uuid":"3f705618-0105-4353-855f-3fe3c29830e5","version":"1.1","service_abstract_capability_value":[]},"capability_values_json": "[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"699f2dee-7cd9-4ac0-ab20-41aea6c74475\"}, {\"abstract_capability\": \"compression\", \"value\": \"False\", \"uuid\": \"3f44f8ae-9854-4dbf-b375-8b41766f7b2e\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"ea84a958-f4bc-4d8d-9a68-07312ec25c87\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"False\", \"uuid\": \"18b861c0-e205-4dd9-b207-c155e5d7cf91\"}]","uuid":"dba29261-fc9f-4c0c-916d-d63ee105a1cc"}]}'
     http_version: null
   recorded_at: Sun, 30 Oct 2022 14:12:24 GMT
 recorded_with: VCR 5.1.0
