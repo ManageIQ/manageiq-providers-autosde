@@ -36,6 +36,12 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     @cloud_volumes ||= @manager.autosde_client.VolumeApi.volumes_get.select { |s| references(:cloud_volumes).include?(s.uuid) }
   end
 
+  def cloud_volume_snapshots
+    return [] if references(:cloud_volume_snapshots).blank?
+
+    @cloud_volume_snapshots ||= @manager.autosde_client.SnapshotApi.snapshots_get.select { |s| references(:cloud_volume_snapshots).include?(s.uuid) }
+  end
+
   def storage_services
     return [] if references(:storage_services).blank?
 
@@ -80,6 +86,8 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
         add_target!(:cloud_volumes, target.ems_ref)
       when StorageService
         add_target!(:storage_services, target.ems_ref)
+      when CloudVolumeSnapshot
+        add_target!(:cloud_volume_snapshots, target.ems_ref)
       end
     end
   end

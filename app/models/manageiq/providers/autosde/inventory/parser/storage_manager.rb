@@ -20,6 +20,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     san_addresses
     storage_services
     cloud_volumes
+    cloud_volume_snapshots
     volume_mappings
     wwpn_candidates
     storage_service_resource_attachments
@@ -149,6 +150,20 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :storage_service  => persister.storage_services.lazy_find(volume.service),
         :status           => volume.component_state,
         :health_state     => volume.status
+      )
+    end
+  end
+
+  def cloud_volume_snapshots
+    collector.cloud_volume_snapshots.each do |snapshot|
+      cloud_volume = persister.cloud_volumes.find(snapshot.volume)
+      persister.cloud_volume_snapshots.build(
+        :name         => snapshot.name,
+        :size         => cloud_volume.size,
+        :cloud_volume => cloud_volume,
+        :ems_ref      => snapshot.uuid,
+        :description  => snapshot.description,
+        :status       => snapshot.component_state
       )
     end
   end
