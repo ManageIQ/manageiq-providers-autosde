@@ -1,6 +1,7 @@
 class ManageIQ::Providers::Autosde::StorageManager::StorageService < ::StorageService
   supports :create
   supports :delete
+  supports :update
 
   def self.raw_create_storage_service(ext_management_system, options = {})
     capability_value_list = options.slice(*ext_management_system.capabilities.keys).values
@@ -44,22 +45,31 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageService < ::StorageSe
     ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
   end
 
-  def self.params_for_create(provider)
-    capabilities = provider.capabilities.reject { |cap| cap == 'data_reduction' }.map do |name, values|
-      {
-        :component    => "select",
-        :id           => name,
-        :name         => name,
-        :label        => _(name.split("_").join(" ").capitalize),
-        :initialValue => "-1",
-        :options      => [
-          {:label => "N/A", :value => "-1"},
-          {:label => values[0]['value'], :value => values[0]['uuid']},
-          {:label => values[1]['value'], :value => values[1]['uuid']}
-        ]
-      }
-    end
+  def raw_update_storage_service(options = {})
+    capability_value_list = options.slice(*ext_management_system.capabilities.keys).values
+    capability_value_list.delete("-1")
 
+    update_details = ext_management_system.autosde_client.ServiceUpdate(
+      :name               => options['name'],
+      :description        => options['description'],
+      :resources          => ext_management_system.storage_resources.find(options["storage_resource_id"].to_a.pluck("value")).pluck(:ems_ref),
+      :capability_id_list => capability_value_list
+    )
+
+    task_id = ext_management_system.autosde_client.ServiceApi.services_pk_put(ems_ref, update_details).task_id
+
+    options = {
+      :target_class   => self.class.name,
+      :target_id      => id,
+      :ems_id         => ext_management_system.id,
+      :native_task_id => task_id,
+      :interval       => 10.seconds,
+      :target_option  => "existing"
+    }
+    ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
+  end
+
+  def params_for_update
     {
       :fields => [
         {
@@ -67,9 +77,47 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageService < ::StorageSe
           :name      => "required_capabilities",
           :id        => "required_capabilities",
           :title     => _("Required Capabilities"),
-          :fields    => capabilities
+          :fields    => self.class.provider_capabilities(ext_management_system, capabilities)
         }
       ]
     }
+  end
+
+  def self.params_for_create(provider)
+    {
+      :fields => [
+        {
+          :component => "sub-form",
+          :name      => "required_capabilities",
+          :id        => "required_capabilities",
+          :title     => _("Required Capabilities"),
+          :fields    => provider_capabilities(provider)
+        }
+      ]
+    }
+  end
+
+  def self.provider_capabilities(provider, existing_caps = nil)
+    provider.capabilities.reject { |cap| cap == 'data_reduction' }.map do |name, values|
+      if existing_caps && existing_caps[name]
+        cap = values.find { |value| value["value"] == existing_caps[name] }
+        default_value = cap["uuid"]
+      else
+        default_value = "-1"
+      end
+
+      {
+        :component    => "select",
+        :id           => name,
+        :name         => name,
+        :label        => _(name.split("_").join(" ").capitalize),
+        :initialValue => default_value,
+        :options      => [
+          {:label => "N/A", :value => "-1"},
+          {:label => values[0]['value'], :value => values[0]['uuid']},
+          {:label => values[1]['value'], :value => values[1]['uuid']}
+        ]
+      }
+    end
   end
 end
