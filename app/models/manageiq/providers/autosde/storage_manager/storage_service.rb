@@ -2,6 +2,7 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageService < ::StorageSe
   supports :create
   supports :delete
   supports :update
+  supports :check_compliant_resources
 
   def self.raw_create_storage_service(ext_management_system, options = {})
     capability_value_list = options.slice(*ext_management_system.capabilities.keys).values
@@ -45,17 +46,38 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageService < ::StorageSe
     ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
   end
 
-  def raw_update_storage_service(options = {})
-    capability_value_list = options.slice(*ext_management_system.capabilities.keys).values
-    capability_value_list.delete("-1")
+  def prepare_update_hash(options = {})
+    # send resources only if edited
+    current_resources = storage_resources.ids
+    selected_resources = options["storage_resource_id"].to_a.pluck("value").map(&:to_i)
+    resources = if current_resources.sort != selected_resources.sort
+                  ext_management_system.storage_resources.find(options["storage_resource_id"].to_a.pluck("value")).pluck(:ems_ref)
+                end
+    # send capability_value_list only if edited
+    selected_capabilities_refs = options.slice(*ext_management_system.capabilities.keys).values
+    selected_capabilities_refs.delete("-1")  # get rid of the N/A option
+    current_capabilities = ext_management_system.capabilities.slice(*capabilities.keys)
+    current_capabilities_refs = []
+    capabilities.each do |key, value|
+      current_capabilities[key].each do |cap|
+        current_capabilities_refs.push(cap["uuid"]) if cap["value"] == value
+      end
+    end
+    capability_value_list = if current_capabilities_refs.sort != selected_capabilities_refs.sort
+                              selected_capabilities_refs
+                            end
 
-    update_details = ext_management_system.autosde_client.ServiceUpdate(
+    {
       :name               => options['name'],
       :description        => options['description'],
-      :resources          => ext_management_system.storage_resources.find(options["storage_resource_id"].to_a.pluck("value")).pluck(:ems_ref),
+      :resources          => resources,
       :capability_id_list => capability_value_list
-    )
+    }
+  end
 
+  def raw_update_storage_service(options = {})
+    update_hash = prepare_update_hash(options)
+    update_details = ext_management_system.autosde_client.ServiceUpdate(update_hash)
     task_id = ext_management_system.autosde_client.ServiceApi.services_pk_put(ems_ref, update_details).task_id
 
     options = {
@@ -67,6 +89,17 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageService < ::StorageSe
       :target_option  => "existing"
     }
     ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
+  end
+
+  def self.raw_check_compliant_resources(ext_management_system, options = {})
+    capability_value_list = options.slice(*ext_management_system.capabilities.keys).values
+    capability_value_list.delete("-1")
+
+    compliance_object = ext_management_system.autosde_client.ServiceResourcesCompliance(
+      :service           => ext_management_system.storage_services.find(options["_id"]).ems_ref,
+      :capability_values => capability_value_list
+    )
+    ext_management_system.autosde_client.ServiceResourcesComplianceApi.service_resources_compliance_post(compliance_object)
   end
 
   def params_for_update
