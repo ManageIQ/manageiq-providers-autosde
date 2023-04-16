@@ -37,6 +37,15 @@ class ManageIQ::Providers::Autosde::StorageManager::HostInitiator < ::HostInitia
     ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
   end
 
+  def self.create_volume_queue(userid, ext_management_system, options = {})
+    task_opts = {
+      :action => "Queuing creating Host Initiator for user #{userid}",
+      :userid => userid
+    }
+
+    super(userid, ext_management_system, options, task_opts)
+  end
+
   def raw_delete_host_initiator
     task_id = ext_management_system.autosde_client.StorageHostApi.storage_hosts_pk_delete(ems_ref).task_id
     options = {

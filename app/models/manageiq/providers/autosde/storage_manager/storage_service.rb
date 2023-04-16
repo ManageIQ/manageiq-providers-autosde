@@ -32,6 +32,15 @@ class ManageIQ::Providers::Autosde::StorageManager::StorageService < ::StorageSe
     ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
   end
 
+  def self.create_volume_queue(userid, ext_management_system, options = {})
+    task_opts = {
+      :action => "Queuing creating Storage Service for user #{userid}",
+      :userid => userid
+    }
+
+    super(userid, ext_management_system, options, task_opts)
+  end
+
   def raw_delete_storage_service
     task_id = ext_management_system.autosde_client.ServiceApi.services_pk_delete(ems_ref).task_id
     options = {

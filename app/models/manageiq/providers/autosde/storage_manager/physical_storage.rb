@@ -75,4 +75,14 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
       ext_management_system.class::EmsRefreshWorkflow.create_job(options).tap(&:signal_start)
     end
   end
+
+  def self.create_volume_queue(userid, ext_management_system, options = {})
+    task_opts = {
+      :action => "Queuing Physical Storage for user #{userid}",
+      :userid => userid
+    }
+
+    super(userid, ext_management_system, options, task_opts)
+  end
+
 end
