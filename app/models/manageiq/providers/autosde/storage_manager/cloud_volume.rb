@@ -40,6 +40,16 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     create_refresh_task(nil, task_id, target_class, ext_management_system, target_option)
   end
 
+  def self.create_volume_queue(userid, ext_management_system, options = {})
+    task_opts = {
+      :action => "Queuing create Cloud Volume for user #{userid}",
+      :userid => userid
+    }
+
+    super(userid, ext_management_system, options, task_opts)
+  end
+
+
   # ================= delete  ================
 
   def raw_delete_volume
@@ -64,6 +74,8 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
     ext_management_system.autosde_client.VolumeApi.volumes_safe_delete(ems_ref)
     queue_refresh
   end
+
+  # ================ clone ================
 
   def raw_clone_volume(options)
     opts = ext_management_system.autosde_client.VolumeClone(
