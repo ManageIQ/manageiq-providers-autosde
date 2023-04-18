@@ -70,7 +70,7 @@ class ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow < ManageI
     else
       signal(:abort, "error, no valid option")
     end
-    task_ids = EmsRefresh.queue_refresh_task(targets)
+    task_ids = queue_refresh_task(targets)
     if task_ids.blank?
       process_error("Failed to queue refresh", "error")
       queue_signal(:error)
@@ -80,7 +80,19 @@ class ManageIQ::Providers::Autosde::StorageManager::EmsRefreshWorkflow < ManageI
 
       queue_signal(:poll_refresh)
     end
+
   end
+
+  def queue_refresh_task(target, id = nil)
+    task_options = {
+      :action => "EmsRefresh completed successfully ",
+      :userid => "system"
+    }
+
+    EmsRefresh.queue_refresh_task(target, id, task_options)
+  end
+
+
 
   def load_transitions
     self.state ||= 'initialize'
