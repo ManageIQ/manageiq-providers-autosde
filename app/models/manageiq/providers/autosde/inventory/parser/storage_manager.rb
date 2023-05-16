@@ -77,7 +77,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       "NVMeFC" => "NvmeAddress"
     }
 
-    collector.storage_hosts.flat_map do |host_initiator|
+    collector.host_initiators.flat_map do |host_initiator|
       host_initiator.addresses.flat_map do |address|
         persister.san_addresses.build(
           :ems_ref     => address.uuid,
@@ -93,7 +93,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   end
 
   def host_initiators
-    collector.storage_hosts.each do |host_initiator|
+    collector.host_initiators.each do |host_initiator|
       persister.host_initiators.build(
         :name                 => host_initiator.name,
         :ems_ref              => host_initiator.uuid,

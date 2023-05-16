@@ -11,10 +11,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
     @storage_resources ||= @manager.autosde_client.StorageResourceApi.storage_resources_get
   end
 
-  def storage_hosts
-    @storage_hosts ||= @manager.autosde_client.StorageHostApi.storage_hosts_get
-  end
-
   def host_volume_mappings
     @host_volume_mappings ||= @manager.autosde_client.StorageHostsMappingApi.storage_hosts_mapping_get
   end
@@ -41,6 +37,10 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::StorageManager < Manag
 
   def wwpn_candidates
     @wwpn_candidates ||= @manager.autosde_client.StorageHostWWPNCandidatesApi.storage_hosts_wwpn_candidates_get
+  end
+
+  def host_initiators
+    @host_initiators ||= @manager.autosde_client.StorageHostApi.storage_hosts_get
   end
 
   def host_initiator_groups
