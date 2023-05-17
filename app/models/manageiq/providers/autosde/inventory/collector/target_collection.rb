@@ -18,17 +18,6 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     @storage_resources ||= @manager.autosde_client.StorageResourceApi.storage_resources_get.select { |s| references(:storage_resources).include?(s.uuid) }
   end
 
-  def storage_hosts
-    []
-  end
-
-  def host_volume_mappings
-    []
-  end
-
-  def cluster_volume_mappings
-    []
-  end
 
   def cloud_volumes
     return [] if references(:cloud_volumes).blank?
@@ -58,8 +47,28 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
     []
   end
 
+  def host_initiators
+    return [] if references(:host_initiators).blank?
+
+    @host_initiators ||= @manager.autosde_client.StorageHostApi.storage_hosts_get.select { |s| references(:host_initiators).include?(s.uuid) }
+  end
+
   def host_initiator_groups
-    []
+    return [] if references(:host_initiator_groups).blank?
+
+    @host_initiator_groups ||= @manager.autosde_client.HostClusterApi.host_clusters_get.select { |s| references(:host_initiator_groups).include?(s.uuid) }
+  end
+
+  def host_volume_mappings
+    return [] if references(:host_volume_mappings).blank?
+
+    @host_volume_mappings ||= @manager.autosde_client.StorageHostsMappingApi.storage_hosts_mapping_get.select { |s| references(:host_volume_mappings).include?(s.uuid) }
+  end
+
+  def cluster_volume_mappings
+    return [] if references(:cluster_volume_mappings).blank?
+
+    @cluster_volume_mappings ||= @manager.autosde_client.HostClusterVolumeMappingApi.host_clusters_mapping_get.select { |s| references(:cluster_volume_mappings).include?(s.uuid) }
   end
 
   def capability_values
@@ -88,6 +97,13 @@ class ManageIQ::Providers::Autosde::Inventory::Collector::TargetCollection < Man
         add_target!(:storage_services, target.ems_ref)
       when CloudVolumeSnapshot
         add_target!(:cloud_volume_snapshots, target.ems_ref)
+      when HostInitiator
+        add_target!(:host_initiators, target.ems_ref)
+      when HostInitiatorGroup
+        add_target!(:host_initiator_groups, target.ems_ref)
+      when VolumeMapping
+        model = target.type.include?("HostVolumeMapping") ? :host_volume_mappings : :cluster_volume_mappings
+        add_target!(model, target.ems_ref)
       end
     end
   end
