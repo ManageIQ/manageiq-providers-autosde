@@ -26,6 +26,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           assert_specific_host_volume_mapping
           assert_specific_cluster_volume_mapping
           assert_specific_storage_service_resource_attachment
+          assert_specific_cloud_volume_snapshot
         end
       end
     end
@@ -36,6 +37,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       let(:system_type_api)    { double("SystemTypeApi") }
       let(:storage_system_api) { double("StorageSystemApi") }
       let(:volume_api)         { double("VolumeApi") }
+      let(:service_api)        { double("ServiceApi") }
 
       it "with no targets" do
         assert_inventory_not_changed { run_targeted_refresh }
@@ -46,20 +48,21 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           .to(receive(:storage_systems_get)
           .and_return(
             [
-              AutosdeOpenapiClient::StorageSystem.new(
-                :component_state => "PENDING_CREATION",
-                :management_ip   => "9.151.159.178",
-                :name            => "9.151.159.178",
-                :status          => "ONLINE",
-                :storage_family  => "ontap_7mode",
-                :system_type     => AutosdeOpenapiClient::SystemType.new(
-                  :component_state => "PENDING_CREATION",
-                  :name            => "IBM_FlashSystems",
-                  :short_version   => "11",
-                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
-                  :version         => "1.2"
+              AutosdeOpenapiClient::StorageSystemResponse.new(
+                :component_state          => "PENDING_CREATION",
+                :management_ip            => "9.151.159.178",
+                :name                     => "9.151.159.178",
+                :status                   => "ONLINE",
+                :storage_family           => "ontap_7mode",
+                :system_type              => AutosdeOpenapiClient::SystemType.new(
+                  :component_state          => "PENDING_CREATION",
+                  :name                     => "IBM_FlashSystems",
+                  :short_version            => "11",
+                  :uuid                     => "053446df-ed2b-4822-b9c5-386e85198519",
+                  :version                  => "1.2"
                 ),
-                :uuid            => "980f3ceb-c599-49c4-9db3-fdc793cb8666"
+                :capability_values_json   => "[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"699f2dee-7cd9-4ac0-ab20-41aea6c74475\"}, {\"abstract_capability\": \"compression\", \"value\": \"False\", \"uuid\": \"3f44f8ae-9854-4dbf-b375-8b41766f7b2e\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"ea84a958-f4bc-4d8d-9a68-07312ec25c87\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"False\", \"uuid\": \"18b861c0-e205-4dd9-b207-c155e5d7cf91\"}]",
+                :uuid                     => "980f3ceb-c599-49c4-9db3-fdc793cb8666"
               )
             ]
           ))
@@ -72,20 +75,21 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           .to(receive(:storage_systems_get)
           .and_return(
             [
-              AutosdeOpenapiClient::StorageSystem.new(
-                :component_state => "PENDING_CREATION",
-                :management_ip   => "1.2.3.4",
-                :name            => "1.2.3.4",
-                :status          => "ONLINE",
-                :storage_family  => "ontap_7mode",
-                :system_type     => AutosdeOpenapiClient::SystemType.new(
-                  :component_state => "PENDING_CREATION",
-                  :name            => "IBM_FlashSystems",
-                  :short_version   => "11",
-                  :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
-                  :version         => "1.2"
+              AutosdeOpenapiClient::StorageSystemResponse.new(
+                :component_state          => "PENDING_CREATION",
+                :management_ip            => "1.2.3.4",
+                :name                     => "1.2.3.4",
+                :status                   => "ONLINE",
+                :storage_family           => "ontap_7mode",
+                :system_type              => AutosdeOpenapiClient::SystemType.new(
+                  :component_state          => "PENDING_CREATION",
+                  :name                     => "IBM_FlashSystems",
+                  :short_version            => "11",
+                  :uuid                     => "053446df-ed2b-4822-b9c5-386e85198519",
+                  :version                  => "1.2"
                 ),
-                :uuid            => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
+                :capability_values_json   => "[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"699f2dee-7cd9-4ac0-ab20-41aea6c74475\"}, {\"abstract_capability\": \"compression\", \"value\": \"False\", \"uuid\": \"3f44f8ae-9854-4dbf-b375-8b41766f7b2e\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"ea84a958-f4bc-4d8d-9a68-07312ec25c87\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"False\", \"uuid\": \"18b861c0-e205-4dd9-b207-c155e5d7cf91\"}]",
+                :uuid                     => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
               )
             ]
           ))
@@ -101,7 +105,8 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                                                                                        :name                    => "1.2.3.4",
                                                                                                        :type                    => "ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage",
                                                                                                        :health_state            => "ONLINE",
-                                                                                                       :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
+                                                                                                       :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems"),
+                                                                                                       :capabilities            => {"compression"=>["True", "False"], "thin_provision"=>["True", "False"]},
                                                                                                      ))
       end
 
@@ -123,7 +128,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
               AutosdeOpenapiClient::VolumeResponse.new(
                 :compliant          => true,
                 :component_state    => "PENDING_DELETION",
-                :historical_service => nil,
                 :volume_name        => "bk-vol0-edit",
                 :service            => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
                 :size               => 10,
@@ -145,7 +149,6 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
               AutosdeOpenapiClient::VolumeResponse.new(
                 :compliant          => true,
                 :component_state    => "PENDING_CREATION",
-                :historical_service => nil,
                 :volume_name        => "new-volume",
                 :service            => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6",
                 :size               => 10,
@@ -187,6 +190,17 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         expect(ems.cloud_volumes.count).to(eq(12))
       end
 
+      it "deleting a storage service" do
+        expect(service_api).to(receive(:services_get).and_return([]))
+
+        storage_service = ems.storage_services.find_by(:ems_ref => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6")
+        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :storage_services, :manager_ref => {:ems_ref => storage_service.ems_ref}))
+
+        ems.reload
+
+        expect(ems.storage_services.count).to(eq(6))
+      end
+
       def run_targeted_refresh(targets = [])
         target = InventoryRefresh::TargetCollection.new(:manager => ems, :targets => Array(targets))
 
@@ -199,6 +213,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         allow(autosde_client_stub).to(receive(:SystemTypeApi).and_return(system_type_api))
         allow(autosde_client_stub).to(receive(:StorageSystemApi).and_return(storage_system_api))
         allow(autosde_client_stub).to(receive(:VolumeApi).and_return(volume_api))
+        allow(autosde_client_stub).to(receive(:ServiceApi).and_return(service_api))
 
         allow(ems).to(receive(:autosde_client).and_return(autosde_client_stub))
 
@@ -223,6 +238,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       expect(ems.cluster_volume_mappings.count).to(eq(1))
       expect(ems.host_volume_mappings.count).to(eq(7))
       expect(ems.storage_service_resource_attachments.count).to(eq(9))
+      expect(ems.cloud_volume_snapshots.count).to(eq(1))
     end
 
     def assert_specific_physical_storage
@@ -249,7 +265,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                  :name         => "IBM_FlashSystems",
                                  :version      => "1.2",
                                  :ems_ref      => "053446df-ed2b-4822-b9c5-386e85198519",
-                                 :capabilities => [{"name" => "compression", "uuid" => "65bf355d-3931-40b2-b67a-d4291fc5860b", "value" => "True"}, {"name" => "compression", "uuid" => "84d102cc-c98f-4bc0-9348-430ba04e90e4", "value" => "False"}, {"name" => "thin_provision", "uuid" => "92865732-1175-47ef-8b41-b77356784b63", "value" => "True"}, {"name" => "thin_provision", "uuid" => "a8a2bd22-bda9-4ad7-ba6f-11c8b4ee739c", "value" => "False"}]
+                                 :capabilities => {"compression"=>["True", "False"], "thin_provision"=>["True", "False"]}
                                ))
     end
 
@@ -262,7 +278,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                     :logical_total    => 515_396_075_520,
                                     :physical_storage => ems.physical_storages.find_by(:ems_ref => "9b1cedc0-b476-47f1-8f25-7a7da2b7d91c"),
                                     :type             => "ManageIQ::Providers::Autosde::StorageManager::StorageResource",
-                                    :capabilities     => [{"name" => "compression", "uuid" => "45e0cf41-1842-45e8-b83b-17de54be406d", "value" => "True"}, {"name" => "thin_provision", "uuid" => "2fddfc81-2561-40d8-bd84-cec6ec26d551", "value" => "True"}]
+                                    :capabilities     => {"compression"=>["True"], "thin_provision"=>["True"]}
                                   ))
     end
 
@@ -363,6 +379,15 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                               :storage_service_id  => ems.storage_services.find_by(:ems_ref => "5189b322-c4ce-47ea-b267-381e8c4baab5"),
                               :ems_ref             => "f0ecb715-19a1-4e74-b6f5-5c428a9c741d"
                             ))
+    end
+
+    def assert_specific_cloud_volume_snapshot
+      cloud_volume_snapshot = ems.cloud_volume_snapshots.find_by(:ems_ref => "73c1df37-ed05-45cd-8551-a838557fbbdc")
+      expect(cloud_volume_snapshot).to(have_attributes(
+                                         :cloud_volume => ems.cloud_volumes.find_by(:ems_ref => "5172e7ba-c22e-405d-9380-0b83c6873657"),
+                                         :name         => "snapshot-5d46cdbc-ade3-4a46-b232-bd1b220e62bc",
+                                         :ems_ref      => "73c1df37-ed05-45cd-8551-a838557fbbdc"
+                                       ))
     end
   end
 end

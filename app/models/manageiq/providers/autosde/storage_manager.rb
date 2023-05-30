@@ -1,6 +1,7 @@
 class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::StorageManager
   require_nested :AutosdeClient
   require_nested :CloudVolume
+  require_nested :CloudVolumeSnapshot
   require_nested :ClusterVolumeMapping
   require_nested :HostInitiatorGroup
   require_nested :HostInitiator
@@ -19,6 +20,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
   supports :storage_service_create
   supports :update
   supports :volume_resizing
+  supports :cloud_volume_snapshots
   supports :cloud_volume_create
   supports :cloud_volume
   supports :catalog

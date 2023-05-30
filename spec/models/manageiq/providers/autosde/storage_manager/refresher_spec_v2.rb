@@ -27,6 +27,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
           assert_specific_host_volume_mapping
           assert_specific_cluster_volume_mapping
           assert_specific_storage_service_resource_attachment
+          assert_specific_cloud_volume_snapshot
         end
       end
     end
@@ -37,6 +38,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       let(:system_type_api)    { double("SystemTypeApi") }
       let(:storage_system_api) { double("StorageSystemApi") }
       let(:volume_api)         { double("VolumeApi") }
+      let(:service_api)        { double("ServiceApi") }
 
       it "with no targets" do
         assert_inventory_not_changed { run_targeted_refresh }
@@ -60,6 +62,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                   :uuid            => "397352fb-f6a0-4a5d-90f8-6addf4c81076",
                   :version         => "1.1"
                 ),
+                :capabilities    => {"compression": ["True", "False"], "thin_provision": ["True", "False"]},
                 :uuid            => "78ef7ca4-2ce9-4983-aa49-76dbeedcbedf"
               )
             ]
@@ -85,6 +88,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                   :uuid            => "053446df-ed2b-4822-b9c5-386e85198519",
                   :version         => "1.1"
                 ),
+                :capabilities    => {"compression": ["True", "False"], "thin_provision": ["True", "False"]},
                 :uuid            => "3923aeca-0b22-4f5b-a15f-9c844bc9abcb"
               )
             ]
@@ -101,6 +105,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                                                                                        :name                    => "Barmetall9_SVC",
                                                                                                        :type                    => "ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage",
                                                                                                        :health_state            => "ONLINE",
+                                                                                                       :capabilities            => {"compression": ["True", "False"], "thin_provision": ["True", "False"]},
                                                                                                        :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
                                                                                                      ))
       end
@@ -186,6 +191,17 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         expect(ems.cloud_volumes.count).to(eq(27))
       end
 
+      it "deleting a storage service" do
+        expect(service_api).to(receive(:services_get).and_return([]))
+
+        storage_service = ems.storage_services.find_by(:ems_ref => "774c1fd8-43e6-4bb2-8466-d5d1c1d992d6")
+        run_targeted_refresh(InventoryRefresh::Target.new(:manager => ems, :association => :storage_services, :manager_ref => {:ems_ref => storage_service.ems_ref}))
+
+        ems.reload
+
+        expect(ems.storage_services.count).to(eq(8))
+      end
+
       def run_targeted_refresh(targets = [])
         target = InventoryRefresh::TargetCollection.new(:manager => ems, :targets => Array(targets))
 
@@ -198,6 +214,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
         allow(autosde_client_stub).to(receive(:SystemTypeApi).and_return(system_type_api))
         allow(autosde_client_stub).to(receive(:StorageSystemApi).and_return(storage_system_api))
         allow(autosde_client_stub).to(receive(:VolumeApi).and_return(volume_api))
+        allow(autosde_client_stub).to(receive(:ServiceApi).and_return(service_api))
 
         allow(ems).to(receive(:autosde_client).and_return(autosde_client_stub))
 
@@ -222,6 +239,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
       expect(ems.cluster_volume_mappings.count).to(eq(1))
       expect(ems.host_volume_mappings.count).to(eq(2))
       expect(ems.storage_service_resource_attachments.count).to(eq(9))
+      expect(ems.cloud_volume_snapshots.count).to(eq(1))
     end
 
     def assert_specific_physical_storage
@@ -238,6 +256,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                                     :canister_slots          => nil,
                                     :physical_chassis_id     => nil,
                                     :total_space             => nil,
+                                    :capabilities            => {"compression": ["True", "False"], "thin_provision": ["True", "False"]},
                                     :physical_storage_family => ems.physical_storage_families.find_by(:name => "IBM_FlashSystems")
                                   ))
     end
@@ -362,6 +381,15 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
                               :ems_ref             => "f0ecb715-19a1-4e74-b6f5-5c428a9c741d",
                               :type                => "ManageIQ::Providers::Autosde::StorageManager::StorageServiceResourceAttachment"
                             ))
+    end
+    def assert_specific_cloud_volume_snapshot
+      cloud_volume_snapshot = ems.cloud_volume_snapshots.find_by(:ems_ref => "73c1df37-ed05-45cd-8551-a838557fbbdc")
+      expect(cloud_volume_snapshot).to(have_attributes(
+                                         :cloud_volume => ems.cloud_volumes.find_by(:ems_ref => "5172e7ba-c22e-405d-9380-0b83c6873657"),
+                                         :name         => "snapshot-5d46cdbc-ade3-4a46-b232-bd1b220e62bc",
+                                         :ems_ref      => "73c1df37-ed05-45cd-8551-a838557fbbdc",
+                                         :type         => "ManageIQ::Providers::Autosde::StorageManager::CloudVolumeSnapshot"
+                                       ))
     end
   end
 end

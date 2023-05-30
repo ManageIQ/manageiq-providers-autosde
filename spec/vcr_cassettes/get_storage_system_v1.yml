@@ -77,7 +77,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"management_ip":"9.151.159.178","name":"IBM_FlashSystems","storage_array":null,"storage_family":"ontap_7mode","system_type":{"name":"IBM_FlashSystems","short_version":"1","uuid":"bd4fe7e1-4ead-4828-bb44-8ed71bc86a33","version":"1.1"},"uuid":"cbc928f7-23e5-4288-be0f-0d2b6483331b"}]'
+      string: '[{"management_ip":"9.151.159.178","name":"IBM_FlashSystems","storage_array":null,"storage_family":"ontap_7mode","system_type":{"name":"IBM_FlashSystems","short_version":"1","uuid":"bd4fe7e1-4ead-4828-bb44-8ed71bc86a33","version":"1.1"},"capability_values_json": "[{\"abstract_capability\": \"compression\", \"value\": \"True\", \"uuid\": \"699f2dee-7cd9-4ac0-ab20-41aea6c74475\"}, {\"abstract_capability\": \"compression\", \"value\": \"False\", \"uuid\": \"3f44f8ae-9854-4dbf-b375-8b41766f7b2e\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"True\", \"uuid\": \"ea84a958-f4bc-4d8d-9a68-07312ec25c87\"}, {\"abstract_capability\": \"thin_provision\", \"value\": \"False\", \"uuid\": \"18b861c0-e205-4dd9-b207-c155e5d7cf91\"}]","uuid":"cbc928f7-23e5-4288-be0f-0d2b6483331b"}]'
     http_version: 
   recorded_at: Sun, 28 Jun 2020 11:20:35 GMT
 - request:

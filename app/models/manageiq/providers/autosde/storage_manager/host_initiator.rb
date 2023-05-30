@@ -6,10 +6,10 @@ class ManageIQ::Providers::Autosde::StorageManager::HostInitiator < ::HostInitia
     # WWPN/IQN values sent to autosde should be format as colon separated string (e.g. WWPN1:WWPN2:WWPN3)
     wwpns = Array(options['custom_wwpn'])
     wwpns += Array(options['wwpn'])
-    wwpn_values = wwpns.join(":")
+    wwpn_values = wwpns.join(",")
 
     iqns = Array(options['iqn'])
-    iqn_values = iqns.join(":")
+    iqn_values = iqns.join(",")
 
     host_cluster_name = options.dig('host_initiator_group', 'label')
     host_cluster_name = '' if host_cluster_name == '<None>'

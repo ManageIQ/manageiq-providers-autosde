@@ -53,11 +53,12 @@ class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::Physical
 
   def self.raw_create_physical_storage(ext_management_system, options = {})
     sys_to_create = ext_management_system.autosde_client.StorageSystemCreate(
-      :password       => ManageIQ::Password.try_decrypt(options['password']),
-      :user           => options['user'],
-      :system_type    => PhysicalStorageFamily.find(options['physical_storage_family_id']).name,
-      :management_ip  => options['management_ip'],
-      :storage_family => "ontap_7mode"
+      :password                       => ManageIQ::Password.try_decrypt(options['password']),
+      :user                           => options['user'],
+      :system_type                    => PhysicalStorageFamily.find(options['physical_storage_family_id']).name,
+      :management_ip                  => options['management_ip'],
+      :storage_family                 => "ontap_7mode",
+      :enabled_capability_values_list => options['enabled_capability_values']
     )
 
     begin

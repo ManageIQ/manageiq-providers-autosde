@@ -20,6 +20,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     san_addresses
     storage_services
     cloud_volumes
+    cloud_volume_snapshots
     volume_mappings
     wwpn_candidates
     storage_service_resource_attachments
@@ -28,7 +29,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   def ext_management_system
     persister.ext_management_system.build(
       :guid         => persister.manager.guid,
-      :capabilities => collector.capability_values
+      :capabilities => parse_ems_capabilities(collector.capability_values)
     )
   end
 
@@ -38,19 +39,21 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :name         => storage_family.name,
         :ems_ref      => storage_family.uuid,
         :version      => storage_family.version,
-        :capabilities => parse_capabilities(storage_family.capability_values_json, 'abstract_capability__name')
+        :capabilities => parse_possible_capabilities(storage_family.capability_values_json, 'abstract_capability__name')
       )
     end
   end
 
   def physical_storages
     collector.physical_storages.each do |storage|
-      persister.physical_storages.build(
+      physical_storage = persister.physical_storages.build(
         :name                    => storage.name,
         :ems_ref                 => storage.uuid,
         :physical_storage_family => persister.physical_storage_families.lazy_find(storage.system_type.uuid),
-        :health_state            => storage.status
+        :health_state            => storage.status,
+        :capabilities            => parse_possible_capabilities(storage.capability_values_json, 'abstract_capability')
       )
+      persister.physical_storage_details.build(:resource => physical_storage, :model => storage.system_type.name)
     end
   end
 
@@ -62,7 +65,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :logical_free     => resource.logical_free,
         :logical_total    => resource.logical_total,
         :physical_storage => persister.physical_storages.lazy_find(resource.storage_system),
-        :capabilities     => parse_capabilities(resource.capability_values_json, 'abstract_capability')
+        :capabilities     => parse_possible_capabilities(resource.capability_values_json, 'abstract_capability')
       )
     end
   end
@@ -74,7 +77,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
       "NVMeFC" => "NvmeAddress"
     }
 
-    collector.storage_hosts.flat_map do |host_initiator|
+    collector.host_initiators.flat_map do |host_initiator|
       host_initiator.addresses.flat_map do |address|
         persister.san_addresses.build(
           :ems_ref     => address.uuid,
@@ -90,7 +93,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
   end
 
   def host_initiators
-    collector.storage_hosts.each do |host_initiator|
+    collector.host_initiators.each do |host_initiator|
       persister.host_initiators.build(
         :name                 => host_initiator.name,
         :ems_ref              => host_initiator.uuid,
@@ -130,7 +133,7 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :description  => service.description,
         :version      => service.version,
         :ems_ref      => service.uuid,
-        :capabilities => parse_capabilities(service.capability_values_json, 'abstract_capability')
+        :capabilities => parse_service_capabilities(service.capability_values_json, 'abstract_capability')
       )
     end
   end
@@ -147,6 +150,20 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
         :storage_service  => persister.storage_services.lazy_find(volume.service),
         :status           => volume.component_state,
         :health_state     => volume.status
+      )
+    end
+  end
+
+  def cloud_volume_snapshots
+    collector.cloud_volume_snapshots.each do |snapshot|
+      cloud_volume = persister.cloud_volumes.find(snapshot.volume)
+      persister.cloud_volume_snapshots.build(
+        :name         => snapshot.name,
+        :size         => cloud_volume.size,
+        :cloud_volume => cloud_volume,
+        :ems_ref      => snapshot.uuid,
+        :description  => snapshot.description,
+        :status       => snapshot.component_state
       )
     end
   end
@@ -181,11 +198,30 @@ class ManageIQ::Providers::Autosde::Inventory::Parser::StorageManager < ManageIQ
     end
   end
 
-  # This method changes capability name field from 'abstract_capability' to 'name'
-  def parse_capabilities(capabilities, field_name)
-    caps = JSON.parse(capabilities)
-    caps.each do |capability|
-      capability['name'] = capability.delete(field_name)
+  def parse_ems_capabilities(capabilities)
+    return capabilities unless capabilities.is_a?(Array)
+
+    capabilities.each_with_object(Hash.new { |k, v| k[v] = []}) do |capability, result|
+      result[capability.abstract_capability] << {"uuid" => capability.uuid, "value" => capability.value}
     end
   end
+
+  def parse_possible_capabilities(capabilities, field_name)
+    caps_hash = {}
+    JSON.parse(capabilities).each do |capability|
+      name = capability[field_name]
+      (caps_hash[name] ||= []) << capability["value"]
+    end
+    caps_hash
+  end
+
+  def parse_service_capabilities(capabilities, field_name)
+    caps_hash = {}
+    JSON.parse(capabilities).each do |capability|
+      name = capability[field_name]
+      caps_hash[name] = capability["value"]
+    end
+    caps_hash
+  end
+
 end
