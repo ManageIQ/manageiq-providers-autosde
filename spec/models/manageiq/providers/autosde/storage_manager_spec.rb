@@ -35,4 +35,19 @@ describe ManageIQ::Providers::Autosde::StorageManager do
       expect(systems.first.management_ip).to(be_truthy)
     end
   end
+
+
+  context "#pause!" do
+    let(:zone) { FactoryBot.create(:zone) }
+    let(:ems)  { FactoryBot.create(:autosde_storage_manager, :zone => zone) }
+
+    include_examples "ExtManagementSystem#pause!"
+  end
+
+  context "#resume!" do
+    let(:zone) { FactoryBot.create(:zone) }
+    let(:ems)  { FactoryBot.create(:autosde_storage_manager, :zone => zone) }
+
+    include_examples "ExtManagementSystem#resume!"
+  end
 end
