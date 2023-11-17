@@ -48,13 +48,11 @@ class ManageIQ::Providers::Autosde::StorageManager::AutosdeClient < AutosdeOpena
     case e.code
     when AUTH_TOKEN_INVALID
       begin
-        _log.warn("doing re-login: token is #{@token}")
         login
         set_auth_token
         super
       rescue
         # in case re-login did not help, throw error
-        _log.error("re-login was unsuccessful: token is #{@token}")
         raise # throw the last error
       end
     else
