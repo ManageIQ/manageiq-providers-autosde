@@ -227,7 +227,7 @@ class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::Storag
               :id                     => 'authentications.default.valid',
               :name                   => 'authentications.default.valid',
               :skipSubmit             => true,
-              :validationDependencies => %w[type endpoints.default.hostname authentications.default.userid authentications.default.password],
+              :validationDependencies => %w[type zone_id endpoints.default.hostname authentications.default.userid authentications.default.password],
               :fields                 => [
                 {
                   :component  => "select",
