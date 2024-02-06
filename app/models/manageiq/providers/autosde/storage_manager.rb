@@ -1,19 +1,4 @@
 class ManageIQ::Providers::Autosde::StorageManager < ManageIQ::Providers::StorageManager
-  require_nested :AutosdeClient
-  require_nested :CloudVolume
-  require_nested :CloudVolumeSnapshot
-  require_nested :ClusterVolumeMapping
-  require_nested :HostInitiatorGroup
-  require_nested :HostInitiator
-  require_nested :HostVolumeMapping
-  require_nested :PhysicalStorage
-  require_nested :Refresher
-  require_nested :RefreshWorker
-  require_nested :StorageResource
-  require_nested :StorageService
-  require_nested :VolumeMapping
-  require_nested :EventCatcher
-
   supports :authentication_status
   supports :create
   supports :storage_services
