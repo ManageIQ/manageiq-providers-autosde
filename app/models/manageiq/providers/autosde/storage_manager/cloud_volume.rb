@@ -2,10 +2,10 @@ class ManageIQ::Providers::Autosde::StorageManager::CloudVolume < ::CloudVolume
   supports :create
   supports :clone
   supports :update do
-    unsupported_reason_add(:update, _("the volume is not connected to an active provider")) unless ext_management_system
+    _("the volume is not connected to an active provider") unless ext_management_system
   end
   supports :snapshot_create do
-    unsupported_reason_add(:snapshot_create, _("the volume is not connected to an active provider")) unless ext_management_system
+    _("the volume is not connected to an active provider") unless ext_management_system
   end
 
   # cloud volume delete functionality is not supported for now
