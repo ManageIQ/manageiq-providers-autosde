@@ -1,10 +1,10 @@
 class ManageIQ::Providers::Autosde::StorageManager::PhysicalStorage < ::PhysicalStorage
   supports :create
   supports :update do
-    unsupported_reason_add(:update, _("The Physical Storage is not connected to an active Manager")) if ext_management_system.nil?
+    _("The Physical Storage is not connected to an active Manager") if ext_management_system.nil?
   end
   supports :delete do
-    unsupported_reason_add(:delete, _("The Physical Storage is not connected to an active Manager")) if ext_management_system.nil?
+    _("The Physical Storage is not connected to an active Manager") if ext_management_system.nil?
   end
   supports :validate
 
