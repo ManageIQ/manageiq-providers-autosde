@@ -1,10 +1,10 @@
 class ManageIQ::Providers::Autosde::StorageManager::HostInitiatorGroup < ::HostInitiatorGroup
   supports :create
   supports :update do
-    unsupported_reason_add(:update, _("the host initiator group is not connected to an active provider")) unless ext_management_system
+    _("the host initiator group is not connected to an active provider") unless ext_management_system
   end
   supports :delete do
-    unsupported_reason_add(:update, _("the host initiator group is not connected to an active provider")) unless ext_management_system
+    _("the host initiator group is not connected to an active provider") unless ext_management_system
   end
 
   def self.raw_create_host_initiator_group(ext_management_system, options = {})
