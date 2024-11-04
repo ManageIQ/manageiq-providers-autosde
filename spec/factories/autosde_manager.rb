@@ -18,8 +18,8 @@ FactoryBot.define do
       after(:create) do |ems, _|
         ems.authentications << FactoryBot.create(
           :authentication,
-          :userid   => Rails.application.secrets.autosde[:site_manager_user],
-          :password => Rails.application.secrets.autosde[:site_manager_password]
+          :userid   => Rails.application.credentials.autosde[:site_manager_user],
+          :password => Rails.application.credentials.autosde[:site_manager_password]
         )
       end
     end
