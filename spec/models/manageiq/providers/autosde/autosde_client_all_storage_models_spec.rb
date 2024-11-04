@@ -38,9 +38,9 @@ describe ManageIQ::Providers::Autosde::StorageManager::AutosdeClient do
   #
   let!(:client) do
     ManageIQ::Providers::Autosde::StorageManager::AutosdeClient.new(
-      :host     => Rails.application.secrets.autosde[:appliance_host],
-      :username => 'autosde',
-      :password => 'change_me',
+      :host     => credentials_autosde_host,
+      :username => credentials_autosde_user,
+      :password => credentials_autosde_password,
       :scheme   => 'https'
     )
   end

@@ -3,7 +3,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::StorageService do
     FactoryBot.create(
       :autosde_storage_manager,
       :with_autosde_credentials,
-      :hostname     => Rails.application.secrets.autosde[:appliance_host],
+      :hostname     => credentials_autosde_host,
       :capabilities => {
         :cap1 => [{'uuid' => "111", 'value' => "True"}, {'uuid' => "222", 'value' => "False"}],
         :cap2 => [{'uuid' => "333", 'value' => "True"}, {'uuid' => "444", 'value' => "False"}],
