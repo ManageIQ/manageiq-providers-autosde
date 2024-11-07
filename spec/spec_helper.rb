@@ -14,9 +14,26 @@ VCR.configure do |config|
   config.default_cassette_options = {:record => :none, :allow_unused_http_interactions => true}
   config.hook_into :webmock
 
-  Rails.application.credentials.autosde_defaults.keys.each do |secret|
-    config.define_cassette_placeholder(Rails.application.credentials.autosde_defaults[secret]) do
-      Rails.application.credentials.autosde[secret]
+  defaults = {
+    "appliance_host"        => "autosde-appliance-host",
+    "site_manager_user"     => "autosde",
+    "site_manager_password" => "change_me"
+  }
+  (Rails.application.credentials.autosde_defaults || defaults).each do |key, value|
+    config.define_cassette_placeholder(key) do
+      Rails.application.credentials.dig(:autosde, key) || value
     end
   end
+end
+
+def credentials_autosde_host
+  @credentials_autosde_host ||= "autosde-appliance-host"
+end
+
+def credentials_autosde_user
+  @credentials_autosde_user ||= "autosde"
+end
+
+def credentials_autosde_password
+  @credentials_autosde_password ||= "change_me"
 end
