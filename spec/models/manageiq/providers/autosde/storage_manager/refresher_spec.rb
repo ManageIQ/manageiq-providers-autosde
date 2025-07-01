@@ -4,7 +4,7 @@ describe ManageIQ::Providers::Autosde::StorageManager::Refresher do
   let(:ems) do
     FactoryBot.create(:autosde_storage_manager,
                       :with_autosde_credentials,
-                      :hostname => Rails.application.secrets.autosde[:appliance_host])
+                      :hostname => VcrSecrets.autosde.appliance_host)
   end
 
   describe "#refresh" do
