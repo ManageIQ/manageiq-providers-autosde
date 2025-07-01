@@ -14,9 +14,5 @@ VCR.configure do |config|
   config.default_cassette_options = {:record => :none, :allow_unused_http_interactions => true}
   config.hook_into :webmock
 
-  Rails.application.secrets.autosde_defaults.keys.each do |secret|
-    config.define_cassette_placeholder(Rails.application.secrets.autosde_defaults[secret]) do
-      Rails.application.secrets.autosde[secret]
-    end
-  end
+  VcrSecrets.define_all_cassette_placeholders(config, :autosde)
 end

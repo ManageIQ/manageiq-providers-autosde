@@ -16,7 +16,7 @@ describe ManageIQ::Providers::Autosde::StorageManager do
 
   it "can get storage systems -autosde gem v1" do
     # use special trait: with_autosde_credentials, to supply real credentials when first run
-    ems = FactoryBot.create(:autosde_storage_manager, :with_autosde_credentials, :hostname => Rails.application.secrets.autosde[:appliance_host])
+    ems = FactoryBot.create(:autosde_storage_manager, :with_autosde_credentials, :hostname => VcrSecrets.autosde.appliance_host)
 
     VCR.use_cassette("get_storage_systems_from_storage_manager_v1") do
       systems = ems.autosde_client.StorageSystemApi.storage_systems_get
@@ -27,7 +27,7 @@ describe ManageIQ::Providers::Autosde::StorageManager do
 
   it "can get storage systems -autosde gem v2" do
     # use special trait: with_autosde_credentials, to supply real credentials when first run
-    ems = FactoryBot.create(:autosde_storage_manager, :with_autosde_credentials, :hostname => Rails.application.secrets.autosde[:appliance_host])
+    ems = FactoryBot.create(:autosde_storage_manager, :with_autosde_credentials, :hostname => VcrSecrets.autosde.appliance_host)
 
     VCR.use_cassette("get_storage_systems_from_storage_manager_v2", :record => :once) do
       systems = ems.autosde_client.StorageSystemApi.storage_systems_get
