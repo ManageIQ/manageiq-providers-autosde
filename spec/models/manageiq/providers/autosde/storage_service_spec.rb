@@ -12,21 +12,20 @@ describe ManageIQ::Providers::Autosde::StorageManager::StorageService do
   end
 
   let(:test_resource1) do
-    FactoryBot.create(:storage_resource, :ext_management_system => ems, :ems_ref => "555")
+    FactoryBot.create(:autosde_storage_resource, :ext_management_system => ems, :ems_ref => "555")
   end
 
   let(:test_resource2) do
-    FactoryBot.create(:storage_resource, :ext_management_system => ems, :ems_ref => "666")
+    FactoryBot.create(:autosde_storage_resource, :ext_management_system => ems, :ems_ref => "666")
   end
 
   let(:test_resource3) do
-    FactoryBot.create(:storage_resource, :ext_management_system => ems, :ems_ref => "777")
+    FactoryBot.create(:autosde_storage_resource, :ext_management_system => ems, :ems_ref => "777")
   end
 
   before(:each) do
     @test_service = FactoryBot.create(
-      :storage_service,
-      :type                  => "ManageIQ::Providers::Autosde::StorageManager::StorageService",
+      :autosde_storage_service,
       :ext_management_system => ems,
       :storage_resources     => [test_resource1, test_resource2],
       :capabilities          => {'cap1' => "True", 'cap2' => "False"}
