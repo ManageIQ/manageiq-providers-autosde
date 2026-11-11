@@ -14,7 +14,7 @@ http_interactions:
       Accept:
         - "*/*"
       Authorization:
-        - Bearer 9eb68c4775efb26751144a883082f6d464dd6749
+        - Bearer BEARER_TOKEN
       Expect:
         - ''
   response:

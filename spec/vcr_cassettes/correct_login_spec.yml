@@ -40,7 +40,7 @@ http_interactions:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"token":"890685f1faaedc0650078338e01e2c15f9d5addb"}'
+      string: '{"token":"BEARER_TOKEN"}'
     http_version: null
   recorded_at: Sun, 30 Oct 2022 13:59:29 GMT
 recorded_with: VCR 5.1.0

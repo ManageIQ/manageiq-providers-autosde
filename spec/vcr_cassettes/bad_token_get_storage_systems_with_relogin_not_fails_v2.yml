@@ -87,7 +87,7 @@ http_interactions:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"token":"890685f1faaedc0650078338e01e2c15f9d5addb"}'
+      string: '{"token":"BEARER_TOKEN"}'
     http_version: null
   recorded_at: Sun, 30 Oct 2022 14:05:22 GMT
 - request:
@@ -104,7 +104,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer 890685f1faaedc0650078338e01e2c15f9d5addb
+      - Bearer BEARER_TOKEN
       Expect:
       - ''
   response:

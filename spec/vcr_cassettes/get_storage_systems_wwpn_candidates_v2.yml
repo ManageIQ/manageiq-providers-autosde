@@ -34,7 +34,7 @@ http_interactions:
       - SAMEORIGIN
     body:
       encoding: ASCII-8BIT
-      string: '{"token":"2c8d17b4802c9766cf8bde0a1d36294a21a57da7"}'
+      string: '{"token":"BEARER_TOKEN"}'
     http_version: null
   recorded_at: Wed, 04 Aug 2021 15:38:46 GMT
 - request:
@@ -51,7 +51,7 @@ http_interactions:
       Accept:
       - "*/*"
       Authorization:
-      - Bearer 2c8d17b4802c9766cf8bde0a1d36294a21a57da7
+      - Bearer BEARER_TOKEN
       Expect:
       - ''
   response:
